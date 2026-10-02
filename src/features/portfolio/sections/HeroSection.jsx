@@ -1,5 +1,6 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { site } from '@/content/site';
+import HeroHolograms from '@/features/portfolio/components/HeroHolograms';
 import RobotExperience from '@/features/robot/components/RobotExperience';
 
 function HeroAccent({ className }) {
@@ -23,10 +24,7 @@ export default function HeroSection() {
         </div>
 
         <div className="hero-visual fp-hero__stage" id="hero-robot-slot" aria-label="Robot pendamping Feri">
-          <div className="hero-browser hero-browser--back" aria-hidden="true"><div className="hero-browser__bar"><i /><i /><i /></div><span /><span /><span /></div>
-          <div className="hero-browser hero-browser--mini" aria-hidden="true"><div className="hero-browser__bar"><i /><i /><i /></div><span /><span /></div>
-          <div className="hero-browser hero-browser--right" aria-hidden="true"><div className="hero-browser__bar"><i /><i /><i /></div><span /><span /><span /></div>
-          <div className="hero-browser hero-browser--bottom" aria-hidden="true"><div className="hero-browser__bar"><i /><i /><i /></div><span /><span /><span /><span /></div>
+          <HeroHolograms />
           <p className="hero-handnote hero-handnote--code" aria-hidden="true">&lt;/&gt;<br />Ide<br />Kode<br />Website<br />Hidup<br />… ♡</p>
           <p className="hero-handnote hero-handnote--right" aria-hidden="true">Setiap<br />ide bisa<br />jadi website<br />yang nyata.</p>
           <HeroAccent className="hero-orange-mark hero-orange-mark--right" />

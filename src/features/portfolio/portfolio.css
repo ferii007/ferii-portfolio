@@ -41,8 +41,10 @@
 .hero-cta-spark { position: absolute; left: min(94%, 464px); bottom: -17px; transform: rotate(20deg); }
 .hero-visual { position: relative; display: block; width: 100%; height: 550px; min-height: 0; padding: 0; overflow: visible; background: none; border-radius: 0; }
 .hero-visual::before, .hero-visual::after { content: none; }
-.hero-browser { position: absolute; z-index: 1; overflow: hidden; border: 2px solid #bedcf4b8; border-radius: 17px; background: linear-gradient(142deg, #c1dff9db, #e7f4ff9c 66%, #eef9ff72); box-shadow: 5px 13px 0 #9cc8e720, 0 16px 32px #7bb6d52b, inset 0 1px 0 #ffffffc9; backdrop-filter: blur(5px); }
-.hero-browser::before { content: ''; position: absolute; inset: 26px 0 auto; height: 70%; background: radial-gradient(circle at 20% 22%, #fff8 0, transparent 55%); pointer-events: none; }
+.hero-holograms { position: absolute; z-index: 1; inset: 0; pointer-events: none; }
+.hero-browser { position: absolute; overflow: hidden; border: 2px solid #a6d6f1c9; border-radius: 17px; background: linear-gradient(142deg, #bde3f9cf, #e7f6ff9c 62%, #b9e5f783); box-shadow: 0 0 22px #75d5fa42, 5px 13px 0 #9cc8e720, 0 16px 32px #7bb6d52b, inset 0 1px 0 #ffffffd9; backdrop-filter: blur(5px); transform: rotate(var(--holo-angle)) translateY(0); translate: calc(var(--holo-x, 0px) * var(--holo-depth)) calc(var(--holo-y, 0px) * var(--holo-depth)); transition: translate 220ms ease-out; }
+.hero-browser::before { content: ''; position: absolute; z-index: 2; inset: 26px 0 0; background: repeating-linear-gradient(to bottom, #dbf8ff25 0 2px, transparent 2px 6px), radial-gradient(circle at 20% 22%, #fff8 0, transparent 55%); pointer-events: none; }
+.hero-browser__beam { position: absolute; z-index: 3; top: -35%; left: -50%; width: 50%; height: 170%; background: linear-gradient(90deg, transparent, #f1fdff9c 48%, #8be4ff3b 62%, transparent); filter: blur(7px); transform: skewX(-20deg); pointer-events: none; }
 .hero-browser__bar { position: relative; display: flex; gap: 6px; height: 27px; padding: 10px 13px; border-bottom: 1px solid #a8d6f088; background: #c7e3fb99; }
 .hero-browser__bar i { width: 7px; height: 7px; border-radius: 50%; background: #70a9ec; }
 .hero-browser__bar i:nth-child(2) { background: #90c1ef; }
@@ -50,16 +52,16 @@
 .hero-browser > span { position: relative; display: block; height: 8px; margin: 15px 13px 0; border-radius: 6px; background: #9bc8e8a1; }
 .hero-browser > span:nth-of-type(2) { width: 60%; }
 .hero-browser > span:nth-of-type(3) { width: 72%; }
-.hero-browser--back { top: 1%; left: -6%; width: 66%; height: 39%; transform: rotate(7deg); }
-.hero-browser--mini { z-index: 3; top: 28%; left: 6%; width: 14%; height: 19%; border-radius: 9px; transform: rotate(-8deg); }
+.hero-browser--back { --holo-angle: 7deg; --holo-depth: .45; top: 1%; left: -6%; width: 66%; height: 39%; }
+.hero-browser--mini { --holo-angle: -8deg; --holo-depth: .9; z-index: 3; top: 28%; left: 6%; width: 14%; height: 19%; border-radius: 9px; }
 .hero-browser--mini .hero-browser__bar { gap: 3px; height: 18px; padding: 6px; }
 .hero-browser--mini .hero-browser__bar i { width: 4px; height: 4px; }
 .hero-browser--mini > span { height: 6px; margin: 9px 6px 0; }
-.hero-browser--right { top: 10%; right: -2%; width: 19%; height: 17%; border-radius: 10px; transform: rotate(8deg); }
+.hero-browser--right { --holo-angle: 8deg; --holo-depth: .7; top: 10%; right: -2%; width: 19%; height: 17%; border-radius: 10px; }
 .hero-browser--right .hero-browser__bar { gap: 3px; height: 18px; padding: 6px; }
 .hero-browser--right .hero-browser__bar i { width: 4px; height: 4px; }
 .hero-browser--right > span { height: 6px; margin: 8px 7px 0; }
-.hero-browser--bottom { right: 0; bottom: 14%; width: 50%; height: 30%; transform: rotate(8deg); }
+.hero-browser--bottom { --holo-angle: 8deg; --holo-depth: 1; right: 0; bottom: 14%; width: 50%; height: 30%; }
 .hero-browser--bottom > span { width: 72%; height: 9px; }
 .hero-browser--bottom > span:nth-of-type(4) { width: 44%; }
 .hero-browser--bottom::after { content: ''; position: absolute; right: 9%; bottom: 12%; width: 24%; height: 24%; border: 1px solid #acd4ed; border-radius: 6px; background: linear-gradient(145deg, #b4d9f1, #d8edfc); box-shadow: -34px 0 0 -2px #c0def1a8; }
@@ -72,8 +74,23 @@
 .hero-visual .robot-experience { z-index: 2; }
 .hero-visual .robot-fallback img { transform: scale(1.03) translate(1%, -1%); }
 .hero-visual .robot-control { z-index: 5; right: 16%; bottom: 5%; }
-@media (prefers-reduced-motion: no-preference) { .hero-browser--back { animation: hero-drift 7s ease-in-out infinite alternate; }.hero-browser--right { animation: hero-drift 6s ease-in-out 1s infinite alternate; }.hero-browser--mini { animation: hero-drift 5s ease-in-out .5s infinite alternate; } }
-@keyframes hero-drift { to { translate: 0 -9px; } }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-browser { animation: holo-reveal 850ms cubic-bezier(.2,.75,.25,1) both, holo-float 6s ease-in-out infinite alternate; }
+  .hero-browser::before { animation: holo-scan 5s linear infinite; }
+  .hero-browser__beam { animation: holo-sweep 5.8s ease-in-out infinite; }
+  .hero-browser--back { animation-delay: 0s, .8s; }
+  .hero-browser--mini { animation-delay: .25s, 1.2s; animation-duration: 850ms, 4.8s; }
+  .hero-browser--right { animation-delay: .42s, 1.6s; animation-duration: 850ms, 5.4s; }
+  .hero-browser--bottom { animation-delay: .58s, 2s; animation-duration: 850ms, 6.5s; }
+  .hero-browser--mini .hero-browser__beam { animation-delay: 1s; }
+  .hero-browser--right .hero-browser__beam { animation-delay: 2.2s; }
+  .hero-browser--bottom .hero-browser__beam { animation-delay: 3.4s; }
+}
+@keyframes holo-reveal { from { opacity: 0; scale: .94; filter: blur(5px); } to { opacity: 1; scale: 1; filter: blur(0); } }
+@keyframes holo-float { to { transform: rotate(var(--holo-angle)) translateY(-8px); } }
+@keyframes holo-scan { to { background-position: 0 18px, 0 0; } }
+@keyframes holo-sweep { 0%, 15% { translate: 0 0; opacity: 0; } 26% { opacity: .6; } 55%, 100% { translate: 360% 0; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .hero-browser { translate: none; transition: none; }.hero-browser__beam { opacity: 0; } }
 
 .about-grid { gap: clamp(40px, 6vw, 90px); }
 .about-copy { max-width: 590px; }
