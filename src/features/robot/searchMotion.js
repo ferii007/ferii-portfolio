@@ -1,17 +1,17 @@
 const poses = [
-  { time: 0, headYaw: 0, headPitch: 0, headRoll: 0, torsoYaw: 0, lean: 0, armRaise: 0 },
-  { time: 1.2, headYaw: -0.34, headPitch: -0.04, headRoll: -0.04, torsoYaw: -0.1, lean: 0.02, armRaise: 0.9 },
-  { time: 2, headYaw: -0.34, headPitch: -0.04, headRoll: -0.04, torsoYaw: -0.1, lean: 0.02, armRaise: 0.9 },
-  { time: 3, headYaw: 0, headPitch: -0.08, headRoll: 0, torsoYaw: 0, lean: 0.02, armRaise: 1 },
-  { time: 4.2, headYaw: 0.35, headPitch: -0.04, headRoll: 0.04, torsoYaw: 0.11, lean: 0.04, armRaise: 0.85 },
-  { time: 5.1, headYaw: 0.35, headPitch: -0.04, headRoll: 0.04, torsoYaw: 0.11, lean: 0.04, armRaise: 0.85 },
-  { time: 6.2, headYaw: 0.2, headPitch: 0.19, headRoll: 0.02, torsoYaw: 0.08, lean: 0.13, armRaise: 0.7 },
-  { time: 7, headYaw: 0.2, headPitch: 0.19, headRoll: 0.02, torsoYaw: 0.08, lean: 0.13, armRaise: 0.7 },
-  { time: 8.4, headYaw: 0, headPitch: 0, headRoll: 0, torsoYaw: 0, lean: 0, armRaise: 0 },
+  { time: 0, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
+  { time: 1.2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.27 },
+  { time: 2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.27 },
+  { time: 3.3, headYaw: 0.1, headPitch: 0.1, headRoll: 0.02, torsoYaw: 0.03, lean: 0.14, crouch: 0.19, weight: 0.02, guard: 0.94, step: 0.22 },
+  { time: 4, headYaw: 0.1, headPitch: 0.1, headRoll: 0.02, torsoYaw: 0.03, lean: 0.14, crouch: 0.19, weight: 0.02, guard: 0.94, step: 0.22 },
+  { time: 5.1, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.25, weight: 0.09, guard: 1.06, step: 0.26 },
+  { time: 6, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.25, weight: 0.09, guard: 1.06, step: 0.26 },
+  { time: 7.2, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
+  { time: 8.3, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
 ];
 
 export function searchPoseAt(seconds) {
-  const time = ((seconds % 8.4) + 8.4) % 8.4;
+  const time = ((seconds % 8.3) + 8.3) % 8.3;
   const endIndex = poses.findIndex((pose) => pose.time > time);
   const start = poses[endIndex - 1];
   const end = poses[endIndex];

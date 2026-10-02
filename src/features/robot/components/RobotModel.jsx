@@ -3,14 +3,16 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Euler, Quaternion, Vector3 } from 'three';
+import { createAlertFace } from '../createAlertFace';
 import { searchPoseAt } from '../searchMotion';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
-const animatedBones = ['Spine', 'Head', 'UpperArmL', 'UpperArmR', 'ForearmR', 'HandR'];
+const animatedBones = ['Hips', 'Spine', 'Head', 'UpperArmL', 'ForearmL', 'HandL', 'UpperArmR', 'ForearmR', 'HandR', 'ThighL', 'ShinL', 'FootL', 'ThighR', 'ShinR', 'FootR'];
 
 export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
   const heroPose = useRef(null);
+  const alertFace = useRef(null);
   const lastProjection = useRef(0);
   const point = useMemo(() => new Vector3(), []);
   const deltaRotation = useMemo(() => new Quaternion(), []);
@@ -48,18 +50,39 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
     return () => next.fadeOut(0.3);
   }, [actions, mixer, projecting, reducedMotion, hero, scene]);
   useEffect(() => {
+    const head = scene.getObjectByName('Head');
+    const face = createAlertFace();
+    head.add(face);
+    alertFace.current = face;
+    return () => {
+      head.remove(face);
+      face.geometry.dispose();
+      face.material.map.dispose();
+      face.material.dispose();
+      alertFace.current = null;
+      scene.getObjectByName('FaceExpressions').visible = true;
+    };
+  }, [scene]);
+  useEffect(() => {
     const face = scene.getObjectByName('FaceExpressions');
     if (face?.morphTargetInfluences) {
+      const showingAlert = hero && expression === 'happy';
+      face.visible = !showingAlert;
+      if (alertFace.current) alertFace.current.visible = showingAlert;
       face.morphTargetInfluences.fill(0);
       if (morphIndex[expression] >= 0) face.morphTargetInfluences[morphIndex[expression]] = 1;
     }
-  }, [scene, expression]);
+  }, [scene, expression, hero]);
   useEffect(() => { onReady?.(); }, [onReady]);
   useFrame(({ clock }) => {
     if (hero && !projecting && group.current) {
-      const target = searchPoseAt(reducedMotion ? 0 : clock.elapsedTime);
-      group.current.position.y = -1.92;
-      group.current.rotation.y = target.torsoYaw;
+      const time = reducedMotion ? 0 : clock.elapsedTime;
+      const target = searchPoseAt(time);
+      const arms = searchPoseAt(reducedMotion ? 0 : time - 0.12);
+      const body = searchPoseAt(reducedMotion ? 0 : time - 0.24);
+      group.current.position.x = body.weight;
+      group.current.position.y = -1.92 - body.crouch * 0.65;
+      group.current.rotation.y = body.torsoYaw;
       group.current.rotation.z = 0;
       const pose = heroPose.current;
       const move = (name, x, y, z) => {
@@ -68,12 +91,21 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
         angles.set(x, y, z);
         joint.bone.quaternion.copy(joint.rotation).multiply(deltaRotation.setFromEuler(angles));
       };
-      move('Spine', target.lean, 0, 0);
+      move('Hips', 0, 0, body.weight * 0.35);
+      move('Spine', body.lean, 0, -body.weight * 0.45);
       move('Head', target.headPitch, target.headYaw, target.headRoll);
-      move('UpperArmL', target.lean * 0.3, 0, 0);
-      move('UpperArmR', -target.armRaise * 0.12, 0, -target.armRaise * 1.4);
-      move('ForearmR', 0, 0, -target.armRaise * 2.2);
-      move('HandR', 0, 0, -target.armRaise * 0.2);
+      move('UpperArmL', arms.guard * 0.26, -arms.guard * 0.8, arms.guard * 0.5);
+      move('ForearmL', 0, 0, arms.guard * 1.5);
+      move('HandL', -arms.guard * 0.18, 0, -arms.guard * 0.12);
+      move('UpperArmR', arms.guard * 0.26, arms.guard * 1.35, -arms.guard * 0.5);
+      move('ForearmR', 0, 0, -arms.guard * 1.7);
+      move('HandR', -arms.guard * 0.18, 0, arms.guard * 0.12);
+      move('ThighL', body.step * 0.8, 0, body.step * 1.1);
+      move('ShinL', -body.step * 1.4, 0, -body.step * 0.35);
+      move('FootL', body.step * 0.6, 0, 0);
+      move('ThighR', -body.step * 1.2, 0, -body.step * 1.1);
+      move('ShinR', body.step * 1.6, 0, body.step * 0.35);
+      move('FootR', -body.step * 0.4, 0, 0);
     }
     if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 100) return;
     const socket = scene.getObjectByName('ProjectorSocketL') ?? scene.getObjectByName('ProjectorSocket.L');

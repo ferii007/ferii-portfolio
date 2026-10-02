@@ -2,24 +2,32 @@ import { describe, expect, it } from 'vitest';
 import { searchPoseAt } from './searchMotion';
 
 describe('Hero search motion', () => {
-  it('holds a deliberate gaze instead of oscillating continuously', () => {
+  it('starts in a grounded guard stance', () => {
+    const guard = searchPoseAt(0);
+    expect(guard.crouch).toBeGreaterThan(0.1);
+    expect(guard.guard).toBeGreaterThan(0.8);
+    expect(guard.step).toBeGreaterThan(0.15);
+  });
+
+  it('holds a deliberate gaze while shifting weight', () => {
     const left = searchPoseAt(1.2);
     expect(left.headYaw).toBeLessThan(-0.2);
     expect(searchPoseAt(2)).toEqual(left);
-    expect(left.armRaise).toBeGreaterThan(0);
+    expect(left.weight).toBeLessThan(0);
   });
 
-  it('checks the other side and then looks down before returning to neutral', () => {
-    expect(searchPoseAt(4.6).headYaw).toBeGreaterThan(0.2);
-    expect(searchPoseAt(6.6).headPitch).toBeGreaterThan(0.1);
-    expect(searchPoseAt(6.6).lean).toBeGreaterThan(0.08);
-    expect(searchPoseAt(8.4)).toEqual(searchPoseAt(0));
+  it('checks the other side without leaving the guard pose', () => {
+    const right = searchPoseAt(5.1);
+    expect(right.headYaw).toBeGreaterThan(0.2);
+    expect(right.weight).toBeGreaterThan(0);
+    expect(right.crouch).toBeGreaterThan(0.1);
+    expect(searchPoseAt(8.3)).toEqual(searchPoseAt(0));
   });
 
   it('eases between poses and repeats without a jump', () => {
     const halfway = searchPoseAt(0.6);
     expect(halfway.headYaw).toBeGreaterThan(searchPoseAt(1.2).headYaw);
-    expect(halfway.headYaw).toBeLessThan(0);
-    expect(searchPoseAt(8.399).headYaw).toBeCloseTo(searchPoseAt(0).headYaw, 4);
+    expect(halfway.headYaw).toBeLessThan(searchPoseAt(0).headYaw);
+    expect(searchPoseAt(8.299).headYaw).toBeCloseTo(searchPoseAt(0).headYaw, 4);
   });
 });
