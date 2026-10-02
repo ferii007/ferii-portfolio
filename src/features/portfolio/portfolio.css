@@ -1,0 +1,28 @@
+.hero-section { min-height: 650px; border-bottom: 1px solid #eee8df; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; min-height: 650px; }
+.hero-text { position: relative; z-index: 1; padding-block: 80px; }
+.hero-text h1 { display: flex; flex-direction: column; margin: 12px 0 0; font-size: clamp(72px, 8vw, 128px); line-height: .84; letter-spacing: -.085em; }
+.hero-role { font-weight: 800; margin: 22px 0 12px; font-size: clamp(26px, 2.8vw, 39px); letter-spacing: -.05em; }
+.hero-copy { max-width: 430px; margin: 0 0 25px; color: var(--muted); font-size: 17px; line-height: 1.5; }
+
+.button-outline { border: 1.5px solid var(--blue); color: var(--blue); background: white; }
+.button-outline:hover { background: #e9f6ff; }
+.hero-visual { min-height: 580px; position: relative; }
+.about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; align-items: center; }
+.about-section h2, .currently-section h2, .contact-section h2 { margin: 8px 0 18px; }
+.about-section p:not(.eyebrow), .contact-section p:not(.eyebrow) { max-width: 620px; color: var(--muted); line-height: 1.7; }
+.about-section .lead-copy { color: var(--ink) !important; font-size: 20px; font-weight: 700; }
+.about-art { min-height: 300px; display: flex; align-items: center; justify-content: center; position: relative; }
+.about-note { width: 260px; height: 250px; padding: 42px; transform: rotate(-8deg); background: #f7e5d4; box-shadow: 18px 18px 30px #67452b1a; font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.04em; border: 1px solid #ead5c2; }
+.about-note span { display: block; color: var(--orange); font-size: 60px; line-height: .7; }
+.about-books { position: absolute; right: 0; bottom: -15px; display: grid; transform: rotate(-4deg); }
+.about-books span { padding: 3px 18px; background: #174369; color: #f2f4e8; border: 2px solid #e9d5ba; border-radius: 5px; font-size: 15px; font-weight: 800; letter-spacing: .08em; }
+.about-books span:nth-child(2) { background: #12679a; }.about-books span:nth-child(3) { background: #293b4a; }
+.currently-section { padding-block: 30px 70px; }
+.currently-panel { display: grid; grid-template-columns: 1.15fr 2fr; gap: 15px; align-items: center; padding: 32px; border-radius: 24px; background: #fff0df; }
+.currently-heading { display: flex; align-items: flex-start; gap: 15px; }.currently-heading h2 { font-size: 40px; }.currently-heading p { color: var(--muted); margin: 0; }
+.currently-list { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; }.currently-list > div { padding: 14px; border-left: 1px solid #efc9a9; }.currently-list svg { color: var(--orange); }.currently-list h3 { margin: 10px 0 3px; font-size: 15px; }.currently-list p { margin: 0; font-size: 13px; color: var(--muted); }
+.journey-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 80px 0 0; padding: 0; list-style: none; position: relative; }.journey-grid::before { content: ''; height: 2px; background: #b5d9eb; position: absolute; top: -35px; left: 14%; right: 14%; }
+.journey-grid li { position: relative; }.journey-number { position: absolute; top: -55px; left: calc(50% - 20px); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--blue); color: white; font-weight: 900; }.journey-grid li:nth-child(2) .journey-number { background: #ff9e62; }
+.journey-card { min-height: 190px; padding: 25px; background: white; border: 1px solid #eee8df; border-radius: 20px; box-shadow: 0 12px 25px #17253809; }.journey-card svg { color: var(--blue); }.journey-card h3 { margin-bottom: 5px; }.journey-card p { color: var(--muted); line-height: 1.5; }
+.beyond-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }.beyond-card { display: grid; grid-template-columns: 160px 1fr; gap: 22px; align-items: center; padding: 12px; border-radius: 18px; background: white; border: 1px solid #eee8df; }.beyond-art { display: grid; place-items: center; height: 140px; border-radius: 12px; color: #c77851; background: linear-gradient(145deg, #f1dbbe, #f8f0e4); }.beyond-art-1 { color: #477eab; background: linear-gradient(145deg, #d7e9ee, #f7e0c8); }.beyond-card h3 { margin: 0; }.beyond-card p { color: var(--muted); line-height: 1.5; }

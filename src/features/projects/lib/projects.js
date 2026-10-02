@@ -12,6 +12,9 @@ export function validateProjects(records, { checkImages = false } = {}) {
       errors.push(`${label} must be an object`);
       return;
     }
+    for (const field of ['contribution', 'image', 'demoUrl', 'codeUrl', 'isExample']) {
+      if (!Object.hasOwn(project, field)) errors.push(`${label}: ${field} field is required`);
+    }
     for (const field of ['id', 'title', 'summary']) {
       if (typeof project[field] !== 'string' || !project[field].trim()) errors.push(`${label}: ${field} is required`);
     }

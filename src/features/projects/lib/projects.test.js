@@ -16,6 +16,13 @@ describe('project data contract', () => {
   it('rejects invalid optional links', () => {
     expect(validateProjects([{ ...valid, demoUrl: 'not-a-url' }]).join(' ')).toMatch(/demoUrl/);
   });
+  it('requires every contract field even when its value may be null', () => {
+    const { image, ...incomplete } = valid;
+    expect(validateProjects([incomplete]).join(' ')).toMatch(/image/);
+  });
+  it('rejects a missing project image when image checks are enabled', () => {
+    expect(validateProjects([{ ...valid, image: '/images/projects/missing.webp' }], { checkImages: true }).join(' ')).toMatch(/image file is missing/);
+  });
   it('requires example flag', () => {
     expect(validateProjects([{ ...valid, isExample: undefined }]).join(' ')).toMatch(/isExample/);
   });

@@ -4,7 +4,7 @@ import { site } from '@/content/site';
 export default function ContactSection() {
   return <section className="section contact-section" id="contact" aria-labelledby="contact-title"><div className="container contact-grid">
     <div><p className="eyebrow">08 / Say hello</p><h2 id="contact-title">Contact Me<span className="accent-dot">.</span></h2><p>Punya ide, pertanyaan, atau sekadar ingin menyapa?</p>
-      <form className="contact-form" aria-label="Form kontak demo" action="#contact">
+      <form className="contact-form grid gap-3" aria-label="Form kontak demo" action="#contact">
         <p className="demo-note">Demo — pengiriman belum tersedia</p>
         <label>Nama<input name="name" type="text" placeholder="Nama kamu" autoComplete="name" /></label>
         <label>Email<input name="email" type="email" placeholder="Email kamu" autoComplete="email" /></label>
