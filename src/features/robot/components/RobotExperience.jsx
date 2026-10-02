@@ -41,7 +41,7 @@ export default function RobotExperience() {
     return () => observer.disconnect();
   }, [setHeroVisible]);
 
-  const showCanvas = !reducedMotion && !canvasFailed && !(compactCompanion && state.location === 'companion');
+  const showCanvas = !reducedMotion && !canvasFailed && !compactCompanion && state.location === 'companion';
   return <div className={`robot-experience robot-${state.location}`} data-location={state.location}>
     <div className="robot-figure">
       {(!canvasReady || !showCanvas) && <RobotFallback expression={state.expression} />}

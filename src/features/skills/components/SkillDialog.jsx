@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, RotateCcw, X } from 'lucide-react';
 import { fetchSkillSummary } from '../lib/wiki';
+import SkillIcon from './SkillIcon';
 
 export default function SkillDialog({ skill, onClose }) {
   const closeRef = useRef(null);
@@ -34,10 +35,10 @@ export default function SkillDialog({ skill, onClose }) {
   }, [skill, onClose]);
   if (!skill) return null;
   const currentResult = result.skillId === skill.id ? result : { status: 'loading' };
-  return <aside className="skill-dialog" role="dialog" aria-modal="false" aria-labelledby="skill-dialog-title" aria-describedby="skill-dialog-body">
-    <div className="skill-dialog-top"><span>HOLOGRAM / {skill.label.toUpperCase()}</span><button ref={closeRef} type="button" onClick={onClose} aria-label="Tutup detail skill"><X size={22} /></button></div>
-    <div className="skill-dialog-content" key={skill.id}>
-      <div className="skill-dialog-icon" style={{ '--skill-color': skill.color }} aria-hidden="true">{skill.iconLabel}</div>
+  return <aside className="skill-dialog fp-hologram" role="dialog" aria-modal="false" aria-labelledby="skill-dialog-title" aria-describedby="skill-dialog-body">
+    <div className="skill-dialog-top fp-hologram__head"><span>HOLOGRAM / {skill.label.toUpperCase()}</span><button ref={closeRef} type="button" onClick={onClose} aria-label="Tutup detail skill"><X size={22} /></button></div>
+    <div className="skill-dialog-content fp-hologram__body" key={skill.id}>
+      <div className="skill-dialog-icon" style={{ '--skill-color': skill.color }}><SkillIcon skill={skill} /></div>
       <h3 id="skill-dialog-title">{skill.label}</h3>
       <div id="skill-dialog-body" aria-live="polite">
         {currentResult.status === 'loading' && <p>Memuat ringkasan dari Wikipedia…</p>}

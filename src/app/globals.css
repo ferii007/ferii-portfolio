@@ -1,46 +1,8 @@
 @import "tailwindcss";
 
-:root {
-  --cream: #f7f4ed;
-  --paper: #fffefa;
-  --ink: #172538;
-  --muted: #4d6173;
-  --blue: #087cf5;
-  --cyan: #32c7ee;
-  --orange: #ff8c40;
-}
-
-* { box-sizing: border-box; }
+:root { color-scheme: light; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--cream); color: var(--ink); font-family: ui-rounded, "Avenir Next", Arial, sans-serif; }
-a { color: inherit; text-decoration: none; }
+body { overflow-x: clip; }
+a { text-decoration: none; }
 button, input, textarea { font: inherit; }
-:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
-.container { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
-.site-header { padding: 20px 0; }
-.header-inner, .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { font-size: 28px; font-weight: 900; letter-spacing: -.07em; }
-.brand span { color: var(--blue); }
-.nav-links { display: flex; gap: 32px; font-size: 14px; font-weight: 700; }
-.nav-links a:hover, .footer-inner a:hover { color: var(--blue); }
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px; border-radius: 13px; font-size: 14px; font-weight: 800; }
-.button-primary { background: var(--blue); color: white; box-shadow: 0 8px 16px #087cf53b; }
-.button-primary:hover { background: #0568d0; }
-.eyebrow { color: var(--blue); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-.section { padding-block: 80px; scroll-margin-top: 40px; }
-.section h2 { font-size: clamp(36px, 6vw, 64px); letter-spacing: -.06em; }
-.site-footer { padding: 36px 0; border-top: 1px solid #e1ddd5; }
-.site-footer p { color: var(--muted); font-size: 13px; }
-@media (max-width: 700px) { .nav-links { display: none; } .container { width: min(100% - 32px, 1120px); } .header-contact { padding: 10px 14px; } .footer-inner { flex-wrap: wrap; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-.section-intro { max-width: 690px; margin-bottom: 34px; }
-.section-intro h2 { margin: 8px 0 12px; }
-.section-intro > p:last-child { color: var(--muted); line-height: 1.65; }
-.accent-dot { color: var(--orange); }
-/* One-page sections */
-body { overflow-x: hidden; }
-.site-header { position: relative; z-index: 30; }
-.header-inner { min-height: 48px; }
-.nav-links { gap: clamp(10px, 1.6vw, 25px); }
-.nav-links a { white-space: nowrap; }
-.mobile-menu { display: none; }

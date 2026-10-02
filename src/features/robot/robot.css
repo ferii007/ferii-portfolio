@@ -1,10 +1,13 @@
-.robot-experience { position: absolute; z-index: 4; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.robot-experience { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .robot-figure { position: relative; width: 100%; height: 100%; }
-.robot-fallback { position: absolute; inset: 0; display: grid; place-items: center; }.robot-fallback img { width: 100%; height: 100%; object-fit: contain; }
+.robot-fallback { position: absolute; inset: 0; display: grid; place-items: center; }
+.robot-fallback img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 28px #1c6d963b); }
 .robot-canvas { position: absolute !important; inset: 0; }
-.robot-control { pointer-events: auto; position: absolute; bottom: 12px; right: 14%; display: flex; align-items: center; gap: 7px; padding: 9px 13px; border: 1px solid #bce4f7; border-radius: 99px; background: #f3fcff; color: #0c628b; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 22px #17253818; }
-.robot-companion { position: fixed; top: auto; bottom: 10px; left: auto; right: 12px; width: 160px; height: 190px; z-index: 20; }.robot-companion .robot-control { bottom: 0; right: 4px; padding: 8px; }.robot-companion .robot-control span { display: none; }
-@media (max-width: 700px) { .robot-experience { top: 0; left: 0; width: 100%; height: 100%; }.robot-companion { top: auto; left: auto; bottom: 8px; right: 8px; width: 100px; height: 120px; }.robot-control { bottom: 0; right: 20%; }.robot-companion .robot-control { right: 0; } }
-@media (prefers-reduced-motion: reduce) { .robot-experience { transition: none; } }
+.robot-control { pointer-events: auto; position: absolute; z-index: 7; bottom: 3%; right: 5%; display: flex; align-items: center; gap: 7px; padding: 10px 14px; border: 1px solid #bce4f7; border-radius: 99px; background: #f3fcff; color: #0c628b; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 22px #17253818; }
+.robot-control:hover { background: white; transform: translateY(-2px); }
+.robot-companion { position: fixed; top: auto; bottom: 10px; left: auto; right: 12px; width: 160px; height: 190px; z-index: 20; }
+.robot-companion .robot-control { bottom: 0; right: 4px; padding: 8px; }
+.robot-companion .robot-control span { display: none; }
 .hologram-beam { position: fixed; inset: 0; z-index: 34; pointer-events: none; overflow: visible; filter: drop-shadow(0 0 8px #4ddfff); }
-@media (max-width: 800px) { .hologram-beam { display: none; } }
+@media (max-width: 900px) { .hologram-beam { display: none; } }
+@media (prefers-reduced-motion: reduce) { .robot-experience { transition: none; } }

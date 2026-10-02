@@ -1,4 +1,5 @@
 import './globals.css';
+import '@/design-system/css/appearance.css';
 import '@/features/projects/projects.css';
 import '@/features/portfolio/portfolio.css';
 import '@/features/contact/contact.css';
@@ -24,5 +25,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return <html lang="id"><body>{children}</body></html>;
+  return <html lang="id"><body className="feri-theme">{children}</body></html>;
 }

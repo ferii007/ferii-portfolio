@@ -1,0 +1,34 @@
+[
+  {
+    "file": "PlusJakartaSans-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/plusjakartasans/PlusJakartaSans%5Bwght%5D.ttf",
+    "retrieved": "2026-10-02",
+    "sha256": "89b3fb38aa0d275d7a731d0d817a4f1622b316b4d7fbdedcf02ee9099ff68bc8",
+    "bytes": 176288,
+    "modified": false
+  },
+  {
+    "file": "PlusJakartaSans-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/plusjakartasans/OFL.txt",
+    "retrieved": "2026-10-02",
+    "sha256": "995c7199cab65954f545996326755daee7b63cc6b42b06c13da1f9502ab08a99",
+    "bytes": 4402,
+    "modified": false
+  },
+  {
+    "file": "Caveat-Variable.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/caveat/Caveat%5Bwght%5D.ttf",
+    "retrieved": "2026-10-02",
+    "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
+    "bytes": 403648,
+    "modified": false
+  },
+  {
+    "file": "Caveat-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/caveat/OFL.txt",
+    "retrieved": "2026-10-02",
+    "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
+    "bytes": 4385,
+    "modified": false
+  }
+]

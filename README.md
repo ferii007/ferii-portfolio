@@ -1,6 +1,6 @@
 # Portfolio Feri Ramdani
 
-Portfolio satu halaman berbasis Next.js App Router, JavaScript/JSX, Tailwind CSS, React Three Fiber/Three.js, dan Lucide React. Desain serta aset robot berasal dari `feri-portfolio-all-assets.zip`; kode portfolio React lama tidak digunakan.
+Portfolio satu halaman berbasis Next.js App Router, JavaScript/JSX, Tailwind CSS, React Three Fiber/Three.js, Lucide React, dan Simple Icons. Komposisi dan aset robot mengikuti `feri-portfolio-all-assets.zip`; font, token, dan komponen visual mengikuti `feri-portfolio-design-system.zip`. Kode portfolio React lama tidak digunakan.
 
 ## Menjalankan
 
@@ -16,10 +16,11 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 ## Struktur
 
 - `src/app`: komposisi halaman, metadata, dan gaya global.
+- `src/design-system`: CSS dan font lokal dari paket desain, beserta lisensinya.
 - `src/content/site.js`: teks non-proyek dan penanda konten contoh.
 - `src/features/projects`: sumber data JSON, validator, dan kartu proyek.
 - `src/features/interaction`: state bersama robot dan Skills.
-- `src/features/robot`: GLB, ekspresi, fallback PNG, dan beam hologram.
+- `src/features/robot`: PNG robot di Hero, GLB pendamping desktop setelah scroll, ekspresi, dan beam hologram.
 - `src/features/skills`: daftar skill, pemetaan artikel, request Wikipedia, dan panel detail.
 - `src/features/contact`: form demo dan tautan publik.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.
