@@ -1,7 +1,7 @@
 .robot-experience { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .robot-figure { position: relative; width: 100%; height: 100%; }
-.robot-fallback { position: absolute; inset: 0; display: grid; place-items: center; }
-.robot-fallback img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 28px #1c6d963b); }
+.robot-fallback { position: absolute; inset: 0; }
+.robot-fallback img { position: absolute; inset: 0; width: auto; height: 100%; max-width: none; margin: auto; object-fit: contain; filter: drop-shadow(0 24px 28px #1c6d963b); }
 .robot-canvas { position: absolute !important; inset: 0; }
 .robot-control { pointer-events: auto; position: absolute; z-index: 7; bottom: 3%; right: 5%; display: flex; align-items: center; gap: 7px; padding: 10px 14px; border: 1px solid #bce4f7; border-radius: 99px; background: #f3fcff; color: #0c628b; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 22px #17253818; }
 .robot-control:hover { background: white; transform: translateY(-2px); }

@@ -1,11 +1,12 @@
 @media (max-width: 1100px) {
   .nav-links a { padding-inline: 7px; font-size: 12px; }
-  .hero-text h1 { font-size: clamp(68px, 8vw, 96px); }
+  .hero-text h1 { font-size: clamp(70px, 8.2vw, 98px); }
 }
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .mobile-menu { display: block; margin-left: auto; }
   .header-contact { display: none; }
+  .hero-handnote--right { display: none; }
   .robot-companion { position: fixed; top: 16px; right: 74px; bottom: auto; left: auto; width: 48px; height: 48px; z-index: 51; }
   .robot-companion .robot-figure { overflow: hidden; border-radius: 50%; background: #e4f6fc; border: 1px solid #bce4f7; }
   .robot-companion .robot-fallback img { transform: scale(1.7) translateY(9px); }
@@ -13,17 +14,25 @@
   .robot-companion .robot-control svg, .robot-companion .robot-control span { display: none; }
 }
 @media (min-width: 768px) and (max-width: 900px) {
-  .hero-grid { grid-template-columns: 1fr .9fr; }
-  .hero-text h1 { font-size: 66px; }
-  .hero-visual { min-height: 420px; }
+  .hero-grid { grid-template-columns: 1fr .9fr; min-height: 530px; }
+  .hero-text h1 { font-size: 65px; }
+  .hero-role { font-size: 25px; }
+  .hero-copy { font-size: 15px; }
+  .hero-visual { height: 440px; }
+  .hero-handnote--code { display: none; }
 }
 @media (max-width: 767px) {
-  .hero-grid { min-height: auto; gap: 0; padding-top: 50px; }
-  .hero-text h1 { font-size: clamp(66px, 14vw, 100px); }
-  .hero-copy { margin-bottom: 22px; }
-  .hero-visual { width: min(100%, 510px); min-height: 440px; height: 440px; margin-inline: auto; }
-  .hero-window-top { left: 1%; }
-  .hero-window-bottom { right: 0; }
+  .hero-grid { grid-template-columns: 1fr; min-height: auto; gap: 0; padding-block: 36px 26px; }
+  .hero-text { transform: none; }
+  .hero-text h1 { font-size: clamp(72px, 14vw, 96px); }
+  .hero-copy { margin-block: 20px 22px; }
+  .hero-visual { width: min(100%, 540px); height: 440px; margin-inline: auto; }
+  .hero-browser--back { top: 8%; left: 4%; }
+  .hero-browser--right { right: 3%; }
+  .hero-browser--bottom { right: 5%; bottom: 11%; }
+  .hero-handnote--code { left: 3%; bottom: 17%; font-size: 17px; }
+  .hero-orange-mark--right { right: 0; }
+  .hero-visual .robot-control { right: 2%; bottom: 2%; }
   .about-art { min-height: 315px; }
   .currently-panel { grid-template-columns: 1fr; }
   .currently-list { gap: 16px; }
@@ -34,15 +43,20 @@
   .contact-grid { gap: 34px; }
 }
 @media (max-width: 480px) {
-  .hero-text h1 { font-size: clamp(56px, 15vw, 72px); }
-  .hero-role { font-size: 25px; }
+  .hero-grid { padding-block: 30px 20px; }
+  .hero-eyebrow { font-size: 11px; }
+  .hero-text h1 { font-size: clamp(57px, 15vw, 71px); }
+  .hero-role { font-size: 23px; }
+  .hero-copy { font-size: 15px; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
-  .hero-actions .fp-btn { min-width: 0; padding-inline: 10px; font-size: 12px; }
-  .hero-visual { min-height: 360px; height: 360px; }
-  .hero-window { width: 125px; height: 82px; padding: 10px; gap: 5px; }
-  .hero-window-bottom { width: 120px; height: 75px; }
-  .hero-window i { margin-top: 3px; }
-  .hero-scribble { display: none; }
+  .hero-actions .fp-btn { min-width: 0; padding-inline: 8px; font-size: 11px; }
+  .hero-cta-spark { display: none; }
+  .hero-visual { height: 370px; }
+  .hero-browser--back { width: 62%; height: 37%; }
+  .hero-browser--mini { top: 31%; }
+  .hero-browser--bottom { width: 53%; height: 27%; bottom: 10%; }
+  .hero-handnote--code { display: none; }
+  .hero-orange-mark--right { right: 1%; top: 59%; }
   .about-note { width: 230px; min-height: 230px; padding: 30px; font-size: 26px; }
   .about-books { right: 0; bottom: 0; }
   .currently-heading { flex-wrap: wrap; }
