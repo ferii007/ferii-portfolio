@@ -3,9 +3,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Euler, Quaternion, Vector3 } from 'three';
+import { searchPoseAt } from '../searchMotion';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
-const animatedBones = ['Spine', 'Head', 'UpperArm.L', 'UpperArm.R', 'Forearm.R', 'Hand.R'];
+const animatedBones = ['Spine', 'Head', 'UpperArmL', 'UpperArmR', 'ForearmR', 'HandR'];
 
 export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
@@ -16,17 +17,18 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   const angles = useMemo(() => new Euler(), []);
   const { camera, gl } = useThree();
   const { scene, animations } = useGLTF('/models/feri-robot-rigged.glb');
-  const bodyClips = useMemo(() => animations.filter((clip) => ['Idle', 'Wave', 'Project'].includes(clip.name)).map((clip) => {
+  const bodyClips = useMemo(() => animations.filter((clip) => ['Idle', 'Project'].includes(clip.name)).map((clip) => {
     const copy = clip.clone();
     copy.tracks = copy.tracks.filter((track) => !/weights|morphTargetInfluences/i.test(track.name));
     return copy;
   }), [animations]);
   const { actions, mixer } = useAnimations(bodyClips, group);
   useEffect(() => {
-    const next = actions[projecting ? 'Project' : hero ? 'Wave' : 'Idle'];
+    const next = actions[projecting ? 'Project' : 'Idle'];
     if (!next) return;
     next.reset().play();
     if (hero && !projecting) {
+      Object.values(actions).forEach((action) => { if (action !== next) action.stop(); });
       next.setEffectiveWeight(1);
       mixer.setTime(0.5);
       next.setEffectiveTimeScale(0);
@@ -55,24 +57,23 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   useEffect(() => { onReady?.(); }, [onReady]);
   useFrame(({ clock }) => {
     if (hero && !projecting && group.current) {
-      const t = clock.elapsedTime;
-      const motion = reducedMotion ? 0 : 1;
-      group.current.position.y = -1.92 + motion * 0.045 * Math.sin(t * 1.7);
-      group.current.rotation.y = motion * 0.075 * Math.sin(t * 0.7);
-      group.current.rotation.z = motion * 0.025 * Math.sin(t * 1.1);
+      const target = searchPoseAt(reducedMotion ? 0 : clock.elapsedTime);
+      group.current.position.y = -1.92;
+      group.current.rotation.y = target.torsoYaw;
+      group.current.rotation.z = 0;
       const pose = heroPose.current;
       const move = (name, x, y, z) => {
         const joint = pose?.[name];
         if (!joint) return;
-        angles.set(x * motion, y * motion, z * motion);
+        angles.set(x, y, z);
         joint.bone.quaternion.copy(joint.rotation).multiply(deltaRotation.setFromEuler(angles));
       };
-      move('Spine', 0.025 * Math.sin(t * 1.7), 0, 0.025 * Math.sin(t * 1.1));
-      move('Head', 0.055 * Math.sin(t * 0.9 + 0.5), 0.14 * Math.sin(t * 0.7), 0.055 * Math.sin(t * 1.1 + 0.8));
-      move('UpperArm.L', 0.025 * Math.sin(t * 1.3), 0, 0.08 * Math.sin(t * 1.2));
-      move('UpperArm.R', 0.09 * Math.sin(t * 1.8), 0, 0.28 * Math.sin(t * 2.3));
-      move('Forearm.R', 0, 0, 0.4 * Math.sin(t * 2.3 + 0.35));
-      move('Hand.R', 0.045 * Math.sin(t * 2.3 + 0.7), 0, 0.45 * Math.sin(t * 2.3 + 0.7));
+      move('Spine', target.lean, 0, 0);
+      move('Head', target.headPitch, target.headYaw, target.headRoll);
+      move('UpperArmL', target.lean * 0.3, 0, 0);
+      move('UpperArmR', -target.armRaise * 0.12, 0, -target.armRaise * 1.4);
+      move('ForearmR', 0, 0, -target.armRaise * 2.2);
+      move('HandR', 0, 0, -target.armRaise * 0.2);
     }
     if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 100) return;
     const socket = scene.getObjectByName('ProjectorSocketL') ?? scene.getObjectByName('ProjectorSocket.L');
