@@ -72,12 +72,18 @@ export default function HeroHolograms() {
         <circle className="holo-node" cx="78" cy="117" r="5" /><circle className="holo-node" cx="309" cy="84" r="4" />
       </HologramShape>
       <HologramShape variant="panel-code">
+        <rect className="holo-browser-glass" x="22" y="22" width="356" height="196" rx="16" />
+        <path className="holo-browser-divider" d="M22 56h356" />
+        <circle className="holo-browser-dot" cx="49" cy="40" r="4" /><circle className="holo-browser-dot" cx="64" cy="40" r="4" /><circle className="holo-browser-dot" cx="79" cy="40" r="4" />
         <path className="holo-frame" d="M23 79V42c0-10 8-18 18-18h65m189 0h62c10 0 18 8 18 18v36M23 161v37c0 10 8 18 18 18h66m188 0h62c10 0 18-8 18-18v-38" />
         <path className="holo-panel-line" d="M54 71h116m-116 21h73m-73 21h142m-142 21h88M252 71h72m-72 21h47" />
         <path className="holo-panel-wave" d="m53 177 31-18 22 11 35-28 31 19 25-14 30 19 34-23 30 12 34-18" />
         <circle className="holo-node" cx="141" cy="142" r="4" /><circle className="holo-node" cx="261" cy="143" r="4" />
       </HologramShape>
       <HologramShape variant="panel-signal">
+        <rect className="holo-browser-glass" x="22" y="22" width="356" height="196" rx="16" />
+        <path className="holo-browser-divider" d="M22 56h356" />
+        <circle className="holo-browser-dot" cx="49" cy="40" r="4" /><circle className="holo-browser-dot" cx="64" cy="40" r="4" /><circle className="holo-browser-dot" cx="79" cy="40" r="4" />
         <path className="holo-frame" d="M22 90V38c0-9 7-16 16-16h56m211 0h57c9 0 16 7 16 16v52M22 151v51c0 9 7 16 16 16h56m211 0h57c9 0 16-7 16-16v-51" />
         <circle className="holo-panel-ring" cx="118" cy="121" r="54" /><circle className="holo-panel-ring" cx="118" cy="121" r="30" />
         <path className="holo-panel-line" d="M204 77h113m-113 22h76m-76 22h126m-126 22h91m-91 22h58" />
