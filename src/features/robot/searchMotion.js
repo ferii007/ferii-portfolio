@@ -1,11 +1,11 @@
 const poses = [
   { time: 0, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
-  { time: 1.2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.27 },
-  { time: 2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.27 },
+  { time: 1.2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.32 },
+  { time: 2, headYaw: -0.38, headPitch: 0.04, headRoll: -0.09, torsoYaw: -0.2, lean: 0.17, crouch: 0.22, weight: -0.08, guard: 1, step: 0.32 },
   { time: 3.3, headYaw: 0.1, headPitch: 0.1, headRoll: 0.02, torsoYaw: 0.03, lean: 0.14, crouch: 0.19, weight: 0.02, guard: 0.94, step: 0.22 },
   { time: 4, headYaw: 0.1, headPitch: 0.1, headRoll: 0.02, torsoYaw: 0.03, lean: 0.14, crouch: 0.19, weight: 0.02, guard: 0.94, step: 0.22 },
-  { time: 5.1, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.25, weight: 0.09, guard: 1.06, step: 0.26 },
-  { time: 6, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.25, weight: 0.09, guard: 1.06, step: 0.26 },
+  { time: 5.1, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.28, weight: 0.09, guard: 1.06, step: 0.3 },
+  { time: 6, headYaw: 0.38, headPitch: -0.02, headRoll: 0.07, torsoYaw: 0.14, lean: 0.2, crouch: 0.28, weight: 0.09, guard: 1.06, step: 0.3 },
   { time: 7.2, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
   { time: 8.3, headYaw: -0.12, headPitch: 0.05, headRoll: -0.07, torsoYaw: -0.14, lean: 0.12, crouch: 0.18, weight: -0.03, guard: 0.9, step: 0.22 },
 ];

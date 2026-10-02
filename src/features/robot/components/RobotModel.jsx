@@ -7,7 +7,7 @@ import { createAlertFace } from '../createAlertFace';
 import { searchPoseAt } from '../searchMotion';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
-const animatedBones = ['Hips', 'Spine', 'Head', 'UpperArmL', 'ForearmL', 'HandL', 'UpperArmR', 'ForearmR', 'HandR', 'ThighL', 'ShinL', 'FootL', 'ThighR', 'ShinR', 'FootR'];
+const animatedBones = ['Hips', 'Spine', 'Neck', 'Head', 'UpperArmL', 'ForearmL', 'HandL', 'UpperArmR', 'ForearmR', 'HandR', 'ThighL', 'ShinL', 'FootL', 'ThighR', 'ShinR', 'FootR'];
 
 export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
@@ -15,6 +15,7 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   const alertFace = useRef(null);
   const lastProjection = useRef(0);
   const point = useMemo(() => new Vector3(), []);
+  const otherFoot = useMemo(() => new Vector3(), []);
   const deltaRotation = useMemo(() => new Quaternion(), []);
   const angles = useMemo(() => new Euler(), []);
   const { camera, gl } = useThree();
@@ -80,9 +81,9 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
       const target = searchPoseAt(time);
       const arms = searchPoseAt(reducedMotion ? 0 : time - 0.12);
       const body = searchPoseAt(reducedMotion ? 0 : time - 0.24);
-      group.current.position.x = body.weight;
-      group.current.position.y = -1.92 - body.crouch * 0.65;
-      group.current.rotation.y = body.torsoYaw;
+      group.current.position.x = body.weight * 0.3;
+      group.current.position.y = -1.92;
+      group.current.rotation.y = -0.08;
       group.current.rotation.z = 0;
       const pose = heroPose.current;
       const move = (name, x, y, z) => {
@@ -91,21 +92,30 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
         angles.set(x, y, z);
         joint.bone.quaternion.copy(joint.rotation).multiply(deltaRotation.setFromEuler(angles));
       };
-      move('Hips', 0, 0, body.weight * 0.35);
-      move('Spine', body.lean, 0, -body.weight * 0.45);
-      move('Head', target.headPitch, target.headYaw, target.headRoll);
-      move('UpperArmL', arms.guard * 0.26, -arms.guard * 0.8, arms.guard * 0.5);
-      move('ForearmL', 0, 0, arms.guard * 1.5);
-      move('HandL', -arms.guard * 0.18, 0, -arms.guard * 0.12);
-      move('UpperArmR', arms.guard * 0.26, arms.guard * 1.35, -arms.guard * 0.5);
-      move('ForearmR', 0, 0, -arms.guard * 1.7);
-      move('HandR', -arms.guard * 0.18, 0, arms.guard * 0.12);
-      move('ThighL', body.step * 0.8, 0, body.step * 1.1);
-      move('ShinL', -body.step * 1.4, 0, -body.step * 0.35);
-      move('FootL', body.step * 0.6, 0, 0);
-      move('ThighR', -body.step * 1.2, 0, -body.step * 1.1);
-      move('ShinR', body.step * 1.6, 0, body.step * 0.35);
-      move('FootR', -body.step * 0.4, 0, 0);
+      move('Hips', -body.lean * 0.25, -body.torsoYaw * 0.15, body.weight * 0.9);
+      move('Spine', body.lean * 1.2, body.torsoYaw * 1.2, -body.weight * 2);
+      move('Neck', -body.lean * 0.25, target.headYaw * 0.1, 0);
+      move('Head', target.headPitch, target.headYaw * 0.65, target.headRoll);
+      const leftGuard = arms.guard + arms.headYaw * 0.3;
+      const rightGuard = arms.guard - arms.headYaw * 0.3;
+      move('UpperArmL', leftGuard * 0.26, -leftGuard * 0.8, leftGuard * 0.5);
+      move('ForearmL', 0, 0, leftGuard * 1.5);
+      move('HandL', -leftGuard * 0.18, 0, -leftGuard * 0.12);
+      move('UpperArmR', rightGuard * 0.26, rightGuard * 1.35, -rightGuard * 0.5);
+      move('ForearmR', 0, 0, -rightGuard * 1.7);
+      move('HandR', -rightGuard * 0.18, 0, rightGuard * 0.12);
+      move('ThighL', body.step * 0.8 + body.crouch * 1.1, 0, body.step * 1.1);
+      move('ShinL', -body.step * 1.4 - body.crouch * 1.7, 0, -body.step * 0.35);
+      move('FootL', body.step * 0.6 + body.crouch * 0.6, 0, 0);
+      move('ThighR', -body.step * 1.2 - body.crouch * 1.1, 0, -body.step * 1.1);
+      move('ShinR', body.step * 1.6 + body.crouch * 1.7, 0, body.step * 0.35);
+      move('FootR', -body.step * 0.4 - body.crouch * 0.6, 0, 0);
+      if (pose?.FootL?.bone && pose?.FootR?.bone) {
+        group.current.updateMatrixWorld(true);
+        const leftFootY = pose.FootL.bone.getWorldPosition(point).y;
+        const rightFootY = pose.FootR.bone.getWorldPosition(otherFoot).y;
+        group.current.position.y += -1.92 + 1.12 * 0.2 - Math.min(leftFootY, rightFootY);
+      }
     }
     if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 100) return;
     const socket = scene.getObjectByName('ProjectorSocketL') ?? scene.getObjectByName('ProjectorSocket.L');
