@@ -27,9 +27,9 @@
   .hero-text h1 { font-size: clamp(72px, 14vw, 96px); }
   .hero-copy { margin-block: 20px 22px; }
   .hero-visual { width: min(100%, 540px); height: 440px; margin-inline: auto; }
-  .hero-browser--back { top: 8%; left: 4%; }
-  .hero-browser--right { right: 3%; }
-  .hero-browser--bottom { right: 5%; bottom: 11%; }
+  .hero-projection--back { top: 6%; left: 2%; }
+  .hero-projection--right { right: 3%; }
+  .hero-projection--bottom { right: 3%; bottom: 7%; }
   .hero-handnote--code { left: 3%; bottom: 17%; font-size: 17px; }
   .hero-orange-mark--right { right: 0; }
   .hero-visual .robot-control { right: 2%; bottom: 2%; }
@@ -52,9 +52,9 @@
   .hero-actions .fp-btn { min-width: 0; padding-inline: 8px; font-size: 11px; }
   .hero-cta-spark { display: none; }
   .hero-visual { height: 370px; }
-  .hero-browser--back { width: 62%; height: 37%; }
-  .hero-browser--mini { top: 31%; }
-  .hero-browser--bottom { width: 53%; height: 27%; bottom: 10%; }
+  .hero-projection--back { width: 66%; height: 38%; }
+  .hero-projection--mini { top: 31%; }
+  .hero-projection--bottom { width: 56%; height: 30%; bottom: 8%; }
   .hero-handnote--code { display: none; }
   .hero-orange-mark--right { right: 1%; top: 59%; }
   .about-note { width: 230px; min-height: 230px; padding: 30px; font-size: 26px; }
