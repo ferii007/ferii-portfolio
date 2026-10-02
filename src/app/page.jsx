@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import ProjectsSection from '@/features/projects/components/ProjectsSection';
 
 export default function Home() {
   return (
@@ -15,9 +16,7 @@ export default function Home() {
             <a className="button button-primary" href="#projects">Lihat proyek →</a>
           </div>
         </section>
-        <section className="container section" id="projects" aria-labelledby="projects-title">
-          <h2 id="projects-title">Projects</h2>
-        </section>
+        <ProjectsSection />
       </main>
       <Footer />
     </>

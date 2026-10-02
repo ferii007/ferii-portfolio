@@ -1,0 +1,35 @@
+[
+  {
+    "id": "dashboard-analytics",
+    "title": "Dashboard Analytics",
+    "summary": "Contoh tampilan dashboard untuk membaca metrik, tren, dan ringkasan aktivitas dalam satu tempat.",
+    "contribution": "Konsep antarmuka dan visualisasi data.",
+    "image": null,
+    "stack": ["Next.js", "Tailwind CSS", "Charting"],
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": true
+  },
+  {
+    "id": "creative-commerce",
+    "title": "Creative Commerce",
+    "summary": "Contoh pengalaman belanja digital dengan fokus pada navigasi yang cepat dan presentasi produk.",
+    "contribution": "Konsep desain dan alur halaman.",
+    "image": null,
+    "stack": ["React", "JavaScript", "CSS"],
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": true
+  },
+  {
+    "id": "interactive-web",
+    "title": "Interactive Web",
+    "summary": "Eksplorasi interaksi web yang memadukan konten, gerak, dan elemen tiga dimensi.",
+    "contribution": "Konsep interaksi dan prototipe visual.",
+    "image": null,
+    "stack": ["Three.js", "Next.js", "WebGL"],
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": true
+  }
+]
