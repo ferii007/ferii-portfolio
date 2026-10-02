@@ -47,6 +47,9 @@ test('Wikipedia failure and demo contact remain honest', async ({ page }) => {
   await page.getByLabel('Nama').fill('Pengunjung');
   await page.getByLabel('Email').fill('visitor@example.com');
   await page.getByLabel('Pesan').fill('Halo');
+  const beforeEnter = page.url();
+  await page.getByLabel('Email').press('Enter');
+  await expect(page).toHaveURL(beforeEnter);
   await expect(page.getByRole('button', { name: 'Pengiriman belum tersedia' })).toBeDisabled();
   await expect(page.locator('.demo-note')).toContainText('Demo — pengiriman belum tersedia');
 });
