@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`). Jika port 3000 dipakai aplikasi lain, jalankan `npm run dev -- -p 3100`.
+Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`). Secara default, `npm run dev` dan `npm run start` menggunakan port 3100 (`http://localhost:3100`).
 
 ## Struktur
 

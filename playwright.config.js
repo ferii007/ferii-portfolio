@@ -7,7 +7,7 @@ export default defineConfig({
     launchOptions: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE } : undefined,
   },
   webServer: {
-    command: 'npm run dev -- -p 3100 -H 127.0.0.1',
+    command: 'npm run dev',
     url: 'http://127.0.0.1:3100',
     reuseExistingServer: !process.env.CI,
   },
