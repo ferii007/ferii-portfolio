@@ -1,5 +1,21 @@
 import { expect, test } from '@playwright/test';
 
+test('hero does not flash a flat image while the 3D model loads', async ({ page }) => {
+  let releaseModel;
+  const modelHeld = new Promise((resolve) => { releaseModel = resolve; });
+  await page.route('**/feri-robot-rigged.glb', async (route) => {
+    await modelHeld;
+    await route.continue();
+  });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const robot = page.locator('.robot-hero');
+  await expect(robot).toBeVisible();
+  await expect(robot.locator('canvas')).toHaveCount(1);
+  await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
+  releaseModel();
+  await expect(robot).toHaveClass(/robot-ready/, { timeout: 10000 });
+});
+
 test('robot asset failure keeps the portfolio usable', async ({ page }) => {
   await page.route('**/feri-robot-rigged.glb', (route) => route.abort());
   await page.goto('/', { waitUntil: 'networkidle' });
