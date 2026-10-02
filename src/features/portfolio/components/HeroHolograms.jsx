@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 function HologramPanel({ variant, lines }) {
   return (
     <div className={`hero-browser hero-browser--${variant}`} aria-hidden="true">
+      <div className="hero-browser__corners" />
       <div className="hero-browser__bar"><i /><i /><i /></div>
       {Array.from({ length: lines }, (_, index) => <span key={index} />)}
       <div className="hero-browser__beam" />
