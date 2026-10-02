@@ -1,7 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 import RobotFallback from './RobotFallback';
 import RobotErrorBoundary from './RobotErrorBoundary';
@@ -41,13 +40,13 @@ export default function RobotExperience() {
     return () => observer.disconnect();
   }, [setHeroVisible]);
 
-  const showCanvas = !reducedMotion && !canvasFailed && !compactCompanion && state.location === 'companion';
-  return <div className={`robot-experience robot-${state.location}`} data-location={state.location}>
+  const showCanvas = !canvasFailed && (state.location === 'hero' || !compactCompanion);
+  return <div className={`robot-experience robot-${state.location}${showCanvas && canvasReady ? ' robot-ready' : ''}`} data-location={state.location} data-expression={state.expression}>
     <div className="robot-figure">
       {(!canvasReady || !showCanvas) && <RobotFallback expression={state.expression} />}
-      {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={state.expression} projecting={Boolean(state.activeSkillId)} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
+      {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={state.expression} projecting={Boolean(state.activeSkillId)} reducedMotion={reducedMotion} hero={state.location === 'hero'} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
     </div>
     {state.activeSkillId && showCanvas && <HologramBeam origin={beamOrigin} />}
-    <button className="robot-control" type="button" onClick={cycleExpression} aria-label="Ubah ekspresi robot" title="Ubah ekspresi robot"><Sparkles size={18} /><span>Ubah ekspresi</span></button>
+    <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label="Ubah ekspresi robot" title="Klik robot untuk mengubah ekspresi" />
   </div>;
 }

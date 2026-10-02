@@ -10,8 +10,7 @@
   .robot-companion { position: fixed; top: 16px; right: 74px; bottom: auto; left: auto; width: 48px; height: 48px; z-index: 51; }
   .robot-companion .robot-figure { overflow: hidden; border-radius: 50%; background: #e4f6fc; border: 1px solid #bce4f7; }
   .robot-companion .robot-fallback img { transform: scale(1.7) translateY(9px); }
-  .robot-companion .robot-control { inset: 0; width: 48px; height: 48px; padding: 0; border: 0; background: transparent; box-shadow: none; color: transparent; }
-  .robot-companion .robot-control svg, .robot-companion .robot-control span { display: none; }
+  .robot-companion .robot-hit-area { inset: 0; width: 48px; height: 48px; }
 }
 @media (min-width: 768px) and (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr .9fr; min-height: 530px; }
@@ -32,7 +31,6 @@
   .hero-projection--bottom { right: 3%; bottom: 7%; }
   .hero-handnote--code { left: 3%; bottom: 17%; font-size: 17px; }
   .hero-orange-mark--right { right: 0; }
-  .hero-visual .robot-control { right: 2%; bottom: 2%; }
   .about-art { min-height: 315px; }
   .currently-panel { grid-template-columns: 1fr; }
   .currently-list { gap: 16px; }

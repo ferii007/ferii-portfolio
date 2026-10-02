@@ -20,7 +20,7 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 - `src/content/site.js`: teks non-proyek dan penanda konten contoh.
 - `src/features/projects`: sumber data JSON, validator, dan kartu proyek.
 - `src/features/interaction`: state bersama robot dan Skills.
-- `src/features/robot`: PNG robot di Hero, GLB pendamping desktop setelah scroll, ekspresi, dan beam hologram.
+- `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
 - `src/features/skills`: daftar skill, pemetaan artikel, request Wikipedia, dan panel detail.
 - `src/features/contact`: form demo dan tautan publik.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.

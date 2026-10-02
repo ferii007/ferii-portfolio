@@ -10,13 +10,20 @@ test('robot asset failure keeps the portfolio usable', async ({ page }) => {
   await expect(page).toHaveURL(/#contact$/);
 });
 
-test('reduced motion keeps a static robot and expression control', async ({ page }) => {
+test('hero renders the GLB and clicking the robot changes its face', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/', { waitUntil: 'networkidle' });
-  await expect(page.getByTestId('robot-fallback')).toBeVisible();
-  await expect(page.locator('canvas')).toHaveCount(0);
+  const robot = page.locator('.robot-hero');
+  await expect(robot.locator('canvas')).toBeVisible();
+  await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
+  await expect(page.locator('.robot-control')).toHaveCount(0);
+  const before = await robot.locator('canvas').screenshot();
   await page.getByRole('button', { name: /ubah ekspresi robot/i }).click();
-  await expect(page.getByTestId('robot-fallback')).toHaveAttribute('data-expression', 'deadpan');
+  await expect(robot).toHaveAttribute('data-expression', 'deadpan');
+  await expect(robot.locator('canvas')).toHaveCount(1);
+  await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
+  const after = await robot.locator('canvas').screenshot();
+  expect(after.equals(before)).toBe(false);
 });
 
 test('latest selected skill wins when an earlier Wikipedia request finishes later', async ({ page }) => {

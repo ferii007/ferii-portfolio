@@ -6,7 +6,7 @@ import { Vector3 } from 'three';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
 
-export default function RobotModel({ expression, projecting, onReady, onProjectorPosition }) {
+export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
   const lastProjection = useRef(0);
   const point = useMemo(() => new Vector3(), []);
@@ -17,13 +17,20 @@ export default function RobotModel({ expression, projecting, onReady, onProjecto
     copy.tracks = copy.tracks.filter((track) => !/weights|morphTargetInfluences/i.test(track.name));
     return copy;
   }), [animations]);
-  const { actions } = useAnimations(bodyClips, group);
+  const { actions, mixer } = useAnimations(bodyClips, group);
   useEffect(() => {
-    const next = actions[projecting ? 'Project' : 'Idle'];
+    const next = actions[projecting ? 'Project' : hero ? 'Wave' : 'Idle'];
     if (!next) return;
-    next.reset().fadeIn(0.3).play();
+    next.reset().play();
+    if (reducedMotion) {
+      mixer.setTime(0.5);
+      next.setEffectiveTimeScale(0);
+    } else {
+      next.setEffectiveTimeScale(1);
+      next.fadeIn(0.3);
+    }
     return () => next.fadeOut(0.3);
-  }, [actions, projecting]);
+  }, [actions, mixer, projecting, reducedMotion, hero]);
   useEffect(() => {
     const face = scene.getObjectByName('FaceExpressions');
     if (face?.morphTargetInfluences) {
@@ -41,7 +48,7 @@ export default function RobotModel({ expression, projecting, onReady, onProjecto
     if (Number.isFinite(point.x) && Number.isFinite(point.y)) onProjectorPosition({ x: rect.left + (point.x + 1) * rect.width / 2, y: rect.top + (1 - point.y) * rect.height / 2 });
     lastProjection.current = performance.now();
   });
-  return <group ref={group} position={[0, -1.45, 0]} scale={0.85}><primitive object={scene} /></group>;
+  return <group ref={group} position={[0, hero ? -1.92 : -1.45, 0]} scale={hero ? 1.12 : 0.85}><primitive object={scene} /></group>;
 }
 
 useGLTF.preload('/models/feri-robot-rigged.glb');

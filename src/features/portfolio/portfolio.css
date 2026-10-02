@@ -76,7 +76,6 @@
 .hero-ground::after { content: ''; position: absolute; inset: 25% 7%; border: 2px solid #a8d3e6ad; border-radius: 50%; }
 .hero-visual .robot-experience { z-index: 2; }
 .hero-visual .robot-fallback img { transform: scale(1.03) translate(1%, -1%); }
-.hero-visual .robot-control { z-index: 5; right: 16%; bottom: 5%; }
 @media (prefers-reduced-motion: no-preference) {
   .hero-projection { animation: holo-reveal 900ms cubic-bezier(.2,.75,.25,1) both, holo-float 6s ease-in-out infinite alternate; }
   .hero-projection--back { animation-delay: 0s, .8s; }

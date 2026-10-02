@@ -3,11 +3,13 @@
 .robot-fallback { position: absolute; inset: 0; }
 .robot-fallback img { position: absolute; inset: 0; width: auto; height: 100%; max-width: none; margin: auto; object-fit: contain; filter: drop-shadow(0 24px 28px #1c6d963b); }
 .robot-canvas { position: absolute !important; inset: 0; }
-.robot-control { pointer-events: auto; position: absolute; z-index: 7; bottom: 3%; right: 5%; display: flex; align-items: center; gap: 7px; padding: 10px 14px; border: 1px solid #bce4f7; border-radius: 99px; background: #f3fcff; color: #0c628b; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 22px #17253818; }
-.robot-control:hover { background: white; transform: translateY(-2px); }
+.robot-experience:not(.robot-ready) .robot-canvas { opacity: 0; }
+.robot-hit-area { position: absolute; z-index: 7; top: 4%; left: 20%; width: 66%; height: 92%; padding: 0; border: 0; border-radius: 45%; background: transparent; cursor: pointer; pointer-events: auto; }
+.robot-hit-area:focus-visible { outline: 3px solid #11a9e8; outline-offset: -6px; }
+.robot-hit-area:disabled { cursor: default; }
 .robot-companion { position: fixed; top: auto; bottom: 10px; left: auto; right: 12px; width: 160px; height: 190px; z-index: 20; }
-.robot-companion .robot-control { bottom: 0; right: 4px; padding: 8px; }
-.robot-companion .robot-control span { display: none; }
+.robot-companion .robot-hit-area { inset: 0; width: 100%; height: 100%; }
+@media (max-width: 480px) { .robot-hero .robot-hit-area { left: 6%; width: 88%; } }
 .hologram-beam { position: fixed; inset: 0; z-index: 34; pointer-events: none; overflow: visible; filter: drop-shadow(0 0 8px #4ddfff); }
 @media (max-width: 900px) { .hologram-beam { display: none; } }
 @media (prefers-reduced-motion: reduce) { .robot-experience { transition: none; } }
