@@ -52,10 +52,17 @@
 .holo-data { stroke: #35bfe8; stroke-width: 2.2; opacity: .8; }
 .holo-spark { stroke: #9aeaff; stroke-width: 1; stroke-dasharray: 3 10; }
 .holo-node { fill: #c8fbff; stroke: #1aafe5; stroke-width: 2; filter: drop-shadow(0 0 5px #51e5ff); }
+.holo-frame, .holo-panel-line, .holo-panel-wave, .holo-panel-ring { stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.holo-frame { stroke: #15aede; stroke-width: 2.2; filter: drop-shadow(0 0 5px #61e4ff); }
+.holo-panel-line { stroke: #42c8e8; stroke-width: 2; opacity: .72; }
+.holo-panel-wave { stroke: #95effb; stroke-width: 1.5; stroke-dasharray: 70 9 28 7; }
+.holo-panel-ring { stroke: #36bfe4; stroke-width: 1.4; stroke-dasharray: 49 13; }
 .hero-projection--back { --holo-angle: -8deg; --holo-depth: .45; top: -2%; left: -8%; width: 71%; height: 44%; }
 .hero-projection--mini { --holo-angle: -11deg; --holo-depth: .9; top: 28%; left: 6%; width: 17%; height: 22%; }
 .hero-projection--right { --holo-angle: 8deg; --holo-depth: .7; top: 7%; right: -3%; width: 23%; height: 23%; }
 .hero-projection--bottom { --holo-angle: 7deg; --holo-depth: 1; right: -1%; bottom: 7%; width: 54%; height: 37%; }
+.hero-projection--panel-code { --holo-angle: 7deg; --holo-depth: .55; top: 8%; left: -2%; width: 45%; height: 27%; }
+.hero-projection--panel-signal { --holo-angle: 8deg; --holo-depth: .85; top: 55%; right: -1%; width: 37%; height: 25%; }
 .hero-handnote { position: absolute; z-index: 4; margin: 0; color: #23527f; font-family: var(--font-hand); font-size: 23px; font-weight: 700; line-height: .97; letter-spacing: .015em; transform: rotate(-7deg); }
 .hero-handnote--code { left: 1%; bottom: 20%; text-align: center; }
 .hero-handnote--right { top: 29%; right: -8%; font-size: 25px; line-height: .98; transform: rotate(5deg); }
@@ -71,11 +78,14 @@
   .hero-projection--mini { animation-delay: .24s, 1.2s; animation-duration: 900ms, 4.8s; }
   .hero-projection--right { animation-delay: .4s, 1.6s; animation-duration: 900ms, 5.4s; }
   .hero-projection--bottom { animation-delay: .58s, 2s; animation-duration: 900ms, 6.5s; }
+  .hero-projection--panel-code { animation-delay: .7s, 1.4s; animation-duration: 900ms, 5.7s; }
+  .hero-projection--panel-signal { animation-delay: .9s, 2.2s; animation-duration: 900ms, 6.2s; }
   .holo-orbit { animation: holo-dash 12s linear infinite; }
   .holo-orbit--faint { animation-duration: 19s; animation-direction: reverse; }
   .holo-node { animation: holo-pulse 3s ease-in-out infinite alternate; }
   .hero-projection--mini svg { animation: holo-spin 24s linear infinite reverse; }
   .hero-projection--right svg { animation: holo-spin 18s linear infinite; }
+  .holo-panel-wave { animation: holo-dash 8s linear infinite; }
 }
 @keyframes holo-reveal { from { opacity: 0; scale: .85; } to { opacity: .8; scale: 1; } }
 @keyframes holo-float { to { transform: rotate(var(--holo-angle)) translateY(-8px); } }
