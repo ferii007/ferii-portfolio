@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ultimo-internship",
+    "period": ["Jan–Apr", "2020"],
+    "title": "Magang / Praktik Kerja Lapangan",
+    "organization": "PT. Ultimo Solutions",
+    "role": "Testing Engineer",
+    "description": "Menjalani praktik kerja lapangan saat SMK dan mengenal proses pengujian software.",
+    "current": false
+  },
+  {
+    "id": "smk-graduation",
+    "period": ["2021"],
+    "title": "Lulus SMK",
+    "organization": "Balai Perguruan Putri Bandung",
+    "role": "Rekayasa Perangkat Lunak",
+    "description": "Menyelesaikan pendidikan SMK pada tahun 2021.",
+    "current": false
+  },
+  {
+    "id": "senja-solutions",
+    "period": ["Des", "2021–", "Sekarang"],
+    "title": "Berkembang bersama Senja",
+    "organization": "Senja Solutions",
+    "role": "Web Developer → Software Engineer",
+    "description": "Memulai sebagai Web Developer, lalu berkembang menjadi Software Engineer. Berkontribusi pada landing page, ReBill POS, serta ReBill POS v2 dan Dashboard v2, dengan fokus pada backend, API, dan alur bisnis aplikasi.",
+    "current": true
+  }
+]

@@ -13,11 +13,6 @@ export const site = {
     { title: 'Mempelajari', detail: 'Interaksi antarmuka' },
     { title: 'Mengeksplorasi', detail: 'Ide personal' },
   ],
-  journey: [
-    { title: 'Awal belajar', detail: 'Mengenal fondasi web dan mencoba berbagai ide.' },
-    { title: 'Membangun proyek', detail: 'Menerapkan pengetahuan ke antarmuka dan interaksi.' },
-    { title: 'Terus berkembang', detail: 'Memperdalam proses desain dan pengembangan.' },
-  ],
   beyond: [
     { title: 'Cerita & tulisan', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.' },
     { title: 'Momen & perjalanan', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.' },
