@@ -146,9 +146,9 @@
 .beyond-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .beyond-heading h2 { display: flex; align-items: center; gap: 15px; margin: 12px 0 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1.1; letter-spacing: -.035em; }
 .beyond-heading h2 > svg { width: 30px; height: 38px; color: var(--color-orange); flex: none; }
-.beyond-handnote { display: flex; align-items: flex-end; align-self: flex-end; gap: 10px; margin: 0 12px 0 0; color: #5788a8; }
-.beyond-handnote svg { width: 48px; height: 36px; transform: none; }
-.beyond-handnote p { font-family: var(--font-hand); font-size: 23px; font-weight: 600; transform: rotate(-5deg); }
+.beyond-handnote { display: flex; align-items: center; gap: 12px; flex: none; padding-right: 12px; color: #5788a8; transform: rotate(-7deg); }
+.beyond-handnote svg { width: 62px; height: 50px; }
+.beyond-handnote p { font-family: var(--font-hand); font-size: 26px; font-weight: 650; line-height: 1.05; letter-spacing: .015em; }
 .beyond-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .beyond-card { display: grid; position: relative; grid-template-columns: 38% minmax(0, 1fr); align-items: stretch; gap: 18px; padding: 10px; border: 1px solid #eee8df; border-radius: 13px; background: #fffdf9; box-shadow: 0 5px 15px #493f2c09; }
 .beyond-art { position: relative; align-self: stretch; overflow: hidden; aspect-ratio: 1.4; min-height: 152px; border-radius: 7px; }
@@ -162,8 +162,9 @@
 }
 @media (max-width: 767px) {
  .beyond-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .beyond-handnote { align-self: flex-end; margin: 0 6px 0 0; }
-  .beyond-handnote p { font-size: 20px; }
+  .beyond-handnote { align-self: flex-end; gap: 6px; margin-right: 8px; padding-right: 0; }
+  .beyond-handnote p { font-size: 22px; }
+  .beyond-handnote svg { width: 45px; }
 }
 @media (max-width: 480px) {
   .beyond-card { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding: 10px; }
