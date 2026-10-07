@@ -2,16 +2,17 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Euler, Quaternion, Vector3 } from 'three';
+import { Euler, Plane, Quaternion, Vector3 } from 'three';
 import { createAlertFace } from '../createAlertFace';
 import { createGuardArm } from '../guardArm';
 import { createGuardLeg } from '../guardLeg';
 import { searchPoseAt } from '../searchMotion';
+import { SPAWN_FLOOR } from './SpawnPortal';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
 const animatedBones = ['Hips', 'Waist', 'Spine', 'Neck', 'Head', 'ShoulderL', 'ShoulderR'];
 
-export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
+export default function RobotModel({ spawn, expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
   const heroPose = useRef(null);
   const alertFace = useRef(null);
@@ -21,6 +22,14 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   const angles = useMemo(() => new Euler(), []);
   const { camera, gl } = useThree();
   const { scene, animations } = useGLTF('/models/feri-robot-rigged.glb');
+  const clipPlanes = useRef([new Plane(new Vector3(0, -1, 0), SPAWN_FLOOR)]);
+  const clipping = useRef(false);
+  const materials = useMemo(() => {
+    const result = new Set();
+    scene.traverse((object) => { if (object.isMesh) result.add(object.material); });
+    return [...result];
+  }, [scene]);
+  useEffect(() => () => { materials.forEach((material) => { material.clippingPlanes = []; material.needsUpdate = true; }); }, [materials]);
   const guardArms = useMemo(() => [createGuardArm(scene, 'L'), createGuardArm(scene, 'R')], [scene]);
   const guardLegs = useMemo(() => [createGuardLeg(scene, 'L'), createGuardLeg(scene, 'R')], [scene]);
   const hipsRest = useMemo(() => new Vector3(0, 1.08, 0), []);
@@ -82,13 +91,22 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   }, [scene, expression, hero]);
   useEffect(() => { onReady?.(); }, [onReady]);
   useFrame(({ clock }) => {
+    const materializing = hero && !reducedMotion && spawn.current.age < 2.3;
+    if (clipping.current !== materializing) {
+      for (const material of [...materials, alertFace.current?.material].filter(Boolean)) {
+        material.clippingPlanes = materializing ? clipPlanes.current : [];
+        material.needsUpdate = true;
+      }
+      clipping.current = materializing;
+    }
+    if (materializing) clipPlanes.current[0].constant = SPAWN_FLOOR + spawn.current.reveal * 4.15;
     if (hero && !projecting && group.current) {
       const time = reducedMotion ? 0 : clock.elapsedTime;
       const target = searchPoseAt(time);
       const arms = searchPoseAt(reducedMotion ? 0 : time - 0.12);
       const body = searchPoseAt(reducedMotion ? 0 : time - 0.24);
-      group.current.position.x = 0;
-      group.current.position.y = -1.92;
+      group.current.position.x = 0.05;
+      group.current.position.y = -1.78;
       group.current.rotation.y = -0.3;
       group.current.rotation.z = 0;
       const pose = heroPose.current;
@@ -120,7 +138,7 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
     if (Number.isFinite(point.x) && Number.isFinite(point.y)) onProjectorPosition({ x: rect.left + (point.x + 1) * rect.width / 2, y: rect.top + (1 - point.y) * rect.height / 2 });
     lastProjection.current = performance.now();
   });
-  return <group ref={group} position={[0, hero ? -1.92 : -1.45, 0]} scale={hero ? 1.12 : 0.85}><primitive object={scene} /></group>;
+  return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -1.45, 0]} scale={hero ? 1.12 : 0.85}><primitive object={scene} /></group>;
 }
 
 useGLTF.preload('/models/feri-robot-rigged.glb');

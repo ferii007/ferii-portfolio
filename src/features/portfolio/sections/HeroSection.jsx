@@ -29,7 +29,6 @@ export default function HeroSection() {
           <p className="hero-handnote hero-handnote--right" aria-hidden="true">Setiap<br />ide bisa<br />jadi website<br />yang nyata.</p>
           <HeroAccent className="hero-orange-mark hero-orange-mark--right" />
           <RobotExperience />
-          <span className="hero-ground" aria-hidden="true" />
         </div>
       </div>
     </section>

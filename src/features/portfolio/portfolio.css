@@ -42,7 +42,6 @@
 .hero-visual { position: relative; display: block; width: 100%; height: 550px; min-height: 0; padding: 0; overflow: visible; background: none; border-radius: 0; }
 .hero-visual::before, .hero-visual::after { content: none; }
 .hero-holograms { position: absolute; z-index: 1; inset: 0; pointer-events: none; }
-.hero-holograms::before { content: ''; position: absolute; inset: 1% 4% 5% 9%; background: radial-gradient(ellipse at 53% 78%, #57d7ff3b, transparent 58%), linear-gradient(to top, #55cfff24, transparent 70%); clip-path: polygon(52% 100%, 4% 0, 96% 0); filter: blur(16px); }
 .hero-projection { position: absolute; opacity: .8; filter: drop-shadow(0 0 5px #41cefb) drop-shadow(0 0 13px #5bd8f879); transform: rotate(var(--holo-angle)) translateY(0); translate: calc(var(--holo-x, 0px) * var(--holo-depth)) calc(var(--holo-y, 0px) * var(--holo-depth)); transition: translate 220ms ease-out; }
 .hero-projection svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .holo-orbit, .holo-trace, .holo-data, .holo-spark { stroke: #26afe0; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
@@ -72,8 +71,6 @@
 .hero-handnote--code { left: 1%; bottom: 20%; text-align: center; }
 .hero-handnote--right { top: 29%; right: -8%; font-size: 25px; line-height: .98; transform: rotate(5deg); }
 .hero-orange-mark--right { position: absolute; z-index: 5; top: 62%; right: -8%; transform: rotate(36deg); }
-.hero-ground { position: absolute; z-index: 1; bottom: 6%; left: 22%; width: 67%; height: 8%; border-radius: 50%; background: radial-gradient(ellipse, #93bfdc80 0, #bfdbed80 48%, transparent 74%); }
-.hero-ground::after { content: ''; position: absolute; inset: 25% 7%; border: 2px solid #a8d3e6ad; border-radius: 50%; }
 .hero-visual .robot-experience { z-index: 2; }
 .hero-visual .robot-fallback img { transform: scale(1.03) translate(1%, -1%); }
 @media (prefers-reduced-motion: no-preference) {
