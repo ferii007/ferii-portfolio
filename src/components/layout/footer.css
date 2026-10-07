@@ -1,17 +1,23 @@
-.site-footer { position: relative; isolation: isolate; overflow: hidden; padding: 147px 0 30px; background: var(--color-canvas); }
-.footer-landscape { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+.site-footer { --footer-travel: 0px; position: relative; isolation: isolate; overflow: hidden; padding: 292px 0 30px; background: var(--color-canvas); }
+.footer-landscape { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.footer-sun { position: absolute; top: 30px; left: 23%; width: 57px; height: 57px; border-radius: 50%; background: #f3dcc1; box-shadow: 0 0 65px 28px #f2e5d84d; transform: translateY(calc(var(--footer-travel) * .85)); }
+.footer-hill { position: absolute; inset: 0; width: 100%; height: 100%; }
+.footer-hill--distant { transform: translateY(calc(var(--footer-travel) * .75)); }
+.footer-hill--middle { transform: translateY(calc(var(--footer-travel) * .48)); }
+.footer-hill--near { transform: translateY(calc(var(--footer-travel) * .24)); }
+.footer-hill--foreground { transform: translateY(calc(var(--footer-travel) * .08)); }
 .footer-content { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
-.footer-identity { display: flex; align-items: center; gap: 22px; }
 .footer-brand { font-size: 43px; }
-.footer-name { margin: 0 0 3px; color: #173044; font-size: 14px; font-weight: 750; }
-.footer-role { margin: 0; color: #526879; font-size: 11px; font-weight: 500; }
-.footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 1px; color: #718899; font-size: 11px; }
-.footer-copyright svg { color: #ec995f; flex: none; stroke-width: 1.7; }
+.footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 3px; color: #5b7689; font-size: 11px; }
+.footer-copyright svg { color: #dc9157; flex: none; stroke-width: 1.7; }
 @media (max-width: 767px) {
-  .site-footer { padding: 130px 0 25px; }
-  .footer-landscape { width: 190%; max-width: none; left: -45%; }
-  .footer-content { flex-direction: column; align-items: flex-start; gap: 22px; }
-  .footer-identity { gap: 18px; }
+  .site-footer { padding: 244px 0 25px; }
+  .footer-hill { width: 170%; max-width: none; left: -35%; }
+  .footer-sun { left: 20%; top: 38px; width: 44px; height: 44px; }
+  .footer-content { flex-direction: column; align-items: flex-start; gap: 18px; }
   .footer-brand { font-size: 39px; }
   .footer-copyright { gap: 7px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-hill, .footer-sun { transform: none; }
 }

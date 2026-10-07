@@ -1,27 +1,48 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { Heart } from 'lucide-react';
 
 function FooterLandscape() {
-  return <svg className="footer-landscape" viewBox="0 0 1440 210" preserveAspectRatio="none" fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="footer-water" x1="720" y1="85" x2="720" y2="210" gradientUnits="userSpaceOnUse"><stop stopColor="#dcebf4" /><stop offset="1" stopColor="#eff4f6" /></linearGradient>
-      <linearGradient id="footer-leaf" x1="0" y1="-35" x2="15" y2="0" gradientUnits="userSpaceOnUse"><stop stopColor="#b8c8cf" /><stop offset="1" stopColor="#d3dde0" /></linearGradient>
-      <g id="footer-leaves">
-        <path d="M0 0C-4-26-13-48-22-61M0 0C6-32 17-54 28-74M0 0C-1-32 1-62 4-91" stroke="#b6c6cd" strokeWidth="1.5" />
-        <path d="M-12-31C-36-28-46-42-44-53c17-2 31 7 32 22ZM-20-54C-39-51-45-66-40-76c14 1 22 11 20 22ZM3-62C-12-74-9-94 4-104c12 14 13 29-1 42ZM14-40C12-61 27-68 39-66c1 16-10 26-25 26ZM26-68C22-85 33-94 43-94c5 14-4 23-17 26ZM-4-10C-24-9-37-20-34-32c17-2 27 6 30 22ZM6-13C11-33 27-38 40-31c-4 15-18 21-34 18Z" fill="url(#footer-leaf)" />
-      </g>
-    </defs>
-    <path d="M0 29C69 64 90 46 139 73s108-17 176 15 163 14 224 32 116 15 189 9 94-32 151-25 77-17 146-15 78-45 143-32 58-41 108-26 97 29 164 26v153H0Z" fill="#e4e5e2" opacity=".65" />
-    <g opacity=".64"><use href="#footer-leaves" transform="translate(5 124) rotate(-18) scale(1.08)" /><use href="#footer-leaves" transform="translate(84 100) rotate(20) scale(.54)" /><use href="#footer-leaves" transform="translate(250 86) rotate(-25) scale(.46)" /><use href="#footer-leaves" transform="translate(738 145) rotate(-14) scale(.65)" /><use href="#footer-leaves" transform="translate(803 145) rotate(35) scale(.42)" /><use href="#footer-leaves" transform="translate(925 127) rotate(-8) scale(.5)" /><use href="#footer-leaves" transform="translate(1043 107) rotate(18) scale(.56)" /><use href="#footer-leaves" transform="translate(1312 91) rotate(-16) scale(.84)" /><use href="#footer-leaves" transform="translate(1440 111) rotate(16) scale(.72)" /></g>
-    <path d="M0 135C72 123 72 61 170 65c201-5 345 77 556 82s375-71 527-74 144 22 187 21v116H0Z" fill="#e7eff2" />
-    <path d="M0 142C80 134 69 65 176 70c199-2 347 77 552 82s375-72 527-74 145 22 185 22v110H0Z" fill="url(#footer-water)" />
-  </svg>;
+  return <div className="footer-landscape" aria-hidden="true">
+    <div className="footer-sun" />
+    <svg className="footer-hill footer-hill--distant" viewBox="0 0 1440 360" preserveAspectRatio="none"><path d="M0 177C128 171 194 28 335 55S505 194 657 150 886 30 1015 71 1264 168 1440 100V360H0Z" fill="#dce7e7" /></svg>
+    <svg className="footer-hill footer-hill--middle" viewBox="0 0 1440 360" preserveAspectRatio="none"><path d="M0 185C146 80 282 125 411 182S667 241 817 151 1100 99 1229 158 1369 168 1440 143V360H0Z" fill="#bdd6dc" /><path d="M0 185C146 80 282 125 411 182S667 241 817 151 1100 99 1229 158 1369 168 1440 143" fill="none" stroke="#f4f8f5" strokeOpacity=".42" strokeWidth="2" /></svg>
+    <svg className="footer-hill footer-hill--near" viewBox="0 0 1440 360" preserveAspectRatio="none"><path d="M0 222C146 263 268 255 412 208S679 141 838 211 1139 269 1292 214 1386 190 1440 197V360H0Z" fill="#8fb8c8" /><path d="M690 181C741 200 757 216 733 239S651 263 706 288" fill="none" stroke="#cde0e6" strokeWidth="7" strokeLinecap="round" opacity=".65" /></svg>
+    <svg className="footer-hill footer-hill--foreground" viewBox="0 0 1440 360" preserveAspectRatio="none"><defs><linearGradient id="footer-meadow" x1="0" y1="260" x2="0" y2="360" gradientUnits="userSpaceOnUse"><stop stopColor="#dcebf1" /><stop offset="1" stopColor="#eef4f6" /></linearGradient></defs><path d="M0 280C203 223 326 268 515 291S844 272 1036 261 1294 282 1440 253V360H0Z" fill="url(#footer-meadow)" /></svg>
+  </div>;
 }
 
 export default function Footer() {
-  return <footer className="site-footer">
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    const footer = footerRef.current;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const { top, height } = footer.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (window.innerHeight - top) / height));
+      footer.style.setProperty('--footer-travel', `${reducedMotion.matches ? 0 : (1 - progress) * 70}px`);
+    };
+    const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    reducedMotion.addEventListener('change', schedule);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      reducedMotion.removeEventListener('change', schedule);
+    };
+  }, []);
+
+  return <footer ref={footerRef} className="site-footer">
     <FooterLandscape />
     <div className="container footer-content">
-      <div className="footer-identity"><a className="brand fp-logo footer-brand" href="#top" aria-label="Feri, kembali ke atas">feri<span>.</span></a><div><p className="footer-name">Feri Ramdani</p><p className="footer-role">Full Stack Developer</p></div></div>
+      <a className="brand fp-logo footer-brand" href="#top" aria-label="Feri, kembali ke atas">feri<span>.</span></a>
       <p className="footer-copyright">© {new Date().getFullYear()} Feri Ramdani. All rights reserved. <Heart size={14} aria-hidden="true" /></p>
     </div>
   </footer>;
