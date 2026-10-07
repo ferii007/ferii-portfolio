@@ -4,10 +4,11 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { createAlertFace } from '../createAlertFace';
+import { createGuardArm } from '../guardArm';
 import { searchPoseAt } from '../searchMotion';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
-const animatedBones = ['Hips', 'Spine', 'Neck', 'Head', 'UpperArmL', 'ForearmL', 'HandL', 'UpperArmR', 'ForearmR', 'HandR', 'ThighL', 'ShinL', 'FootL', 'ThighR', 'ShinR', 'FootR'];
+const animatedBones = ['Hips', 'Waist', 'Spine', 'Neck', 'Head', 'ShoulderL', 'ShoulderR', 'ThighL', 'ShinL', 'FootL', 'ThighR', 'ShinR', 'FootR'];
 
 export default function RobotModel({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
@@ -20,6 +21,7 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   const angles = useMemo(() => new Euler(), []);
   const { camera, gl } = useThree();
   const { scene, animations } = useGLTF('/models/feri-robot-rigged.glb');
+  const guardArms = useMemo(() => [createGuardArm(scene, 'L'), createGuardArm(scene, 'R')], [scene]);
   const bodyClips = useMemo(() => animations.filter((clip) => ['Idle', 'Project'].includes(clip.name)).map((clip) => {
     const copy = clip.clone();
     copy.tracks = copy.tracks.filter((track) => !/weights|morphTargetInfluences/i.test(track.name));
@@ -29,6 +31,7 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
   useEffect(() => {
     const next = actions[projecting ? 'Project' : 'Idle'];
     if (!next) return;
+    for (const name of ['Waist', 'ShoulderL', 'ShoulderR']) scene.getObjectByName(name).quaternion.identity();
     next.reset().play();
     if (hero && !projecting) {
       Object.values(actions).forEach((action) => { if (action !== next) action.stop(); });
@@ -93,20 +96,19 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
         joint.bone.quaternion.copy(joint.rotation).multiply(deltaRotation.setFromEuler(angles));
       };
       move('Hips', -body.lean * 0.25, -body.torsoYaw * 0.15, body.weight * 0.9);
-      move('Spine', body.lean * 1.2, body.torsoYaw * 1.2, -body.weight * 2);
+      move('Waist', body.lean * 0.5, body.torsoYaw * 0.7, -body.weight * 0.8);
+      move('Spine', body.lean * 0.7, body.torsoYaw * 0.5, -body.weight * 1.2);
       move('Neck', -body.lean * 0.25, target.headYaw * 0.1, 0);
       move('Head', target.headPitch, target.headYaw * 0.65, target.headRoll);
       const leftGuard = arms.guard + arms.headYaw * 0.3;
       const rightGuard = arms.guard - arms.headYaw * 0.3;
-      move('UpperArmL', leftGuard * 0.26, -leftGuard * 0.8, leftGuard * 0.5);
-      move('ForearmL', 0, 0, leftGuard * 1.5);
-      move('HandL', -leftGuard * 0.18, 0, -leftGuard * 0.12);
-      move('UpperArmR', rightGuard * 0.26, rightGuard * 1.35, -rightGuard * 0.5);
-      move('ForearmR', 0, 0, -rightGuard * 1.7);
-      move('HandR', -rightGuard * 0.18, 0, rightGuard * 0.12);
-      move('ThighL', body.step * 0.8 + body.crouch * 1.1, 0, body.step * 1.1);
-      move('ShinL', -body.step * 1.4 - body.crouch * 1.7, 0, -body.step * 0.35);
-      move('FootL', body.step * 0.6 + body.crouch * 0.6, 0, 0);
+      move('ShoulderL', 0, -arms.headYaw * 0.16, (leftGuard - 0.9) * 0.12);
+      move('ShoulderR', 0, -arms.headYaw * 0.16, -(rightGuard - 0.9) * 0.12);
+      guardArms[0](leftGuard, arms.headYaw);
+      guardArms[1](rightGuard, arms.headYaw);
+      move('ThighL', -body.step * 0.8 - body.crouch * 1.1, 0, body.step * 1.1);
+      move('ShinL', body.step * 1.4 + body.crouch * 1.7, 0, -body.step * 0.35);
+      move('FootL', -body.step * 0.6 - body.crouch * 0.6, 0, 0);
       move('ThighR', -body.step * 1.2 - body.crouch * 1.1, 0, -body.step * 1.1);
       move('ShinR', body.step * 1.6 + body.crouch * 1.7, 0, body.step * 0.35);
       move('FootR', -body.step * 0.4 - body.crouch * 0.6, 0, 0);
