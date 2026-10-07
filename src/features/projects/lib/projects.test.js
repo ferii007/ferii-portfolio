@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validateProjects } from './projects';
 
-const valid = { id: 'sample', title: 'Sample', summary: 'A sample project', contribution: '', image: null, stack: ['Next.js'], demoUrl: null, codeUrl: null, isExample: true };
+const valid = { id: 'sample', title: 'Sample', summary: 'A sample project', contribution: '', image: null, stack: ['Next.js'], category: 'featured', demoUrl: null, codeUrl: null, isExample: true };
 
 describe('project data contract', () => {
   it('accepts a complete example without external links', () => {
@@ -25,5 +25,11 @@ describe('project data contract', () => {
   });
   it('requires example flag', () => {
     expect(validateProjects([{ ...valid, isExample: undefined }]).join(' ')).toMatch(/isExample/);
+  });
+  it('rejects unknown categories instead of silently hiding a project', () => {
+    expect(validateProjects([{ ...valid, category: 'unknown' }]).join(' ')).toMatch(/category/);
+  });
+  it('allows an empty stack when the technologies have not been confirmed', () => {
+    expect(validateProjects([{ ...valid, stack: [] }])).toEqual([]);
   });
 });

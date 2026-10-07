@@ -1,35 +1,140 @@
 [
   {
-    "id": "dashboard-analytics",
-    "title": "Dashboard Analytics",
-    "summary": "Contoh tampilan dashboard untuk membaca metrik, tren, dan ringkasan aktivitas dalam satu tempat.",
-    "contribution": "Konsep antarmuka dan visualisasi data.",
-    "image": null,
-    "stack": ["Next.js", "Tailwind CSS", "Charting"],
+    "id": "rebill-pos",
+    "title": "ReBill-PoS",
+    "summary": "Sistem point of sale berbasis cloud.",
+    "contribution": "Pengembangan backend, antarmuka, dan integrasi sistem penagihan untuk membantu proses penjualan serta pembayaran.",
+    "image": "/images/projects/ReBill-PoS.webp",
+    "stack": [
+      "Laravel",
+      "ReactJS"
+    ],
+    "category": "featured",
     "demoUrl": null,
     "codeUrl": null,
-    "isExample": true
+    "isExample": false
   },
   {
-    "id": "creative-commerce",
-    "title": "Creative Commerce",
-    "summary": "Contoh pengalaman belanja digital dengan fokus pada navigasi yang cepat dan presentasi produk.",
-    "contribution": "Konsep desain dan alur halaman.",
-    "image": null,
-    "stack": ["React", "JavaScript", "CSS"],
+    "id": "elc",
+    "title": "ELC - English Language Center",
+    "summary": "Website English Language Center.",
+    "contribution": "Membangun ulang website dengan desain baru serta meningkatkan fitur, performa, dan pengalaman navigasi.",
+    "image": "/images/projects/ELC-English-Language-Center.webp",
+    "stack": [
+      "WordPress"
+    ],
+    "category": "featured",
     "demoUrl": null,
     "codeUrl": null,
-    "isExample": true
+    "isExample": false
   },
   {
-    "id": "interactive-web",
-    "title": "Interactive Web",
-    "summary": "Eksplorasi interaksi web yang memadukan konten, gerak, dan elemen tiga dimensi.",
-    "contribution": "Konsep interaksi dan prototipe visual.",
-    "image": null,
-    "stack": ["Three.js", "Next.js", "WebGL"],
+    "id": "rebill",
+    "title": "ReBill",
+    "summary": "Website solusi perdagangan.",
+    "contribution": "Berkolaborasi membangun landing page yang menjelaskan layanan dan fitur sistem point of sale.",
+    "image": "/images/projects/ReBill.webp",
+    "stack": [
+      "Laravel",
+      "Tailwind CSS"
+    ],
+    "category": "featured",
     "demoUrl": null,
     "codeUrl": null,
-    "isExample": true
+    "isExample": false
+  },
+  {
+    "id": "cuci-cepat",
+    "title": "Cuci Cepat",
+    "summary": "Landing page aplikasi Cuci Cepat.",
+    "contribution": "Mengembangkan landing page untuk aplikasi Cuci Cepat bersama Senja Solutions.",
+    "image": "/images/projects/Cuci-Cepat.webp",
+    "stack": [
+      "HTML5",
+      "CSS"
+    ],
+    "category": "featured",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false,
+    "imageFit": "contain",
+    "imageAlt": "Logo Cuci Cepat dari media pengalaman LinkedIn"
+  },
+  {
+    "id": "maestronic",
+    "title": "Maestronic",
+    "summary": "Pengembangan fitur pemantauan kendaraan.",
+    "contribution": "Merawat dan menambah fitur pada bagian pemantauan kendaraan, serta bekerja bersama tim untuk menemukan dan memperbaiki bug.",
+    "image": "/images/projects/Maestronic.webp",
+    "stack": [
+      "Vite",
+      "Laravel"
+    ],
+    "category": "featured",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false,
+    "imageFit": "contain",
+    "imageAlt": "Logo Maestronic dari LinkedIn"
+  },
+  {
+    "id": "eatscape",
+    "title": "Eatscape",
+    "summary": "Landing page kuliner.",
+    "contribution": "Eksplorasi landing page yang menyajikan menu fast food dan restoran.",
+    "image": "/images/projects/Eatscape.webp",
+    "stack": [
+      "ReactJS",
+      "Tailwind CSS"
+    ],
+    "category": "personal",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
+    "id": "my-portfolio",
+    "title": "My Portfolio",
+    "summary": "Website portfolio pertama.",
+    "contribution": "Membangun portfolio personal pertama dengan interaksi Three.js.",
+    "image": "/images/projects/My-Portfolio.webp",
+    "stack": [
+      "ReactJS",
+      "Three.js"
+    ],
+    "category": "personal",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
+    "id": "3d-portal",
+    "title": "3D-Portal",
+    "summary": "Eksperimen portal 3D.",
+    "contribution": "Eksperimen React dan Three.js yang dikembangkan dengan mengikuti tutorial portal 3D.",
+    "image": "/images/projects/3D-Portal.webp",
+    "stack": [
+      "ReactJS",
+      "Three.js"
+    ],
+    "category": "experiments",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
+    "id": "mindcrash",
+    "title": "Mindcrash",
+    "summary": "Eksperimen game voxel.",
+    "contribution": "Eksperimen game bergaya Minecraft dengan mengikuti tutorial React dan Three.js.",
+    "image": "/images/projects/Mindcrash.webp",
+    "stack": [
+      "ReactJS",
+      "Three.js"
+    ],
+    "category": "experiments",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
   }
 ]

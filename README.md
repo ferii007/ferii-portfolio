@@ -32,7 +32,9 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 
 ## Menambah proyek
 
-Tambahkan satu objek ke `src/features/projects/data/projects.json`. Kartu akan muncul otomatis tanpa mengubah komponen. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Gunakan `null` untuk gambar atau tautan yang belum tersedia. Jika `image` diisi, simpan file di `public/images/projects/` lalu gunakan path `/images/projects/nama-file.webp`. Jalankan `npm run test` dan `npm run build`; validator akan menolak ID ganda, data wajib kosong, URL tidak valid, atau gambar yang tidak ada.
+Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Label dan deskripsi kelompok ada di `src/features/projects/data/categories.json`.
+
+Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. `imageAlt` dapat menjelaskan gambar secara spesifik. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. `contribution` tersedia lewat disclosure “Kontribusiku”. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
 
 ## Menambah skill
 
@@ -54,4 +56,4 @@ Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan 
 
 ## Status sebelum publikasi
 
-Versi ini adalah implementasi awal yang siap direview secara lokal. Proyek, bagian Currently/Beyond Coding, dan sebagian copy masih contoh; semua ditandai di UI. Form kontak hanya demo dan tidak mengirim atau menyimpan data. Satu-satunya tautan profil yang ditampilkan adalah GitHub yang sudah diperiksa. Metadata memakai domain tujuan, tetapi `noindex` dan `robots` melarang indeksasi sampai konten faktual, tautan publik, serta hosting final dikonfirmasi. Model GLB merupakan prototipe resmi dari ZIP konsep dan belum sepenuhnya menyerupai ilustrasi robot pada mockup.
+Versi ini adalah implementasi awal yang siap direview secara lokal. Bagian Currently/Beyond Coding dan sebagian copy masih contoh; semua ditandai di UI. Form kontak hanya demo dan tidak mengirim atau menyimpan data. Satu-satunya tautan profil yang ditampilkan adalah GitHub yang sudah diperiksa. Metadata memakai domain tujuan, tetapi `noindex` dan `robots` melarang indeksasi sampai konten faktual, tautan publik, serta hosting final dikonfirmasi. Model GLB merupakan prototipe resmi dari ZIP konsep dan belum sepenuhnya menyerupai ilustrasi robot pada mockup.

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "featured",
+    "title": "Karya Pilihan",
+    "note": "Beberapa karya yang ini kuceritakan."
+  },
+  {
+    "id": "personal",
+    "title": "Website & Personal",
+    "note": "Berbagai website yang pernah kubangun."
+  },
+  {
+    "id": "experiments",
+    "title": "Eksperimen",
+    "note": "Ide-ide kecil yang kadang jadi hal besar."
+  }
+]

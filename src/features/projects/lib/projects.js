@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import projects from '../data/projects.json';
+import categories from '../data/categories.json';
 
 export function validateProjects(records, { checkImages = false } = {}) {
   if (!Array.isArray(records)) return ['Projects data must be an array'];
@@ -15,14 +16,15 @@ export function validateProjects(records, { checkImages = false } = {}) {
     for (const field of ['contribution', 'image', 'demoUrl', 'codeUrl', 'isExample']) {
       if (!Object.hasOwn(project, field)) errors.push(`${label}: ${field} field is required`);
     }
-    for (const field of ['id', 'title', 'summary']) {
+    for (const field of ['id', 'title', 'summary', 'category']) {
       if (typeof project[field] !== 'string' || !project[field].trim()) errors.push(`${label}: ${field} is required`);
     }
     if (project.id) {
       if (ids.has(project.id)) errors.push(`${label}: duplicate id ${project.id}`);
       ids.add(project.id);
     }
-    if (!Array.isArray(project.stack) || !project.stack.length || project.stack.some((item) => typeof item !== 'string' || !item.trim())) errors.push(`${label}: stack is required`);
+    if (!categories.some((category) => category.id === project.category)) errors.push(`${label}: category is invalid`);
+    if (!Array.isArray(project.stack) || project.stack.some((item) => typeof item !== 'string' || !item.trim())) errors.push(`${label}: stack must be an array of technology names`);
     if (typeof project.isExample !== 'boolean') errors.push(`${label}: isExample must be boolean`);
     if (project.contribution != null && typeof project.contribution !== 'string') errors.push(`${label}: contribution must be text`);
     for (const field of ['demoUrl', 'codeUrl']) {
