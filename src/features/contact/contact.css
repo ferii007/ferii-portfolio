@@ -4,13 +4,18 @@
 .contact-grid h2 { display: flex; align-items: center; gap: 15px; margin: 0 0 14px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1.1; letter-spacing: -.035em; }
 .contact-grid h2 svg { width: 30px; height: 38px; color: var(--color-orange); }
 .contact-form { display: grid; gap: 13px; margin-top: 22px; }
-.contact-demo-note { color: #80552f; font-size: 12px; font-weight: 600; }
 .contact-field { position: relative; display: block; }
-.contact-field > svg { position: absolute; left: 16px; top: 16px; color: #6a8093; pointer-events: none; }
-.contact-field input, .contact-field textarea { display: block; width: 100%; border: 1px solid #c9d3da; border-radius: 9px; background: #fffefd; padding: 14px 16px 14px 48px; color: var(--color-ink); font-size: 15px; line-height: 1.5; }
-.contact-field input::placeholder, .contact-field textarea::placeholder { color: #728397; opacity: 1; }
+.contact-field input, .contact-field textarea { display: block; width: 100%; border: 1px solid #c9d3da; border-radius: 9px; background: #fffefd; padding: 16px; color: var(--color-ink); font-size: 15px; line-height: 1.5; outline: none; transition: border-color 160ms, box-shadow 160ms; }
+.contact-field-label { position: absolute; left: 12px; top: 16px; display: flex; align-items: center; gap: 9px; padding: 0 4px; color: #728397; background: #fffefd; font-size: 15px; line-height: 22px; pointer-events: none; transition: top 160ms, transform 160ms, font-size 160ms, color 160ms; }
+.contact-field-label svg { width: 20px; height: 20px; flex: none; transition: width 160ms, height 160ms; }
 .contact-field textarea { min-height: 152px; resize: vertical; }
-.contact-field input:focus-visible, .contact-field textarea:focus-visible { outline: 2px solid #078ee9; outline-offset: 3px; }
+.contact-field:focus-within .contact-field-label, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-label { top: 0; transform: translateY(-50%); font-size: 12px; }
+.contact-field:focus-within .contact-field-label svg, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-label svg { width: 16px; height: 16px; }
+.contact-field:focus-within .contact-field-label { color: #078ee9; }
+.feri-theme .contact-field input:focus, .feri-theme .contact-field textarea:focus { outline: none; border-color: #078ee9; box-shadow: inset 0 0 0 1px #078ee9; }
+@media (prefers-reduced-motion: reduce) {
+  .contact-field input, .contact-field textarea, .contact-field-label, .contact-field-label svg { transition: none; }
+}
 .contact-submit { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; border: 0; border-radius: 9px; background: linear-gradient(135deg, #00a3f4, #0785e7); color: white; font-size: 16px; font-weight: 700; box-shadow: 0 5px 13px #078ee926; cursor: not-allowed; }
 .contact-side { display: flex; flex-direction: column; gap: 24px; }
 .contact-illustration { position: relative; }
@@ -19,12 +24,14 @@
 .contact-handnote { position: absolute; right: 3%; top: 20%; color: #5788a8; transform: rotate(-7deg); }
 .contact-handnote p { font-family: var(--font-hand); font-size: 26px; font-weight: 650; line-height: 1.05; letter-spacing: .015em; }
 .contact-handnote svg { display: block; width: 70px; height: 56px; margin: 10px 0 0 -12px; transform: rotate(-65deg); }
-.contact-socials { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.contact-socials a { display: flex; align-items: center; gap: 12px; color: #17374c; }
-.contact-socials a + a { border-left: 1px solid #d9e0e3; padding-left: 18px; }
+.contact-socials { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 24px; padding-inline: 6px; }
+.contact-socials a { display: flex; align-items: center; gap: 10px; min-width: 0; color: #17374c; }
+.contact-socials a > svg { width: 34px; height: 34px; flex: none; }
+.contact-socials a > span { min-width: 0; }
+.contact-socials a + a { border-left: 1px solid #d9e0e3; padding-left: 24px; }
 .contact-socials a:last-child > svg { color: #0785bd; }
 .contact-socials strong { display: block; font-size: 17px; font-weight: 750; }
-.contact-socials small { display: block; margin-top: 3px; font-size: 11px; overflow-wrap: anywhere; }
+.contact-socials small { display: block; margin-top: 3px; font-size: 11px; line-height: 1.4; white-space: nowrap; }
 .contact-socials a:hover strong { color: #078ee9; }
 @media (max-width: 767px) {
   .contact-grid { grid-template-columns: 1fr; }
@@ -33,9 +40,9 @@
 }
 @media (max-width: 480px) {
   .contact-handnote p { font-size: 21px; }
-  .contact-socials { gap: 12px; }
+  .contact-socials { grid-template-columns: 1fr; gap: 18px; padding-inline: 0; }
   .contact-socials a { gap: 8px; }
-  .contact-socials a + a { padding-left: 12px; }
+  .contact-socials a + a { border-left: 0; padding-left: 0; }
   .contact-socials strong { font-size: 15px; }
-  .contact-socials small { font-size: 10px; }
+  .contact-socials small { font-size: 12px; }
 }
