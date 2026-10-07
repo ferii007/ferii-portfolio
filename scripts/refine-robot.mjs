@@ -16,6 +16,16 @@ const meshes = [];
 scene.traverse((object) => { if (object.isSkinnedMesh) meshes.push(object); });
 const bones = meshes[0].skeleton.bones;
 const byName = Object.fromEntries(bones.map((bone) => [bone.name, bone]));
+const forearmRollIndices = {};
+for (const side of ['L', 'R']) {
+  // Separate forearm roll from the elbow hinge so the wrist needn't take the twist.
+  const roll = new Bone();
+  roll.name = `ForearmRoll${side}`;
+  byName[`Forearm${side}`].add(roll);
+  roll.add(byName[`Hand${side}`]);
+  forearmRollIndices[side] = bones.length;
+  bones.push(roll);
+}
 
 // Increase clearance at the waist while preserving the rigid ceramic panels.
 for (const mesh of meshes) {
@@ -42,8 +52,8 @@ for (const mesh of meshes) {
       } else if (/cobalt|LED/.test(mesh.material.name)) z -= 0.06;
     }
     if (/^Thumb[LR]$/.test(bone)) {
-      y -= 0.04;
-      z += 0.04;
+      y = 4.04 - y + 0.04;
+      z = 0.08 - z;
     }
     const finger = bone.match(/^Finger([1-4])(Tip)?([LR])$/);
     if (finger) {
@@ -53,8 +63,11 @@ for (const mesh of meshes) {
       const baseZ = [-0.14, -0.047, 0.047, 0.14][number];
       x = side * 1.86 + (x - side * 1.86) * lengths[number];
       const oldY = y;
-      y = 2.02 + z + baseZ * 0.38;
+      y = 2.02 - z - baseZ * 0.38;
       z = oldY - 2.02;
+    }
+    if (/^Forearm[LR]$/.test(bone) && /Ceramic|cobalt/.test(mesh.material.name)) {
+      joints.setX(i, forearmRollIndices[bone.at(-1)]);
     }
     positions.setXYZ(i, x, y, z);
   }
@@ -67,12 +80,12 @@ for (const side of ['L', 'R']) {
   const sign = side === 'L' ? 1 : -1;
   for (let number = 1; number <= 4; number++) {
     const finger = byName[`Finger${number}${side}`];
-    finger.position.y = finger.position.z * 1.38;
+    finger.position.y = -finger.position.z * 1.38;
     finger.position.z = 0;
     byName[`Finger${number}Tip${side}`].position.x *= [0.78, 1.04, 1, 0.84][number - 1];
   }
   const thumb = byName[`Thumb${side}`];
-  thumb.position.y -= 0.04;
+  thumb.position.y = -thumb.position.y + 0.04;
   thumb.position.z += 0.04;
   const thumbHinge = new Mesh(new SphereGeometry(0.055, 16, 12), new MeshStandardMaterial({ color: '#344351', metalness: 0.45, roughness: 0.35 }));
   thumbHinge.name = `ThumbHinge${side}`;
@@ -105,7 +118,7 @@ skeleton.calculateInverses();
 for (const mesh of meshes) mesh.bind(skeleton, mesh.bindMatrix);
 
 // Validate the edited hierarchy and preserved head bind position before exporting.
-for (const name of ['Finger1L', 'Finger4R', 'Waist', 'ShoulderL', 'ShoulderR']) {
+for (const name of ['Finger1L', 'Finger4R', 'Waist', 'ShoulderL', 'ShoulderR', 'ForearmRollL', 'ForearmRollR']) {
   if (!scene.getObjectByName(name)) throw new Error(`Missing required joint: ${name}`);
 }
 const height = byName.Head.getWorldPosition(new Vector3()).y;

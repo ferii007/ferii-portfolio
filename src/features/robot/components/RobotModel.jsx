@@ -34,7 +34,7 @@ export default function RobotModel({ expression, projecting, reducedMotion, hero
     const next = actions[projecting ? 'Project' : 'Idle'];
     if (!next) return;
     scene.getObjectByName('Hips').position.copy(hipsRest);
-    for (const name of ['Waist', 'ShoulderL', 'ShoulderR']) scene.getObjectByName(name).quaternion.identity();
+    for (const name of ['Waist', 'ShoulderL', 'ShoulderR', 'ForearmRollL', 'ForearmRollR']) scene.getObjectByName(name).quaternion.identity();
     next.reset().play();
     if (hero && !projecting) {
       Object.values(actions).forEach((action) => { if (action !== next) action.stop(); });
