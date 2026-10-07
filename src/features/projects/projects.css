@@ -3,13 +3,13 @@
 .projects-title-mark { display: block; width: 26px; height: 5px; margin-bottom: 17px; border-radius: 6px; background: #078ee9; }
 .projects-intro h2 { position: relative; width: fit-content; margin: 0 0 14px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.4vw, 60px); font-weight: 650; line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
 .projects-spark { width: 28px; height: 36px; flex: none; color: var(--color-orange); }
-.projects-intro h2 > .projects-spark { position: absolute; right: -32px; top: 8px; }
-.projects-illustration { position: relative; padding-right: 62px; }
+.projects-art-spark { position: absolute; left: -8px; top: 34%; width: 24px; height: 31px; transform: rotate(-12deg); }
+.projects-illustration { position: relative; padding-right: 62px; margin-top: 32px; }
 .projects-illustration > img { display: block; width: 100%; height: auto; }
-.projects-art-note { position: absolute; right: -4px; top: 10%; width: 92px; color: #078ee9; }
-.projects-art-note p { font-family: var(--font-hand); font-size: 21px; font-weight: 600; line-height: 1.05; transform: rotate(-8deg); }
-.projects-art-note > svg:not(.projects-spark) { position: absolute; top: 55%; left: -35px; width: 38px; height: 50px; }
-.projects-art-note .projects-spark { margin: 10px 0 0 35px; transform: rotate(30deg); }
+.projects-art-note { position: absolute; right: 0; top: -28px; width: 160px; color: #078ee9; }
+.projects-art-note p { font-family: var(--font-hand); font-size: 21px; font-weight: 600; line-height: 1.13; transform: rotate(-5deg); }
+.projects-art-note > svg:not(.projects-spark) { position: absolute; top: calc(100% + 4px); left: 26px; width: 42px; height: 50px; }
+.projects-art-note .projects-spark { position: absolute; right: -8px; top: 10px; width: 22px; height: 28px; transform: rotate(-30deg); }
 .project-group + .project-group { margin-top: 70px; }
 .project-group-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
 .project-group-heading h3 { display: flex; align-items: center; gap: 13px; margin: 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(28px, 2.8vw, 36px); font-weight: 650; line-height: 1.15; letter-spacing: -.025em; }
@@ -36,7 +36,8 @@
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   .projects-intro { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); min-height: 220px; }
-  .projects-art-note { width: 76px; }
+  .projects-illustration { margin-top: 55px; }
+  .projects-art-note { width: 140px; top: -55px; }
   .projects-art-note p { font-size: 18px; }
   .project-group-note { max-width: 44%; gap: 8px; }
   .project-group-note > svg { width: 38px; }
@@ -44,9 +45,8 @@
 @media (max-width: 767px) {
   .projects-intro { grid-template-columns: 1fr; gap: 12px; min-height: auto; margin-bottom: 35px; }
   .projects-intro h2 { max-width: calc(100% - 22px); font-size: clamp(36px, 7.5vw, 48px); }
-  .projects-intro h2 > .projects-spark { right: -25px; width: 24px; }
-  .projects-illustration { width: min(100%, 520px); margin-inline: auto; padding-right: 65px; }
-  .projects-art-note { top: 16%; right: 0; }
+  .projects-illustration { width: min(100%, 520px); margin-inline: auto; padding-right: 65px; margin-top: 72px; }
+  .projects-art-note { top: -60px; right: 0; width: 145px; }
   .projects-art-note p { font-size: 19px; }
   .project-group-heading { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 17px; }
   .project-group-heading h3 { gap: 9px; font-size: 29px; }
