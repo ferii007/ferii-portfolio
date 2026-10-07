@@ -7,7 +7,10 @@ The local Three.js builder reshapes the palm, moves the finger rows into the pal
 adds finger spacing and different lengths, narrows the lower chest and pelvis,
 and adds waist/shoulder joints. Thumbs sit beside the index fingers, and forearm roll
 is separate from the elbow hinge. The original animation clips and face morphs remain in the export.
-The hands use a curved knuckle row, shorter rounded fingers, and gently curved thumbs.
+Each hand has three articulated fingers and one thumb. The extra finger's mesh,
+vertices, bones, and animation tracks are removed from the export. A curved knuckle
+row and rounded digits follow the reference. Upper arms extend by 0.125 model units
+so the guard pose can keep the elbows out and palms below the shoulders.
 
 Hero arm posing is in `src/features/robot/guardArm.js`. It resolves local rotations
 from a shared elbow hinge plane, distributes palm rotation through the forearm,

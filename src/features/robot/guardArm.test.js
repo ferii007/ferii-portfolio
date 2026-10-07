@@ -20,6 +20,16 @@ describe('the shipped robot rig', () => {
     expect(head.y).toBeCloseTo(2.36, 4);
   });
 
+  it('has exactly three articulated fingers and one thumb per hand', () => {
+    for (const side of ['L', 'R']) {
+      const hand = model.scene.getObjectByName(`Hand${side}`);
+      expect(hand.children.filter((bone) => /^Finger\d[LR]$/.test(bone.name))).toHaveLength(3);
+      expect(hand.children.filter((bone) => /^Thumb[LR]$/.test(bone.name))).toHaveLength(1);
+      expect(model.scene.getObjectByName(`Finger4${side}`)).toBeUndefined();
+      expect(model.scene.getObjectByName(`Finger4Tip${side}`)).toBeUndefined();
+    }
+  });
+
   it('keeps elbows within a natural bend and fingers separated throughout the guard cycle', () => {
     for (const side of ['L', 'R']) {
       const pose = createGuardArm(model.scene, side);
@@ -29,9 +39,10 @@ describe('the shipped robot rig', () => {
         pose(target.guard + (side === 'L' ? 1 : -1) * target.headYaw * 0.3, target.headYaw);
         model.scene.updateMatrixWorld(true);
         const shoulder = position('UpperArm'), elbow = position('Forearm'), wrist = position('Hand');
+        expect(shoulder.y - wrist.y).toBeGreaterThan(0.25);
         const bend = elbow.clone().sub(shoulder).angleTo(wrist.clone().sub(elbow));
         expect(bend).toBeLessThan(110 * Math.PI / 180);
-        for (let finger = 1; finger < 4; finger++) {
+        for (let finger = 1; finger < 3; finger++) {
           expect(position(`Finger${finger}Tip`).distanceTo(position(`Finger${finger + 1}Tip`))).toBeGreaterThan(0.09);
         }
         const rotation = (name) => model.scene.getObjectByName(`${name}${side}`).getWorldQuaternion(new Quaternion());
@@ -46,7 +57,7 @@ describe('the shipped robot rig', () => {
         expect(new Vector3(0, 0, 1).applyQuaternion(rotation('Hand')).z).toBeGreaterThan(0.45);
       }
       expect(model.scene.getObjectByName(`Thumb${side}`).position.y).toBeGreaterThan(0);
-      expect(model.scene.getObjectByName(`Finger1${side}`).position.y).toBeGreaterThan(model.scene.getObjectByName(`Finger4${side}`).position.y);
+      expect(model.scene.getObjectByName(`Finger1${side}`).position.y).toBeGreaterThan(model.scene.getObjectByName(`Finger3${side}`).position.y);
     }
   });
 });
