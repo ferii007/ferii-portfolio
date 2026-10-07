@@ -14,8 +14,8 @@ export const site = {
     { title: 'Mengeksplorasi', detail: 'Ide personal' },
   ],
   beyond: [
-    { title: 'Cerita & tulisan', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.' },
-    { title: 'Momen & perjalanan', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.' },
+    { title: 'Cerita & Tulisan', image: '/images/beyond/notebook.webp', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.' },
+    { title: 'Momen & Perjalanan', image: '/images/beyond/mountains.webp', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.' },
   ],
   contact: {
     github: 'https://github.com/ferii007',
