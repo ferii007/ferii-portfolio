@@ -19,5 +19,6 @@ export const site = {
   ],
   contact: {
     github: 'https://github.com/ferii007',
+    linkedin: 'https://www.linkedin.com/in/feri-ramdani/',
   },
 };
