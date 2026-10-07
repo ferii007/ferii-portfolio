@@ -98,7 +98,7 @@
 .about-grid { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 34px; }
 .about-copy { position: relative; max-width: 590px; padding-block: 24px 42px; }
 .about-eyebrow { margin-bottom: 9px; }
-.about-copy h2 { display: flex; align-items: center; gap: 13px; margin: 0 0 18px 24px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1; letter-spacing: -.035em; transform: rotate(-1.5deg); transform-origin: left center; }
+.about-copy h2 { display: flex; align-items: center; gap: 13px; margin: 0 0 18px 24px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1; letter-spacing: -.035em; }
 .about-title-spark { width: 34px; height: 42px; color: var(--color-orange); flex: none; }
 .about-copy .portfolio-description { margin: 0 0 10px 24px; }
 .about-arrow { position: absolute; right: 6px; bottom: 0; width: 73px; height: 55px; color: #5788a8; transform: rotate(-8deg); }

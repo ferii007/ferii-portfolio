@@ -59,6 +59,29 @@ test('latest selected skill wins when an earlier Wikipedia request finishes late
   await expect(page.getByRole('button', { name: 'CSS', exact: true })).toBeFocused();
 });
 
+test('skill detail shows a skeleton and closes only for outside clicks', async ({ page }) => {
+  let releaseSummary;
+  const summaryHeld = new Promise((resolve) => { releaseSummary = resolve; });
+  await page.route('**/page/summary/HTML', async (route) => {
+    await summaryHeld;
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ title: 'HTML', extract: 'Loaded skill summary.' }) });
+  });
+  await page.goto('/');
+  const trigger = page.getByRole('button', { name: 'HTML', exact: true });
+  await trigger.click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog.locator('.skill-skeleton-lines')).toBeVisible();
+  await expect(dialog).not.toContainText('Memuat ringkasan dari Wikipedia');
+  await dialog.getByRole('heading', { name: 'Tentang HTML' }).click();
+  await expect(dialog).toBeVisible();
+  releaseSummary();
+  await expect(dialog).toContainText('Loaded skill summary.');
+  await expect(dialog.locator('.skill-skeleton')).toHaveCount(0);
+  await page.locator('.skills-handnote').click();
+  await expect(dialog).toHaveCount(0);
+  await expect(trigger).toBeFocused();
+});
+
 test('Wikipedia failure and demo contact remain honest', async ({ page }) => {
   await page.route('**/page/summary/HTML', (route) => route.fulfill({ status: 503, body: 'Unavailable' }));
   await page.goto('/', { waitUntil: 'networkidle' });

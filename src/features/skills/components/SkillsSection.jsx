@@ -11,7 +11,7 @@ export default function SkillsSection() {
   const lastTrigger = useRef(null);
   const selected = skills.find((skill) => skill.id === state.activeSkillId) ?? null;
   const handleSelect = (id) => { lastTrigger.current = document.activeElement; openSkill(id); };
-  const handleClose = useCallback(() => { closeSkill(); requestAnimationFrame(() => lastTrigger.current?.focus()); }, [closeSkill]);
+  const handleClose = useCallback(() => { closeSkill(); requestAnimationFrame(() => lastTrigger.current?.focus({ preventScroll: true })); }, [closeSkill]);
   return <section className="section skills-section fp-section" id="skills" aria-labelledby="skills-title"><div className="container fp-container">
     <div className="skills-heading">
       <div><h2 id="skills-title">My Skills<svg className="skills-title-spark" viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2><Description>Klik satu kartu untuk melihat ringkasan teknologinya dari Wikipedia.</Description></div>

@@ -25,6 +25,11 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 - `src/features/contact`: form demo dan tautan publik.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.
 
+## Aturan tipografi
+
+- Judul section (About Me, Currently, My Skills, My Journey, Projects, Beyond Coding, dan Contact) ditampilkan tegak tanpa rotasi, termasuk pada pengembangan berikutnya. Coretan dekoratif tetap mengikuti ilustrasi.
+- Gunakan `src/components/typography/Description.jsx` untuk deskripsi dan `Eyebrow.jsx` untuk label kecil dengan format seperti Hello, World.
+
 ## Menambah proyek
 
 Tambahkan satu objek ke `src/features/projects/data/projects.json`. Kartu akan muncul otomatis tanpa mengubah komponen. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Gunakan `null` untuk gambar atau tautan yang belum tersedia. Jika `image` diisi, simpan file di `public/images/projects/` lalu gunakan path `/images/projects/nama-file.webp`. Jalankan `npm run test` dan `npm run build`; validator akan menolak ID ganda, data wajib kosong, URL tidak valid, atau gambar yang tidak ada.
