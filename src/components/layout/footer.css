@@ -1,12 +1,16 @@
 .site-footer { --footer-travel: 0px; position: relative; isolation: isolate; overflow: hidden; padding: 205px 0 30px; background: var(--color-canvas); }
 .footer-landscape { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .footer-waves { position: absolute; inset: auto 0 0; width: 100%; height: 180px; }
-.footer-plants { position: absolute; inset: 0; z-index: 1; transform: translateY(calc(var(--footer-travel) * .3)); }
-.footer-wave { transform: translateY(calc(var(--footer-travel) * .12)); }
+.footer-plants { position: absolute; inset: 0; z-index: 1; transform: translate3d(0, calc(var(--footer-travel) * .65), 0); }
+.footer-wave--back { transform: translateY(calc(var(--footer-travel) * .18)); }
+.footer-wave--front { transform: translateY(calc(var(--footer-travel) * .04)); }
 .footer-plant { position: absolute; display: block; background-image: url('/images/footer/botanical-watercolor.webp'); background-size: 300% 100%; background-repeat: no-repeat; opacity: .78; mask-image: linear-gradient(to bottom, #000 78%, transparent 98%); }
 .footer-plant--left { left: 3%; top: 12px; width: 205px; height: 205px; background-position: left center; }
 .footer-plant--center { left: 49%; top: 83px; width: 165px; height: 165px; background-position: center; }
 .footer-plant--right { right: 3%; top: 15px; width: 190px; height: 190px; background-position: right center; }
+.footer-plant--sprig-left { left: 25%; top: 86px; width: 100px; height: 100px; background-position: center; opacity: .49; }
+.footer-plant--sprig-center { left: 68%; top: 96px; width: 94px; height: 94px; background-position: left center; opacity: .42; }
+.footer-plant--sprig-right { right: 17%; top: 81px; width: 75px; height: 75px; background-position: center; opacity: .36; }
 .footer-content { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
 .footer-brand { font-size: 43px; }
 .footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 1px; color: #718899; font-size: 11px; }
@@ -17,6 +21,8 @@
   .footer-plant--left { top: 31px; left: -12px; width: 170px; height: 170px; }
   .footer-plant--center { display: none; }
   .footer-plant--right { top: 50px; right: -10px; width: 150px; height: 150px; }
+  .footer-plant--sprig-left { top: 160px; left: 42%; width: 66px; height: 66px; }
+  .footer-plant--sprig-center, .footer-plant--sprig-right { display: none; }
   .footer-content { flex-direction: column; align-items: flex-start; gap: 22px; }
   .footer-brand { font-size: 39px; }
   .footer-copyright { gap: 7px; font-size: 10px; }

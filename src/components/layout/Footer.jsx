@@ -5,11 +5,18 @@ import { Heart } from 'lucide-react';
 
 function FooterLandscape() {
   return <div className="footer-landscape" aria-hidden="true">
-    <div className="footer-plants"><span className="footer-plant footer-plant--left" /><span className="footer-plant footer-plant--center" /><span className="footer-plant footer-plant--right" /></div>
+    <div className="footer-plants">
+      <span className="footer-plant footer-plant--left" />
+      <span className="footer-plant footer-plant--sprig-left" />
+      <span className="footer-plant footer-plant--center" />
+      <span className="footer-plant footer-plant--sprig-center" />
+      <span className="footer-plant footer-plant--sprig-right" />
+      <span className="footer-plant footer-plant--right" />
+    </div>
     <svg className="footer-waves" viewBox="0 0 1440 210" preserveAspectRatio="none" fill="none">
       <defs><linearGradient id="footer-water" x1="720" y1="85" x2="720" y2="210" gradientUnits="userSpaceOnUse"><stop stopColor="#dcebf4" /><stop offset="1" stopColor="#eff4f6" /></linearGradient></defs>
-      <path className="footer-wave" d="M0 133C72 121 72 59 170 63c201-5 345 77 556 82s375-71 527-74 144 22 187 21v118H0Z" fill="#e6edeb" />
-      <path d="M0 142C80 134 69 65 176 70c199-2 347 77 552 82s375-72 527-74 145 22 185 22v110H0Z" fill="url(#footer-water)" />
+      <path className="footer-wave footer-wave--back" d="M0 133C72 121 72 59 170 63c201-5 345 77 556 82s375-71 527-74 144 22 187 21v118H0Z" fill="#e6edeb" />
+      <path className="footer-wave footer-wave--front" d="M0 142C80 134 69 65 176 70c199-2 347 77 552 82s375-72 527-74 145 22 185 22v110H0Z" fill="url(#footer-water)" />
     </svg>
   </div>;
 }
@@ -25,7 +32,7 @@ export default function Footer() {
       frame = 0;
       const { top, height } = footer.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, (window.innerHeight - top) / height));
-      footer.style.setProperty('--footer-travel', `${reducedMotion.matches ? 0 : (1 - progress) * 24}px`);
+      footer.style.setProperty('--footer-travel', `${reducedMotion.matches ? 0 : (1 - progress) * 80}px`);
     };
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
     update();
