@@ -2,7 +2,7 @@
 import Description from '@/components/typography/Description';
 import { useCallback, useRef } from 'react';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
-import { skills } from '../data/skills';
+import skills from '../data/skills.json';
 import SkillCard from './SkillCard';
 import SkillDialog from './SkillDialog';
 
