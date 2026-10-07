@@ -7,6 +7,7 @@ import '@/features/contact/contact.css';
 import '@/features/robot/robot.css';
 import '@/features/skills/skills.css';
 import './responsive.css';
+import '@/components/layout/footer.css';
 
 export const metadata = {
   metadataBase: new URL('https://www.ferii-r.my.id/'),

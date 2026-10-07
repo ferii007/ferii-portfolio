@@ -17,9 +17,6 @@
 .nav-links a { white-space: nowrap; }
 .header-contact { flex: none; }
 .mobile-menu summary { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; }
-.site-footer { margin-top: 0; }
-.site-footer p, .site-footer a:not(.brand) { color: var(--color-muted); font-size: 13px; }
-.site-footer a:hover { color: var(--color-primary); }
 
 /* Hero composition follows the selected illustration in the asset package. */
 .hero-section { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--color-line); background: radial-gradient(circle at 78% 34%, #e9f6fa 0, transparent 32%), var(--color-canvas); }
