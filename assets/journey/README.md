@@ -4,7 +4,7 @@ The two organization logos were cleaned with the built-in imagegen tool from the
 
 - `public/images/journey/senja-solutions.webp` — Senja logo.
 - `public/images/journey/smk-bpp.webp` — school logo.
-- `public/images/journey/testing-engineer.webp` — generic laptop/check icon for the Testing Engineer role, rendered from a simple vector drawing; not a company logo.
+- `public/images/journey/testing-engineer.webp` — software-testing illustration with a code screen, magnifying glass, and success badge; rendered from `assets/journey/testing-engineer.svg` as transparent 256 × 256 WebP (quality 90).
 
 Each icon path is owned by the entry in `src/features/portfolio/data/journey.json`.
 
