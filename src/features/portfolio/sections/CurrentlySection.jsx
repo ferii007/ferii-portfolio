@@ -10,7 +10,6 @@ export default function CurrentlySection() {
         <div className="currently-heading">
           <div className="currently-title-row">
             <h2 id="currently-title">Currently<svg className="currently-spark" viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2>
-            <span className="currently-badge">Contoh isi</span>
           </div>
           <Description>Hal-hal yang sedang jadi fokusku.</Description>
         </div>
@@ -19,7 +18,7 @@ export default function CurrentlySection() {
             <li className="currently-item" key={item.title}>
               <Icon className="currently-icon" size={38} strokeWidth={1.6} aria-hidden="true" />
               <h3>{item.title}</h3>
-              <Description>{item.detail}</Description>
+              <Description className="currently-detail">{item.detail}</Description>
             </li>
           ); })}
         </ul>
