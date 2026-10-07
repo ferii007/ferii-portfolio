@@ -1,31 +1,26 @@
-.site-footer { --footer-travel: 0px; position: relative; isolation: isolate; overflow: hidden; padding: 163px 0 30px; background: var(--color-canvas); }
-.footer-landscape { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.site-footer { --footer-travel: 0px; position: relative; isolation: isolate; overflow: hidden; padding: 205px 0 30px; background: var(--color-canvas); }
+.footer-landscape { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.footer-waves { position: absolute; inset: auto 0 0; width: 100%; height: 180px; }
+.footer-plants { position: absolute; inset: 0; z-index: 1; transform: translateY(calc(var(--footer-travel) * .3)); }
+.footer-wave { transform: translateY(calc(var(--footer-travel) * .12)); }
+.footer-plant { position: absolute; display: block; background-image: url('/images/footer/botanical-watercolor.webp'); background-size: 300% 100%; background-repeat: no-repeat; opacity: .78; mask-image: linear-gradient(to bottom, #000 78%, transparent 98%); }
+.footer-plant--left { left: 3%; top: 12px; width: 205px; height: 205px; background-position: left center; }
+.footer-plant--center { left: 49%; top: 83px; width: 165px; height: 165px; background-position: center; }
+.footer-plant--right { right: 3%; top: 15px; width: 190px; height: 190px; background-position: right center; }
 .footer-content { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
 .footer-brand { font-size: 43px; }
 .footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 1px; color: #718899; font-size: 11px; }
 .footer-copyright svg { color: #ec995f; flex: none; stroke-width: 1.7; }
 @media (max-width: 767px) {
-  .site-footer { --footer-travel: 0px; padding: 130px 0 25px; }
-  .footer-landscape { width: 100%; left: 0; }
+  .site-footer { padding: 180px 0 25px; }
+  .footer-waves { width: 130%; max-width: none; left: -15%; height: 180px; }
+  .footer-plant--left { top: 31px; left: -12px; width: 170px; height: 170px; }
+  .footer-plant--center { display: none; }
+  .footer-plant--right { top: 50px; right: -10px; width: 150px; height: 150px; }
   .footer-content { flex-direction: column; align-items: flex-start; gap: 22px; }
   .footer-brand { font-size: 39px; }
   .footer-copyright { gap: 7px; font-size: 10px; }
 }
-.footer-plants { transform: translateY(calc(var(--footer-travel) * .3)); }
-.footer-wave { transform: translateY(calc(var(--footer-travel) * .12)); }
 @media (prefers-reduced-motion: reduce) {
   .footer-plants, .footer-wave { transform: none; }
-}
-.footer-waves { position: absolute; inset: 0; width: 100%; height: 100%; }
-.footer-plants { position: absolute; inset: 0; }
-.footer-plant { position: absolute; display: block; width: 240px; height: 240px; background-image: url('/images/footer/botanical-watercolor.webp'); background-size: 300% 100%; background-repeat: no-repeat; opacity: .68; }
-.footer-plant--left { left: -35px; top: -37px; background-position: left center; transform: rotate(-8deg); }
-.footer-plant--center { left: 49%; top: 15px; width: 190px; height: 190px; background-position: center; }
-.footer-plant--right { right: -5px; top: -35px; background-position: right center; transform: rotate(7deg); }
-@media (max-width: 767px) {
-  .footer-waves { width: 150%; max-width: none; left: -25%; }
-  .footer-plant { width: 180px; height: 180px; opacity: .6; }
-  .footer-plant--left { top: -5px; left: -30px; }
-  .footer-plant--center { top: 45px; left: 40%; width: 140px; height: 140px; }
-  .footer-plant--right { top: 0; right: -30px; }
 }
