@@ -6,6 +6,7 @@
   .nav-links { display: none; }
   .mobile-menu { display: block; margin-left: auto; }
   .header-contact { display: none; }
+  .about-tape { left: 8%; width: 21px; height: 28px; top: -8px; }
   .hero-handnote--right { display: none; }
   .robot-companion { position: fixed; top: 16px; right: 74px; bottom: auto; left: auto; width: 48px; height: 48px; z-index: 51; }
   .robot-companion .robot-figure { overflow: hidden; border-radius: 50%; background: #e4f6fc; border: 1px solid #bce4f7; }
@@ -31,7 +32,12 @@
   .hero-projection--bottom { right: 3%; bottom: 7%; }
   .hero-handnote--code { left: 3%; bottom: 17%; font-size: 17px; }
   .hero-orange-mark--right { right: 0; }
-  .about-art { min-height: 315px; }
+  .about-section { padding-block: 28px 14px; }
+  .about-grid { grid-template-columns: 1fr; gap: 4px; }
+  .about-copy { padding-block: 12px 35px; }
+  .about-copy h2 { font-size: clamp(40px, 8vw, 52px); }
+  .about-copy p:not(.about-eyebrow) { font-size: 15px; }
+  .about-art { width: min(100%, 500px); margin-inline: auto; }
   .currently-panel { grid-template-columns: 1fr; }
   .currently-list { gap: 16px; }
   .currently-list > div { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; align-items: center; }
@@ -55,8 +61,9 @@
   .hero-projection--bottom { width: 56%; height: 30%; bottom: 8%; }
   .hero-handnote--code { display: none; }
   .hero-orange-mark--right { right: 1%; top: 59%; }
-  .about-note { width: 230px; min-height: 230px; padding: 30px; font-size: 26px; }
-  .about-books { right: 0; bottom: 0; }
+  .about-note { padding: 8px; }
+  .about-note-spark { width: 22px; height: 22px; top: 10%; right: 7%; }
+  .about-note-underline { width: 80px; height: 20px; margin-top: 6px; }
   .currently-heading { flex-wrap: wrap; }
   .section-intro h2 { font-size: clamp(34px, 10vw, 45px); }
   .fp-section-title::after { display: none; }
