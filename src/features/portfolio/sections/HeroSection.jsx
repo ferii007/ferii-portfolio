@@ -1,6 +1,7 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { site } from '@/content/site';
 import Description from '@/components/typography/Description';
+import Eyebrow from '@/components/typography/Eyebrow';
 import HeroHolograms from '@/features/portfolio/components/HeroHolograms';
 import RobotExperience from '@/features/robot/components/RobotExperience';
 
@@ -13,7 +14,7 @@ export default function HeroSection() {
     <section className="hero-section" id="hero" aria-labelledby="hero-title">
       <div className="container hero-grid fp-container fp-hero">
         <div className="hero-text fp-hero__copy">
-          <p className="eyebrow fp-eyebrow hero-eyebrow">— Hello, World! <HeroAccent className="hero-spark" /></p>
+          <Eyebrow className="hero-eyebrow">Hello, World! <HeroAccent className="hero-spark" /></Eyebrow>
           <h1 className="fp-display" id="hero-title"><span>Feri</span><span>Ramdani</span></h1>
           <p className="hero-role"><span>{site.hero.role}</span><svg className="hero-role-underline" viewBox="0 0 170 20" fill="none" aria-hidden="true"><path d="M3 15C50 7 109 5 167 9M59 17c43-5 72-6 103-5" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" /></svg><HeroAccent className="hero-role-spark" /></p>
           <Description className="hero-copy">{site.hero.intro}</Description>

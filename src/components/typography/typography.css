@@ -1,4 +1,9 @@
 .portfolio-description { margin: 0; color: var(--color-ink); font-family: var(--font-sans); font-size: 17px; font-weight: 600; line-height: 1.55; }
+.portfolio-eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--color-primary); font-family: 'Fredoka', var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; }
+.portfolio-eyebrow::before { content: ''; width: 12px; height: 2px; flex: none; border-radius: 2px; background: currentColor; }
 @media (min-width: 768px) and (max-width: 900px), (max-width: 480px) {
   .portfolio-description { font-size: 15px; }
+}
+@media (max-width: 480px) {
+  .portfolio-eyebrow { font-size: 11px; }
 }

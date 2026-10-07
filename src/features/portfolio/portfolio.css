@@ -25,7 +25,7 @@
 .hero-section { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--color-line); background: radial-gradient(circle at 78% 34%, #e9f6fa 0, transparent 32%), var(--color-canvas); }
 .hero-grid { grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); gap: 0; min-height: 600px; padding-block: 10px 16px; }
 .hero-text { position: relative; z-index: 5; gap: 0; transform: translateY(-20px); }
-.hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 13px; letter-spacing: .14em; }
+.hero-eyebrow { margin-bottom: 15px; }
 .hero-spark, .hero-cta-spark, .hero-orange-mark, .hero-role-spark { display: block; width: 29px; height: 29px; flex: none; color: var(--color-orange); }
 .hero-text h1 { display: flex; flex-direction: column; width: max-content; max-width: 100%; margin: 0 0 10px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(74px, 8.3vw, 122px); font-weight: 700; line-height: .82; letter-spacing: -.04em; transform: rotate(-1.7deg); transform-origin: left center; }
 .hero-text h1 span:last-child { margin-left: 3px; }
@@ -97,8 +97,7 @@
 .about-section { padding-block: 32px 20px; }
 .about-grid { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 34px; }
 .about-copy { position: relative; max-width: 590px; padding-block: 24px 42px; }
-.about-copy .about-eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 9px; color: #0789e8; font-size: 14px; font-weight: 700; letter-spacing: .025em; }
-.about-eyebrow::before { content: ''; width: 15px; height: 2px; background: currentColor; border-radius: 2px; }
+.about-eyebrow { margin-bottom: 9px; }
 .about-copy h2 { display: flex; align-items: center; gap: 13px; margin: 0 0 18px 24px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1; letter-spacing: -.035em; transform: rotate(-1.5deg); transform-origin: left center; }
 .about-title-spark { width: 34px; height: 42px; color: var(--color-orange); flex: none; }
 .about-copy .portfolio-description { margin: 0 0 10px 24px; }

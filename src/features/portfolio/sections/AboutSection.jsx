@@ -1,5 +1,6 @@
 import { site } from '@/content/site';
 import Description from '@/components/typography/Description';
+import Eyebrow from '@/components/typography/Eyebrow';
 import AboutIllustration from '@/features/portfolio/components/AboutIllustration';
 
 export default function AboutSection() {
@@ -7,7 +8,7 @@ export default function AboutSection() {
     <section className="section about-section fp-section" id="about" aria-labelledby="about-title">
       <div className="container about-grid">
         <div className="about-copy">
-          <p className="about-eyebrow">Sedikit cerita tentangku</p>
+          <Eyebrow className="about-eyebrow">Sedikit cerita tentangku</Eyebrow>
           <h2 id="about-title">About Me<svg className="about-title-spark" viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2>
           <Description>{site.about.lead}</Description>
           <Description>{site.about.detail}</Description>
