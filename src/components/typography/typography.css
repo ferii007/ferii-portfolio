@@ -1,0 +1,4 @@
+.portfolio-description { margin: 0; color: var(--color-ink); font-family: var(--font-sans); font-size: 17px; font-weight: 600; line-height: 1.55; }
+@media (min-width: 768px) and (max-width: 900px), (max-width: 480px) {
+  .portfolio-description { font-size: 15px; }
+}

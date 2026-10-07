@@ -1,5 +1,6 @@
 import './globals.css';
 import '@/design-system/css/appearance.css';
+import '@/components/typography/typography.css';
 import '@/features/projects/projects.css';
 import '@/features/portfolio/portfolio.css';
 import '@/features/contact/contact.css';

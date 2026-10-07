@@ -1,3 +1,4 @@
+import Description from '@/components/typography/Description';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -9,8 +10,8 @@ export default function ProjectCard({ project, index }) {
       </div>
       <div className="project-body fp-project__body">
         <div className="project-heading"><h3 className="fp-h3">{project.title}</h3>{project.isExample && <span className="example-badge fp-badge fp-badge--warm">Contoh</span>}</div>
-        <p>{project.summary}</p>
-        {project.contribution && <p className="project-contribution">{project.contribution}</p>}
+        <Description>{project.summary}</Description>
+        {project.contribution && <Description>{project.contribution}</Description>}
         <ul className="tag-list" aria-label={`Teknologi ${project.title}`}>{project.stack.map((item) => <li key={item}>{item}</li>)}</ul>
         {(project.demoUrl || project.codeUrl) && <div className="project-links fp-project__actions">
           {project.demoUrl && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">Demo <ArrowUpRight size={16} /></a>}

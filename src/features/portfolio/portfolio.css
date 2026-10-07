@@ -6,7 +6,6 @@
 .eyebrow { margin-bottom: 12px; }
 .section-intro { max-width: 760px; }
 .section-intro h2, .about-copy h2, .contact-grid h2 { margin-bottom: 12px; }
-.section-intro p:not(.eyebrow), .contact-grid p:not(.eyebrow):not(.demo-note) { color: var(--color-muted); line-height: 1.7; }
 .accent-dot { color: var(--color-orange); }
 .example-badge { vertical-align: middle; white-space: nowrap; }
 .fp-section-title { display: inline-flex; }
@@ -33,7 +32,7 @@
 .hero-role { position: relative; width: fit-content; margin: 12px 0 0 4px; color: #101e2c; font-family: 'Fredoka', var(--font-sans); font-size: clamp(26px, 2.6vw, 35px); font-weight: 650; line-height: 1.14; letter-spacing: -.035em; transform: rotate(-2deg); }
 .hero-role-underline { position: absolute; right: 7px; bottom: -11px; width: 42%; height: 20px; color: var(--color-orange); }
 .hero-role-spark { position: absolute; right: -34px; bottom: -8px; transform: rotate(27deg); }
-.hero-copy { max-width: 480px; margin: 23px 0 25px 4px; color: var(--color-ink); font-size: 17px; font-weight: 600; line-height: 1.55; }
+.hero-copy { max-width: 480px; margin: 23px 0 25px 4px; }
 .hero-actions { gap: 12px; margin-left: 4px; }
 .hero-actions .fp-btn { min-height: 49px; padding-inline: 18px; font-size: 14px; }
 .hero-actions .fp-btn--primary { background: #0789e8; box-shadow: 0 8px 22px #0388e42f; }
@@ -102,7 +101,7 @@
 .about-eyebrow::before { content: ''; width: 15px; height: 2px; background: currentColor; border-radius: 2px; }
 .about-copy h2 { display: flex; align-items: center; gap: 13px; margin: 0 0 18px 24px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1; letter-spacing: -.035em; transform: rotate(-1.5deg); transform-origin: left center; }
 .about-title-spark { width: 34px; height: 42px; color: var(--color-orange); flex: none; }
-.about-copy p:not(.about-eyebrow) { margin: 0 0 10px 24px; color: var(--color-ink); font-size: 16px; font-weight: 500; line-height: 1.75; }
+.about-copy .portfolio-description { margin: 0 0 10px 24px; }
 .about-arrow { position: absolute; right: 6px; bottom: 0; width: 73px; height: 55px; color: #5788a8; transform: rotate(-8deg); }
 .about-art { position: relative; width: 100%; aspect-ratio: 3 / 2; container-type: inline-size; }
 .about-art::before { content: ''; position: absolute; left: 3%; top: 27%; width: 54%; height: 64%; border-radius: 14px; background: #e6e1d870; transform: rotate(-4deg); }
@@ -112,20 +111,22 @@
 .about-tape { position: absolute; top: -10px; left: 19%; width: 28px; height: 35px; background: #6994aca6; border-inline: 1px solid #557e9626; transform: rotate(-3deg); }
 .about-note-spark { position: absolute; top: 15%; right: 12%; width: 29px; height: 29px; color: var(--color-orange); transform: rotate(13deg); }
 .about-note-underline { width: 104px; height: 24px; margin: 10px auto 0; color: var(--color-orange); }
-.currently-section { padding-block: 22px var(--layout-section-gap); }
-.currently-panel { padding: clamp(26px, 4vw, 42px); }
-.currently-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-.currently-heading h2 { margin: 0 0 8px; }
-.currently-heading p:last-child { color: var(--color-muted); }
-.currently-list h3 { margin: 10px 0 4px; font-size: 15px; font-weight: 800; }
-.currently-list p { color: var(--color-muted); font-size: 13px; }
-.currently-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: var(--color-orange-ink); background: #fff9ef; }
+.about-section + .currently-section { padding-top: 12px; }
+.currently-panel { display: grid; grid-template-columns: 1.2fr 1.8fr; align-items: center; gap: 24px; padding: 30px 32px; border-radius: 28px; background: linear-gradient(110deg, #fff0df, #ffecd8); }
+.currently-heading { min-width: 0; }
+.currently-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 10px; }
+.currently-heading h2 { display: flex; align-items: center; gap: 7px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(38px, 3.5vw, 48px); font-weight: 650; line-height: 1; letter-spacing: -.035em; transform: rotate(-1.5deg); }
+.currently-spark { width: 28px; height: 35px; flex: none; color: var(--color-orange); }
+.currently-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 6px; background: #ffffff63; color: #74624f; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.currently-badge::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #ac947a; }
+.currently-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; }
+.currently-item { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 6px 16px; border-left: 1px solid #ebcaae; text-align: center; }
+.currently-list h3 { margin: 10px 0 3px; color: var(--color-ink); font-size: 17px; font-weight: 800; line-height: 1.3; }
+.currently-icon { color: #dd905b; }
 .journey-section { background: linear-gradient(180deg, transparent, #eaf6ff80 70%, transparent); }
 .journey-card { min-height: 210px; }
 .journey-card svg { color: var(--color-primary); }
 .journey-card h3 { margin: 18px 0 7px; }
-.journey-card p { color: var(--color-muted); font-size: 14px; line-height: 1.6; }
 .beyond-art { color: var(--color-orange-ink); background: linear-gradient(145deg, #fff0db, #f1dabc); }
 .beyond-art-1 { color: #3979a4; background: linear-gradient(145deg, #d9eff6, #f8e6d4); }
 .beyond-card h3 { margin: 0 0 8px; }
-.beyond-card p { color: var(--color-muted); font-size: 14px; line-height: 1.6; }

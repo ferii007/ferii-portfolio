@@ -2,6 +2,10 @@
   .nav-links a { padding-inline: 7px; font-size: 12px; }
   .hero-text h1 { font-size: clamp(70px, 8.2vw, 98px); }
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .currently-panel { grid-template-columns: 1fr; gap: 22px; }
+  .currently-item:first-child { border-left: 0; }
+}
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .mobile-menu { display: block; margin-left: auto; }
@@ -17,7 +21,6 @@
   .hero-grid { grid-template-columns: 1fr .9fr; min-height: 530px; }
   .hero-text h1 { font-size: 65px; }
   .hero-role { font-size: 25px; }
-  .hero-copy { font-size: 15px; }
   .hero-visual { height: 440px; }
   .hero-handnote--code { display: none; }
 }
@@ -36,14 +39,14 @@
   .about-grid { grid-template-columns: 1fr; gap: 4px; }
   .about-copy { padding-block: 12px 35px; }
   .about-copy h2 { font-size: clamp(40px, 8vw, 52px); }
-  .about-copy p:not(.about-eyebrow) { font-size: 15px; }
   .about-art { width: min(100%, 500px); margin-inline: auto; }
-  .currently-panel { grid-template-columns: 1fr; }
-  .currently-list { gap: 16px; }
-  .currently-list > div { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; align-items: center; }
+  .currently-panel { grid-template-columns: 1fr; gap: 24px; padding: 26px 24px; }
+  .currently-list { grid-template-columns: 1fr; gap: 0; }
+  .currently-item { display: grid; grid-template-columns: 40px 1fr; column-gap: 16px; padding: 18px 0; border-left: 0; border-top: 1px solid #ebcaae; text-align: left; }
   .currently-list .currently-icon { grid-row: span 2; }
   .currently-list h3 { margin: 0; }
-  .currently-list p { grid-column: 2; }
+  .currently-list .portfolio-description { grid-column: 2; }
+  .currently-item:last-child { padding-bottom: 0; }
   .contact-grid { gap: 34px; }
 }
 @media (max-width: 480px) {
@@ -51,7 +54,6 @@
   .hero-eyebrow { font-size: 11px; }
   .hero-text h1 { font-size: clamp(57px, 15vw, 71px); }
   .hero-role { font-size: 23px; }
-  .hero-copy { font-size: 15px; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
   .hero-actions .fp-btn { min-width: 0; padding-inline: 8px; font-size: 11px; }
   .hero-cta-spark { display: none; }
@@ -64,7 +66,6 @@
   .about-note { padding: 8px; }
   .about-note-spark { width: 22px; height: 22px; top: 10%; right: 7%; }
   .about-note-underline { width: 80px; height: 20px; margin-top: 6px; }
-  .currently-heading { flex-wrap: wrap; }
   .section-intro h2 { font-size: clamp(34px, 10vw, 45px); }
   .fp-section-title::after { display: none; }
 }
