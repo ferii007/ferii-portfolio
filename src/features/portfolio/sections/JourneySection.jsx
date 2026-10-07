@@ -15,7 +15,7 @@ export default function JourneySection() {
             <div className="journey-period">{item.period.map((line, lineIndex) => <span key={lineIndex}>{line}</span>)}</div>
             <span className="journey-marker" aria-hidden="true">{index + 1}</span>
             <article className="journey-card">
-              <div className="journey-icon" aria-hidden="true"><Image src="/images/icons/google.svg" width={44} height={45} alt="" /></div>
+              <div className="journey-icon" aria-hidden="true"><Image src={item.icon} width={256} height={256} unoptimized alt="" /></div>
               <div className="journey-content"><h3>{item.title}</h3><p className="journey-organization">{item.organization}</p><p className="journey-role">{item.role}</p><Description>{item.description}</Description></div>
               {index > 0 && <svg className="journey-card-spark" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="m7 18 8-13M15 27l13-10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg>}
             </article>

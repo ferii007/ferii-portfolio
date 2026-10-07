@@ -50,7 +50,7 @@ Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `
 
 ## Menambah perjalanan
 
-Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `period` (array baris tanggal), `title`, `organization`, `role`, `description`, dan `current`. Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Semua kartu menggunakan logo G Google empat warna sesuai pilihan pemilik. Komponen tidak perlu diedit saat menambah perjalanan. Tulis bulan Desember sebagai `Des`.
+Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `period` (array baris tanggal), `title`, `organization`, `role`, `description`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. Komponen tidak perlu diedit saat menambah perjalanan. Tulis bulan Desember sebagai `Des`.
 
 ## Status sebelum publikasi
 

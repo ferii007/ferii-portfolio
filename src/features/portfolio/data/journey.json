@@ -6,7 +6,8 @@
     "organization": "PT. Ultimo Solutions",
     "role": "Testing Engineer",
     "description": "Menjalani praktik kerja lapangan saat SMK dan mengenal proses pengujian software.",
-    "current": false
+    "current": false,
+    "icon": "/images/journey/testing-engineer.webp"
   },
   {
     "id": "smk-graduation",
@@ -15,7 +16,8 @@
     "organization": "Balai Perguruan Putri Bandung",
     "role": "Rekayasa Perangkat Lunak",
     "description": "Menyelesaikan pendidikan SMK pada tahun 2021.",
-    "current": false
+    "current": false,
+    "icon": "/images/journey/smk-bpp.webp"
   },
   {
     "id": "senja-solutions",
@@ -24,6 +26,7 @@
     "organization": "Senja Solutions",
     "role": "Web Developer → Software Engineer",
     "description": "Memulai sebagai Web Developer, lalu berkembang menjadi Software Engineer. Berkontribusi pada landing page, ReBill POS, serta ReBill POS v2 dan Dashboard v2, dengan fokus pada backend, API, dan alur bisnis aplikasi.",
-    "current": true
+    "current": true,
+    "icon": "/images/journey/senja-solutions.webp"
   }
 ]

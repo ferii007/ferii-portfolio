@@ -62,7 +62,6 @@
   .journey-card { grid-column: 2; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; padding: 20px; }
   .journey-card::before { display: none; }
   .journey-icon { width: 52px; height: 52px; border-radius: 12px; }
-  .journey-icon img { width: 30px; height: 31px; }
   .journey-content { display: contents; }
   .journey-content h3 { align-self: center; margin: 0; font-size: 23px; }
   .journey-organization, .journey-role, .journey-content .portfolio-description { grid-column: 1 / -1; }

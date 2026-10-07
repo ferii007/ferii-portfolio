@@ -137,6 +137,7 @@
 .journey-item--current .journey-marker { background: linear-gradient(135deg, #ffab52, #ff7c15); }
 .journey-card { position: relative; display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 26px; padding: 30px; border: 1px solid #cfe3ed; border-radius: 18px; background: linear-gradient(135deg, #fffefd, #fcfdfe); box-shadow: 0 8px 24px #243b5310; }
 .journey-card::before { content: ''; position: absolute; top: 54px; right: 100%; width: var(--journey-column-gap); height: 2px; background: #cfe3ed; }
+.journey-icon img { width: 100%; height: 100%; object-fit: contain; }
 .journey-icon { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 17px; background: #e4f5fd; }
 .journey-content h3 { margin: 0 30px 7px 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(24px, 2.2vw, 30px); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
 .journey-organization { margin-bottom: 8px; color: #34567b; font-size: 19px; font-weight: 500; line-height: 1.4; }
