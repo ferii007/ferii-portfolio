@@ -20,15 +20,17 @@ export function createGuardArm(scene, side) {
   const thumb = scene.getObjectByName(`Thumb${side}`);
 
   return (guard, turn) => {
-    direction.set(sign * 0.64, -0.9, 0.35 + guard * 0.1).normalize();
+    const raised = side === 'R';
+    direction.set(sign * (raised ? 0.4 : 0.7), -0.9, 0.3 + guard * 0.1).normalize();
     upperRotation.setFromUnitVectors(axis, direction);
     upper.quaternion.copy(upperRotation);
-    direction.set(sign * (0.1 + turn * sign * 0.08), 0.15 + (guard - 0.9) * 0.4, 1).normalize();
+    direction.set(sign * ((raised ? -0.14 : 0.3) + turn * sign * 0.08), (raised ? 0.58 : -0.16) + (guard - 0.9) * 0.3, 1).normalize();
     forearmRotation.setFromUnitVectors(axis, direction);
     forearm.quaternion.copy(upperRotation).invert().multiply(forearmRotation);
-    // Open palms face the viewer, fingers fan upward rather than forming a paddle.
-    palmX.set(sign * 0.32, 0.95, 0.12).normalize().multiplyScalar(sign);
-    palmZ.set(0, 0, 1).addScaledVector(palmX, -palmX.z).normalize();
+    // One hand guards the chest; the other reaches lower and farther outward.
+    palmX.set(sign * (raised ? 0.38 : 0.66), raised ? 0.9 : 0.7, 0.2).normalize().multiplyScalar(sign);
+    palmZ.set(sign * 0.18, -0.12, 1).normalize();
+    palmZ.addScaledVector(palmX, -palmZ.dot(palmX)).normalize();
     palmY.crossVectors(palmZ, palmX).normalize();
     palmRotation.setFromRotationMatrix(basis.makeBasis(palmX, palmY, palmZ));
     hand.quaternion.copy(inverse.copy(forearmRotation).invert()).multiply(palmRotation);
