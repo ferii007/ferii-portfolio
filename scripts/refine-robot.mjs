@@ -16,6 +16,8 @@ const meshes = [];
 scene.traverse((object) => { if (object.isSkinnedMesh) meshes.push(object); });
 const bones = meshes[0].skeleton.bones;
 const byName = Object.fromEntries(bones.map((bone) => [bone.name, bone]));
+const fingerLengths = [0.7, 0.88, 0.84, 0.64];
+const knuckleOffsets = [0, 0.025, 0.015, -0.025];
 const forearmRollIndices = {};
 for (const side of ['L', 'R']) {
   // Separate forearm roll from the elbow hinge so the wrist needn't take the twist.
@@ -47,24 +49,26 @@ for (const mesh of meshes) {
     }
     if (/^Hand[LR]$/.test(bone)) {
       if (mesh.material.name.includes('Ceramic')) {
-        y = 2.02 + (y - 2.02) * 1.7;
+        y = 2.02 + (y - 2.02) * 1.5;
         z *= 0.65;
       } else if (/cobalt|LED/.test(mesh.material.name)) z -= 0.06;
     }
     if (/^Thumb[LR]$/.test(bone)) {
       y = 4.04 - y + 0.04;
       z = 0.08 - z;
+      const bend = Math.max(0, Math.min(1, (y - 2.2) / 0.14)) ** 2;
+      x += (bone.endsWith('L') ? 1 : -1) * 0.055 * bend;
+      z += 0.035 * bend;
     }
     const finger = bone.match(/^Finger([1-4])(Tip)?([LR])$/);
     if (finger) {
       const number = Number(finger[1]) - 1;
       const side = finger[3] === 'L' ? 1 : -1;
-      const lengths = [0.78, 1.04, 1, 0.84];
       const baseZ = [-0.14, -0.047, 0.047, 0.14][number];
-      x = side * 1.86 + (x - side * 1.86) * lengths[number];
+      x = side * (1.86 + knuckleOffsets[number]) + (x - side * 1.86) * fingerLengths[number];
       const oldY = y;
-      y = 2.02 - z - baseZ * 0.38;
-      z = oldY - 2.02;
+      y = 2.02 - baseZ * 1.16 - (z - baseZ) * 1.12;
+      z = (oldY - 2.02) * 1.12;
     }
     if (/^Forearm[LR]$/.test(bone) && /Ceramic|cobalt/.test(mesh.material.name)) {
       joints.setX(i, forearmRollIndices[bone.at(-1)]);
@@ -80,9 +84,10 @@ for (const side of ['L', 'R']) {
   const sign = side === 'L' ? 1 : -1;
   for (let number = 1; number <= 4; number++) {
     const finger = byName[`Finger${number}${side}`];
-    finger.position.y = -finger.position.z * 1.38;
+    finger.position.x += sign * knuckleOffsets[number - 1];
+    finger.position.y = -finger.position.z * 1.16;
     finger.position.z = 0;
-    byName[`Finger${number}Tip${side}`].position.x *= [0.78, 1.04, 1, 0.84][number - 1];
+    byName[`Finger${number}Tip${side}`].position.x *= fingerLengths[number - 1];
   }
   const thumb = byName[`Thumb${side}`];
   thumb.position.y = -thumb.position.y + 0.04;

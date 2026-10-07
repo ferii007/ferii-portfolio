@@ -23,8 +23,8 @@ export function createGuardArm(scene, side) {
 
   return (guard, turn) => {
     const raised = side === 'R';
-    upperDirection.set(sign * (raised ? 0.4 : 0.7), -0.9, 0.3 + guard * 0.1).normalize();
-    forearmDirection.set(sign * ((raised ? -0.1 : 0.65) + turn * sign * 0.08), (raised ? 0.65 : 0.05) + (guard - 0.9) * 0.3, raised ? 0.85 : 0.8).normalize();
+    upperDirection.set(sign * (raised ? 0.48 : 0.65), -0.9, 0.3 + guard * 0.1).normalize();
+    forearmDirection.set((raised ? 0.45 : 0.6) + turn * 0.06, (raised ? 0.45 : 0.28) + (guard - 0.9) * 0.2, raised ? 0.72 : 0.65).normalize();
     hinge.crossVectors(upperDirection, forearmDirection).normalize().multiplyScalar(sign);
     frameX.copy(upperDirection).multiplyScalar(sign);
     frameY.crossVectors(hinge, frameX);
@@ -34,9 +34,9 @@ export function createGuardArm(scene, side) {
     frameY.crossVectors(hinge, frameX);
     forearmRotation.setFromRotationMatrix(basis.makeBasis(frameX, frameY, hinge));
     forearm.quaternion.copy(upperRotation).invert().multiply(forearmRotation);
-    // One hand guards the chest; the other reaches lower and farther outward.
-    palmX.set(sign * (raised ? 0.28 : 0.72), raised ? 0.84 : 0.3, raised ? 0.47 : 0.62).normalize().multiplyScalar(sign);
-    palmZ.set(sign * 0.18, -0.12, 1).normalize();
+    // Both hands slope upward; the raised hand turns inward toward the chest.
+    palmX.set(raised ? 0.55 : 0.45, raised ? 0.72 : 0.75, raised ? 0.32 : 0.48).normalize().multiplyScalar(sign);
+    palmZ.set(raised ? 0.3 : 0.18, -0.12, 1).normalize();
     palmZ.addScaledVector(palmX, -palmZ.dot(palmX)).normalize();
     palmY.crossVectors(palmZ, palmX).normalize();
     palmRotation.setFromRotationMatrix(basis.makeBasis(palmX, palmY, palmZ));
@@ -46,11 +46,11 @@ export function createGuardArm(scene, side) {
     hand.quaternion.copy(inverse.copy(forearmRotation).multiply(roll.quaternion).invert()).multiply(palmRotation);
     for (let index = 0; index < fingers.length; index++) {
       const [finger, tip] = fingers[index];
-      const spread = (1.5 - index) * 0.14;
-      const curl = [0.14, 0.23, 0.32, 0.42][index] + (guard - 0.9) * 0.25;
+      const spread = (1.5 - index) * 0.075;
+      const curl = [0.22, 0.3, 0.38, 0.46][index] + (raised ? 0.04 : 0) + (guard - 0.9) * 0.18;
       finger.quaternion.setFromEuler(angles.set(0, -sign * curl, sign * spread));
-      tip.quaternion.setFromEuler(angles.set(0, -sign * (curl + 0.12), 0));
+      tip.quaternion.setFromEuler(angles.set(0, -sign * (curl * 0.7 + 0.1), 0));
     }
-    thumb.quaternion.setFromEuler(angles.set(0.2, sign * 0.3, sign * 0.22));
+    thumb.quaternion.setFromEuler(angles.set(0.12, sign * 0.24, -sign * 0.12));
   };
 }
