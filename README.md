@@ -34,7 +34,7 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 
 Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Label dan deskripsi kelompok ada di `src/features/projects/data/categories.json`.
 
-Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. `imageAlt` dapat menjelaskan gambar secara spesifik. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. `contribution` tersedia lewat disclosure “Kontribusiku”. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
+Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. `imageAlt` dapat menjelaskan gambar secara spesifik. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. `contribution` selalu tampil sebagai deskripsi kartu. `summary` tidak ditampilkan sebagai subtitle. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
 
 ## Menambah skill
 

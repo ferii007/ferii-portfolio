@@ -1,5 +1,4 @@
 import Description from '@/components/typography/Description';
-import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 export default function ProjectCard({ project }) {
@@ -10,9 +9,8 @@ export default function ProjectCard({ project }) {
       </div>
       <div className="project-body">
         <div className="project-heading"><h4>{project.title}</h4>{project.isExample && <span className="example-badge fp-badge fp-badge--warm">Contoh</span>}</div>
-        <Description>{project.summary}</Description>
+        <Description>{project.contribution}</Description>
         {project.stack.length > 0 && <ul className="project-tags" aria-label={`Teknologi ${project.title}`}><li>{project.stack.join(' · ')}</li></ul>}
-        {project.contribution && <details className="project-contribution"><summary>Kontribusiku<ChevronDown size={14} aria-hidden="true" /></summary><Description>{project.contribution}</Description></details>}
       </div>
     </article>
   );

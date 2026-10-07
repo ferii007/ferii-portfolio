@@ -28,12 +28,6 @@
 .project-heading h4 { margin: 0 0 4px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(24px, 2.3vw, 30px); font-weight: 650; line-height: 1.12; letter-spacing: -.025em; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 9px 0 0; padding: 0; list-style: none; }
 .project-tags li { padding: 4px 10px; border-radius: 7px; background: #e0f2ff; color: #086dc3; font-size: 13px; font-weight: 500; line-height: 1.5; }
-.project-contribution { margin-top: 12px; }
-.project-contribution summary { display: flex; align-items: center; gap: 5px; width: fit-content; padding-block: 3px; color: #43627b; font-size: 12px; font-weight: 650; list-style: none; cursor: pointer; }
-.project-contribution summary::-webkit-details-marker { display: none; }
-.project-contribution summary:focus-visible { outline: 2px solid #078ee9; outline-offset: 4px; border-radius: 3px; }
-.project-contribution[open] summary svg { transform: rotate(180deg); }
-.project-contribution .portfolio-description { margin-top: 8px; }
 @media (min-width: 1024px) {
   .project-group--featured .project-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
   .project-group--featured .project-card { grid-column: span 2; }

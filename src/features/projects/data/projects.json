@@ -48,7 +48,7 @@
     "title": "Cuci Cepat",
     "summary": "Landing page aplikasi Cuci Cepat.",
     "contribution": "Mengembangkan landing page untuk aplikasi Cuci Cepat bersama Senja Solutions.",
-    "image": "/images/projects/Cuci-Cepat.webp",
+    "image": "/images/projects/Cuci-Cepat-preview.webp",
     "stack": [
       "HTML5",
       "CSS"
@@ -57,15 +57,14 @@
     "demoUrl": null,
     "codeUrl": null,
     "isExample": false,
-    "imageFit": "contain",
-    "imageAlt": "Logo Cuci Cepat dari media pengalaman LinkedIn"
+    "imageAlt": "Pratinjau antarmuka aplikasi Cuci Cepat"
   },
   {
     "id": "maestronic",
     "title": "Maestronic",
     "summary": "Pengembangan fitur pemantauan kendaraan.",
     "contribution": "Merawat dan menambah fitur pada bagian pemantauan kendaraan, serta bekerja bersama tim untuk menemukan dan memperbaiki bug.",
-    "image": "/images/projects/Maestronic.webp",
+    "image": "/images/projects/Maestronic-preview.webp",
     "stack": [
       "Vite",
       "Laravel"
@@ -74,8 +73,7 @@
     "demoUrl": null,
     "codeUrl": null,
     "isExample": false,
-    "imageFit": "contain",
-    "imageAlt": "Logo Maestronic dari LinkedIn"
+    "imageAlt": "Pratinjau website publik Maestronic"
   },
   {
     "id": "eatscape",
