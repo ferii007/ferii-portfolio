@@ -4,13 +4,22 @@ import { Mail, MessageSquare, Send, UserRound } from 'lucide-react';
 import { siGithub } from 'simple-icons';
 import { site } from '@/content/site';
 
+function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
+  const Control = multiline ? 'textarea' : 'input';
+  return <label className="contact-field">
+    <Control name={name} type={multiline ? undefined : type} placeholder=" " autoComplete={multiline ? undefined : name} rows={multiline ? 5 : undefined} />
+    <fieldset className="contact-field-border" aria-hidden="true"><legend><span><Icon />{label}</span></legend></fieldset>
+    <span className="contact-field-label"><Icon aria-hidden="true" />{label}</span>
+  </label>;
+}
+
 export default function ContactSection() {
   return <section className="section contact-section" id="contact" aria-labelledby="contact-title"><div className="container contact-grid">
     <div><span className="contact-title-mark" aria-hidden="true" /><h2 id="contact-title">Contact Me<svg viewBox="0 0 34 40" fill="none" aria-hidden="true"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h2><Description>Punya ide, pertanyaan, atau sekadar ingin menyapa?</Description>
       <form className="contact-form" aria-label="Form kontak demo">
-        <label className="contact-field"><input name="name" type="text" placeholder=" " autoComplete="name" /><span className="contact-field-label"><UserRound size={20} aria-hidden="true" />Nama</span></label>
-        <label className="contact-field"><input name="email" type="email" placeholder=" " autoComplete="email" /><span className="contact-field-label"><Mail size={20} aria-hidden="true" />Email</span></label>
-        <label className="contact-field contact-field--message"><textarea name="message" placeholder=" " rows="5" /><span className="contact-field-label"><MessageSquare size={20} aria-hidden="true" />Pesan</span></label>
+        <ContactField name="name" label="Nama" Icon={UserRound} />
+        <ContactField name="email" label="Email" Icon={Mail} type="email" />
+        <ContactField name="message" label="Pesan" Icon={MessageSquare} multiline />
         <button className="contact-submit" type="button" disabled>Kirim Pesan <Send size={19} aria-hidden="true" /></button>
       </form>
     </div>

@@ -5,14 +5,21 @@
 .contact-grid h2 svg { width: 30px; height: 38px; color: var(--color-orange); }
 .contact-form { display: grid; gap: 13px; margin-top: 22px; }
 .contact-field { position: relative; display: block; }
-.contact-field input, .contact-field textarea { display: block; width: 100%; border: 1px solid #c9d3da; border-radius: 9px; background: #fffefd; padding: 16px; color: var(--color-ink); font-size: 15px; line-height: 1.5; outline: none; transition: border-color 160ms, box-shadow 160ms; }
-.contact-field-label { position: absolute; left: 12px; top: 16px; display: flex; align-items: center; gap: 9px; padding: 0 4px; color: #728397; background: #fffefd; font-size: 15px; line-height: 22px; pointer-events: none; transition: top 160ms, transform 160ms, font-size 160ms, color 160ms; }
+.contact-field input, .contact-field textarea { display: block; width: 100%; border: 1px solid transparent; border-radius: 9px; background: transparent; padding: 16px; color: var(--color-ink); font-size: 15px; line-height: 1.5; outline: none; transition: border-color 160ms, box-shadow 160ms; }
+.contact-field-label { position: absolute; left: 12px; top: 16px; display: flex; align-items: center; gap: 9px; padding: 0 4px; color: #728397; background: transparent; z-index: 2; font-size: 15px; line-height: 22px; pointer-events: none; transition: top 160ms, transform 160ms, font-size 160ms, color 160ms; }
 .contact-field-label svg { width: 20px; height: 20px; flex: none; transition: width 160ms, height 160ms; }
 .contact-field textarea { min-height: 152px; resize: vertical; }
 .contact-field:focus-within .contact-field-label, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-label { top: 0; transform: translateY(-50%); font-size: 12px; }
 .contact-field:focus-within .contact-field-label svg, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-label svg { width: 16px; height: 16px; }
 .contact-field:focus-within .contact-field-label { color: #078ee9; }
-.feri-theme .contact-field input:focus, .feri-theme .contact-field textarea:focus { outline: none; border-color: #078ee9; box-shadow: inset 0 0 0 1px #078ee9; }
+.feri-theme .contact-field input:focus, .feri-theme .contact-field textarea:focus { outline: none; box-shadow: none; }
+.contact-field-border { position: absolute; inset: -11px 0 0; min-width: 0; margin: 0; padding: 0 12px; border: 1px solid #c9d3da; border-radius: 9px; pointer-events: none; }
+.contact-field-border legend { max-width: 0; height: 22px; padding: 0; overflow: hidden; white-space: nowrap; }
+.contact-field-border legend span { display: flex; align-items: center; gap: 9px; height: 22px; font-size: 12px; visibility: hidden; }
+.contact-field-border legend svg { width: 16px; height: 16px; flex: none; }
+.contact-field:focus-within .contact-field-border, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-border { border-width: 1px; }
+.contact-field:focus-within .contact-field-border { border-color: #078ee9; border-width: 2px; padding-inline: 11px; }
+.contact-field:focus-within legend, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) legend { max-width: 100%; padding-inline: 4px; }
 @media (prefers-reduced-motion: reduce) {
   .contact-field input, .contact-field textarea, .contact-field-label, .contact-field-label svg { transition: none; }
 }
@@ -26,13 +33,20 @@
 .contact-handnote svg { display: block; width: 70px; height: 56px; margin: 10px 0 0 -12px; transform: rotate(-65deg); }
 .contact-socials { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: center; gap: 24px; padding-inline: 6px; }
 .contact-socials a { display: flex; align-items: center; gap: 10px; min-width: 0; color: #17374c; }
-.contact-socials a > svg { width: 34px; height: 34px; flex: none; }
-.contact-socials a > span { min-width: 0; }
+.contact-socials a > svg { width: 34px; height: 34px; flex: none; transform-origin: center; transition: transform 220ms, filter 220ms; }
+.contact-socials a > span { position: relative; min-width: 0; transition: transform 220ms; }
+.contact-socials a > span::after { content: ''; position: absolute; left: 0; bottom: -7px; width: 100%; height: 2px; border-radius: 2px; background: #078ee9; transform: scaleX(0); transform-origin: left; transition: transform 220ms; }
 .contact-socials a + a { border-left: 1px solid #d9e0e3; padding-left: 24px; }
 .contact-socials a:last-child > svg { color: #0785bd; }
 .contact-socials strong { display: block; font-size: 17px; font-weight: 750; }
 .contact-socials small { display: block; margin-top: 3px; font-size: 11px; line-height: 1.4; white-space: nowrap; }
-.contact-socials a:hover strong { color: #078ee9; }
+.contact-socials a:hover strong, .contact-socials a:focus-visible strong { color: #078ee9; }
+.contact-socials a:hover > svg, .contact-socials a:focus-visible > svg { transform: translateY(-3px) rotate(-7deg) scale(1.08); filter: drop-shadow(0 5px 5px #078ee922); }
+.contact-socials a:hover > span, .contact-socials a:focus-visible > span { transform: translateX(3px); }
+.contact-socials a:hover > span::after, .contact-socials a:focus-visible > span::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .contact-socials a > svg, .contact-socials a > span, .contact-socials a > span::after { transition: none; }
+}
 @media (max-width: 767px) {
   .contact-grid { grid-template-columns: 1fr; }
   .contact-side { max-width: 540px; width: 100%; margin-inline: auto; }
