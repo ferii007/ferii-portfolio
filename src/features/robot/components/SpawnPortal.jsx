@@ -3,7 +3,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { DoubleSide } from 'three';
 
-export const SPAWN_FLOOR = -1.76;
+export const SPAWN_FLOOR = -1.772;
 
 const vertex = `
   varying vec2 vUv;

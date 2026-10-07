@@ -12,7 +12,7 @@ import { SPAWN_FLOOR } from './SpawnPortal';
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
 const animatedBones = ['Hips', 'Waist', 'Spine', 'Neck', 'Head', 'ShoulderL', 'ShoulderR'];
 
-export default function RobotModel({ spawn, expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
+export default function RobotModel({ spawn, onFeetPosition, expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
   const group = useRef();
   const heroPose = useRef(null);
   const alertFace = useRef(null);
@@ -33,6 +33,11 @@ export default function RobotModel({ spawn, expression, projecting, reducedMotio
   const guardArms = useMemo(() => [createGuardArm(scene, 'L'), createGuardArm(scene, 'R')], [scene]);
   const guardLegs = useMemo(() => [createGuardLeg(scene, 'L'), createGuardLeg(scene, 'R')], [scene]);
   const hipsRest = useMemo(() => new Vector3(0, 1.08, 0), []);
+  const footContacts = useMemo(() => [new Vector3(), new Vector3()], []);
+  const footRotation = useMemo(() => new Quaternion(), []);
+  useEffect(() => {
+    scene.traverse((object) => { if (object.isMesh) object.castShadow = hero; });
+  }, [scene, hero]);
   const bodyClips = useMemo(() => animations.filter((clip) => ['Idle', 'Project'].includes(clip.name)).map((clip) => {
     const copy = clip.clone();
     copy.tracks = copy.tracks.filter((track) => !/weights|morphTargetInfluences/i.test(track.name));
@@ -95,6 +100,7 @@ export default function RobotModel({ spawn, expression, projecting, reducedMotio
     if (clipping.current !== materializing) {
       for (const material of [...materials, alertFace.current?.material].filter(Boolean)) {
         material.clippingPlanes = materializing ? clipPlanes.current : [];
+        material.clipShadows = materializing;
         material.needsUpdate = true;
       }
       clipping.current = materializing;
@@ -129,6 +135,16 @@ export default function RobotModel({ spawn, expression, projecting, reducedMotio
       guardArms[0](leftGuard, arms.headYaw);
       guardArms[1](rightGuard, arms.headYaw);
       guardLegs.forEach((plant) => plant());
+    }
+    if (hero && group.current) {
+      group.current.updateMatrixWorld(true);
+      ['L', 'R'].forEach((side, index) => {
+        const foot = scene.getObjectByName(`Foot${side}`);
+        foot.getWorldPosition(footContacts[index]);
+        point.set(0, 0, 0.11).applyQuaternion(foot.getWorldQuaternion(footRotation));
+        footContacts[index].add(point);
+      });
+      onFeetPosition(footContacts[0], footContacts[1]);
     }
     if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 100) return;
     const socket = scene.getObjectByName('ProjectorSocketL') ?? scene.getObjectByName('ProjectorSocket.L');
