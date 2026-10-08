@@ -20,12 +20,16 @@ export function createFlightPose(scene) {
       rotate(`ForearmRoll${side}`, 0, 0, 0);
       // The left arm remains available for the skill projector animation.
       if (!projecting || side !== 'L') {
-        rotate(`UpperArm${side}`, 0, -sign * 0.12, -sign * ((side === 'L' ? 0.82 : 1.0) + breathe * 0.025));
-        rotate(`Forearm${side}`, 0, 0, sign * (side === 'L' ? 0.28 : 0.22));
-        rotate(`Hand${side}`, 0, sign * 0.08, -sign * 0.08);
+        const armDrop = (side === 'L' ? 0.82 : 1.0) + breathe * 0.025;
+        const elbowBend = side === 'L' ? 0.28 : 0.22;
+        rotate(`UpperArm${side}`, 0, -sign * 0.12, -sign * armDrop);
+        rotate(`Forearm${side}`, 0, 0, sign * elbowBend);
+        // Roll the forearm first, then extend the wrist to level the palm toward the ground.
+        rotate(`ForearmRoll${side}`, Math.PI / 2, 0, 0);
+        rotate(`Hand${side}`, 0, sign * (armDrop - elbowBend), 0);
         for (let index = 1; index <= 3; index++) {
-          rotate(`Finger${index}${side}`, 0, -sign * (0.12 + index * 0.025), sign * (2 - index) * 0.22);
-          rotate(`Finger${index}Tip${side}`, 0, -sign * 0.16, 0);
+          rotate(`Finger${index}${side}`, 0, -sign * (0.025 + index * 0.015), sign * (2 - index) * 0.18);
+          rotate(`Finger${index}Tip${side}`, 0, -sign * 0.055, 0);
         }
         rotate(`Thumb${side}`, 0.1, sign * 0.2, sign * 0.26);
       }

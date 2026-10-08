@@ -12,7 +12,7 @@ beforeAll(async () => {
 });
 
 describe('flying companion pose', () => {
-  it('keeps relaxed elbows, forward palms, separated fingers and downward thrusters throughout a hover cycle', () => {
+  it('keeps relaxed elbows, downward palms, separated fingers and downward thrusters throughout a hover cycle', () => {
     const position = (name) => scene.getObjectByName(name).getWorldPosition(new Vector3());
     const rotation = (name) => scene.getObjectByName(name).getWorldQuaternion(new Quaternion());
     for (let time = 0; time < 12; time += 0.2) {
@@ -22,7 +22,8 @@ describe('flying companion pose', () => {
         const shoulder = position(`UpperArm${side}`), elbow = position(`Forearm${side}`), wrist = position(`Hand${side}`);
         expect(shoulder.y - wrist.y).toBeGreaterThan(0.6);
         expect(elbow.clone().sub(shoulder).angleTo(wrist.clone().sub(elbow))).toBeLessThan(Math.PI / 6);
-        expect(new Vector3(0, 0, 1).applyQuaternion(rotation(`Hand${side}`)).z).toBeGreaterThan(0.9);
+        expect(new Vector3(0, 0, 1).applyQuaternion(rotation(`Hand${side}`)).y).toBeLessThan(-0.98);
+        expect(scene.getObjectByName(`Hand${side}`).quaternion.angleTo(new Quaternion())).toBeLessThan(50 * Math.PI / 180);
         expect(new Vector3(0, -1, 0).applyQuaternion(rotation(`Foot${side}`)).y).toBeLessThan(-0.95);
         for (let finger = 1; finger < 3; finger++) {
           expect(position(`Finger${finger}Tip${side}`).distanceTo(position(`Finger${finger + 1}Tip${side}`))).toBeGreaterThan(0.14);
