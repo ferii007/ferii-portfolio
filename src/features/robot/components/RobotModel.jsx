@@ -7,6 +7,8 @@ import { createAlertFace } from '../createAlertFace';
 import { createGuardArm } from '../guardArm';
 import { createGuardLeg } from '../guardLeg';
 import { searchPoseAt } from '../searchMotion';
+import { createFlightPose } from '../flightPose';
+import FootThrusters from './FootThrusters';
 import { SPAWN_FLOOR } from './SpawnPortal';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
@@ -32,6 +34,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   useEffect(() => () => { materials.forEach((material) => { material.clippingPlanes = []; material.needsUpdate = true; }); }, [materials]);
   const guardArms = useMemo(() => [createGuardArm(scene, 'L'), createGuardArm(scene, 'R')], [scene]);
   const guardLegs = useMemo(() => [createGuardLeg(scene, 'L'), createGuardLeg(scene, 'R')], [scene]);
+  const flightPose = useMemo(() => createFlightPose(scene), [scene]);
   const hipsRest = useMemo(() => new Vector3(0, 1.08, 0), []);
   const footContacts = useMemo(() => [new Vector3(), new Vector3()], []);
   const footRotation = useMemo(() => new Quaternion(), []);
@@ -59,8 +62,10 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
         const bone = scene.getObjectByName(name);
         return [name, bone ? { bone, rotation: bone.quaternion.clone() } : null];
       }));
-    } else if (reducedMotion) {
+    } else if (reducedMotion || !projecting) {
       heroPose.current = null;
+      Object.values(actions).forEach((action) => { if (action !== next) action.stop(); });
+      next.setEffectiveWeight(1);
       mixer.setTime(0.5);
       next.setEffectiveTimeScale(0);
     } else {
@@ -136,6 +141,12 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       guardArms[1](rightGuard, arms.headYaw);
       guardLegs.forEach((plant) => plant());
     }
+    if (!hero && group.current) {
+      const time = reducedMotion ? 0 : clock.elapsedTime;
+      flightPose(time, projecting);
+      group.current.position.set(0, -1.28 + Math.sin(time * 1.6) * 0.045, 0);
+      group.current.rotation.set(0, -0.22, 0);
+    }
     if (hero && group.current) {
       group.current.updateMatrixWorld(true);
       ['L', 'R'].forEach((side, index) => {
@@ -154,7 +165,10 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     if (Number.isFinite(point.x) && Number.isFinite(point.y)) onProjectorPosition({ x: rect.left + (point.x + 1) * rect.width / 2, y: rect.top + (1 - point.y) * rect.height / 2 });
     lastProjection.current = performance.now();
   });
-  return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -1.45, 0]} scale={hero ? 1.12 : 0.85}><primitive object={scene} /></group>;
+  return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -1.28, 0]} scale={hero ? 1.12 : 0.87}>
+    <primitive object={scene} />
+    {!hero && <FootThrusters scene={scene} reducedMotion={reducedMotion} />}
+  </group>;
 }
 
 useGLTF.preload('/models/feri-robot-rigged.glb');
