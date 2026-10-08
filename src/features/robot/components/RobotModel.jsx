@@ -8,8 +8,8 @@ import { createGuardArm } from '../guardArm';
 import { createGuardLeg } from '../guardLeg';
 import { searchPoseAt } from '../searchMotion';
 import { createFlightPose } from '../flightPose';
-import FootThrusters from './FootThrusters';
-import { SPAWN_FLOOR } from './SpawnPortal';
+import RobotThrusters from './RobotThrusters';
+import { SPAWN_FLOOR, COMPANION_SPAWN_FLOOR, COMPANION_SPAWN_HEIGHT } from './SpawnPortal';
 
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
 const animatedBones = ['Hips', 'Waist', 'Spine', 'Neck', 'Head', 'ShoulderL', 'ShoulderR'];
@@ -101,7 +101,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   }, [scene, expression, hero]);
   useEffect(() => { onReady?.(); }, [onReady]);
   useFrame(({ clock }) => {
-    const materializing = hero && !reducedMotion && spawn.current.age < 2.3;
+    const materializing = !reducedMotion && spawn.current.age < 2.3;
     if (clipping.current !== materializing) {
       for (const material of [...materials, alertFace.current?.material].filter(Boolean)) {
         material.clippingPlanes = materializing ? clipPlanes.current : [];
@@ -110,7 +110,9 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       }
       clipping.current = materializing;
     }
-    if (materializing) clipPlanes.current[0].constant = SPAWN_FLOOR + spawn.current.reveal * 4.15;
+    if (materializing) clipPlanes.current[0].constant = hero
+      ? SPAWN_FLOOR + spawn.current.reveal * 4.15
+      : COMPANION_SPAWN_FLOOR + spawn.current.reveal * COMPANION_SPAWN_HEIGHT;
     if (hero && !projecting && group.current) {
       const time = reducedMotion ? 0 : clock.elapsedTime;
       const target = searchPoseAt(time);
@@ -167,7 +169,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   });
   return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -0.98, 0]} scale={hero ? 1.12 : 0.84}>
     <primitive object={scene} />
-    {!hero && <FootThrusters scene={scene} reducedMotion={reducedMotion} />}
+    {!hero && <RobotThrusters scene={scene} reducedMotion={reducedMotion} spawn={spawn} projecting={projecting} />}
   </group>;
 }
 

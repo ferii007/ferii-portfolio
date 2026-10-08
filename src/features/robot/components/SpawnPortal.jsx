@@ -4,6 +4,8 @@ import { useFrame } from '@react-three/fiber';
 import { DoubleSide } from 'three';
 
 export const SPAWN_FLOOR = -1.772;
+export const COMPANION_SPAWN_FLOOR = -1.1;
+export const COMPANION_SPAWN_HEIGHT = 3.5;
 
 const vertex = `
   varying vec2 vUv;
@@ -30,7 +32,10 @@ const floorFragment = `
   }
 `;
 
-export default function SpawnPortal({ onSpawnFrame, reducedMotion }) {
+export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = false }) {
+  const portal = useRef();
+  const floorY = companion ? COMPANION_SPAWN_FLOOR : SPAWN_FLOOR;
+  const height = companion ? COMPANION_SPAWN_HEIGHT : 4.15;
   const outer = useRef(), inner = useRef(), scan = useRef();
   const particles = useRef(), beam = useRef(), floor = useRef();
   const started = useRef(null);
@@ -51,56 +56,59 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion }) {
     const progress = Math.max(0, Math.min(1, (age - 0.45) / 1.85));
     const reveal = progress * progress * (3 - 2 * progress);
     onSpawnFrame(age, reveal);
+    const fadeOut = companion ? Math.max(0, Math.min(1, 1 - (age - 2.3) / 0.6)) : 1;
+    portal.current.visible = !companion || (!reducedMotion && age < 2.9);
+    if (companion && !portal.current.visible) return;
     const pulse = reducedMotion ? 0 : Math.sin(age * 1.7) * 0.08;
     const power = age < 2.3 ? Math.min(1, age / 0.3) * 1.8 : 0.65 + pulse;
     beam.current.material.uniforms.time.value = reducedMotion ? 0 : age;
-    beam.current.material.uniforms.power.value = power;
-    floor.current.material.uniforms.power.value = power;
+    beam.current.material.uniforms.power.value = power * fadeOut;
+    floor.current.material.uniforms.power.value = power * fadeOut;
     outer.current.rotation.z = reducedMotion ? 0 : age * 0.16;
     inner.current.rotation.z = reducedMotion ? 0 : -age * 0.23;
-    outer.current.material.opacity = 0.48 + power * 0.16;
-    inner.current.children.forEach((segment) => { segment.material.opacity = 0.25 + power * 0.1; });
+    outer.current.material.opacity = (0.48 + power * 0.16) * fadeOut;
+    inner.current.children.forEach((segment) => { segment.material.opacity = (0.25 + power * 0.1) * fadeOut; });
     scan.current.visible = !reducedMotion && progress > 0 && progress < 1;
-    scan.current.position.y = SPAWN_FLOOR + reveal * 4.15;
+    scan.current.position.y = floorY + reveal * height;
     scan.current.material.opacity = Math.sin(progress * Math.PI) * 0.55;
     const positions = particles.current.geometry.attributes.position;
     for (let i = 0; i < 36; i++) {
       const rise = reducedMotion ? dots[i * 3 + 1] : (dots[i * 3 + 1] + age * 0.16) % 1;
-      positions.setY(i, rise * 3.8);
+      positions.setY(i, rise * (height - 0.35));
     }
     positions.needsUpdate = true;
-    particles.current.material.opacity = reducedMotion ? 0.2 : 0.2 + power * 0.16;
+    particles.current.material.opacity = (reducedMotion ? 0.2 : 0.2 + power * 0.16) * fadeOut;
   });
 
-  return <group position={[0.05, 0, 0.06]}>
-    <mesh ref={floor} rotation={[-Math.PI / 2, 0, 0]} position={[0, SPAWN_FLOOR - 0.005, 0]}>
+  return <group ref={portal} position={[0.05, 0, 0.06]}>
+    <mesh ref={floor} rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY - 0.005, 0]}>
       <circleGeometry args={[1.46, 64]} />
       <shaderMaterial vertexShader={vertex} fragmentShader={floorFragment} uniforms={uniforms} transparent depthWrite={false} side={DoubleSide} />
     </mesh>
-    <mesh ref={outer} rotation={[-Math.PI / 2, 0, 0]} position={[0, SPAWN_FLOOR, 0]}>
+    <mesh ref={outer} rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY, 0]}>
       <torusGeometry args={[1.1, 0.014, 8, 96]} />
       <meshBasicMaterial color="#11a6da" transparent opacity={0.65} depthWrite={false} />
     </mesh>
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, SPAWN_FLOOR - 0.003, 0]}>
+    {!companion && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY - 0.003, 0]}>
       <torusGeometry args={[1.1, 0.055, 8, 96]} />
       <meshBasicMaterial color="#65d9ef" transparent opacity={0.1} depthWrite={false} />
-    </mesh>
-    <group ref={inner} rotation={[-Math.PI / 2, 0, 0]} position={[0, SPAWN_FLOOR + 0.008, 0]}>
+    </mesh>}
+    <group ref={inner} rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY + 0.008, 0]}>
       {Array.from({ length: 16 }, (_, i) => <mesh key={i} rotation={[0, 0, i * Math.PI / 8]}>
         <torusGeometry args={[0.94, 0.012, 6, 12, Math.PI / 12]} />
         <meshBasicMaterial color="#29b8e5" transparent opacity={0.5} depthWrite={false} />
       </mesh>)}
       <mesh><torusGeometry args={[0.77, 0.009, 6, 80]} /><meshBasicMaterial color="#55c6e7" transparent opacity={0.5} depthWrite={false} /></mesh>
     </group>
-    <mesh ref={beam} position={[0, SPAWN_FLOOR + 2.05, 0]}>
-      <cylinderGeometry args={[0.65, 1.08, 4.1, 64, 1, true]} />
+    <mesh ref={beam} position={[0, floorY + (companion ? height / 2 : 2.05), 0]}>
+      <cylinderGeometry args={[0.65, 1.08, companion ? height : 4.1, 64, 1, true]} />
       <shaderMaterial vertexShader={vertex} fragmentShader={beamFragment} uniforms={uniforms} transparent depthWrite={false} side={DoubleSide} />
     </mesh>
     <mesh ref={scan} rotation={[-Math.PI / 2, 0, 0]}>
       <torusGeometry args={[1.06, 0.018, 8, 96]} />
       <meshBasicMaterial color="#33c7ed" transparent depthWrite={false} />
     </mesh>
-    <points ref={particles} position={[0, SPAWN_FLOOR, 0]}>
+    <points ref={particles} position={[0, floorY, 0]}>
       <bufferGeometry><bufferAttribute attach="attributes-position" args={[dots.slice(), 3]} /></bufferGeometry>
       <pointsMaterial color="#2bb7df" size={0.035} transparent opacity={0.4} depthWrite={false} />
     </points>

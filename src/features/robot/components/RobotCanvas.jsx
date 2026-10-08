@@ -17,7 +17,7 @@ export default function RobotCanvas({ expression, projecting, reducedMotion, her
     <directionalLight position={[4, 7, 6]} intensity={2.4} castShadow={hero} shadow-mapSize={[1024, 1024]} shadow-camera-left={-3} shadow-camera-right={3} shadow-camera-top={4} shadow-camera-bottom={-3} shadow-camera-near={1} shadow-camera-far={18} shadow-bias={-0.0001} shadow-normalBias={0.015} shadow-radius={10} shadow-blurSamples={12} />
     <directionalLight position={[-5, 3, 1]} intensity={0.9} color="#8bdcff" />
     <Suspense fallback={null}>
-      {hero && <SpawnPortal onSpawnFrame={onSpawnFrame} reducedMotion={reducedMotion} />}
+      <SpawnPortal onSpawnFrame={onSpawnFrame} reducedMotion={reducedMotion} companion={!hero} />
       <RobotModel spawn={spawn} onFeetPosition={onFeetPosition} expression={expression} projecting={projecting} reducedMotion={reducedMotion} hero={hero} onReady={onReady} onProjectorPosition={onProjectorPosition} />
       {hero && <RobotGrounding feet={feet} spawn={spawn} />}
     </Suspense>
