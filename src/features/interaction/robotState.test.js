@@ -5,7 +5,19 @@ describe('robot interaction state', () => {
   it('moves between hero and companion when hero visibility changes', () => {
     const away = robotReducer(initialRobotState, { type: 'HERO_VISIBILITY_CHANGED', visible: false });
     expect(away.location).toBe('companion');
-    expect(robotReducer(away, { type: 'HERO_VISIBILITY_CHANGED', visible: true }).location).toBe('hero');
+    const returning = robotReducer(away, { type: 'HERO_VISIBILITY_CHANGED', visible: true });
+    expect(returning.location).toBe('returning');
+    expect(robotReducer(returning, { type: 'HERO_RETURNED' }).location).toBe('hero');
+  });
+  it('cancels departure when scrolling away again and ignores a stale animation callback', () => {
+    const returning = { ...initialRobotState, location: 'returning' };
+    const away = robotReducer(returning, { type: 'HERO_VISIBILITY_CHANGED', visible: false });
+    expect(robotReducer(away, { type: 'HERO_RETURNED' }).location).toBe('companion');
+  });
+  it('returns immediately with reduced motion and ignores clicks outside Hero', () => {
+    const away = { ...initialRobotState, location: 'companion' };
+    expect(robotReducer(away, { type: 'ROBOT_CLICKED' })).toBe(away);
+    expect(robotReducer(away, { type: 'HERO_VISIBILITY_CHANGED', visible: true, immediate: true }).location).toBe('hero');
   });
   it('cycles all four expressions in order', () => {
     let state = initialRobotState;

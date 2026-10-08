@@ -7,7 +7,8 @@ const InteractionContext = createContext(null);
 export function InteractionProvider({ children }) {
   const [state, dispatch] = useReducer(robotReducer, initialRobotState);
   const actions = useMemo(() => ({
-    setHeroVisible: (visible) => dispatch({ type: 'HERO_VISIBILITY_CHANGED', visible }),
+    setHeroVisible: (visible, immediate = false) => dispatch({ type: 'HERO_VISIBILITY_CHANGED', visible, immediate }),
+    completeHeroReturn: () => dispatch({ type: 'HERO_RETURNED' }),
     cycleExpression: () => dispatch({ type: 'ROBOT_CLICKED' }),
     openSkill: (id) => dispatch({ type: 'SKILL_OPENED', id }),
     closeSkill: () => dispatch({ type: 'SKILL_CLOSED' }),

@@ -40,12 +40,12 @@ function Thruster({ socket, reducedMotion, spawn, palm = false, side, projecting
       mesh.material.uniforms.time.value = time;
       mesh.material.uniforms.power.value = power * (palm ? 0.65 : 1);
     });
-    plume.current.scale.y = 1 + Math.sin(time * 7) * 0.065;
+    plume.current.scale.y = (palm ? 0.5 : 1) * (1 + Math.sin(time * 7) * 0.065);
   });
   return createPortal(<group
     position={palm ? [side === 'L' ? 0.14 : -0.14, 0, 0.14] : [0, -0.18, 0.1]}
     rotation={palm ? [-Math.PI / 2, 0, 0] : [0, 0, 0]}
-    scale={palm ? 0.34 : 1}
+    scale={palm ? 0.27 : 1}
     visible={!palm || !projecting || side !== 'L'}
   >
     <mesh ref={nozzle} rotation={[-Math.PI / 2, 0, 0]}>

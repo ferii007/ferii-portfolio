@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Euler, Plane, Quaternion, Vector3 } from 'three';
+import { Euler, MathUtils, Plane, Quaternion, Vector3 } from 'three';
 import { createAlertFace } from '../createAlertFace';
 import { createGuardArm } from '../guardArm';
 import { createGuardLeg } from '../guardLeg';
@@ -14,7 +14,7 @@ import { SPAWN_FLOOR, COMPANION_SPAWN_FLOOR, COMPANION_SPAWN_HEIGHT } from './Sp
 const morphIndex = { happy: -1, deadpan: 0, 'side-eye': 1, panic: 2 };
 const animatedBones = ['Hips', 'Waist', 'Spine', 'Neck', 'Head', 'ShoulderL', 'ShoulderR'];
 
-export default function RobotModel({ spawn, onFeetPosition, expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
+export default function RobotModel({ spawn, onFeetPosition, expression, projecting, reducedMotion, hero, departing, onReady, onProjectorPosition }) {
   const group = useRef();
   const heroPose = useRef(null);
   const alertFace = useRef(null);
@@ -100,8 +100,8 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     }
   }, [scene, expression, hero]);
   useEffect(() => { onReady?.(); }, [onReady]);
-  useFrame(({ clock }) => {
-    const materializing = !reducedMotion && spawn.current.age < 2.3;
+  useFrame(({ clock }, delta) => {
+    const materializing = !reducedMotion && spawn.current.reveal < 1;
     if (clipping.current !== materializing) {
       for (const material of [...materials, alertFace.current?.material].filter(Boolean)) {
         material.clippingPlanes = materializing ? clipPlanes.current : [];
@@ -147,7 +147,8 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       const time = reducedMotion ? 0 : clock.elapsedTime;
       flightPose(time, projecting);
       group.current.position.set(0, -0.98 + Math.sin(time * 1.6) * 0.045, 0);
-      group.current.rotation.set(0.025, -0.65, 0.065);
+      const yaw = departing ? MathUtils.damp(group.current.rotation.y, 0.55, 9, delta) : -0.65;
+      group.current.rotation.set(0.025, yaw, 0.065);
     }
     if (hero && group.current) {
       group.current.updateMatrixWorld(true);

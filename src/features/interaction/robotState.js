@@ -4,9 +4,13 @@ export const initialRobotState = { location: 'hero', expression: 'happy', active
 export function robotReducer(state, event) {
   switch (event.type) {
     case 'HERO_VISIBILITY_CHANGED':
-      return { ...state, location: event.visible ? 'hero' : 'companion' };
+      if (!event.visible) return { ...state, location: 'companion' };
+      if (state.location === 'hero' || event.immediate) return { ...state, location: 'hero' };
+      return { ...state, location: 'returning' };
+    case 'HERO_RETURNED':
+      return state.location === 'returning' ? { ...state, location: 'hero' } : state;
     case 'ROBOT_CLICKED':
-      if (state.activeSkillId) return state;
+      if (state.activeSkillId || state.location !== 'hero') return state;
       return { ...state, expression: expressions[(expressions.indexOf(state.expression) + 1) % expressions.length] };
     case 'SKILL_OPENED':
       return { ...state, activeSkillId: event.id, previousExpression: state.previousExpression ?? state.expression, expression: 'happy' };

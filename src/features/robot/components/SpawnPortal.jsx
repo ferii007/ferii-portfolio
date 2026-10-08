@@ -2,6 +2,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { DoubleSide } from 'three';
+import { spawnTiming } from '../spawnTiming';
 
 export const SPAWN_FLOOR = -1.772;
 export const COMPANION_SPAWN_FLOOR = -1.1;
@@ -53,14 +54,12 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
   useFrame(({ clock }) => {
     if (started.current === null) started.current = clock.elapsedTime;
     const age = reducedMotion ? 3 : clock.elapsedTime - started.current;
-    const progress = Math.max(0, Math.min(1, (age - 0.45) / 1.85));
-    const reveal = progress * progress * (3 - 2 * progress);
+    const { progress, reveal, fade: fadeOut, materializing } = spawnTiming(age, companion);
     onSpawnFrame(age, reveal);
-    const fadeOut = companion ? Math.max(0, Math.min(1, 1 - (age - 2.3) / 0.6)) : 1;
-    portal.current.visible = !companion || (!reducedMotion && age < 2.9);
+    portal.current.visible = !companion || (!reducedMotion && fadeOut > 0);
     if (companion && !portal.current.visible) return;
     const pulse = reducedMotion ? 0 : Math.sin(age * 1.7) * 0.08;
-    const power = age < 2.3 ? Math.min(1, age / 0.3) * 1.8 : 0.65 + pulse;
+    const power = materializing ? Math.min(1, age / 0.1) * 1.8 : 0.65 + pulse;
     beam.current.material.uniforms.time.value = reducedMotion ? 0 : age;
     beam.current.material.uniforms.power.value = power * fadeOut;
     floor.current.material.uniforms.power.value = power * fadeOut;

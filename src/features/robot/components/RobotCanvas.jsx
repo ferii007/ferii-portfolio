@@ -6,7 +6,7 @@ import SpawnPortal from './SpawnPortal';
 import RobotGrounding from './RobotGrounding';
 import { Vector3 } from 'three';
 
-export default function RobotCanvas({ expression, projecting, reducedMotion, hero, onReady, onProjectorPosition }) {
+export default function RobotCanvas({ expression, projecting, reducedMotion, hero, departing, onReady, onProjectorPosition }) {
   const spawn = useRef({ age: 0, reveal: 0 });
   const feet = useRef([new Vector3(), new Vector3()]);
   const onSpawnFrame = useCallback((age, reveal) => { spawn.current.age = age; spawn.current.reveal = reveal; }, []);
@@ -18,7 +18,7 @@ export default function RobotCanvas({ expression, projecting, reducedMotion, her
     <directionalLight position={[-5, 3, 1]} intensity={0.9} color="#8bdcff" />
     <Suspense fallback={null}>
       <SpawnPortal onSpawnFrame={onSpawnFrame} reducedMotion={reducedMotion} companion={!hero} />
-      <RobotModel spawn={spawn} onFeetPosition={onFeetPosition} expression={expression} projecting={projecting} reducedMotion={reducedMotion} hero={hero} onReady={onReady} onProjectorPosition={onProjectorPosition} />
+      <RobotModel spawn={spawn} onFeetPosition={onFeetPosition} expression={expression} projecting={projecting} reducedMotion={reducedMotion} hero={hero} departing={departing} onReady={onReady} onProjectorPosition={onProjectorPosition} />
       {hero && <RobotGrounding feet={feet} spawn={spawn} />}
     </Suspense>
   </Canvas>;
