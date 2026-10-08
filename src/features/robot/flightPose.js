@@ -18,8 +18,8 @@ export function createFlightPose(scene) {
       const sign = side === 'L' ? 1 : -1;
       rotate(`Shoulder${side}`, 0, 0, 0);
       rotate(`ForearmRoll${side}`, 0, 0, 0);
-      // The left arm remains available for the skill projector animation.
-      if (!projecting || side !== 'L') {
+      // The right arm remains available for the skill projector animation.
+      if (!projecting || side !== 'R') {
         const armDrop = (side === 'L' ? 0.82 : 1.0) + breathe * 0.025 + departure.boost * 0.12;
         const elbowBend = side === 'L' ? 0.28 : 0.22;
         rotate(`UpperArm${side}`, 0, -sign * 0.12, -sign * armDrop);

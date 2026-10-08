@@ -33,9 +33,11 @@ describe('flying companion pose', () => {
     }
   });
 
-  it('preserves the projector arm while maintaining the flight posture', () => {
-    const upper = scene.getObjectByName('UpperArmL');
-    const forearm = scene.getObjectByName('ForearmL');
+  it('preserves the right projector arm while maintaining the flight posture', () => {
+    const upper = scene.getObjectByName('UpperArmR');
+    const forearm = scene.getObjectByName('ForearmR');
+    flight(2);
+    const hoverRotation = upper.quaternion.clone();
     upper.rotation.set(0.2, 0.4, 0.6);
     forearm.rotation.set(0.1, 0.3, 0.5);
     const upperBefore = upper.quaternion.clone(), forearmBefore = forearm.quaternion.clone();
@@ -43,6 +45,6 @@ describe('flying companion pose', () => {
     expect(upper.quaternion.angleTo(upperBefore)).toBeLessThan(0.00001);
     expect(forearm.quaternion.angleTo(forearmBefore)).toBeLessThan(0.00001);
     flight(2);
-    expect(upper.quaternion.angleTo(upperBefore)).toBeGreaterThan(0.5);
+    expect(upper.quaternion.angleTo(hoverRotation)).toBeLessThan(0.00001);
   });
 });

@@ -48,6 +48,15 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   const bodyClips = useMemo(() => animations.filter((clip) => ['Idle', 'Project'].includes(clip.name)).map((clip) => {
     const copy = clip.clone();
     copy.tracks = copy.tracks.filter((track) => !/weights|morphTargetInfluences/i.test(track.name));
+    // Reflect the authored left-hand projection across the rig's X axis.
+    if (copy.name === 'Project') for (const track of copy.tracks) {
+      if (!/[LR]\.quaternion$/.test(track.name)) continue;
+      track.name = track.name.replace(/([LR])(?=\.)/, (side) => side === 'L' ? 'R' : 'L');
+      for (let index = 0; index < track.values.length; index += 4) {
+        track.values[index + 1] *= -1;
+        track.values[index + 2] *= -1;
+      }
+    }
     return copy;
   }), [animations]);
   const { actions, mixer } = useAnimations(bodyClips, group);
@@ -173,8 +182,8 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       });
       onFeetPosition(footContacts[0], footContacts[1]);
     }
-    if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 100) return;
-    const socket = scene.getObjectByName('ProjectorSocketL') ?? scene.getObjectByName('ProjectorSocket.L');
+    if (!projecting || !onProjectorPosition || performance.now() - lastProjection.current < 33) return;
+    const socket = scene.getObjectByName('ProjectorSocketR') ?? scene.getObjectByName('ProjectorSocket.R');
     if (!socket) return;
     socket.getWorldPosition(point).project(camera);
     const rect = gl.domElement.getBoundingClientRect();

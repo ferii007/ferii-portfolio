@@ -18,6 +18,11 @@
   100% { transform: translate3d(calc(100% + 180px), -265px, 0) rotate(30deg); }
 }
 @media (max-width: 480px) { .robot-hero .robot-hit-area { left: 6%; width: 88%; } }
-.hologram-beam { position: fixed; inset: 0; z-index: 34; pointer-events: none; overflow: visible; filter: drop-shadow(0 0 8px #4ddfff); }
+.hologram-beam { position: fixed; inset: 0; z-index: 34; pointer-events: none; overflow: visible; }
 @media (max-width: 900px) { .hologram-beam { display: none; } }
 @media (prefers-reduced-motion: reduce) { .robot-experience, .robot-canvas { transition: none; } .robot-returning { animation: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hologram-beam { animation: hologram-light-in 240ms ease-out both; }
+}
+@keyframes hologram-light-in { from { opacity: 0; } to { opacity: 1; } }

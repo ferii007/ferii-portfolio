@@ -46,7 +46,7 @@ function Thruster({ socket, reducedMotion, spawn, palm = false, side, projecting
     position={palm ? [side === 'L' ? 0.14 : -0.14, 0, 0.14] : [0, -0.18, 0.1]}
     rotation={palm ? [-Math.PI / 2, 0, 0] : [0, 0, 0]}
     scale={palm ? 0.27 : 1}
-    visible={!palm || !projecting || side !== 'L'}
+    visible={!palm || !projecting || side !== 'R'}
   >
     <mesh ref={nozzle} rotation={[-Math.PI / 2, 0, 0]}>
       <ringGeometry args={[0.13, 0.21, 32]} />
