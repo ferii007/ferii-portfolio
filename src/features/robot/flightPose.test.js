@@ -33,17 +33,26 @@ describe('flying companion pose', () => {
     }
   });
 
-  it('preserves the right projector arm while maintaining the flight posture', () => {
+  it('extends the right arm with upright fingers and an outward palm, then returns to hover', () => {
+    const position = (name) => scene.getObjectByName(name).getWorldPosition(new Vector3());
     const upper = scene.getObjectByName('UpperArmR');
-    const forearm = scene.getObjectByName('ForearmR');
     flight(2);
     const hoverRotation = upper.quaternion.clone();
-    upper.rotation.set(0.2, 0.4, 0.6);
-    forearm.rotation.set(0.1, 0.3, 0.5);
-    const upperBefore = upper.quaternion.clone(), forearmBefore = forearm.quaternion.clone();
     flight(2, true);
-    expect(upper.quaternion.angleTo(upperBefore)).toBeLessThan(0.00001);
-    expect(forearm.quaternion.angleTo(forearmBefore)).toBeLessThan(0.00001);
+    scene.updateMatrixWorld(true);
+    const shoulder = position('UpperArmR'), elbow = position('ForearmR'), wrist = position('HandR');
+    const armDirection = wrist.clone().sub(elbow).normalize();
+    const handRotation = scene.getObjectByName('HandR').getWorldQuaternion(new Quaternion());
+    expect(elbow.clone().sub(shoulder).angleTo(armDirection)).toBeLessThan(0.15);
+    expect(wrist.x).toBeLessThan(shoulder.x - 0.9);
+    expect(new Vector3(0, 0, 1).applyQuaternion(handRotation).dot(armDirection)).toBeGreaterThan(0.98);
+    expect(new Vector3(-1, 0, 0).applyQuaternion(handRotation).y).toBeGreaterThan(0.85);
+    for (let finger = 1; finger < 3; finger++) {
+      expect(position(`Finger${finger}TipR`).distanceTo(position(`Finger${finger + 1}TipR`))).toBeGreaterThan(0.14);
+    }
+    flight(2, 0.5);
+    const halfway = upper.quaternion.clone();
+    expect(halfway.angleTo(hoverRotation)).toBeGreaterThan(0.1);
     flight(2);
     expect(upper.quaternion.angleTo(hoverRotation)).toBeLessThan(0.00001);
   });

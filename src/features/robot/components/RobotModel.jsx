@@ -23,6 +23,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   const fearFace = useRef(null);
   const departureAge = useRef(0);
   const lastProjection = useRef(0);
+  const projectorPose = useRef(0);
   const point = useMemo(() => new Vector3(), []);
   const deltaRotation = useMemo(() => new Quaternion(), []);
   const angles = useMemo(() => new Euler(), []);
@@ -167,7 +168,9 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       const time = reducedMotion ? 0 : clock.elapsedTime;
       departureAge.current = departing ? departureAge.current + delta * 1000 : 0;
       const departure = departurePoseAt(departureAge.current);
-      flightPose(time, projecting, departure);
+      projectorPose.current = reducedMotion ? Number(projecting)
+        : projectorPose.current + (Number(projecting) - projectorPose.current) * (1 - Math.exp(-delta * 12));
+      flightPose(time, projectorPose.current, departure);
       group.current.position.set(0, -0.98 + Math.sin(time * 1.6) * 0.045, 0);
       const yaw = -0.65 + departure.turn * 1.2;
       group.current.rotation.set(0.14 + departure.boost * 0.12, yaw, 0.2);

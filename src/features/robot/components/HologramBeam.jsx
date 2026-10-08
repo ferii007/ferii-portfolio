@@ -25,18 +25,18 @@ export default function HologramBeam({ origin }) {
   return <svg className="hologram-beam" aria-hidden="true" width="100%" height="100%">
     <defs>
       <linearGradient id={`${id}-wash`} gradientUnits="userSpaceOnUse" x1={origin.x} y1={origin.y} x2={target.x} y2={centerY}>
-        <stop stopColor="#32c9ec" stopOpacity=".28" />
-        <stop offset=".3" stopColor="#5bdcf3" stopOpacity=".13" />
-        <stop offset="1" stopColor="#9eeeff" stopOpacity=".025" />
+        <stop stopColor="#32c9ec" stopOpacity=".65" />
+        <stop offset=".3" stopColor="#5bdcf3" stopOpacity=".36" />
+        <stop offset="1" stopColor="#9eeeff" stopOpacity=".09" />
       </linearGradient>
       <radialGradient id={`${id}-source`}>
-        <stop stopColor="#b4faff" stopOpacity=".8" />
-        <stop offset=".25" stopColor="#46d8f4" stopOpacity=".4" />
+        <stop stopColor="#b4faff" stopOpacity="1" />
+        <stop offset=".25" stopColor="#46d8f4" stopOpacity=".7" />
         <stop offset="1" stopColor="#46d8f4" stopOpacity="0" />
       </radialGradient>
       <filter id={`${id}-soft`} x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5" /></filter>
     </defs>
     <path d={fan} fill={`url(#${id}-wash)`} filter={`url(#${id}-soft)`} />
-    <circle cx={origin.x} cy={origin.y} r="16" fill={`url(#${id}-source)`} />
+    <circle cx={origin.x} cy={origin.y} r="20" fill={`url(#${id}-source)`} />
   </svg>;
 }
