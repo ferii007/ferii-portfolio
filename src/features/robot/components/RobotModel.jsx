@@ -102,9 +102,10 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     const face = scene.getObjectByName('FaceExpressions');
     if (face?.morphTargetInfluences) {
       const showingAlert = hero && expression === 'happy';
-      face.visible = hero && !showingAlert;
+      const showingFear = expression === 'fear';
+      face.visible = !showingAlert && !showingFear;
       if (alertFace.current) alertFace.current.visible = showingAlert;
-      if (fearFace.current) fearFace.current.visible = !hero;
+      if (fearFace.current) fearFace.current.visible = showingFear;
       face.morphTargetInfluences.fill(0);
       if (morphIndex[expression] >= 0) face.morphTargetInfluences[morphIndex[expression]] = 1;
     }
@@ -160,7 +161,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
       flightPose(time, projecting, departure);
       group.current.position.set(0, -0.98 + Math.sin(time * 1.6) * 0.045, 0);
       const yaw = -0.65 + departure.turn * 1.2;
-      group.current.rotation.set(0.025 + departure.boost * 0.12, yaw, 0.065);
+      group.current.rotation.set(0.14 + departure.boost * 0.12, yaw, 0.2);
     }
     if (hero && group.current) {
       group.current.updateMatrixWorld(true);

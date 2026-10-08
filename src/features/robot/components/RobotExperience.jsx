@@ -40,13 +40,13 @@ export default function RobotExperience() {
   const showCanvas = !canvasFailed;
   const hero = state.location === 'hero';
   const returning = state.location === 'returning';
-  const expression = hero ? state.expression : 'fear';
+  const expression = hero ? state.expression : 'side-eye';
   const projecting = Boolean(state.activeSkillId) && !returning;
   const robot = <div className={`robot-experience robot-${hero ? 'hero' : 'companion'}${returning ? ' robot-returning' : ''}${showCanvas && canvasReady ? ' robot-ready' : ''}`} style={{ '--robot-departure-duration': `${DEPARTURE_DURATION}ms` }} data-location={state.location} data-expression={expression} onAnimationEnd={(event) => {
     if (event.animationName === 'robot-departure') completeHeroReturn();
   }}>
     <div className="robot-figure">
-      {!showCanvas && <RobotFallback expression={hero ? expression : 'panic'} />}
+      {!showCanvas && <RobotFallback expression={expression} />}
       {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={expression} projecting={projecting} departing={returning} reducedMotion={reducedMotion} hero={hero} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
     </div>
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}

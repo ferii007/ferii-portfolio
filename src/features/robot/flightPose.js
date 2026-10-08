@@ -9,11 +9,11 @@ export function createFlightPose(scene) {
     const balance = Math.sin(time * 1.1);
     rotate('Root', 0, 0, 0);
     bones.Hips.position.set(0, 1.08, 0);
-    rotate('Hips', -0.06, -0.04, 0.035);
-    rotate('Waist', 0.02, 0.035, -0.025);
+    rotate('Hips', -0.06, -0.04, 0.075);
+    rotate('Waist', 0.02, 0.035, -0.055);
     rotate('Spine', 0.025, 0.025, -0.025);
     rotate('Neck', 0, 0, 0);
-    rotate('Head', -0.045 - departure.lift * 0.1, 0.055 + balance * 0.025 + departure.look * (1 - departure.turn) * 0.24, -0.055);
+    rotate('Head', -0.045 - departure.lift * 0.1, 0.055 + balance * 0.025 + departure.look * (1 - departure.turn) * 0.24, -0.1);
     for (const side of ['L', 'R']) {
       const sign = side === 'L' ? 1 : -1;
       rotate(`Shoulder${side}`, 0, 0, 0);
@@ -33,9 +33,9 @@ export function createFlightPose(scene) {
         }
         rotate(`Thumb${side}`, 0.1, sign * 0.2, sign * 0.26);
       }
-      rotate(`Thigh${side}`, (side === 'L' ? -0.08 : -0.24) + sign * balance * 0.025, sign * 0.06, sign * 0.055);
-      rotate(`Shin${side}`, (side === 'L' ? 0.18 : 0.38) - sign * balance * 0.025 + departure.boost * 0.16, 0, 0);
-      rotate(`Foot${side}`, -0.04, 0, -sign * 0.025);
+      rotate(`Thigh${side}`, (side === 'L' ? -0.04 : -0.1) + sign * balance * 0.025, sign * 0.06, sign * 0.055);
+      rotate(`Shin${side}`, (side === 'L' ? 0.3 : 0.5) - sign * balance * 0.025 + departure.boost * 0.16, 0, 0);
+      rotate(`Foot${side}`, side === 'L' ? -0.18 : -0.32, 0, -sign * 0.025);
     }
   };
 }
