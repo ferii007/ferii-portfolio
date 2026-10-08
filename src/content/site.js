@@ -14,8 +14,8 @@ export const site = {
     { title: 'Mengeksplorasi', detail: 'Ide personal' },
   ],
   beyond: [
-    { title: 'Cerita & Tulisan', image: '/images/beyond/notebook.webp', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.' },
-    { title: 'Momen & Perjalanan', image: '/images/beyond/mountains.webp', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.' },
+    { title: 'Cerita & Tulisan', image: '/images/beyond/notebook.webp', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.', message: 'Belum bisa dibuka. Sabar dong, aku juga masih nunggu.' },
+    { title: 'Momen & Perjalanan', image: '/images/beyond/mountains.webp', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.', message: 'Momennya belum bisa dilihat. Jangan buru-buru, dong.' },
   ],
   contact: {
     github: 'https://github.com/ferii007',

@@ -11,7 +11,7 @@ import { DEPARTURE_DURATION } from '../departureMotion';
 const RobotCanvas = dynamic(() => import('./RobotCanvas'), { ssr: false });
 
 export default function RobotExperience() {
-  const { state, setHeroVisible, completeHeroReturn, cycleExpression } = usePortfolioInteraction();
+  const { state, setHeroVisible, completeHeroReturn, cycleExpression, dismissRobotMessage } = usePortfolioInteraction();
   const [reducedMotion, setReducedMotion] = useState(true);
   const [canvasReady, setCanvasReady] = useState(false);
   const [canvasFailed, setCanvasFailed] = useState(false);
@@ -37,6 +37,12 @@ export default function RobotExperience() {
     if (reducedMotion && state.location === 'returning') completeHeroReturn();
   }, [reducedMotion, state.location, completeHeroReturn]);
 
+  useEffect(() => {
+    if (!state.message) return;
+    const timer = window.setTimeout(dismissRobotMessage, 6500);
+    return () => window.clearTimeout(timer);
+  }, [state.message, dismissRobotMessage]);
+
   const showCanvas = !canvasFailed;
   const hero = state.location === 'hero';
   const returning = state.location === 'returning';
@@ -49,6 +55,9 @@ export default function RobotExperience() {
       {!showCanvas && <RobotFallback expression={expression} />}
       {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={expression} projecting={projecting} departing={returning} reducedMotion={reducedMotion} hero={hero} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
     </div>
+    {!hero && !returning && <div className="robot-speech" role="status" aria-live="polite" aria-atomic="true">
+      {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
+    </div>}
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
     {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label="Ubah ekspresi robot" title="Klik robot untuk mengubah ekspresi" />}
   </div>;

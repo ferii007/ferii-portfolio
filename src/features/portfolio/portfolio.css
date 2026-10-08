@@ -153,6 +153,16 @@
 .beyond-content { align-self: center; padding: 4px 10px 30px 0; }
 .beyond-card h3 { margin: 0 0 8px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: 25px; font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
 .beyond-card-accent { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #078ee9; background: #e0f2ff; }
+.beyond-card { transition: border-color 200ms, background 200ms, box-shadow 200ms, transform 200ms; }
+.beyond-card-trigger { position: absolute; inset: 0; width: 100%; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.beyond-card-trigger:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.beyond-card:is(:hover, :focus-within) { border-color: var(--color-primary); background: #eaf7ff; box-shadow: var(--shadow-hover); }
+.beyond-card:is(:hover, :focus-within) .beyond-card-accent { color: white; background: var(--color-primary); }
+@media (prefers-reduced-motion: no-preference) {
+  .beyond-card:is(:hover, :focus-within) { transform: translateY(-3px); }
+  .beyond-card:is(:hover, :focus-within) .beyond-card-accent svg { animation: beyond-arrow-nudge 900ms ease-in-out infinite; }
+}
+@keyframes beyond-arrow-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
 @media (max-width: 1023px) {
   .beyond-grid { grid-template-columns: 1fr; }
   .beyond-card { grid-template-columns: 160px minmax(0, 1fr); }

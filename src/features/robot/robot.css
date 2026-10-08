@@ -8,6 +8,14 @@
 .robot-hit-area:focus-visible { outline: 3px solid #11a9e8; outline-offset: -6px; }
 .robot-hit-area:disabled { cursor: default; }
 .robot-companion { position: fixed; top: auto; bottom: 10px; left: auto; right: 12px; width: 190px; height: 252px; z-index: 20; }
+.robot-speech { position: absolute; right: 28px; bottom: calc(100% - 8px); width: min(260px, calc(100vw - 48px)); }
+.robot-speech-bubble { position: relative; margin: 0; padding: 16px 18px; border: 1px solid #b4dcef; border-radius: 19px 19px 7px 19px; background: #fffdf9; box-shadow: 0 8px 28px #17394f20; color: #19384d; font-size: 15px; font-weight: 600; line-height: 1.5; }
+.robot-speech-bubble::after { content: ''; position: absolute; right: 70px; bottom: -7px; width: 12px; height: 12px; border-right: 1px solid #b4dcef; border-bottom: 1px solid #b4dcef; background: #fffdf9; transform: rotate(45deg); }
+@media (max-width: 480px) { .robot-speech-bubble::after { right: 42px; } }
+@media (prefers-reduced-motion: no-preference) {
+  .robot-speech-bubble { animation: robot-speech-in 220ms ease-out both; transform-origin: bottom right; }
+}
+@keyframes robot-speech-in { from { opacity: 0; transform: translateY(8px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
 .robot-returning { animation: robot-departure var(--robot-departure-duration) linear forwards; transform-origin: 50% 65%; }
 @keyframes robot-departure {
   0% { transform: translate3d(0, 0, 0) rotate(0); }
