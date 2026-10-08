@@ -8,11 +8,14 @@
 .robot-hit-area:focus-visible { outline: 3px solid #11a9e8; outline-offset: -6px; }
 .robot-hit-area:disabled { cursor: default; }
 .robot-companion { position: fixed; top: auto; bottom: 10px; left: auto; right: 12px; width: 190px; height: 252px; z-index: 20; }
-.robot-returning { animation: robot-departure 620ms cubic-bezier(.45, 0, .8, .4) forwards; transform-origin: 50% 65%; }
+.robot-returning { animation: robot-departure var(--robot-departure-duration) linear forwards; transform-origin: 50% 65%; }
 @keyframes robot-departure {
   0% { transform: translate3d(0, 0, 0) rotate(0); }
-  18% { transform: translate3d(-5px, -4px, 0) rotate(3deg); }
-  100% { transform: translate3d(calc(100% + 80px), -65px, 0) rotate(12deg); }
+  25% { transform: translate3d(-6px, -45px, 0) rotate(-3deg); }
+  45% { transform: translate3d(4px, -95px, 0) rotate(6deg); }
+  65% { transform: translate3d(40px, -150px, 0) rotate(17deg); }
+  80% { transform: translate3d(100px, -195px, 0) rotate(24deg); }
+  100% { transform: translate3d(calc(100% + 180px), -265px, 0) rotate(30deg); }
 }
 @media (max-width: 480px) { .robot-hero .robot-hit-area { left: 6%; width: 88%; } }
 .hologram-beam { position: fixed; inset: 0; z-index: 34; pointer-events: none; overflow: visible; filter: drop-shadow(0 0 8px #4ddfff); }

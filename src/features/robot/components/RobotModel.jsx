@@ -2,8 +2,10 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Euler, MathUtils, Plane, Quaternion, Vector3 } from 'three';
+import { Euler, Plane, Quaternion, Vector3 } from 'three';
 import { createAlertFace } from '../createAlertFace';
+import { createFearFace } from '../createFearFace';
+import { departurePoseAt } from '../departureMotion';
 import { createGuardArm } from '../guardArm';
 import { createGuardLeg } from '../guardLeg';
 import { searchPoseAt } from '../searchMotion';
@@ -18,6 +20,8 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   const group = useRef();
   const heroPose = useRef(null);
   const alertFace = useRef(null);
+  const fearFace = useRef(null);
+  const departureAge = useRef(0);
   const lastProjection = useRef(0);
   const point = useMemo(() => new Vector3(), []);
   const deltaRotation = useMemo(() => new Quaternion(), []);
@@ -78,14 +82,19 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   useEffect(() => {
     const head = scene.getObjectByName('Head');
     const face = createAlertFace();
-    head.add(face);
+    const fear = createFearFace();
+    head.add(face, fear);
     alertFace.current = face;
+    fearFace.current = fear;
     return () => {
-      head.remove(face);
-      face.geometry.dispose();
-      face.material.map.dispose();
-      face.material.dispose();
+      head.remove(face, fear);
+      for (const expressionFace of [face, fear]) {
+        expressionFace.geometry.dispose();
+        expressionFace.material.map.dispose();
+        expressionFace.material.dispose();
+      }
       alertFace.current = null;
+      fearFace.current = null;
       scene.getObjectByName('FaceExpressions').visible = true;
     };
   }, [scene]);
@@ -93,8 +102,9 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     const face = scene.getObjectByName('FaceExpressions');
     if (face?.morphTargetInfluences) {
       const showingAlert = hero && expression === 'happy';
-      face.visible = !showingAlert;
+      face.visible = hero && !showingAlert;
       if (alertFace.current) alertFace.current.visible = showingAlert;
+      if (fearFace.current) fearFace.current.visible = !hero;
       face.morphTargetInfluences.fill(0);
       if (morphIndex[expression] >= 0) face.morphTargetInfluences[morphIndex[expression]] = 1;
     }
@@ -103,7 +113,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
   useFrame(({ clock }, delta) => {
     const materializing = !reducedMotion && spawn.current.reveal < 1;
     if (clipping.current !== materializing) {
-      for (const material of [...materials, alertFace.current?.material].filter(Boolean)) {
+      for (const material of [...materials, alertFace.current?.material, fearFace.current?.material].filter(Boolean)) {
         material.clippingPlanes = materializing ? clipPlanes.current : [];
         material.clipShadows = materializing;
         material.needsUpdate = true;
@@ -145,10 +155,12 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     }
     if (!hero && group.current) {
       const time = reducedMotion ? 0 : clock.elapsedTime;
-      flightPose(time, projecting);
+      departureAge.current = departing ? departureAge.current + delta * 1000 : 0;
+      const departure = departurePoseAt(departureAge.current);
+      flightPose(time, projecting, departure);
       group.current.position.set(0, -0.98 + Math.sin(time * 1.6) * 0.045, 0);
-      const yaw = departing ? MathUtils.damp(group.current.rotation.y, 0.55, 9, delta) : -0.65;
-      group.current.rotation.set(0.025, yaw, 0.065);
+      const yaw = -0.65 + departure.turn * 1.2;
+      group.current.rotation.set(0.025 + departure.boost * 0.12, yaw, 0.065);
     }
     if (hero && group.current) {
       group.current.updateMatrixWorld(true);
