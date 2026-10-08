@@ -5,7 +5,7 @@ export function createFlightPose(scene) {
   const bones = {};
   scene.traverse((object) => { if (object.isBone) bones[object.name] = object; });
   const stopPose = Object.entries({
-    UpperArmR: [0, 0.18, -0.4],
+    UpperArmR: [0, 0.98, -0.4],
     ForearmR: [0, -0.08, -0.06],
     ForearmRollR: [Math.PI / 2, 0, 0],
     HandR: [0, -Math.PI / 2, 0],

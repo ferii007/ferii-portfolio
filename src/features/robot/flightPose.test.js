@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { beforeAll, describe, expect, it } from 'vitest';
-import { Quaternion, Vector3 } from 'three';
+import { Euler, Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { createFlightPose } from './flightPose';
 
@@ -44,7 +44,11 @@ describe('flying companion pose', () => {
     const armDirection = wrist.clone().sub(elbow).normalize();
     const handRotation = scene.getObjectByName('HandR').getWorldQuaternion(new Quaternion());
     expect(elbow.clone().sub(shoulder).angleTo(armDirection)).toBeLessThan(0.15);
-    expect(wrist.x).toBeLessThan(shoulder.x - 0.9);
+    expect(wrist.distanceTo(shoulder)).toBeGreaterThan(1.13);
+    // Include the companion's three-quarter body turn: the arm must reach toward the viewer.
+    const screenDirection = armDirection.clone().applyEuler(new Euler(0.14, -0.65, 0.2));
+    expect(screenDirection.z).toBeGreaterThan(0.1);
+    expect(screenDirection.x).toBeLessThan(-0.6);
     expect(new Vector3(0, 0, 1).applyQuaternion(handRotation).dot(armDirection)).toBeGreaterThan(0.98);
     expect(new Vector3(-1, 0, 0).applyQuaternion(handRotation).y).toBeGreaterThan(0.85);
     for (let finger = 1; finger < 3; finger++) {
