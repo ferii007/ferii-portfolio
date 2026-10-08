@@ -1,26 +1,35 @@
+'use client';
 import Image from 'next/image';
 import Description from '@/components/typography/Description';
 import { Mail, MessageSquare, Send, UserRound } from 'lucide-react';
 import { siGithub } from 'simple-icons';
 import { site } from '@/content/site';
+import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 
 function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
   const Control = multiline ? 'textarea' : 'input';
   return <label className="contact-field">
-    <Control name={name} type={multiline ? undefined : type} placeholder=" " autoComplete={multiline ? undefined : name} rows={multiline ? 5 : undefined} />
+    <Control name={name} type={multiline ? undefined : type} placeholder=" " autoComplete={multiline ? undefined : name} rows={multiline ? 5 : undefined} required />
     <fieldset className="contact-field-border" aria-hidden="true"><legend><span><Icon />{label}</span></legend></fieldset>
     <span className="contact-field-label"><Icon aria-hidden="true" />{label}</span>
   </label>;
 }
 
 export default function ContactSection() {
+  const { showRobotMessage } = usePortfolioInteraction();
+  const submitDemo = (event) => {
+    event.preventDefault();
+    // Local simulation only: no request or storage of the form contents.
+    event.currentTarget.reset();
+    showRobotMessage('Udah kekirim. Sekarang sabar, jangan ditagih tiap menit.');
+  };
   return <section className="section contact-section" id="contact" aria-labelledby="contact-title"><div className="container contact-grid">
     <div><span className="contact-title-mark" aria-hidden="true" /><h2 id="contact-title">Contact Me<svg viewBox="0 0 34 40" fill="none" aria-hidden="true"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h2><Description>Punya ide, pertanyaan, atau sekadar ingin menyapa?</Description>
-      <form className="contact-form" aria-label="Form kontak demo">
+      <form className="contact-form" aria-label="Form kontak demo" onSubmit={submitDemo}>
         <ContactField name="name" label="Nama" Icon={UserRound} />
         <ContactField name="email" label="Email" Icon={Mail} type="email" />
         <ContactField name="message" label="Pesan" Icon={MessageSquare} multiline />
-        <button className="contact-submit" type="button" disabled>Kirim Pesan <Send size={19} aria-hidden="true" /></button>
+        <button className="contact-submit" type="submit">Kirim Pesan <Send size={19} aria-hidden="true" /></button>
       </form>
     </div>
     <div className="contact-side"><div className="contact-illustration" aria-hidden="true"><Image src="/images/contact/envelope.webp" width={960} height={640} alt="" sizes="(max-width: 767px) 100vw, 560px" /><svg className="contact-art-spark" viewBox="0 0 34 40" fill="none"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg><div className="contact-handnote"><p>Mari<br />terhubung<br />dan bertukar<br />cerita!</p><svg viewBox="0 0 82 62" fill="none"><path d="M7 37c10 16 36 20 41 8 5-13-13-14-12-4 2 15 33 8 31-30M58 18l9-9 7 11" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" /></svg></div></div>

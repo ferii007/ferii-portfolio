@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Heart } from 'lucide-react';
 
 const frontCrest = 'M0 142C80 134 69 65 176 70c199-2 347 77 552 82s375-72 527-74 145 22 185 22';
 
@@ -83,7 +82,7 @@ export default function Footer() {
     <FooterLandscape />
     <div className="container footer-content">
       <a className="brand fp-logo footer-brand" href="#top" aria-label="Feri, kembali ke atas">feri<span>.</span></a>
-      <p className="footer-copyright">© {new Date().getFullYear()} Feri Ramdani. All rights reserved. <Heart size={14} aria-hidden="true" /></p>
+      <p className="footer-copyright">© {new Date().getFullYear()} Feri Ramdani. All rights reserved.</p>
     </div>
   </footer>;
 }

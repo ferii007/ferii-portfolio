@@ -15,7 +15,6 @@
 .footer-content { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
 .footer-brand { font-size: 43px; }
 .footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 1px; color: #718899; font-size: 11px; }
-.footer-copyright svg { color: #ec995f; flex: none; stroke-width: 1.7; }
 @media (max-width: 767px) {
   .site-footer { padding: 180px 0 25px; }
   .footer-waves { width: 130%; max-width: none; left: -15%; height: 180px; }

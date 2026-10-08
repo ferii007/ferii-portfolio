@@ -10,7 +10,8 @@
 .example-badge { vertical-align: middle; white-space: nowrap; }
 .fp-section-title { display: inline-flex; }
 .fp-section-title::after { margin-left: 2px; }
-.site-header { z-index: 50; }
+.site-header { z-index: 50; transition: transform 240ms ease; }
+.site-header--hidden { transform: translateY(-100%); }
 .header-inner { gap: 18px; }
 .brand { flex: none; }
 .nav-links { gap: 0; }
@@ -130,6 +131,9 @@
 .journey-item { position: relative; display: grid; grid-template-columns: var(--journey-date-width) var(--journey-node-size) minmax(0, 1fr); align-items: start; gap: var(--journey-column-gap); }
 .journey-period { padding-top: 32px; color: #102638; font-size: 19px; font-weight: 700; line-height: 1.4; text-align: right; }
 .journey-period span { display: block; }
+@media (min-width: 768px) {
+  .journey-period:has(> span:only-child) { padding-top: calc(28px + (var(--journey-node-size) - 1.4em) / 2); }
+}
 .journey-marker { position: relative; z-index: 1; display: grid; place-items: center; width: var(--journey-node-size); height: var(--journey-node-size); margin-top: 28px; border-radius: 50%; outline: 5px solid var(--color-canvas); background: linear-gradient(135deg, #04a2f4, #007ad2); color: white; font-size: 28px; font-weight: 700; line-height: 1; }
 .journey-item--current .journey-marker { background: linear-gradient(135deg, #ffab52, #ff7c15); }
 .journey-card { position: relative; display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 26px; padding: 30px; border: 1px solid #cfe3ed; border-radius: 18px; background: linear-gradient(135deg, #fffefd, #fcfdfe); box-shadow: 0 8px 24px #243b5310; }
