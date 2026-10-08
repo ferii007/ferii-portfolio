@@ -144,8 +144,8 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     if (!hero && group.current) {
       const time = reducedMotion ? 0 : clock.elapsedTime;
       flightPose(time, projecting);
-      group.current.position.set(0, -1.28 + Math.sin(time * 1.6) * 0.045, 0);
-      group.current.rotation.set(0, -0.22, 0);
+      group.current.position.set(0, -0.98 + Math.sin(time * 1.6) * 0.045, 0);
+      group.current.rotation.set(0.025, -0.65, 0.065);
     }
     if (hero && group.current) {
       group.current.updateMatrixWorld(true);
@@ -165,7 +165,7 @@ export default function RobotModel({ spawn, onFeetPosition, expression, projecti
     if (Number.isFinite(point.x) && Number.isFinite(point.y)) onProjectorPosition({ x: rect.left + (point.x + 1) * rect.width / 2, y: rect.top + (1 - point.y) * rect.height / 2 });
     lastProjection.current = performance.now();
   });
-  return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -1.28, 0]} scale={hero ? 1.12 : 0.87}>
+  return <group ref={group} position={[hero ? 0.05 : 0, hero ? -1.78 : -0.98, 0]} scale={hero ? 1.12 : 0.84}>
     <primitive object={scene} />
     {!hero && <FootThrusters scene={scene} reducedMotion={reducedMotion} />}
   </group>;
