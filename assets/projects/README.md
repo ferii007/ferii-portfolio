@@ -25,3 +25,5 @@ Prompt: Use case: stylized-concept. Asset type: transparent portfolio Projects s
 ## Projects header (new design, P01)
 
 `public/images/projects/studio-assistant.webp` (1100 × 733, alpha) comes unchanged from the generated asset package `feri-portfolio-new-design-assets` (built-in ImageGen, reference `03-projects.png`); master `studio-assistant-master.png`. It is a decorative still of the same robot with laptop and browser panels, not the interactive 3D robot. The old `gallery-illustration-v2/v3.webp` files are no longer referenced.
+
+> Removed in the v1 launch cleanup: `gallery-illustration-v2.webp` and `gallery-illustration-v3.webp` are no longer used by the page and were deleted from `public/` (recoverable from git history at commit `f173578`).

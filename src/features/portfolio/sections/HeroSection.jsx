@@ -11,7 +11,7 @@ export default function HeroSection() {
       <div className="container hero-grid fp-container fp-hero">
         <div className="hero-text fp-hero__copy">
           <Eyebrow className="hero-eyebrow">Hello, World!</Eyebrow>
-          <h1 className="fp-display" id="hero-title"><span>Feri</span><span>Ramdani</span></h1>
+          <h1 className="fp-display" id="hero-title"><span>Feri</span>{' '}<span>Ramdani</span></h1>
           <p className="hero-role"><span>{site.hero.role}</span><svg className="hero-role-underline" viewBox="0 0 170 20" fill="none" aria-hidden="true"><path d="M3 15C50 7 109 5 167 9M59 17c43-5 72-6 103-5" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" /></svg></p>
           <Description className="hero-copy">{site.hero.intro}</Description>
           <div className="hero-actions fp-row">

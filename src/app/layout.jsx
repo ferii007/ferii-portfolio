@@ -23,7 +23,7 @@ export const metadata = {
     type: 'website',
     images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Feri Ramdani — Full Stack Developer' }],
   },
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {

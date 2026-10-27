@@ -9,3 +9,5 @@ Use case: stylized-concept. Asset type: transparent Contact Me portfolio decorat
 ## v1 redesign (package assets)
 
 `public/images/contact/letter-studio.webp` is the T01 letter scene from the ImageGen package, unchanged. Its letter is blank; "Hi, Feri! :)" and the chat-hologram animation are SVG in `ContactSection.jsx`. `envelope.webp` above is no longer used by the page.
+
+> Removed in the v1 launch cleanup: `envelope.webp` is no longer used by the page and was deleted from `public/` (recoverable from git history at commit `f173578`).

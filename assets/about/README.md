@@ -11,3 +11,5 @@ Generate one transparent-background web illustration asset inspired by ONLY the 
 Base artwork: `studio-desk-master.png` (1536 × 1024, alpha), unchanged from the generated asset package `feri-portfolio-new-design-assets` (13 Oct 2026, built-in ImageGen, reference `01-hero-about-currently-skills.png`; prompt in that package's `provenance/generation-tasks.json`).
 
 `public/images/about/studio-desk.webp` is `studio-desk-clean.png`: that artwork with the two small orange spark marks on the notebook pages painted out (paper colour), encoded with cwebp q 88. The small labels from the mockup (book spines, mug, notebook notes, sticky note) are real HTML text in `AboutIllustration.jsx`, placed by percent coordinates and angles traced from this canvas. `plant-and-books.png` remains only as the interim footer prop.
+
+> Removed in the v1 launch cleanup: `plant-and-books.png` is no longer used by the page and was deleted from `public/` (recoverable from git history at commit `f173578`).

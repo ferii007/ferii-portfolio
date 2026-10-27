@@ -16,3 +16,5 @@ Palette: desaturated misty blue #b5c8cc, soft sage #bccac0, slate blue #759aa5 t
 
 - `public/images/footer/studio-ledge.webp` (U01) and `studio-books-plant.webp` (U02) come from the ImageGen package, unchanged. Spine titles and the animated rim light are SVG in `Footer.jsx`.
 - The package's U03 robot vignette is not used: the real 3D robot lands on a code-drawn portal in the footer instead. `botanical-watercolor.webp` above is no longer used by the page.
+
+> Removed in the v1 launch cleanup: `botanical-watercolor.webp` is no longer used by the page and was deleted from `public/` (recoverable from git history at commit `f173578`).
