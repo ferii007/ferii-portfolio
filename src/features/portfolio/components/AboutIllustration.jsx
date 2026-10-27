@@ -13,6 +13,9 @@ const spark = 'M0 -9 8 -14M2 0H11M0 9 8 14';
 const fromIndent = [0, 4];
 const stickyX = [1222, 1216, 1220, 1234];
 
+// The sticky note's outline, drawn once as its shadow and once as the paper.
+const STICKY_NOTE = 'M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z';
+
 export default function AboutIllustration({ text }) {
   return (
     <div className="about-art" aria-hidden="true">
@@ -64,8 +67,8 @@ export default function AboutIllustration({ text }) {
         </g>
 
         <g className="about-art-note" transform="rotate(-2 1290 90)">
-          <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="#3d2a10" opacity=".14" transform="translate(6 10)" filter="blur(6px)" />
-          <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="url(#about-note-paper)" filter="url(#about-paper-grain)" />
+          <path d={STICKY_NOTE} fill="#3d2a10" opacity=".14" transform="translate(6 10)" filter="blur(6px)" />
+          <path d={STICKY_NOTE} fill="url(#about-note-paper)" filter="url(#about-paper-grain)" />
           <path d="M1400 158 1400 186C1380 188 1366 189 1352 189Z" fill="#e7d6b2" />
           <text className="about-art-note-text" transform="rotate(-3 1290 90)">{splitLines(text.about_art_sticky).map((line, i) => <tspan key={i} x={stickyX[i] ?? 1220} {...(i ? { dy: 44 } : { y: 30 })}>{line}</tspan>)}</text>
           <rect className="about-art-tape" x="1262" y="-66" width="58" height="26" rx="2" transform="rotate(-7 1291 -53)" />

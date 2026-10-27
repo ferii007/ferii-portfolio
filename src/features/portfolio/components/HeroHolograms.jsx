@@ -12,6 +12,11 @@ function HologramShape({ variant, viewBox, children }) {
   );
 }
 
+// The trail from the outer floor ring toward About; the energy spark laps the ring (the arc) then follows the trail.
+const TRAIL_START = 'M589 60';
+const TRAIL = `${TRAIL_START}C625 62 660 64 690 64L734 63C752 60 758 44 750 34 744 27 736 32 738 40 740 50 752 60 770 70 800 86 830 100 827 120 823 145 785 160 750 172 720 182 690 210 681 237L677 254`;
+const ENERGY = `M589 60.2A325 52 0 0 1 171 139.8 325 52 0 0 1 589 60.2${TRAIL.slice(TRAIL_START.length)}`;
+
 export default function HeroHolograms() {
   const panelsRef = useRef(null);
   const reducedMotion = useReducedMotion();
@@ -65,10 +70,10 @@ export default function HeroHolograms() {
           <ellipse className="hero-ring hero-ring--dash-b" cx="380" cy="100" rx="290" ry="47" pathLength="100" />
           <ellipse className="hero-ring hero-ring--dash-c" cx="380" cy="100" rx="325" ry="52" pathLength="100" />
           <path className="hero-ring-marker" d="M38 100l12-5v10zm18 0 9-4v8z" />
-<path className="hero-trail hero-trail--glow" pathLength="1" d="M589 60C625 62 660 64 690 64L734 63C752 60 758 44 750 34 744 27 736 32 738 40 740 50 752 60 770 70 800 86 830 100 827 120 823 145 785 160 750 172 720 182 690 210 681 237L677 254" />
-          <path className="hero-trail" pathLength="1" d="M589 60C625 62 660 64 690 64L734 63C752 60 758 44 750 34 744 27 736 32 738 40 740 50 752 60 770 70 800 86 830 100 827 120 823 145 785 160 750 172 720 182 690 210 681 237L677 254" />
+<path className="hero-trail hero-trail--glow" pathLength="1" d={TRAIL} />
+          <path className="hero-trail" pathLength="1" d={TRAIL} />
           <path className="hero-trail-head" d="m669 238 8 16 13-12" />
-          <path id="hero-energy" className="hero-energy" pathLength="1" d="M589 60.2A325 52 0 0 1 171 139.8 325 52 0 0 1 589 60.2C625 62 660 64 690 64L734 63C752 60 758 44 750 34 744 27 736 32 738 40 740 50 752 60 770 70 800 86 830 100 827 120 823 145 785 160 750 172 720 182 690 210 681 237L677 254" />
+          <path id="hero-energy" className="hero-energy" pathLength="1" d={ENERGY} />
         </svg>
       </div>
     </div>
