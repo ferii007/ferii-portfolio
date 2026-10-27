@@ -4,5 +4,4 @@
 /* Section titles stay upright. The dash marks titles that have no eyebrow above them. */
 .section-title { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: 100%; margin: 0; color: var(--color-heading); font-family: var(--font-display); font-size: var(--size-section); font-weight: 650; line-height: 1.08; letter-spacing: -.025em; text-wrap: balance; }
 .section-title > svg { width: .56em; height: .7em; flex: none; color: var(--color-orange); }
-.section-title--dash::before { content: ''; width: 18px; height: 4px; flex: none; border-radius: 3px; background: var(--color-primary); }
 .hand-note { margin: 0; color: var(--color-primary); font-family: var(--font-hand); font-size: var(--size-note); font-weight: 600; line-height: 1.12; }

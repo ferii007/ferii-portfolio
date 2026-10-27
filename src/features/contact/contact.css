@@ -34,16 +34,14 @@
 .contact-submit:disabled { background: #c9d3dc; color: #4a5866; box-shadow: none; cursor: not-allowed; }
 .contact-side { display: flex; flex-direction: column; gap: 24px; padding-top: 40px; }
 .contact-illustration { position: relative; }
-.contact-illustration > img { display: block; width: 100%; height: auto; }
 /* Chat hologram overlay (see ContactSection): drawn over the panel glass with screen blending so it only adds light. */
-.chat-holo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .chat-holo-flicker { fill: rgb(120 220 255 / 16%); mix-blend-mode: screen; opacity: 0; }
-.chat-holo-bubble { stroke: #e6fcff; stroke-width: 3; filter: drop-shadow(0 0 6px #58dfff) drop-shadow(0 0 12px rgb(88 223 255 / 60%)); opacity: 0; }
-.chat-holo-ping { stroke: #e6fcff; stroke-width: 2.5; filter: drop-shadow(0 0 4px #58dfff); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.chat-holo-bubble { stroke: var(--color-holo-light); stroke-width: 3; filter: drop-shadow(0 0 6px var(--color-cyan)) drop-shadow(0 0 12px rgb(from var(--color-cyan) r g b / 60%)); opacity: 0; }
+.chat-holo-ping { stroke: var(--color-holo-light); stroke-width: 2.5; filter: drop-shadow(0 0 4px var(--color-cyan)); opacity: 0; transform-box: fill-box; transform-origin: center; }
 .chat-holo-shimmer { stroke: #f4feff; stroke-width: 11; stroke-linecap: round; stroke-dasharray: 26 200; stroke-dashoffset: 40; filter: blur(1.5px) drop-shadow(0 0 4px #9cecff); mix-blend-mode: screen; opacity: .95; }
 .chat-holo-plane-glow { fill: rgb(230 252 255 / 55%); filter: blur(3px); mix-blend-mode: screen; opacity: 0; }
-.chat-holo-trail { stroke: #e6fcff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 7; filter: drop-shadow(0 0 3px #58dfff); opacity: 0; }
-.chat-holo-ghost { stroke: #f2fdff; stroke-width: 2.5; stroke-linejoin: round; fill: rgb(200 245 255 / 25%); filter: drop-shadow(0 0 5px #58dfff); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.chat-holo-trail { stroke: var(--color-holo-light); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 7; filter: drop-shadow(0 0 3px var(--color-cyan)); opacity: 0; }
+.chat-holo-ghost { stroke: var(--color-holo-bright); stroke-width: 2.5; stroke-linejoin: round; fill: rgb(200 245 255 / 25%); filter: drop-shadow(0 0 5px var(--color-cyan)); opacity: 0; transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
   /* One 6s conversation loop: bubble 1 arrives, bubble 2 answers, the plane sends it off. */
   .chat-holo-flicker { animation: chat-holo-flicker 6s steps(1) infinite; }
@@ -66,7 +64,6 @@
 @keyframes chat-holo-trail { 0%, 50% { opacity: 0; stroke-dashoffset: 0; } 58% { opacity: 1; } 85% { opacity: .6; } 100% { opacity: 0; stroke-dashoffset: -40; } }
 @keyframes chat-holo-launch { 0%, 52% { opacity: 0; transform: translate(0, 0) scale(1); } 56% { opacity: 1; } 88% { opacity: .5; transform: translate(105px, -95px) scale(.55) rotate(-6deg); } 92%, 100% { opacity: 0; transform: translate(118px, -106px) scale(.5) rotate(-6deg); } }
 /* T01 letter scene: the blank letter gets its greeting as SVG text, clipped to the visible paper. */
-.contact-letter { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 .contact-letter-ink { mix-blend-mode: multiply; }
 .contact-letter-ink text { fill: #1d2f5c; font-family: var(--font-hand); font-weight: 700; }
 .contact-letter-line { stroke: #6f9fd8; stroke-width: 6; stroke-linecap: round; opacity: .85; }
@@ -118,7 +115,7 @@
   .contact-field:focus-within .contact-field-label, .contact-field:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) .contact-field-label { left: 12px; gap: 9px; }
   .contact-form { gap: 1.7cqw; width: 45.7cqw; margin: 3.4cqw 0 0 4.57cqw; padding: 2.4cqw 2.5cqw 2.1cqw 2.76cqw; }
   /* Thin hologram light along the form's left edge. */
-  .contact-form::after { content: ''; position: absolute; z-index: -2; top: 0; left: -1.2cqw; width: 2.4cqw; height: 13cqw; border-left: 2px solid rgb(88 200 255 / 70%); border-radius: 50% 0 0 50%; filter: drop-shadow(0 0 6px rgb(88 223 255 / 70%)); pointer-events: none; }
+  .contact-form::after { content: ''; position: absolute; z-index: -2; top: 0; left: -1.2cqw; width: 2.4cqw; height: 13cqw; border-left: 2px solid rgb(88 200 255 / 70%); border-radius: 50% 0 0 50%; filter: drop-shadow(0 0 6px rgb(from var(--color-cyan) r g b / 70%)); pointer-events: none; }
   .contact-tape { left: 48%; width: 4.5cqw; height: 2cqw; }
   .contact-field input, .contact-field textarea { padding: 1.35cqw 1.5cqw; font-size: 1.38cqw; }
   .contact-field-label { left: 1.2cqw; top: 1.35cqw; gap: .9cqw; font-size: 1.38cqw; line-height: 2.07cqw; }

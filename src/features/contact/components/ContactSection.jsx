@@ -53,9 +53,9 @@ export default function ContactSection() {
         <button className="contact-submit" type="submit" disabled={!complete}>{text.contact_submit} <Send size={19} aria-hidden="true" /></button>
       </form>
     </div>
-    <div className="contact-side"><div className="contact-illustration" aria-hidden="true"><Image src="/images/contact/letter-studio.webp" width={1448} height={1086} alt="" sizes="(max-width: 767px) 100vw, 800px" />
+    <div className="contact-side"><div className="contact-illustration" aria-hidden="true"><Image className="fp-img" src="/images/contact/letter-studio.webp" width={1448} height={1086} alt="" sizes="(max-width: 767px) 100vw, 800px" />
         {/* The letter is blank in the artwork; the greeting is written on it here, in the image's 1448×1086 pixels. */}
-        <svg className="contact-letter" viewBox="0 0 1448 1086" fill="none">
+        <svg className="fp-overlay fp-overlay--inert contact-letter" viewBox="0 0 1448 1086" fill="none">
           <defs><clipPath id="contact-letter-face"><path d="M332 457 905 348 959 555 813 672 630 697 292 563Z" /></clipPath></defs>
           <g clipPath="url(#contact-letter-face)" className="contact-letter-ink">
             <text transform="translate(452 572) rotate(-10.8)" fontSize="96">{LABELS.letterGreeting}</text>
@@ -67,7 +67,7 @@ export default function ContactSection() {
         {/* Chat hologram, animated in the artwork's 1448×1086 pixels (everything follows the panel's ~11° perspective):
             messages arrive one after another, their text lines shimmer like loading skeletons, the avatars ping and the
             paper plane keeps launching a ghost copy along a dotted trail. */}
-        <svg className="chat-holo" viewBox="0 0 1448 1086" fill="none">
+        <svg className="fp-overlay fp-overlay--inert chat-holo" viewBox="0 0 1448 1086" fill="none">
           <defs><clipPath id="chat-holo-panel"><path d="M800 95 1215 175 1200 490 805 480Z" /></clipPath></defs>
           <g clipPath="url(#chat-holo-panel)">
             <rect className="chat-holo-flicker" x="790" y="85" width="440" height="415" />

@@ -17,8 +17,8 @@ const spineTransforms = ['translate(457 423) rotate(-5)', 'translate(440 493) ro
 // Shelf scene (books, open journal, hologram) with its labels set in the artwork's own 1500×750 pixels.
 function BeyondStudio({ text }) {
   return <div className="beyond-studio" aria-hidden="true">
-    <Image src="/images/beyond/journal-studio.webp" width={1500} height={750} sizes="(max-width: 767px) 92vw, 1030px" alt="" />
-    <svg className="beyond-studio-labels" viewBox="0 0 1500 750" fill="none">
+    <Image className="fp-img" src="/images/beyond/journal-studio.webp" width={1500} height={750} sizes="(max-width: 767px) 92vw, 1030px" alt="" />
+    <svg className="fp-overlay beyond-studio-labels" viewBox="0 0 1500 750" fill="none">
       {/* Gold foil between each spine's own diamonds; each line follows its book's slight slant. */}
       <g className="beyond-foil">
         {splitLines(text.beyond_spines).map((title, index) => <text key={index} transform={spineTransforms[index]} fontSize={index ? 30 : 31}>{title}</text>)}
@@ -31,7 +31,7 @@ function BeyondStudio({ text }) {
     </svg>
     {/* The book hologram is projected from an emitter on the top book, like the Hero and My Skills holograms:
         a light cone up to the panel, edge rays and motes rising through the beam. */}
-    <svg className="holo-cast" viewBox="0 0 1500 750" fill="none" style={{ '--cast-origin': '548px 396px' }}>
+    <svg className="fp-overlay fp-overlay--inert holo-cast" viewBox="0 0 1500 750" fill="none" style={{ '--cast-origin': '548px 396px' }}>
       <defs>
         <linearGradient id="beyond-holo-beam" x1="0" y1="1" x2="0" y2="0"><stop stopColor="#e6fcff" /><stop offset=".45" stopColor="#8ceaff" stopOpacity=".9" /><stop offset="1" stopColor="#58dfff" stopOpacity=".4" /></linearGradient>
         {/* Occlusion mask made from the artwork's pixels: the light shows only where no book, journal or prop is in front. */}

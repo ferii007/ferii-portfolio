@@ -48,11 +48,11 @@ export default function HeroHolograms() {
         <path className="holo-trace" d="M0 214H140M470 214H600M0 352H110M500 352H600M60 120V200M548 260V340" />
         <circle className="holo-node" cx="86" cy="210" r="3" /><circle className="holo-node" cx="514" cy="352" r="3" /><circle className="holo-node" cx="514" cy="132" r="2.5" />
       </HologramShape>
-      <div className="hero-projection hero-projection--panel-code" aria-hidden="true"><Image src="/images/hero/holo-panel-code.svg" width={360} height={330} unoptimized priority alt="" /></div>
-      <div className="hero-projection hero-projection--panel-media" aria-hidden="true"><Image src="/images/hero/holo-panel-media.svg" width={340} height={330} unoptimized priority alt="" /></div>
+      <div className="hero-projection hero-projection--panel-code" aria-hidden="true"><Image className="fp-img" src="/images/hero/holo-panel-code.svg" width={360} height={330} unoptimized priority alt="" /></div>
+      <div className="hero-projection hero-projection--panel-media" aria-hidden="true"><Image className="fp-img" src="/images/hero/holo-panel-media.svg" width={340} height={330} unoptimized priority alt="" /></div>
       <div className="hero-projection hero-projection--portal" aria-hidden="true">
         {/* Floor rings spin; an energy spark laps the outer ring, then is flung out and draws the trail toward About as it goes. */}
-        <svg className="hero-portal-svg" viewBox="0 0 760 200" fill="none">
+        <svg className="fp-overlay hero-portal-svg" viewBox="0 0 760 200" fill="none">
           <defs>
             <linearGradient id="hero-trail-ink" gradientUnits="userSpaceOnUse" x1="589" y1="60" x2="677" y2="254"><stop stopColor="#8fdcf5" /><stop offset=".45" stopColor="#6fd0f3" /><stop offset="1" stopColor="#56c3ee" /></linearGradient>
             <radialGradient id="hero-portal-disc" cx=".5" cy=".5" r=".5"><stop offset="0" stopColor="#b6edff" stopOpacity=".75" /><stop offset=".7" stopColor="#d4f4ff" stopOpacity=".45" /><stop offset="1" stopColor="#eafaff" stopOpacity="0" /></radialGradient>

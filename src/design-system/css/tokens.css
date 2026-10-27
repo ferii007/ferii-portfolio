@@ -19,12 +19,18 @@
   --color-primary-hover: #0056B3;
   --color-primary-active: #00438C;
   --color-cyan: #58DFFF;
+  /* Hologram highlights and printed-paper ink, shared across sections. */
+  --color-holo-light: #E6FCFF;
+  --color-holo-bright: #F2FDFF;
+  --color-speech-border: #B4DCEF;
+  --color-paper-ink: #2B3447;
+  --color-paper-heading: #13213A;
   --color-orange: #F47A26;
   --color-orange-ink: #974B13;
   --color-line: #DEDCD5;
   --color-control-border: #758697;
   --color-white: #FFFFFF;
-  --color-focus: #0067D0;
+  --color-focus: var(--color-primary);
   --color-success: #176B4B;
   --color-success-bg: #EAF7F0;
   --color-error: #AD2925;
@@ -87,7 +93,7 @@
   --shadow-hologram: 0 0 0 1px rgb(88 223 255 / 70%), 0 0 24px rgb(88 223 255 / 24%);
   --shadow-paper: 0 3px 7px rgb(87 63 35 / 8%), 0 12px 24px rgb(87 63 35 / 7%);
   --shadow-print: 0 3px 8px rgb(45 37 23 / 12%);
-  --shadow-action: 0 5px 14px rgb(0 103 208 / 18%);
+  --shadow-action: var(--shadow-button);
   --layout-max: 75rem;
   --layout-reading: 42rem;
   --layout-gutter: 1.25rem;

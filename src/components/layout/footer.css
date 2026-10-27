@@ -6,24 +6,21 @@
 .footer-layer--ledge { transform: translate3d(0, calc(var(--footer-shift) * 8px), 0); }
 .footer-layer--props { transform: translate3d(0, calc(var(--footer-shift) * 14px), 0); }
 .footer-layer--robot { transform: translate3d(0, calc(var(--footer-shift) * 20px), 0); }
-.footer-layer img { display: block; width: 100%; height: auto; }
 /* U01: wider than the page so both rounded ends bleed off; the cyan rim is baked in. */
 .footer-ledge { position: absolute; top: -9.2cqw; left: -7.8cqw; width: 135.1cqw; }
-.footer-rim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .footer-rim path { stroke-linecap: round; }
 .footer-rim-glow { stroke: #7fe9ff; stroke-width: 7; filter: blur(5px); opacity: .35; }
-.footer-rim-pulse { stroke: #f2fdff; stroke-width: 5.5; stroke-dasharray: 12 88; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px #58dfff) drop-shadow(0 0 10px #58dfff); opacity: 0; }
+.footer-rim-pulse { stroke: var(--color-holo-bright); stroke-width: 5.5; stroke-dasharray: 12 88; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px var(--color-cyan)) drop-shadow(0 0 10px var(--color-cyan)); opacity: 0; }
 .footer-rim-spark { stroke: #fff; stroke-width: 6; stroke-dasharray: .4 99.6; filter: blur(1px) drop-shadow(0 0 8px #9cecff); opacity: 0; }
 .footer-props { position: absolute; top: 2.1cqw; left: -2.5cqw; width: 39.4cqw; }
 .footer-props svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .footer-foil text { fill: #f0dfae; font-family: var(--font-display); font-weight: 600; letter-spacing: .1em; text-anchor: middle; dominant-baseline: central; filter: drop-shadow(0 1px 0 rgb(20 14 6 / 45%)); }
 .footer-pad { position: absolute; top: 20.67cqw; left: 76.2cqw; width: 14cqw; height: 4.17cqw; }
-.footer-portal { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .footer-portal-core { filter: blur(4px); }
-.footer-portal-ring { vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 3px rgb(88 223 255 / 85%)); }
+.footer-portal-ring { vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 3px rgb(from var(--color-cyan) r g b / 85%)); }
 .footer-portal-ring--a { stroke: #d6faff; stroke-width: 2.4; stroke-dasharray: 30 6 14 6 20 6 18 0; }
 .footer-portal-ring--b { stroke: #6fe2ff; stroke-width: 2; stroke-dasharray: 3 3; }
-.footer-portal-ring--c { stroke: #58dfff; stroke-width: 2; stroke-dasharray: 40 5 22 5 18 10; }
+.footer-portal-ring--c { stroke: var(--color-cyan); stroke-width: 2; stroke-dasharray: 40 5 22 5 18 10; }
 .footer-portal-ring--d { stroke: rgb(120 225 255 / 60%); stroke-width: 1.4; stroke-dasharray: 1.5 4; }
 /* The real robot is portalled in here (hero pose) while the footer is on screen; its feet land on the pad. */
 .footer-robot-slot { position: absolute; top: 5.5cqw; left: 70.4cqw; width: 26cqw; height: 20.8cqw; }

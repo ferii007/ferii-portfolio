@@ -15,7 +15,7 @@ function JourneyArt({ item }) {
   if (!item.scene) return <div className="journey-art" aria-hidden="true"><Image className="journey-logo" src={item.icon} width={256} height={256} unoptimized alt="" /></div>;
   return <div className="journey-art journey-art--scene" aria-hidden="true">
     <div className="journey-scene">
-      <Image src={item.scene} width={900} height={600} sizes="(max-width: 767px) 90vw, 360px" alt="" />
+      <Image className="fp-img" src={item.scene} width={900} height={600} sizes="(max-width: 767px) 90vw, 360px" alt="" />
       {item.logoBox && <Image className="journey-scene-logo" src={item.icon} width={256} height={256} unoptimized alt="" style={{ left: `${item.logoBox.left}%`, top: `${item.logoBox.top}%`, width: `${item.logoBox.width}%` }} />}
     </div>
   </div>;

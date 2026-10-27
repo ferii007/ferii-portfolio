@@ -17,9 +17,10 @@ Butuh Node 20.9 atau lebih baru (`.nvmrc` memakai 22; jalankan `nvm use`). Perik
 
 - `src/app`: dua root layout, `(id)` untuk `/` dan `(en)/en` untuk `/en`, plus 404 global, robots, sitemap, manifest, dan ikon.
 - `src/constants/languages.js`, `src/constants/languages/{id,en}.js`, `src/constants/localization.js`, `src/context/LocalizationProvider.jsx`: lokalisasi dengan pola yang sama seperti `rebill_backoffice_fe` (lihat bagian Bahasa).
-- `src/content/seo.js`: metadata, hreflang, dan JSON-LD per bahasa.
+- `src/lib/seo.js`: metadata, hreflang, dan JSON-LD per bahasa, disusun dari constants. `src/lib/journey.js` memformat periode dan role Journey; `useReducedMotion` dan `text.js` adalah helper bersama.
 - `src/design-system`: CSS dan font lokal dari paket desain, beserta lisensinya.
-- `src/content/site.js`: fakta yang tidak bergantung bahasa (nama, tautan kontak, gambar kartu Beyond).
+- `src/constants/site.js`: satu-satunya tempat untuk fakta tetap yang sama di semua bahasa: nama, role, URL situs, sosial media, warna tema, judul dan anchor section, label menu, judul buku, dan kartu Currently/Beyond. Ubah di sini, dan semua halaman, metadata, manifest, serta JSON-LD ikut berubah.
+- `src/components/doodles/Doodle.jsx`, `layout/Section.jsx`, `layout/Logo.jsx`, `paper/Tape.jsx`: markup yang dipakai berulang (spark, panah, garis bawah, judul section, logo, tape). `fp-img` dan `fp-overlay` di `appearance.css` adalah utilitas CSS bersama.
 - `src/features/projects`: sumber data JSON, validator, dan kartu proyek.
 - `src/features/interaction`: state bersama robot dan Skills.
 - `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
@@ -35,9 +36,9 @@ Butuh Node 20.9 atau lebih baru (`.nvmrc` memakai 22; jalankan `nvm use`). Perik
 
 ## Bahasa
 
-Situs tersedia dalam Bahasa Indonesia (`/`) dan Inggris (`/en`). Semua teks yang terlihat pengunjung ada di `src/constants/languages/id.js` dan `en.js` sebagai objek datar dengan key `snake_case`, sama seperti `rebill_backoffice_fe`. Komponen server membaca `getLocalization(language).text.nama_key`; komponen client memakai `useLocalization()`. Placeholder ditulis `{nama}` dan diisi dengan `interpolate`. `\n` di dalam teks berarti pindah baris (catatan tulisan tangan dan label ilustrasi). Gaya bahasanya santai, bukan bahasa baku.
+Situs tersedia dalam Bahasa Indonesia (`/`) dan Inggris (`/en`). Teks yang berbeda per bahasa ada di `src/constants/languages/id.js` dan `en.js`; teks yang sama di semua bahasa ada di `src/constants/site.js`. Nama dan role ditulis sebagai `{firstName}`, `{name}`, `{nickname}`, `{role}` dan diisi otomatis. Periode Journey adalah tanggal di `journey.json` yang diformat per bahasa. Unit test gagal kalau ada teks yang sama di semua bahasa, teks ganda, atau nama/role yang diketik langsung. Semua teks sebagai objek datar dengan key `snake_case`, sama seperti `rebill_backoffice_fe`. Komponen server membaca `getLocalization(language).text.nama_key`; komponen client memakai `useLocalization()`. Placeholder ditulis `{nama}` dan diisi dengan `interpolate`. `\n` di dalam teks berarti pindah baris (catatan tulisan tangan dan label ilustrasi). Gaya bahasanya santai, bukan bahasa baku.
 
-Teks untuk data JSON memakai key yang dibentuk dari `id` record: `project_<id>_contribution`, `category_<id>_title` dan `_note`, `journey_<id>_period`, `_title`, `_role`, dan `_description` (tanda `-` di `id` menjadi `_`). `npm run test` gagal bila key di `id.js` dan `en.js` tidak sama, placeholder berbeda, atau ada record yang belum punya teks.
+Teks untuk data JSON memakai key yang dibentuk dari `id` record: `project_<id>_contribution`, `category_<id>_title` dan `_note`, `journey_<id>_title`, `_description`, dan `_role` (hanya bila role-nya perlu diterjemahkan) (tanda `-` di `id` menjadi `_`). `npm run test` gagal bila key di `id.js` dan `en.js` tidak sama, placeholder berbeda, atau ada record yang belum punya teks.
 
 Tombol ID/EN di header dan menu mobile adalah tautan biasa ke halaman bahasa lain, sehingga mesin pencari menemukan keduanya. Pilihan bahasa juga disimpan di `localStorage` dengan key `localization`.
 
@@ -63,7 +64,7 @@ Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `
 
 ## Menambah perjalanan
 
-Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `organization`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. `scene` (opsional) menampilkan ilustrasi vignette di kiri kartu, dengan `icon` sebagai logo asli di atasnya; kosongkan `icon` bila scene sudah memuat ikonnya. Tulis `journey_<id>_period` (baris dipisah `\n`), `_title`, `_role`, dan `_description` di kedua file bahasa. Komponen tidak perlu diedit saat menambah perjalanan.
+Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `organization`, `period` (`{ "start": "2021-12", "end": null }`; `end: null` berarti masih berlangsung, cukup `start: "2021"` untuk satu tahun), `roles` untuk jabatan tetap (misalnya `["Web Developer", "Software Engineer"]`), dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. Periode yang masih berlangsung memberi warna oranye pada titik perjalanannya, dan nama bulan otomatis mengikuti bahasa. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. `scene` (opsional) menampilkan ilustrasi vignette di kiri kartu, dengan `icon` sebagai logo asli di atasnya; kosongkan `icon` bila scene sudah memuat ikonnya. Tulis `journey_<id>_title`, `_description` (boleh memakai `{year}`, `{firstRole}`, `{lastRole}`), dan `_role` bila tidak ada `roles`, di kedua file bahasa. Komponen tidak perlu diedit saat menambah perjalanan.
 
 ## Status sebelum publikasi
 

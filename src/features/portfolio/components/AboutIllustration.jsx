@@ -16,8 +16,8 @@ const stickyX = [1222, 1216, 1220, 1234];
 export default function AboutIllustration({ text }) {
   return (
     <div className="about-art" aria-hidden="true">
-      <Image className="about-still-life" src="/images/about/studio-desk.webp" width={1536} height={1024} sizes="(max-width: 767px) 100vw, 880px" alt="" />
-      <svg className="about-art-labels" viewBox="0 0 1536 1024">
+      <Image className="fp-img about-still-life" src="/images/about/studio-desk.webp" width={1536} height={1024} sizes="(max-width: 767px) 100vw, 880px" alt="" />
+      <svg className="fp-overlay fp-overlay--inert about-art-labels" viewBox="0 0 1536 1024">
         <defs>
           <clipPath id="about-cover-1"><path d="M596 388 751 375 753 410 597 426Z" /></clipPath>
           <clipPath id="about-cover-2"><path d="M592 448 762 429 764 492 594 512Z" /></clipPath>

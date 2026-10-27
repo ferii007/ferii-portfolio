@@ -17,9 +17,9 @@ button, input, textarea { font: inherit; }
 .not-found-home { display: inline-flex; align-items: center; gap: 10px; }
 .not-found-english { color: var(--color-primary); font-weight: 600; text-underline-offset: 4px; }
 .not-found-robot { position: relative; width: clamp(150px, 22vw, 240px); }
-.not-found-robot img { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
+.not-found-robot img { position: relative; z-index: 1; }
 .not-found-portal { display: block; width: 130%; margin: -14% 0 0 -15%; overflow: visible; }
-.not-found-portal ellipse { stroke: #58dfff; stroke-width: 2; stroke-dasharray: 6 2; filter: drop-shadow(0 0 4px rgb(88 223 255 / 80%)); }
+.not-found-portal ellipse { stroke: var(--color-cyan); stroke-width: 2; stroke-dasharray: 6 2; filter: drop-shadow(0 0 4px rgb(from var(--color-cyan) r g b / 80%)); }
 @media (prefers-reduced-motion: no-preference) {
   .not-found-robot img { animation: not-found-hover 3.2s ease-in-out infinite; }
   .not-found-portal ellipse { animation: skills-ring-spin 12s linear infinite; }

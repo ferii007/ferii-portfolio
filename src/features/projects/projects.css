@@ -146,7 +146,7 @@
   .project-group--pairs .project-media { padding: .9cqw; }
   /* Story text sits printed on the paper. */
   .project-heading h4, .project-note .portfolio-description { mix-blend-mode: multiply; }
-  .project-heading h4 { color: #13213a; text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
-  .project-note .portfolio-description { color: #2b3447; text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+  .project-heading h4 { color: var(--color-paper-heading); text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
+  .project-note .portfolio-description { color: var(--color-paper-ink); text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
   .project-tags li { mix-blend-mode: multiply; }
 }

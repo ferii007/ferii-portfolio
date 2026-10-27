@@ -16,9 +16,9 @@ const ledgeRim = 'M60 330L780 330C890 333 960 376 1060 394C1110 401 1160 400 122
 function FooterStudio() {
   return <div className="footer-studio">
     <div className="footer-layer footer-layer--ledge" aria-hidden="true"><div className="footer-ledge">
-      <Image src="/images/footer/studio-ledge.webp" width={1920} height={640} sizes="140vw" alt="" />
+      <Image className="fp-img" src="/images/footer/studio-ledge.webp" width={1920} height={640} sizes="140vw" alt="" />
       {/* Live light on the ledge's baked cyan rim (traced in its 1920×640 pixels): the rim breathes and pulses of light run along it. */}
-      <svg className="footer-rim" viewBox="0 0 1920 640" fill="none">
+      <svg className="fp-overlay footer-rim" viewBox="0 0 1920 640" fill="none">
         <path className="footer-rim-glow" d={ledgeRim} />
         <path className="footer-rim-pulse" d={ledgeRim} pathLength="100" />
         <path className="footer-rim-pulse footer-rim-pulse--2" d={ledgeRim} pathLength="100" />
@@ -27,7 +27,7 @@ function FooterStudio() {
     </div></div>
     <div className="footer-layer footer-layer--props" aria-hidden="true">
       <div className="footer-props">
-        <Image src="/images/footer/studio-books-plant.webp" width={1100} height={550} sizes="(max-width: 767px) 70vw, 560px" alt="" />
+        <Image className="fp-img" src="/images/footer/studio-books-plant.webp" width={1100} height={550} sizes="(max-width: 767px) 70vw, 560px" alt="" />
         {/* Spine titles in the artwork's 1100×550 pixels, between each spine's own diamonds. */}
         <svg viewBox="0 0 1100 550" fill="none"><g className="footer-foil">
           {BOOK_TITLES.map((title, index) => <text key={title} transform={spineTransforms[index]} fontSize="38">{title}</text>)}
@@ -37,7 +37,7 @@ function FooterStudio() {
     <div className="footer-layer footer-layer--robot">
       {/* Landing pad: while the footer is on screen the real robot (hero pose) stands here instead of floating. */}
       <div className="footer-pad">
-        <svg className="footer-portal" viewBox="0 0 400 120" fill="none" aria-hidden="true">
+        <svg className="fp-overlay footer-portal" viewBox="0 0 400 120" fill="none" aria-hidden="true">
           <defs><radialGradient id="footer-portal-core" cx=".5" cy=".5" r=".5"><stop stopColor="#f2fdff" /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".7" stopColor="#58dfff" stopOpacity=".35" /><stop offset="1" stopColor="#58dfff" stopOpacity="0" /></radialGradient></defs>
           <ellipse className="footer-portal-core" cx="200" cy="60" rx="170" ry="44" fill="url(#footer-portal-core)" />
           <ellipse className="footer-portal-ring footer-portal-ring--a" cx="200" cy="60" rx="70" ry="17" pathLength="100" />

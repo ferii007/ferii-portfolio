@@ -30,7 +30,7 @@ export default function GlobalNotFound() {
       </div>
       {/* A real frame of the 3D companion (side-eye, hovering), captured from the live canvas. */}
       <div className="not-found-robot" aria-hidden="true">
-        <Image src="/images/robot/robot-lost.webp" width={289} height={457} alt="" priority />
+        <Image className="fp-img" src="/images/robot/robot-lost.webp" width={289} height={457} alt="" priority />
         <svg className="not-found-portal" viewBox="0 0 400 120" fill="none"><ellipse cx="200" cy="60" rx="190" ry="50" pathLength="100" /><ellipse cx="200" cy="61" rx="130" ry="32" pathLength="100" /><ellipse cx="200" cy="62" rx="70" ry="16" pathLength="100" /></svg>
       </div>
     </div>
