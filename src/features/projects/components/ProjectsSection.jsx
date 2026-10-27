@@ -24,7 +24,7 @@ export default function ProjectsSection({ language }) {
             <div className="project-label"><h3 className="fp-paper" id={`projects-${category.id}`}><span className="fp-pin" aria-hidden="true" />{text[localeKey('category', category.id, 'title')]}</h3></div>
             <div className="project-group-note"><svg viewBox="0 0 65 36" fill="none" aria-hidden="true"><path d="M60 8C38-1 21 9 9 29m1-11-3 13 15-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><p className="hand-note">{text[localeKey('category', category.id, 'note')]}</p></div>
           </div>
-          <div className="project-list" aria-labelledby={`projects-${category.id}`}>{projects.filter((project) => project.category === category.id).map((project) => <ProjectCard key={project.id} project={project} pairs={pairs} text={text} />)}</div>
+          <div className="project-list" role="group" aria-labelledby={`projects-${category.id}`}>{projects.filter((project) => project.category === category.id).map((project) => <ProjectCard key={project.id} project={project} pairs={pairs} text={text} />)}</div>
         </div>;
       })}
     </div>

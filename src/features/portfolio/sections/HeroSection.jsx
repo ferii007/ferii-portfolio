@@ -22,7 +22,7 @@ export default function HeroSection({ language }) {
           </div>
         </div>
 
-        <div className="hero-visual fp-hero__stage" id="hero-robot-slot" aria-label={text.hero_robot_label}>
+        <div className="hero-visual fp-hero__stage" id="hero-robot-slot" role="group" aria-label={text.hero_robot_label}>
           <HeroHolograms />
           <p className="hero-handnote hero-handnote--right" aria-hidden="true"><Lines text={text.hero_handnote} /></p>
           <svg className="hero-handnote-arrow" viewBox="0 0 44 70" fill="none" aria-hidden="true"><path d="M40 6C24 14 12 30 10 60m-8-12 8 14 10-12" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>

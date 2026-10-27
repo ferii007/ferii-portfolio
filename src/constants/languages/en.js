@@ -2,6 +2,7 @@
 // Copy is casual on purpose. "\n" marks a line break in hand-drawn notes and labels.
 export const en = {
 	// Navigation
+	skip_to_content: "Skip to content",
 	nav_label: "Main navigation",
 	nav_about: "About",
 	nav_skills: "Skills",

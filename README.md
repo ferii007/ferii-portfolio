@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`) atau Chrome terpasang lewat `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. Secara default, `npm run dev` dan `npm run start` menggunakan port 3100 (`http://localhost:3100`).
+Butuh Node 20.9 atau lebih baru (`.nvmrc` memakai 22; jalankan `nvm use`). Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Test e2e juga menjalankan audit aksesibilitas axe (WCAG 2.2 AA) di `/` dan `/en` untuk desktop dan mobile, plus alur keyboard dari skip link. GitHub Actions (`.github/workflows/ci.yml`) menjalankan lint, unit test, `npm audit` untuk dependensi production, build, dan e2e di setiap push dan pull request. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`) atau Chrome terpasang lewat `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. Secara default, `npm run dev` dan `npm run start` menggunakan port 3100 (`http://localhost:3100`).
 
 ## Struktur
 

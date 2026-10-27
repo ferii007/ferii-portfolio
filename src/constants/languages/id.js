@@ -2,6 +2,7 @@
 // Copy is casual on purpose (santai, bukan bahasa baku). "\n" marks a line break in hand-drawn notes and labels.
 export const id = {
 	// Navigation
+	skip_to_content: "Langsung ke konten",
 	nav_label: "Navigasi utama",
 	nav_about: "About",
 	nav_skills: "Skills",

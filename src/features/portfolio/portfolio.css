@@ -17,7 +17,7 @@
 .brand { flex: none; }
 .nav-links { gap: 14px; margin-right: 22px; }
 .nav-links a { color: var(--color-heading); font-size: 16px; font-weight: 500; }
-.header-contact.fp-btn { gap: 10px; min-height: 58px; padding-inline: 26px; border-radius: 12px; font-size: 17px; background: linear-gradient(135deg, #1580ea, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 26%); }
+.header-contact.fp-btn { gap: 10px; min-height: 58px; padding-inline: 26px; border-radius: 12px; font-size: 17px; background: linear-gradient(135deg, #0f74d9, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 26%); }
 .site-header .fp-logo { font-size: 40px; }
 .nav-links a { white-space: nowrap; }
 .header-contact { flex: none; }
@@ -50,7 +50,7 @@
 .hero-actions { gap: 16px; margin-left: 4px; }
 .hero-actions .fp-btn { gap: 12px; min-height: 60px; padding-inline: 28px; border-radius: 12px; font-size: 17px; }
 /* Brighter than the token primary, still 4.5:1 for white text. */
-.hero-actions .fp-btn--primary { background: linear-gradient(135deg, #1580ea, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 28%); }
+.hero-actions .fp-btn--primary { background: linear-gradient(135deg, #0f74d9, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 28%); }
 .hero-actions .fp-btn--primary:hover { background: var(--color-primary-hover); }
 .hero-visual { position: relative; display: block; width: 100%; height: 550px; min-height: 0; padding: 0; overflow: visible; background: none; border-radius: 0; }
 .hero-visual::before, .hero-visual::after { content: none; }
@@ -321,7 +321,7 @@
 .journey-content h3 { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 6px; color: var(--color-heading); font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
 .journey-content h3 svg { width: 26px; height: 26px; flex: none; color: var(--color-orange); }
 .journey-organization { margin: 0 0 10px; color: #34567b; font-size: 18px; font-weight: 500; line-height: 1.4; }
-.journey-role { display: inline-block; width: fit-content; margin: 0 0 14px; padding: 5px 16px; border-radius: var(--radius-pill); background: var(--color-paper-blue); color: var(--color-primary); font-size: 15px; font-weight: 600; line-height: 1.4; }
+.journey-role { display: inline-block; width: fit-content; margin: 0 0 14px; padding: 5px 16px; border-radius: var(--radius-pill); background: var(--color-paper-blue); color: var(--color-primary-text); font-size: 15px; font-weight: 600; line-height: 1.4; }
 /* Desktop: Journey traced from the 1440 px mockup (mockup px / 14.4 = cqw). */
 @media (min-width: 1101px) {
   .section.journey-section { padding-top: 2cqw; padding-bottom: 0; background: radial-gradient(ellipse 55% 45% at 55% 45%, rgb(240 224 198 / 55%), transparent 72%), radial-gradient(ellipse 30% 30% at 5% 40%, rgb(236 220 196 / 45%), transparent 70%); }
@@ -512,3 +512,8 @@
 .header-language { margin-right: 14px; }
 .mobile-menu-links .mobile-language { align-self: flex-start; margin: 6px 0 4px 12px; color: var(--color-primary); }
 @media (max-width: 900px) { .header-language { display: none; } }
+/* Skip link: hidden until it gets keyboard focus, then shown above the header. */
+.skip-link { position: fixed; z-index: 60; top: 12px; left: 12px; padding: 10px 18px; border-radius: 10px; background: var(--color-primary); color: #fff; font-weight: 700; text-decoration: none; transform: translateY(-150%); transition: transform 160ms ease; }
+.skip-link:focus-visible { transform: none; outline: 3px solid var(--color-focus); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
+#top:focus { outline: none; } /* focus target of the skip link, not an interactive control */

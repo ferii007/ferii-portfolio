@@ -15,6 +15,8 @@
   --color-on-holo: #F2FBFF;
   --color-muted: #526575;
   --color-primary: #0067D0;
+  /* Primary as text on tinted paper badges (they multiply into the paper): keeps WCAG AA 4.5:1. */
+  --color-primary-text: #005BB8;
   --color-primary-hover: #0056B3;
   --color-primary-active: #00438C;
   --color-cyan: #58DFFF;
