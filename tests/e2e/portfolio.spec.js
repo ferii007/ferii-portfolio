@@ -154,8 +154,8 @@ test('every project contribution is readable by scrolling, without extra control
 test('the English page is a full translation that search engines can pair with the Indonesian one', async ({ page }) => {
   await page.goto('/en', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://www.ferii-r.my.id/en');
-  await expect(page.locator('link[rel="alternate"][hreflang="id-ID"]')).toHaveAttribute('href', 'https://www.ferii-r.my.id');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://feriramdani.my.id/en');
+  await expect(page.locator('link[rel="alternate"][hreflang="id-ID"]')).toHaveAttribute('href', 'https://feriramdani.my.id');
   await expect(page.locator('.hero-copy')).toHaveText(en.hero_intro);
   await expect(page.getByRole('button', { name: en.contact_submit })).toBeDisabled();
   await expect(page.locator('#projects').getByText(en.project_elc_contribution, { exact: true })).toBeVisible();

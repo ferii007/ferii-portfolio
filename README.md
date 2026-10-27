@@ -67,4 +67,4 @@ Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan 
 
 ## Status sebelum publikasi
 
-Desain dari Header sampai Footer sudah memakai aset paket ImageGen. Indexing sudah aktif: `robots.txt` mengizinkan crawling, metadata `index, follow`, dan sitemap memuat kedua bahasa dengan hreflang. Setelah deploy ke Vercel, verifikasi domain di Google Search Console lalu submit `https://www.ferii-r.my.id/sitemap.xml`. Yang sengaja ditunda: form kontak masih simulasi lokal (tidak mengirim atau menyimpan data), proyek belum punya tautan demo/kode, dan kartu Beyond Coding belum punya konten.
+Desain dari Header sampai Footer sudah memakai aset paket ImageGen. Indexing sudah aktif: `robots.txt` mengizinkan crawling, metadata `index, follow`, dan sitemap memuat kedua bahasa dengan hreflang. Setelah deploy ke Vercel, verifikasi domain di Google Search Console lalu submit `https://feriramdani.my.id/sitemap.xml`. Yang sengaja ditunda: form kontak masih simulasi lokal (tidak mengirim atau menyimpan data), proyek belum punya tautan demo/kode, dan kartu Beyond Coding belum punya konten.

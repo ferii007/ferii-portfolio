@@ -5,7 +5,7 @@ import { getLocalization } from '@/constants/localization';
 import { LANGUAGES } from '@/constants/languages';
 
 // One place for what search engines and link previews read, per language.
-export const siteUrl = 'https://www.ferii-r.my.id';
+export const siteUrl = 'https://feriramdani.my.id';
 
 const pageUrl = (path) => (path === '/' ? siteUrl : `${siteUrl}${path}`);
 

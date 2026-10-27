@@ -1,9 +1,9 @@
-const site = 'https://www.ferii-r.my.id';
+import { siteUrl } from '@/content/seo';
 
 export default function robots() {
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: `${site}/sitemap.xml`,
-    host: site,
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }
