@@ -8,23 +8,34 @@ import '@/features/robot/robot.css';
 import '@/features/skills/skills.css';
 import './responsive.css';
 import '@/components/layout/footer.css';
+import { seo, siteUrl } from '@/content/seo';
 
 export const metadata = {
-  metadataBase: new URL('https://www.ferii-r.my.id/'),
-  title: 'Feri Ramdani | Full Stack Developer',
-  description: 'Portfolio Feri Ramdani: karya, kemampuan, perjalanan, dan cerita di balik kode.',
+  metadataBase: new URL(siteUrl),
+  title: seo.title,
+  description: seo.description,
+  keywords: seo.keywords,
+  authors: [{ name: 'Feri Ramdani', url: siteUrl }],
+  creator: 'Feri Ramdani',
+  applicationName: 'Feri Ramdani',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'Feri Ramdani | Full Stack Developer',
-    description: 'Karya, kemampuan, perjalanan, dan cerita di balik kode.',
-    url: 'https://www.ferii-r.my.id/',
+    title: seo.title,
+    description: seo.shareDescription,
+    url: '/',
     siteName: 'Feri Ramdani',
-    locale: 'id_ID',
-    type: 'website',
-    images: [{ url: '/opengraph-image.png', width: 1200, height: 630, alt: 'Feri Ramdani — Full Stack Developer' }],
+    locale: seo.locale,
+    type: 'profile',
+    firstName: 'Feri',
+    lastName: 'Ramdani',
+    images: [seo.ogImage],
   },
-  robots: { index: true, follow: true },
+  twitter: { card: 'summary_large_image', title: seo.title, description: seo.shareDescription, images: [seo.ogImage] },
+  formatDetection: { telephone: false, email: false, address: false },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
 };
+
+export const viewport = { themeColor: '#F8F5EF' };
 
 export default function RootLayout({ children }) {
   return <html lang="id"><body className="feri-theme">
