@@ -34,8 +34,11 @@ export default function Header() {
   return <header ref={headerRef} className={`site-header fp-header${hidden ? ' site-header--hidden' : ''}`} onFocusCapture={() => setHidden(false)}><nav className="container header-inner fp-container fp-header__inner" aria-label={text.nav_label}>
     <a className="brand fp-logo" href="#top" aria-label={text.logo_back_to_top}>feri<span>.</span></a>
     <div className="nav-links fp-nav fp-nav--desktop">{links.map((link) => <a key={link.href} href={link.href}>{text[link.key]}</a>)}</div>
-    <LanguageSwitch className="header-language" />
-    <a className="button button-primary header-contact fp-btn fp-btn--primary" href="#contact">{text.nav_contact} <ArrowUpRight size={17} /></a>
+    {/* One group, so space-between spaces logo / nav / actions and the language switch sits right beside Contact. */}
+    <div className="header-actions">
+      <LanguageSwitch className="header-language" />
+      <a className="button button-primary header-contact fp-btn fp-btn--primary" href="#contact">{text.nav_contact} <ArrowUpRight size={17} /></a>
+    </div>
     <MobileMenu links={links} />
   </nav></header>;
 }
