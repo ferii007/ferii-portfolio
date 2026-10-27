@@ -5,7 +5,7 @@
 .section + .section { padding-top: 0; }
 .eyebrow { margin-bottom: 12px; }
 .section-intro { max-width: 760px; }
-.section-intro h2, .about-copy h2, .contact-grid h2 { margin-bottom: 12px; }
+.section-intro h2, .contact-grid h2 { margin-bottom: 12px; }
 .accent-dot { color: var(--color-orange); }
 .example-badge { vertical-align: middle; white-space: nowrap; }
 .fp-section-title { display: inline-flex; }
@@ -14,32 +14,47 @@
 .site-header--hidden { transform: translateY(-100%); }
 .header-inner { gap: 18px; }
 .brand { flex: none; }
-.nav-links { gap: 0; }
+.nav-links { gap: 14px; margin-right: 22px; }
+.nav-links a { color: var(--color-heading); font-size: 16px; font-weight: 500; }
+.header-contact.fp-btn { gap: 10px; min-height: 58px; padding-inline: 26px; border-radius: 12px; font-size: 17px; background: linear-gradient(135deg, #1580ea, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 26%); }
+.site-header .fp-logo { font-size: 40px; }
 .nav-links a { white-space: nowrap; }
 .header-contact { flex: none; }
 .mobile-menu summary { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; }
 
 /* Hero composition follows the selected illustration in the asset package. */
-.hero-section { position: relative; isolation: isolate; overflow: hidden; border-bottom: 1px solid var(--color-line); background: radial-gradient(circle at 78% 34%, #e9f6fa 0, transparent 32%), var(--color-canvas); }
-.hero-grid { grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); gap: 0; min-height: 600px; padding-block: 10px 16px; }
-.hero-text { position: relative; z-index: 5; gap: 0; transform: translateY(-20px); }
-.hero-eyebrow { margin-bottom: 15px; }
-.hero-spark, .hero-cta-spark, .hero-orange-mark, .hero-role-spark { display: block; width: 29px; height: 29px; flex: none; color: var(--color-orange); }
-.hero-text h1 { display: flex; flex-direction: column; width: max-content; max-width: 100%; margin: 0 0 10px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(74px, 8.3vw, 122px); font-weight: 700; line-height: .82; letter-spacing: -.04em; transform: rotate(-1.7deg); transform-origin: left center; }
+/* Soft watercolor wash carries the Hero into the About desk spread; the hologram trail ends inside it. */
+.hero-section::after { content: ''; position: absolute; inset: auto 0 0; z-index: -1; height: 170px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cfilter id='b'%3E%3CfeGaussianBlur stdDeviation='4'/%3E%3C/filter%3E%3Cg filter='url%28%23b%29'%3E%3Cpath d='M0 200V75.4L0 75.4 L107 83.0 L229 80.6 L350 49.3 L437 89.5 L538 87.6 L600 68.6 L672 71.9 L767 48.6 L837 60.3 L957 81.7 L1022 83.1 L1086 75.2 L1149 48.1 L1266 57.2 L1336 91.2 L1440 70V200Z' fill='%23efdcc3' fill-opacity='.45'/%3E%3Cpath d='M0 200V97.4L0 97.4 L96 106.4 L176 94.4 L270 111.9 L367 119.2 L425 100.0 L477 92.2 L522 97.8 L598 87.1 L678 99.2 L737 116.5 L806 98.4 L875 112.4 L920 122.1 L964 114.0 L1053 87.7 L1139 100.2 L1214 87.3 L1258 93.5 L1354 94.1 L1438 120.5 L1440 105V200Z' fill='%23ecd6ba' fill-opacity='.5'/%3E%3Cpath d='M0 200V136.3L0 136.3 L53 140.6 L126 130.6 L198 147.1 L275 128.9 L357 130.2 L409 142.7 L489 136.2 L570 141.1 L621 135.6 L665 129.9 L708 144.5 L792 131.9 L830 151.7 L892 137.7 L939 142.3 L1015 138.9 L1071 129.3 L1151 128.8 L1211 148.1 L1253 145.6 L1335 143.1 L1409 130.6 L1440 140V200Z' fill='%23f1e6d6'/%3E%3C/g%3E%3Crect y='170' width='1440' height='30' fill='%23F9F4EA'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat; pointer-events: none; }
+.hero-section { position: relative; z-index: 1; isolation: isolate; overflow-x: clip; background: radial-gradient(ellipse 30% 46% at 68% 48%, #d2effb 0, #e2f5fc 45%, transparent 75%), radial-gradient(ellipse 46% 70% at 72% 44%, rgb(220 242 251 / 70%), transparent 80%), linear-gradient(#fbfaf6, var(--color-canvas)); }
+.hero-grid { grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr); gap: 0; min-height: 600px; padding-block: 32px 16px; }
+.hero-text { position: relative; z-index: 5; gap: 0; }
+.hero-eyebrow { margin-bottom: 9px; margin-top: 8px; }
+.hero-text h1 { display: flex; flex-direction: column; width: max-content; max-width: 100%; margin: 0 0 10px; color: var(--color-heading); font-family: 'Fredoka', var(--font-sans); font-size: clamp(74px, 10vw, 146px); font-weight: 700; line-height: .82; letter-spacing: -.04em; }
 .hero-text h1 span:last-child { margin-left: 3px; }
-.hero-role { position: relative; width: fit-content; margin: 12px 0 0 4px; color: #101e2c; font-family: 'Fredoka', var(--font-sans); font-size: clamp(26px, 2.6vw, 35px); font-weight: 650; line-height: 1.14; letter-spacing: -.035em; transform: rotate(-2deg); }
+/* Hero name and role lean slightly upward like the approved mockup; section titles stay upright. */
+.hero-text h1 { transform: rotate(-1.4deg); transform-origin: left bottom; }
+.hero-role { transform: rotate(-1.6deg); transform-origin: left center; }
+.hero-eyebrow::before { content: none; }
+/* Desktop: line up with "Sedikit cerita tentangku" (7.44% of the 1600px-capped stage), measured from the hero container's own left edge. */
+@media (min-width: 1101px) {
+  .hero-eyebrow { --hero-w: min(100vw - 2 * var(--layout-gutter), var(--layout-max)); margin-left: calc((100vw - min(100vw, 1600px)) / 2 + min(100vw, 1600px) * .0744 - (100vw - var(--hero-w)) / 2); }
+}
+/* Tailwind's .container caps the hero at 1024px below 1280px wide. */
+@media (min-width: 1101px) and (max-width: 1279px) {
+  .hero-eyebrow { --hero-w: min(100vw - 2 * var(--layout-gutter), 1024px); }
+}
+.hero-role { position: relative; width: fit-content; margin: 12px 0 0 4px; color: var(--color-heading); font-family: 'Fredoka', var(--font-sans); font-size: clamp(26px, 3.15vw, 46px); font-weight: 650; line-height: 1.14; letter-spacing: -.035em; }
 .hero-role-underline { position: absolute; right: 7px; bottom: -11px; width: 42%; height: 20px; color: var(--color-orange); }
-.hero-role-spark { position: absolute; right: -34px; bottom: -8px; transform: rotate(27deg); }
-.hero-copy { max-width: 480px; margin: 23px 0 25px 4px; }
-.hero-actions { gap: 12px; margin-left: 4px; }
-.hero-actions .fp-btn { min-height: 49px; padding-inline: 18px; font-size: 14px; }
-.hero-actions .fp-btn--primary { background: #0789e8; box-shadow: 0 8px 22px #0388e42f; }
-.hero-actions .fp-btn--primary:hover { background: var(--color-primary); }
-.hero-cta-spark { position: absolute; left: min(94%, 464px); bottom: -17px; transform: rotate(20deg); }
+.hero-copy { max-width: 520px; margin: 26px 0 24px 4px; }
+.hero-actions { gap: 16px; margin-left: 4px; }
+.hero-actions .fp-btn { gap: 12px; min-height: 60px; padding-inline: 28px; border-radius: 12px; font-size: 17px; }
+/* Brighter than the token primary, still 4.5:1 for white text. */
+.hero-actions .fp-btn--primary { background: linear-gradient(135deg, #1580ea, #0a6fdc); box-shadow: 0 10px 22px rgb(16 128 234 / 28%); }
+.hero-actions .fp-btn--primary:hover { background: var(--color-primary-hover); }
 .hero-visual { position: relative; display: block; width: 100%; height: 550px; min-height: 0; padding: 0; overflow: visible; background: none; border-radius: 0; }
 .hero-visual::before, .hero-visual::after { content: none; }
 .hero-holograms { position: absolute; z-index: 1; inset: 0; pointer-events: none; }
-.hero-projection { position: absolute; opacity: .8; filter: drop-shadow(0 0 5px #41cefb) drop-shadow(0 0 13px #5bd8f879); transform: rotate(var(--holo-angle)) translateY(0); translate: calc(var(--holo-x, 0px) * var(--holo-depth)) calc(var(--holo-y, 0px) * var(--holo-depth)); transition: translate 220ms ease-out; }
+.hero-projection { position: absolute; opacity: .92; filter: drop-shadow(0 0 6px #41cefb) drop-shadow(0 0 18px #5bd8f8b0); transform: perspective(480px) rotateY(var(--holo-turn, 0deg)) rotate(var(--holo-angle, 0deg)) translateY(0); translate: calc(var(--holo-x, 0px) * var(--holo-depth)) calc(var(--holo-y, 0px) * var(--holo-depth)); transition: translate 220ms ease-out; }
 .hero-projection svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .holo-orbit, .holo-trace, .holo-data, .holo-spark { stroke: #26afe0; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .holo-orbit { stroke-width: 1.7; stroke-dasharray: 90 10 170 18; }
@@ -49,7 +64,7 @@
 .holo-spark { stroke: #9aeaff; stroke-width: 1; stroke-dasharray: 3 10; }
 .holo-node { fill: #c8fbff; stroke: #1aafe5; stroke-width: 2; filter: drop-shadow(0 0 5px #51e5ff); }
 .holo-frame, .holo-panel-line, .holo-panel-wave, .holo-panel-ring { stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.holo-browser-glass { fill: #4dc9ef; fill-opacity: .08; stroke: #2eb4e2; stroke-opacity: .42; stroke-width: 1; }
+.holo-browser-glass { fill: #8fe1fa; fill-opacity: .3; stroke: #3cc6ef; stroke-opacity: .95; stroke-width: 2; }
 .holo-browser-divider { stroke: #4dcdec; stroke-opacity: .48; stroke-width: 1; }
 .holo-browser-dot { fill: #84e9ff; stroke: #27bce7; stroke-width: 1.5; filter: drop-shadow(0 0 3px #75eaff); }
 .holo-browser-dot:nth-of-type(2) { opacity: .7; }
@@ -58,128 +73,434 @@
 .holo-panel-line { stroke: #42c8e8; stroke-width: 2; opacity: .72; }
 .holo-panel-wave { stroke: #95effb; stroke-width: 1.5; stroke-dasharray: 70 9 28 7; }
 .holo-panel-ring { stroke: #36bfe4; stroke-width: 1.4; stroke-dasharray: 49 13; }
-.hero-projection--back { --holo-angle: -8deg; --holo-depth: .45; top: -2%; left: -8%; width: 71%; height: 44%; }
-.hero-projection--mini { --holo-angle: -11deg; --holo-depth: .9; top: 28%; left: 6%; width: 17%; height: 22%; }
-.hero-projection--right { --holo-angle: 8deg; --holo-depth: .7; top: 7%; right: -3%; width: 23%; height: 23%; }
-.hero-projection--bottom { --holo-angle: 7deg; --holo-depth: 1; right: -1%; bottom: 7%; width: 54%; height: 37%; }
-.hero-projection--panel-code { --holo-angle: 7deg; --holo-depth: .55; top: 8%; left: -2%; width: 45%; height: 27%; }
-.hero-projection--panel-signal { --holo-angle: 8deg; --holo-depth: .85; top: 55%; right: -1%; width: 37%; height: 25%; }
+.hero-projection img { display: block; width: 100%; height: auto; }
+.hero-projection--portal { aspect-ratio: 760 / 200; }
+.hero-projection--circuit { --holo-depth: .3; inset: 0; opacity: .3; }
+.hero-projection--panel-code { --holo-turn: 40deg; --holo-angle: 0deg; --holo-depth: .55; top: 5.5%; left: -7.5%; width: 42%; }
+.hero-projection--panel-media { --holo-turn: -40deg; --holo-angle: 0deg; --holo-depth: .85; top: 30.5%; left: 66%; width: 41%; }
+.hero-projection--portal { --holo-depth: .2; bottom: -7.6%; left: -8.2%; width: 98.7%; }
+.hero-projection--portal, .hero-projection--panel-code, .hero-projection--panel-media { filter: none; }
 .hero-handnote { position: absolute; z-index: 4; margin: 0; color: #23527f; font-family: var(--font-hand); font-size: 23px; font-weight: 700; line-height: .97; letter-spacing: .015em; transform: rotate(-7deg); }
-.hero-handnote--code { left: 1%; bottom: 20%; text-align: center; }
-.hero-handnote--right { top: 29%; right: -8%; font-size: 25px; line-height: .98; transform: rotate(5deg); }
-.hero-orange-mark--right { position: absolute; z-index: 5; top: 62%; right: -8%; transform: rotate(36deg); }
+.hero-handnote--right { top: 3%; right: -7.5%; font-size: 29px; line-height: 1.02; transform: rotate(-13deg); }
+.hero-handnote-arrow { position: absolute; z-index: 4; top: 10.5%; right: 17.5%; width: 44px; height: 70px; color: #4a78b8; }
 .hero-visual .robot-experience { z-index: 2; }
+/* Desktop composition from the approved mockup: robot stands centred on the floor rings. */
+@media (min-width: 768px) { .hero-visual .robot-experience { translate: -8% 4%; } }
 .hero-visual .robot-fallback img { transform: scale(1.03) translate(1%, -1%); }
 @media (prefers-reduced-motion: no-preference) {
   .hero-projection { animation: holo-reveal 900ms cubic-bezier(.2,.75,.25,1) both, holo-float 6s ease-in-out infinite alternate; }
-  .hero-projection--back { animation-delay: 0s, .8s; }
-  .hero-projection--mini { animation-delay: .24s, 1.2s; animation-duration: 900ms, 4.8s; }
-  .hero-projection--right { animation-delay: .4s, 1.6s; animation-duration: 900ms, 5.4s; }
-  .hero-projection--bottom { animation-delay: .58s, 2s; animation-duration: 900ms, 6.5s; }
-  .hero-projection--panel-code { animation-delay: .7s, 1.4s; animation-duration: 900ms, 5.7s; }
-  .hero-projection--panel-signal { animation-delay: .9s, 2.2s; animation-duration: 900ms, 6.2s; }
+  .hero-projection--portal, .hero-projection--circuit { animation: holo-reveal 900ms cubic-bezier(.2,.75,.25,1) both; }
+  .hero-projection--panel-code { animation-delay: .2s, 1.2s; animation-duration: 900ms, 5.7s; }
+  .hero-projection--panel-media { animation-delay: .45s, 2s; animation-duration: 900ms, 6.2s; }
   .holo-orbit { animation: holo-dash 12s linear infinite; }
   .holo-orbit--faint { animation-duration: 19s; animation-direction: reverse; }
   .holo-node { animation: holo-pulse 3s ease-in-out infinite alternate; }
-  .hero-projection--mini svg { animation: holo-spin 24s linear infinite reverse; }
-  .hero-projection--right svg { animation: holo-spin 18s linear infinite; }
   .holo-panel-wave { animation: holo-dash 8s linear infinite; }
 }
-@keyframes holo-reveal { from { opacity: 0; scale: .85; } to { opacity: .8; scale: 1; } }
-@keyframes holo-float { to { transform: rotate(var(--holo-angle)) translateY(-8px); } }
+.hero-portal-svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; overflow: visible; }
+.hero-ring { fill: none; }
+.hero-ring--glow { stroke: #58cff5; stroke-width: 5; opacity: .35; filter: blur(2.5px); }
+.hero-ring--main { stroke: #5ccbf2; stroke-width: 2; stroke-dasharray: 46 4 30 4 16 0; }
+.hero-ring--dash-a { stroke: #8edcf5; stroke-width: 1.4; stroke-dasharray: 8 1 2 1.5; }
+.hero-ring--solid { stroke: #79d4f3; stroke-width: 1.6; }
+.hero-ring--dash-b { stroke: #9fe2f7; stroke-width: 1.3; stroke-dasharray: 15 2 6 2; }
+.hero-ring--dash-c { stroke: #8fdcf5; stroke-width: 1.5; stroke-dasharray: 15 2.5 1 1.5; }
+.hero-ring-marker { fill: #7fdcf7; }
+.hero-trail, .hero-trail-head { fill: none; stroke: url(#hero-trail-ink); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.hero-trail-head { stroke: #56c3ee; }
+/* Same soft halo as the rings so the trail reads as part of the hologram. */
+.hero-trail--glow { stroke: #58cff5; stroke-width: 6; opacity: .3; filter: blur(2.5px); }
+.hero-energy { fill: none; stroke: #e6fcff; stroke-width: 4.5; stroke-linecap: round; filter: drop-shadow(0 0 4px #58dfff) drop-shadow(0 0 9px #58dfff); stroke-dasharray: .04 1; stroke-dashoffset: .04; opacity: 0; }
+/* One 11 s cycle at constant spark speed: the lap takes 0–50 %, the trail is drawn behind the spark from 50–70.5 % (lap = 70.9 % of the energy path), the arrow holds, then fades and the next lap begins. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-ring--main { animation: hero-ring-spin 26s linear infinite; }
+  .hero-ring--dash-a { animation: hero-ring-spin 38s linear infinite reverse; }
+  .hero-ring--dash-b { animation: hero-ring-spin 52s linear infinite; }
+  .hero-ring--dash-c { animation: hero-ring-spin 70s linear infinite reverse; }
+  .hero-portal-disc { animation: hero-disc-pulse 5s ease-in-out infinite alternate; transform-origin: 380px 100px; }
+  .hero-energy { animation: hero-energy-run 11s 1.2s linear infinite; }
+  .hero-trail, .hero-trail--glow { stroke-dasharray: 1; stroke-dashoffset: 1; animation: hero-trail-cycle 11s 1.2s linear infinite; }
+  .hero-trail-head { opacity: 0; animation: hero-trail-head-cycle 11s 1.2s linear infinite; }
+}
+@keyframes hero-ring-spin { to { stroke-dashoffset: -100; } }
+@keyframes hero-disc-pulse { from { opacity: .75; transform: scale(.97); } to { opacity: 1; transform: scale(1.03); } }
+@keyframes hero-energy-run { 0% { stroke-dashoffset: .04; opacity: 0; } 4% { opacity: 1; } 50% { stroke-dashoffset: -.709; } 70.5% { stroke-dashoffset: -1; opacity: 1; } 72%, 100% { stroke-dashoffset: -1; opacity: 0; } }
+@keyframes hero-trail-cycle { 0%, 50% { stroke-dashoffset: 1; opacity: 1; } 70.5%, 92% { stroke-dashoffset: 0; opacity: 1; } 99% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
+.hero-trail--glow { animation-name: hero-trail-glow-cycle !important; }
+@keyframes hero-trail-glow-cycle { 0%, 50% { stroke-dashoffset: 1; opacity: .3; } 70.5%, 92% { stroke-dashoffset: 0; opacity: .3; } 99% { stroke-dashoffset: 0; opacity: 0; } 100% { stroke-dashoffset: 1; opacity: 0; } }
+@keyframes hero-trail-head-cycle { 0%, 70% { opacity: 0; } 72%, 92% { opacity: 1; } 99%, 100% { opacity: 0; } }
+@keyframes holo-reveal { from { opacity: 0; scale: .85; } to { opacity: .92; scale: 1; } }
+@keyframes holo-float { to { transform: perspective(480px) rotateY(var(--holo-turn, 0deg)) rotate(var(--holo-angle, 0deg)) translateY(-8px); } }
 @keyframes holo-dash { to { stroke-dashoffset: -288; } }
 @keyframes holo-pulse { to { opacity: .35; } }
-@keyframes holo-spin { to { rotate: 360deg; } }
 @media (prefers-reduced-motion: reduce) { .hero-projection { translate: none; transition: none; } }
 
-.about-section { padding-block: 32px 20px; }
-.about-grid { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 34px; }
-.about-copy { position: relative; max-width: 590px; padding-block: 24px 42px; }
-.about-eyebrow { margin-bottom: 9px; }
-.about-copy h2 { display: flex; align-items: center; gap: 13px; margin: 0 0 18px 24px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1; letter-spacing: -.035em; }
-.about-title-spark { width: 34px; height: 42px; color: var(--color-orange); flex: none; }
-.about-copy .portfolio-description { margin: 0 0 10px 24px; }
-.about-arrow { position: absolute; right: 6px; bottom: 0; width: 73px; height: 55px; color: #5788a8; transform: rotate(-8deg); }
-.about-art { position: relative; width: 100%; aspect-ratio: 3 / 2; container-type: inline-size; }
-.about-art::before { content: ''; position: absolute; left: 3%; top: 27%; width: 54%; height: 64%; border-radius: 14px; background: #e6e1d870; transform: rotate(-4deg); }
-.about-still-life { display: block; width: 100%; height: 100%; object-fit: contain; }
-.about-note { position: absolute; z-index: 1; left: 7%; top: 27%; display: grid; place-content: center; width: 53%; height: 64%; padding: 12px; border-radius: 3px 4px 5px 3px; background: linear-gradient(135deg, #fff5e5, #fbe9d2 75%, #eedcc6); box-shadow: 2px 5px 2px #493f2c17, 5px 15px 21px #493f2c15; transform: rotate(-10deg); }
-.about-note p { color: #183044; font-family: var(--font-hand); font-size: clamp(22px, 8cqi, 43px); font-weight: 650; line-height: 1.08; letter-spacing: .015em; text-align: center; }
-.about-tape { position: absolute; top: -10px; left: 19%; width: 28px; height: 35px; background: #6994aca6; border-inline: 1px solid #557e9626; transform: rotate(-3deg); }
-.about-note-spark { position: absolute; top: 15%; right: 12%; width: 29px; height: 29px; color: var(--color-orange); transform: rotate(13deg); }
-.about-note-underline { width: 104px; height: 24px; margin: 10px auto 0; color: var(--color-orange); }
-.about-section + .currently-section { padding-top: 12px; }
-.currently-panel { display: grid; grid-template-columns: 1.2fr 1.8fr; align-items: center; gap: 24px; padding: 30px 32px; border-radius: 28px; background: linear-gradient(110deg, #fff0df, #ffecd8); }
-.currently-heading { min-width: 0; }
-.currently-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 10px; }
-.currently-heading h2 { display: flex; align-items: center; gap: 7px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(38px, 3.5vw, 48px); font-weight: 650; line-height: 1; letter-spacing: -.035em; }
-.currently-spark { width: 28px; height: 35px; flex: none; color: var(--color-orange); }
-.currently-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; }
-.currently-item { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 6px 16px; border-left: 1px solid #ebcaae; text-align: center; }
-.currently-list h3 { margin: 10px 0 3px; color: var(--color-ink); font-size: 17px; font-weight: 800; line-height: 1.3; }
-.currently-detail { font-size: 14px; }
-.currently-icon { color: #dd905b; }
-.journey-heading { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-bottom: 42px; }
-.journey-title-mark { display: block; width: 48px; height: 6px; margin-bottom: 20px; border-radius: 4px; background: #0789e8; }
-.journey-heading h2 { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(48px, 5vw, 72px); font-weight: 650; line-height: 1; letter-spacing: -.035em; }
-.journey-heading h2 svg { width: 36px; height: 40px; flex: none; color: var(--color-orange); }
-.journey-handnote { flex: none; padding-right: 12px; color: #0789e8; transform: rotate(-8deg); }
-.journey-handnote p { font-family: var(--font-hand); font-size: 30px; font-weight: 650; line-height: 1.05; letter-spacing: .015em; text-align: center; }
-.journey-handnote svg { display: block; width: 64px; height: 60px; margin-left: -20px; }
-.journey-timeline { --journey-date-width: 110px; --journey-node-size: 54px; --journey-column-gap: 24px; position: relative; display: grid; gap: 30px; margin: 0; padding: 0; list-style: none; }
-.journey-timeline::before { content: ''; position: absolute; top: -10px; bottom: -12px; left: calc(var(--journey-date-width) + var(--journey-column-gap) + var(--journey-node-size) / 2 - 1.5px); width: 3px; border-radius: 3px; background: linear-gradient(#0789e8 0%, #0789e8 80%, #91d7f3 95%, transparent); }
-.journey-item { position: relative; display: grid; grid-template-columns: var(--journey-date-width) var(--journey-node-size) minmax(0, 1fr); align-items: start; gap: var(--journey-column-gap); }
-.journey-period { padding-top: 32px; color: #102638; font-size: 19px; font-weight: 700; line-height: 1.4; text-align: right; }
-.journey-period span { display: block; }
-@media (min-width: 768px) {
-  .journey-period:has(> span:only-child) { padding-top: calc(28px + (var(--journey-node-size) - 1.4em) / 2); }
+/* About + Currently: one desk spread measured against the approved mockup at 1440 px.
+   The desk vignette bleeds to the viewport edge; story paper and notes are DOM on top of it. */
+.about-section, .currently-section { --about-bleed: max(var(--layout-gutter), (100vw - var(--layout-max)) / 2); position: relative; overflow-x: clip; background: #F9F4EA; }
+.about-section { isolation: isolate; padding-block: 65px 0; }
+.about-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) min(545px, 45%); align-items: start; }
+.about-head { position: relative; z-index: 2; grid-area: 1 / 1; }
+.about-eyebrow { margin-bottom: 4px; }
+.about-eyebrow::before { content: none; }
+/* Sparks flare diagonally off the top of the final "e". */
+.about-title { position: relative; }
+.about-title > svg { position: absolute; top: -.04em; right: -.24em; width: .34em; height: .42em; margin: 0; transform: rotate(-45deg); }
+.about-title { margin-left: 25px; font-size: clamp(3.25rem, 1.6rem + 4.4vw, 5.5rem); line-height: 1.05; }
+.about-art { position: relative; z-index: 0; grid-area: 1 / 1 / 3 / 2; container-type: inline-size; width: min(780px, 54vw); margin: 45px 0 8px calc(var(--about-bleed) * -1 - 20px); }
+.about-still-life { display: block; width: 100%; height: auto; }
+.about-art-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.about-art-foil text { fill: #f2e6c7; font-family: var(--font-display); font-weight: 600; letter-spacing: .04em; text-anchor: middle; dominant-baseline: central; filter: drop-shadow(0 1px 0 rgb(20 14 6 / 40%)); }
+.about-art-foil path { fill: none; stroke: #f2e6c7; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.about-art-ink { mix-blend-mode: multiply; }
+.about-art-ink text { font-family: var(--font-hand); font-weight: 700; }
+.about-art-ink--mug text { fill: #233f6c; font-size: 29px; font-weight: 700; text-anchor: start; dominant-baseline: central; }
+.about-art-ink--page text { fill: #2a57a3; font-size: 31px; font-weight: 600; }
+.about-art-stroke { fill: none; stroke: #f08a3c; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.about-art-note-text { fill: #1c3762; font-family: var(--font-hand); font-size: 44px; font-weight: 700; mix-blend-mode: multiply; }
+.about-art-tape { fill: rgb(126 172 220 / 62%); stroke: rgb(255 255 255 / 25%); stroke-width: 1; }
+/* The whole sheet tilts, text included, so the copy reads as printed on this paper rather than floating above it. */
+.about-story { --paper-tilt: 0deg; --paper-color: #FFFCF4; transform: rotate(-2.8deg); z-index: 1; grid-area: 1 / 2 / 3 / 3; align-self: start; margin: 30px -64px 0 64px; padding: 70px 50px 48px 38px; }
+.about-story .portfolio-description { max-width: 452px; font-size: clamp(1.05rem, .78rem + .62vw, 1.3rem); font-weight: 500; line-height: 1.55; color: #2b3447; mix-blend-mode: multiply; text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+.about-story::before { filter: url(#fp-paper-torn) drop-shadow(0 3px 4px rgb(87 63 35 / 16%)) drop-shadow(0 16px 24px rgb(87 63 35 / 12%)); box-shadow: inset 0 0 0 2px rgb(196 170 132 / 35%), inset 0 0 34px rgb(170 130 80 / 20%); }
+/* Second sheet peeking out behind the story, as in the mockup. */
+.about-story::after { content: ''; position: absolute; z-index: -2; inset: -10px -16px 14px 22px; background: #F6EEDF; box-shadow: inset 0 0 26px rgb(170 130 80 / 22%), 0 6px 14px rgb(87 63 35 / 10%); filter: url(#fp-paper-torn); transform: rotate(1.8deg); }
+.about-tape { top: -16px; left: 6%; width: 78px; height: 30px; background: rgb(110 165 214 / 75%); transform: rotate(-10deg); }
+.about-story-headline { position: relative; width: fit-content; margin: 0 0 0 30px; color: var(--color-heading); font-family: var(--font-hand); font-size: clamp(2.4rem, 1.2rem + 3.3vw, 4.25rem); font-weight: 700; line-height: .9; text-align: center; transform: rotate(-7deg); }
+.about-story-headline svg { position: absolute; top: -6px; right: -42px; width: 30px; height: 30px; color: var(--color-orange); }
+.about-story-underline { display: block; width: min(172px, 40%); height: 20px; margin: 2px 0 50px 30%; color: var(--color-orange); transform: rotate(-6deg); }
+.about-story .portfolio-description + .portfolio-description { margin-top: 20px; }
+.about-smile { position: absolute; top: 236px; right: 22px; width: 46px; height: 46px; color: #5d8fcb; transform: rotate(10deg); }
+.section.currently-section { z-index: 1; padding-block: 34px 96px; background: transparent; }
+/* Warm wall wash behind the desk, like the painted backdrop in the mockup. */
+.currently-section::before { content: ''; position: absolute; inset: -40px 0 30% 18%; z-index: -1; background: radial-gradient(ellipse 60% 70% at 55% 70%, rgb(236 220 196 / 55%), transparent 70%), radial-gradient(ellipse 30% 50% at 92% 40%, rgb(232 214 188 / 45%), transparent 70%); filter: blur(6px); pointer-events: none; }
+/* Notes stand like folded cards: the lower edge catches a little shade. */
+.currently-item::after { content: ''; position: absolute; inset: auto 0 0; z-index: -1; height: 16%; background: linear-gradient(transparent, rgb(120 90 50 / 9%)); border-radius: 0 0 var(--radius-paper) var(--radius-paper); pointer-events: none; }
+.currently-panel { position: relative; display: grid; grid-template-columns: min(365px, 30%) minmax(0, 1fr); align-items: start; padding-bottom: 20px; }
+.currently-heading { position: relative; z-index: 2; padding: 0; }
+.currently-heading .section-title { font-size: var(--size-section); margin: -8px 0 6px; }
+.currently-heading .portfolio-description { margin-top: -4px; font-size: clamp(1rem, .65rem + .75vw, 1.4rem); white-space: nowrap; color: #1f2c40; }
+.currently-handnote { position: relative; display: flex; align-items: flex-start; margin: 14px 0 0 -43px; color: var(--color-primary); }
+.currently-handnote .hand-note { font-size: 32px; line-height: 1.02; transform: rotate(-15deg); }
+.currently-handnote svg { width: 106px; height: 46px; flex: none; margin: 8px 0 0 6px; }
+.currently-desk { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.currently-desk img { position: absolute; max-width: none; height: auto; }
+.currently-ledge { filter: drop-shadow(0 14px 14px rgb(120 82 40 / 22%)); }
+.currently-ledge { left: 21%; bottom: -60px; width: calc(79% + var(--about-bleed)); }
+.currently-books, .currently-plant { display: none; }
+.currently-list { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin: 0 -7px 0 0; padding: 0; list-style: none; }
+.currently-item { display: flex; flex-direction: column; align-items: center; min-height: 192px; padding: 28px 14px 22px; text-align: center; }
+/* Each card tilts as a whole so icon and words sit printed on the paper; ink blends into the paper colour. */
+.currently-item { --paper-tilt: 0deg; transform: rotate(var(--card-tilt, 0deg)); filter: drop-shadow(0 7px 5px rgb(80 50 20 / 22%)); }
+.currently-item:nth-child(1) { --paper-color: #FDF0C7; --card-tilt: -2deg; }
+.currently-item:nth-child(2) { --paper-color: #E1EFFB; --card-tilt: 1.6deg; }
+.currently-item:nth-child(3) { --paper-color: #FDE5D2; --card-tilt: -1.3deg; }
+.currently-icon, .currently-item h3, .currently-detail { mix-blend-mode: multiply; }
+.currently-item h3 { text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
+.currently-detail { text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+.currently-item .fp-tape { top: -12px; width: 24px; height: 32px; --tape-angle: 3deg; }
+.currently-item-spark { position: absolute; top: 40px; right: calc(50% - 64px); width: 24px; height: 24px; color: var(--color-orange); }
+.currently-icon { width: 58px; height: 58px; color: #12305a; }
+.currently-item h3 { margin: 14px 0 8px; color: #13213a; font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.15; }
+/* Same size as the My Skills tile labels at every breakpoint. */
+.currently-detail { margin: 0; color: #2b3447; font-size: 16px; font-weight: 500; line-height: 1.4; }
+@media (max-width: 1023px) { .currently-detail { font-size: 15px; } }
+@media (max-width: 767px) { .currently-detail { font-size: 14px; } }
+@media (max-width: 360px) { .currently-detail { font-size: 13px; } }
+/* Desktop: About + Currently are one fixed composition traced from the 1440 px mockup.
+   Every size and position is mockup-px / 14.4 in cqw of a stage up to 1600 px wide, so the spread scales as a whole. */
+@media (min-width: 1101px) {
+  .about-section { padding-top: 56px; }
+  .about-grid, .currently-panel { display: block; width: min(100%, 1600px); max-width: none; margin-inline: auto; container-type: inline-size; }
+  .about-grid { height: 41.67cqw; }
+  .about-head { position: absolute; top: 0; left: 7.43cqw; }
+  .about-eyebrow { gap: 1.04cqw; margin: 0; font-size: 1.18cqw; letter-spacing: .14em; }
+  .about-title { margin: .1cqw 0 0 2.64cqw; font-size: 6.11cqw; line-height: 1; }
+  .about-title > svg { width: 2cqw; height: 2.5cqw; margin: 0; }
+  .about-art { position: absolute; top: 4.6cqw; left: -2.3cqw; width: 57.5cqw; margin: 0; }
+  .about-story { position: absolute; top: 4.5cqw; left: 57.6cqw; width: 37.6cqw; margin: 0; padding: 2.2cqw 2.9cqw 3.4cqw 3.45cqw; }
+  .about-tape { top: -1.1cqw; left: 4%; width: 5.4cqw; height: 2.1cqw; }
+  .about-story-headline { margin: 1.5cqw 0 0 2.95cqw; font-size: 4.3cqw; line-height: 1.12; text-align: left; transform: rotate(-3.2deg); transform-origin: left bottom; }
+  .about-story-headline span { display: inline-block; margin-left: 4.5cqw; }
+  .about-story-headline svg { top: -.6cqw; right: -3cqw; width: 2.1cqw; height: 2.1cqw; }
+  .about-story-underline { width: 11.8cqw; height: 1.4cqw; margin: -1.2cqw 0 1cqw 10.75cqw; transform: rotate(-1.2deg); }
+  .about-story .portfolio-description { max-width: 28.8cqw; font-size: 1.44cqw; line-height: 1.54; }
+  .about-story .portfolio-description + .portfolio-description { margin: 2.15cqw 0 0 .4cqw; }
+  .about-smile { top: 14.6cqw; right: .4cqw; width: 3.47cqw; height: 3.47cqw; }
+  .section.currently-section { padding: 0 0 4.2cqw; }
+  .currently-panel { height: 21cqw; padding: 0; }
+  /* Same left edge and size as the My Skills title. */
+  .currently-heading { position: absolute; top: .45cqw; left: 8.2cqw; padding: 0; }
+  .currently-heading .section-title { gap: 1.2cqw; margin: 0; font-size: 4.45cqw; line-height: 1.05; }
+  .currently-handnote { margin: 2.4cqw 0 0 .4cqw; }
+  .currently-handnote .hand-note { font-size: 2.2cqw; line-height: 1.02; transform: rotate(-14deg); transform-origin: center; }
+  .currently-handnote svg { width: 7.3cqw; height: 3.2cqw; margin: 2cqw 0 0 .6cqw; }
+  .currently-list { position: absolute; top: 1.39cqw; left: 33.68cqw; width: 57.64cqw; gap: 1.67cqw; margin: 0; }
+  .currently-item { justify-content: flex-start; height: 13.68cqw; min-height: 0; padding: 1.95cqw 1cqw 0; }
+  .currently-item .fp-tape { top: -.9cqw; left: 30%; width: 1.25cqw; height: 2.1cqw; }
+  .currently-item:nth-child(2) .fp-tape { left: 42%; }
+  .currently-item:nth-child(3) .fp-tape { left: 39%; }
+  .currently-icon { width: 4cqw; height: 4cqw; }
+  .currently-item-spark { top: 2.2cqw; right: calc(50% - 4.5cqw); width: 1.6cqw; height: 1.6cqw; }
+  .currently-item h3 { margin: .35cqw 0 .3cqw; font-size: 2.06cqw; line-height: 1.2; }
+  .currently-detail { font-size: 1.3cqw; line-height: 1.4; }
+  /* Desk and props traced from the mockup at 1440 px (mockup px / 14.4). */
+  /* Desk and plant run off the viewport's right edge (100cqw = stage width) like the mockup; the plant's cut side stays off screen. */
+  .currently-ledge { left: 20.83cqw; bottom: auto; top: 9.8cqw; width: calc(81.17cqw + (100vw - 100cqw) / 2); }
+  .currently-books, .currently-plant { display: block; }
+  .currently-books, .currently-plant { z-index: 1; }
+  /* Painted desk light: watercolor wash spreading under the desk, shade along the back where the notes stand,
+     a lit middle band and a darker front lip, all multiplied onto the wood. */
+  .currently-desk::before { content: ''; position: absolute; left: 15cqw; top: 8.6cqw; width: calc(88cqw + (100vw - 100cqw) / 2); height: 15cqw; background: radial-gradient(ellipse 55% 60% at 30% 55%, rgb(214 184 146 / 55%), transparent 72%), radial-gradient(ellipse 50% 55% at 75% 60%, rgb(214 184 146 / 45%), transparent 70%); filter: blur(10px); }
+  .currently-desk::after { content: ''; position: absolute; left: 20.83cqw; top: 9.8cqw; width: calc(81.17cqw + (100vw - 100cqw) / 2); height: 9.8cqw; background: linear-gradient(rgb(92 58 28 / 0%) 8%, rgb(92 58 28 / 42%) 10%, rgb(92 58 28 / 22%) 30%, rgb(255 236 205 / 0%) 48%, rgb(92 58 28 / 8%) 62%, rgb(70 40 18 / 30%) 66%, rgb(60 34 14 / 45%) 96%, rgb(0 0 0 / 0%) 97%); mix-blend-mode: multiply; -webkit-mask: linear-gradient(90deg, transparent, #000 7cqw); mask: linear-gradient(90deg, transparent, #000 7cqw); }
+  .currently-books { left: 23.6cqw; top: 9.9cqw; width: 9cqw; }
+  .currently-plant { left: auto; right: calc((100cqw - 100vw) / 2 - 2.2cqw); top: -7.9cqw; width: 14.6cqw; filter: drop-shadow(-.4cqw .5cqw .5cqw rgb(87 63 35 / 18%)); }
 }
-.journey-marker { position: relative; z-index: 1; display: grid; place-items: center; width: var(--journey-node-size); height: var(--journey-node-size); margin-top: 28px; border-radius: 50%; outline: 5px solid var(--color-canvas); background: linear-gradient(135deg, #04a2f4, #007ad2); color: white; font-size: 28px; font-weight: 700; line-height: 1; }
-.journey-item--current .journey-marker { background: linear-gradient(135deg, #ffab52, #ff7c15); }
-.journey-card { position: relative; display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 26px; padding: 30px; border: 1px solid #cfe3ed; border-radius: 18px; background: linear-gradient(135deg, #fffefd, #fcfdfe); box-shadow: 0 8px 24px #243b5310; }
-.journey-card::before { content: ''; position: absolute; top: 54px; right: 100%; width: var(--journey-column-gap); height: 2px; background: #cfe3ed; }
-.journey-icon img { width: 100%; height: 100%; object-fit: contain; }
-.journey-icon { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 17px; background: transparent; }
-.journey-content h3 { margin: 0 30px 7px 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(24px, 2.2vw, 30px); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
-.journey-organization { margin-bottom: 8px; color: #34567b; font-size: 19px; font-weight: 500; line-height: 1.4; }
-.journey-role { display: inline-block; width: fit-content; margin-bottom: 16px; padding: 5px 14px; border-radius: 999px; background: #e0f4ff; color: #0466ac; font-size: 14px; font-weight: 650; line-height: 1.4; }
-.journey-card-spark { position: absolute; right: 22px; top: 28px; width: 28px; height: 28px; color: var(--color-orange); }
-.beyond-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
-.beyond-heading h2 { display: flex; align-items: center; gap: 15px; margin: 12px 0 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.2vw, 56px); font-weight: 650; line-height: 1.1; letter-spacing: -.035em; }
-.beyond-heading h2 > svg { width: 30px; height: 38px; color: var(--color-orange); flex: none; }
-.beyond-handnote { display: flex; align-items: center; gap: 12px; flex: none; padding-right: 12px; color: #5788a8; transform: rotate(-7deg); }
-.beyond-handnote svg { width: 62px; height: 50px; }
-.beyond-handnote p { font-family: var(--font-hand); font-size: 26px; font-weight: 650; line-height: 1.05; letter-spacing: .015em; }
-.beyond-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.beyond-card { display: grid; position: relative; grid-template-columns: 38% minmax(0, 1fr); align-items: stretch; gap: 18px; padding: 10px; border: 1px solid #eee8df; border-radius: 13px; background: #fffdf9; box-shadow: 0 5px 15px #493f2c09; }
-.beyond-art { position: relative; width: 100%; min-width: 0; align-self: stretch; overflow: hidden; aspect-ratio: 1.4; min-height: 152px; border-radius: 7px; }
-.beyond-art img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
-.beyond-content { align-self: center; padding: 4px 10px 30px 0; }
-.beyond-card h3 { margin: 0 0 8px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: 25px; font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
-.beyond-card-accent { position: absolute; right: 12px; bottom: 12px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #078ee9; background: #e0f2ff; }
-.beyond-card { transition: border-color 200ms, background 200ms, box-shadow 200ms, transform 200ms; }
-.beyond-card-trigger { position: absolute; inset: 0; width: 100%; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
-.beyond-card-trigger:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
-.beyond-card:is(:hover, :focus-within) { border-color: var(--color-primary); background: #eaf7ff; box-shadow: var(--shadow-hover); }
-.beyond-card:is(:hover, :focus-within) .beyond-card-accent { color: white; background: var(--color-primary); }
-@media (prefers-reduced-motion: no-preference) {
-  .beyond-card:is(:hover, :focus-within) { transform: translateY(-3px); }
-  .beyond-card:is(:hover, :focus-within) .beyond-card-accent svg { animation: beyond-arrow-nudge 900ms ease-in-out infinite; }
-}
-@keyframes beyond-arrow-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(3px); } }
-@media (max-width: 1023px) {
-  .beyond-grid { grid-template-columns: 1fr; }
-  .beyond-card { grid-template-columns: 160px minmax(0, 1fr); }
+@media (min-width: 768px) and (max-width: 1100px) {
+  .about-section { padding-top: 110px; }
+  .about-story { margin-right: 0; margin-left: 24px; padding: 40px 24px 40px 32px; }
+  .about-story-headline { margin-left: 4%; }
+  .about-story-underline { margin-bottom: 40px; }
+  .about-smile { display: none; }
+  .currently-panel { grid-template-columns: 1fr; }
+  .currently-heading { padding: 0 0 24px; }
+  .journey-heading .section-title { margin-left: 25px; }
+  .currently-handnote { display: none; }
+  .currently-ledge { left: -2%; width: 104%; }
 }
 @media (max-width: 767px) {
- .beyond-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
-  .beyond-handnote { align-self: flex-end; gap: 6px; margin-right: 8px; padding-right: 0; }
-  .beyond-handnote p { font-size: 22px; }
-  .beyond-handnote svg { width: 45px; }
+  .about-section { padding-top: 56px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-head { grid-area: auto; }
+  .about-title { margin-left: 0; }
+  .about-story { grid-area: auto; margin: 26px 4px 0; padding: 44px 24px 34px; }
+  .about-story-headline { margin-left: 8%; }
+  .about-story-underline { margin-bottom: 36px; }
+  .about-art { grid-area: auto; width: calc(100% + 2 * var(--layout-gutter)); margin: 8px 0 0 calc(var(--layout-gutter) * -1); }
+  .about-smile, .currently-handnote { display: none; }
+  .section.currently-section { padding-top: 32px; padding-bottom: 64px; }
+  .currently-panel { grid-template-columns: 1fr; gap: 22px; padding-bottom: 0; }
+  .currently-heading { padding: 0; }
+  .currently-list { grid-template-columns: 1fr; gap: 22px; margin: 0; }
+  .currently-item { --paper-tilt: 0deg !important; display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; align-items: center; min-height: 0; padding: 24px 22px 22px; text-align: left; }
+  .currently-item .currently-icon { grid-row: span 2; }
+  .currently-item h3 { margin: 0; }
+  .currently-item-spark { top: 18px; right: 20px; }
+  .currently-item .fp-tape { left: 36px; }
+  .currently-ledge { display: none; }
+}
+.journey-section { position: relative; }
+.journey-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 44px; }
+.journey-heading .section-title { margin-bottom: 10px; font-size: clamp(3.25rem, 1.6rem + 4.4vw, 5.5rem); }
+.journey-heading .portfolio-description { margin-left: 30px; }
+.journey-handnote { display: flex; flex-direction: column; align-items: flex-start; flex: none; padding-right: 24px; color: var(--color-primary); }
+.journey-handnote .hand-note { font-size: 28px; text-align: center; transform: rotate(-7deg); }
+.journey-handnote svg { width: 46px; height: 44px; margin: 2px 0 0 4px; }
+.journey-timeline { --journey-date-width: 124px; --journey-node-size: 58px; --journey-column-gap: 28px; position: relative; display: grid; gap: 30px; margin: 0; padding: 0 0 40px; list-style: none; }
+.journey-timeline::before { content: ''; position: absolute; top: -16px; bottom: 16px; left: calc(var(--journey-date-width) + var(--journey-column-gap) + var(--journey-node-size) / 2 - 1.5px); width: 3px; border-radius: 3px; background: linear-gradient(#58dfff, #2fb4ea 70%, rgb(88 223 255 / 45%)); box-shadow: 0 0 10px rgb(88 223 255 / 60%); }
+.journey-timeline::after { content: ''; position: absolute; bottom: 0; left: calc(var(--journey-date-width) + var(--journey-column-gap) + var(--journey-node-size) / 2 - 9px); width: 18px; height: 18px; border: 2px solid #58dfff; border-radius: 50%; background: var(--color-canvas); box-shadow: 0 0 10px rgb(88 223 255 / 60%); }
+.journey-item { position: relative; display: grid; grid-template-columns: var(--journey-date-width) var(--journey-node-size) minmax(0, 1fr); align-items: center; gap: var(--journey-column-gap); }
+.journey-period { color: #1d4f91; font-family: var(--font-hand); font-size: 28px; font-weight: 600; line-height: 1.05; text-align: right; transform: rotate(-6deg); }
+.journey-period span { display: block; }
+.journey-marker { position: relative; z-index: 1; display: grid; place-items: center; width: var(--journey-node-size); height: var(--journey-node-size); border: 3px solid #58dfff; border-radius: 50%; background: radial-gradient(circle, #fff 52%, #dcf7ff); box-shadow: 0 0 0 6px rgb(88 223 255 / 20%), 0 0 18px rgb(88 223 255 / 55%); color: #0b63c4; font-family: var(--font-display); font-size: 26px; font-weight: 700; line-height: 1; }
+.journey-item--current .journey-marker { border-color: #f9a15a; background: radial-gradient(circle, #fff 52%, #ffe8d4); box-shadow: 0 0 0 6px rgb(244 122 38 / 18%), 0 0 18px rgb(244 122 38 / 45%); color: #c4500a; }
+.journey-card { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); align-items: center; gap: 28px; padding: 26px 36px 26px 26px; }
+.journey-card::after { content: ''; position: absolute; top: 50%; right: 100%; width: var(--journey-column-gap); border-top: 2px dashed rgb(70 190 235 / 70%); }
+.journey-tape { left: 26%; --tape-angle: -5deg; }
+.journey-clip { position: absolute; z-index: 2; top: -18px; right: 34px; width: 18px; height: 46px; color: #7f97ad; transform: rotate(8deg); }
+.journey-item:nth-child(odd) .journey-clip, .journey-item:nth-child(even) .journey-tape { display: none; }
+.journey-art { position: relative; display: grid; place-items: center; min-height: 190px; border-radius: 4px; background: radial-gradient(ellipse at 50% 62%, rgb(232 216 190 / 70%), transparent 70%); }
+.journey-art--scene { display: block; min-height: 0; background: none; }
+.journey-scene { position: relative; width: 100%; }
+.journey-scene img { display: block; width: 100%; height: auto; }
+.journey-scene .journey-scene-logo { position: absolute; height: auto; }
+.journey-logo { width: 150px; height: 150px; object-fit: contain; }
+.journey-decor { display: none; }
+.journey-content { min-width: 0; }
+.journey-content h3 { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 6px; color: var(--color-heading); font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
+.journey-content h3 svg { width: 26px; height: 26px; flex: none; color: var(--color-orange); }
+.journey-organization { margin: 0 0 10px; color: #34567b; font-size: 18px; font-weight: 500; line-height: 1.4; }
+.journey-role { display: inline-block; width: fit-content; margin: 0 0 14px; padding: 5px 16px; border-radius: var(--radius-pill); background: var(--color-paper-blue); color: var(--color-primary); font-size: 15px; font-weight: 600; line-height: 1.4; }
+/* Desktop: Journey traced from the 1440 px mockup (mockup px / 14.4 = cqw). */
+@media (min-width: 1101px) {
+  .section.journey-section { padding-top: 2cqw; padding-bottom: 0; background: radial-gradient(ellipse 55% 45% at 55% 45%, rgb(240 224 198 / 55%), transparent 72%), radial-gradient(ellipse 30% 30% at 5% 40%, rgb(236 220 196 / 45%), transparent 70%); }
+  .journey-stage { position: relative; width: min(100%, 1600px); max-width: none; margin-inline: auto; padding-bottom: 12cqw; container-type: inline-size; }
+  /* Same left edge and size as the About Me title. */
+  .journey-heading { display: block; margin: 0 0 4.4cqw 10.07cqw; }
+  .journey-heading .section-title { gap: 1.6cqw; margin: 0; font-size: 6.11cqw; line-height: 1; }
+  .journey-heading .section-title > svg { width: 2.4cqw; height: 2.8cqw; margin-top: -2.6cqw; }
+  .journey-handnote { position: absolute; top: 1.4cqw; right: 6cqw; padding: 0; }
+  .journey-handnote .hand-note { font-size: 1.95cqw; transform: rotate(-8deg); }
+  .journey-handnote svg { width: 3.4cqw; height: 3.2cqw; margin: -.4cqw 0 0 -5.2cqw; }
+  .journey-timeline { --journey-date-width: 12.6cqw; --journey-node-size: 3.75cqw; --journey-column-gap: 3.6cqw; gap: 1.4cqw; padding: 0; margin-left: -.8cqw; }
+  .journey-timeline::before { top: -1.2cqw; bottom: 4cqw; left: calc(var(--journey-date-width) + var(--journey-column-gap) + var(--journey-node-size) / 2 - 1.5px); }
+  /* The glowing ring caps the end of the line directly. */
+  .journey-timeline::after { display: block; bottom: calc(4cqw - 9px); left: calc(var(--journey-date-width) + var(--journey-column-gap) + var(--journey-node-size) / 2 - 9px); width: 18px; height: 18px; border: 3px solid #58dfff; background: #f2fdff; box-shadow: 0 0 6px #58dfff, 0 0 14px rgb(88 223 255 / 55%); }
+  .journey-item { grid-template-columns: var(--journey-date-width) var(--journey-node-size) minmax(0, 1fr); align-items: start; margin-right: 7.3cqw; }
+  .journey-item:last-child { margin-right: 14.2cqw; }
+  .journey-period, .journey-marker { margin-top: 4cqw; }
+  .journey-period { margin-top: 3.4cqw; font-size: 2.1cqw; line-height: 1.08; transform: rotate(-10deg); }
+  /* Dates wrap like the mockup: everything but the last line on the first row. */
+  .journey-period span { display: inline; }
+  .journey-period span:last-child { display: block; }
+  .journey-period span + span:not(:last-child)::before { content: ' '; }
+  .journey-item:has(.journey-period > span:only-child) .journey-period { margin-top: 4.6cqw; }
+  .journey-marker { font-size: 1.75cqw; border-width: .2cqw; }
+  .journey-card { --paper-tilt: 0deg; transform: rotate(var(--card-tilt, 0deg)); --paper-color: #FCF6EA; grid-template-columns: 24cqw minmax(0, 1fr); gap: 2.2cqw; align-items: center; min-height: 13.4cqw; padding: 2cqw 1.6cqw 2cqw 1.4cqw; }
+  .journey-card::before { filter: url(#fp-paper-torn) drop-shadow(0 3px 5px rgb(87 63 35 / 12%)) drop-shadow(0 14px 22px rgb(87 63 35 / 9%)); box-shadow: inset 0 0 34px rgb(170 130 80 / 16%); }
+  .journey-card::after { top: calc(4cqw + var(--journey-node-size) / 2); }
+  .journey-tape { top: -1cqw; left: 6.6cqw; width: 3.4cqw; height: 1.6cqw; }
+  .journey-clip { top: -.6cqw; right: 1.3cqw; width: 1.6cqw; height: 4.2cqw; }
+  /* Scenes keep their transparent margin outside the flow so the card height follows the story text. */
+  .journey-art--scene { align-self: stretch; height: auto; min-height: 11cqw; }
+  .journey-art--scene .journey-scene { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+  /* Same size as the Currently card titles. */
+  .journey-content h3 { gap: .6cqw; margin: 0 0 .3cqw; font-size: 2.06cqw; }
+  .journey-organization { margin: 0 0 .8cqw; font-size: 1.32cqw; color: #1d3a63; }
+  .journey-role { margin: 0 0 1.1cqw; padding: .3cqw 1.2cqw; font-size: 1.2cqw; }
+  .journey-content .portfolio-description { max-width: 34.5cqw; font-size: 1.2cqw; line-height: 1.45; color: #1f2c40; }
+  /* Story text is printed on the tilted paper: everything rotates with the card, ink blends into the paper. */
+  .journey-item:nth-child(3n+1) .journey-card { --card-tilt: -.8deg; }
+  .journey-item:nth-child(3n+2) .journey-card { --card-tilt: .6deg; }
+  .journey-item:nth-child(3n) .journey-card { --card-tilt: -.5deg; }
+  .journey-content h3, .journey-organization, .journey-content .portfolio-description { mix-blend-mode: multiply; }
+  .journey-content h3 { color: #13213a; text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
+  .journey-organization, .journey-content .portfolio-description { color: #2b3447; text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+  .journey-role { mix-blend-mode: multiply; }
+  /* Glowing hologram timeline. */
+  .journey-timeline::before { width: 4px; background: linear-gradient(#9cefff, #58dfff 60%, #7fe6ff); box-shadow: 0 0 6px #58dfff, 0 0 16px rgb(88 223 255 / 55%); }
+  .journey-marker { box-shadow: 0 0 0 .45cqw rgb(88 223 255 / 22%), 0 0 1.6cqw rgb(88 223 255 / 70%); }
+  .journey-item--current .journey-marker { box-shadow: 0 0 0 .45cqw rgb(244 122 38 / 20%), 0 0 1.6cqw rgb(244 122 38 / 60%); }
+  .journey-card::after { border-top: 2px dashed rgb(88 223 255 / 85%); filter: drop-shadow(0 0 3px rgb(88 223 255 / 70%)); }
+  /* Decorations below the timeline: the line curls out of a ring, books with leaves bottom-left, seated robot bottom-right. */
+  .journey-decor { display: block; position: absolute; inset: 0; pointer-events: none; }
+  .journey-books { position: absolute; left: calc((100cqw - 100vw) / 2 - 9cqw); bottom: .4cqw; width: 48cqw; height: auto; filter: drop-shadow(0 .6cqw .6cqw rgb(110 70 30 / 22%)); }
+  /* The painted tabletop under the books melts into the paper on the right and bottom instead of ending in a hard cut. */
+  .journey-books img { display: block; width: 100%; height: auto; -webkit-mask: linear-gradient(#000 86%, transparent 94%), linear-gradient(90deg, #000 62%, transparent 99%); -webkit-mask-composite: source-over; mask: linear-gradient(#000 86%, transparent 94%) add, linear-gradient(90deg, #000 62%, transparent 99%); }
+  .journey-books::before { content: ''; position: absolute; left: 4%; right: -30%; bottom: -8%; height: 42%; z-index: -1; background: radial-gradient(ellipse 60% 70% at 35% 60%, rgb(222 168 112 / 55%), rgb(232 196 156 / 25%) 55%, transparent 78%); filter: blur(8px); }
+  .journey-books svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  /* Upright marker lettering (Caveat's slant is cancelled by skewX), softened into the cloth. */
+  .journey-books-ink text { dominant-baseline: central; }
+  .journey-books-ink { fill: #4a3219; font-family: var(--font-hand); font-weight: 600; letter-spacing: .03em; text-anchor: start; dominant-baseline: central; mix-blend-mode: multiply; opacity: .85; }
+  .journey-books-ink--light { fill: #efe3c4; font-weight: 700; mix-blend-mode: normal; opacity: .95; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .journey-timeline { --journey-date-width: 92px; --journey-node-size: 48px; --journey-column-gap: 18px; }
+  .journey-period { font-size: 23px; }
+  .journey-marker { font-size: 22px; }
+  .journey-card { grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 20px; padding: 22px; }
+  .journey-art { min-height: 150px; }
+  .journey-logo { width: 110px; height: 110px; }
+}
+@media (max-width: 767px) {
+  .journey-heading { align-items: flex-start; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+  .journey-handnote { align-self: flex-end; padding-right: 8px; }
+  .journey-handnote .hand-note { font-size: 23px; }
+  .journey-timeline { --journey-date-width: 0px; --journey-node-size: 40px; --journey-column-gap: 14px; gap: 28px; }
+  .journey-timeline::before { top: 10px; left: 18.5px; }
+  .journey-timeline::after { left: 11px; }
+  .journey-item { grid-template-columns: var(--journey-node-size) minmax(0, 1fr); align-items: start; column-gap: var(--journey-column-gap); row-gap: 12px; }
+  .journey-marker { grid-column: 1; grid-row: 1; font-size: 20px; box-shadow: 0 0 0 4px rgb(88 223 255 / 20%), 0 0 12px rgb(88 223 255 / 50%); }
+  .journey-period { grid-column: 2; grid-row: 1; align-self: center; font-size: 24px; text-align: left; transform: rotate(-3deg); }
+  .journey-period span { display: inline; }
+  .journey-period span + span::before { content: ' '; }
+  .journey-card { grid-column: 2; grid-template-columns: 1fr; gap: 14px; padding: 22px 20px; }
+  .journey-card::after { display: none; }
+  .journey-art { min-height: 130px; }
+  .journey-logo { width: 116px; height: 116px; }
+  .journey-organization { font-size: 16px; }
+  .journey-role { font-size: 13px; padding: 5px 12px; }
+}
+.beyond-heading { position: relative; display: grid; gap: 18px; margin-bottom: 26px; }
+.beyond-copy { position: relative; z-index: 1; }
+.beyond-heading .section-title { font-size: clamp(3.25rem, 1.6rem + 4.4vw, 5.5rem); line-height: 1.05; }
+/* B01 shelf scene: books, open journal and hologram are artwork; spine and page labels are SVG text on top. */
+.beyond-studio { position: relative; width: min(100%, 760px); margin-left: auto; }
+.beyond-studio > img { display: block; width: 100%; height: auto; }
+.beyond-studio-labels { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.beyond-foil text { fill: #f0dfae; font-family: var(--font-display); font-weight: 600; letter-spacing: .1em; text-anchor: middle; dominant-baseline: central; filter: drop-shadow(0 1px 0 rgb(20 14 6 / 45%)); }
+.beyond-page-ink { mix-blend-mode: multiply; }
+.beyond-page-ink text { fill: #2a57a3; font-family: var(--font-hand); font-weight: 600; }
+/* Projected hologram light, shared by the Beyond book panel and the Contact chat panel: the light rises from behind
+   the props in front of the panel (each scene supplies its own occlusion mask and --cast-origin in artwork pixels). */
+.holo-cast { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.holo-cast-beam { mix-blend-mode: screen; filter: blur(4px); transform-origin: var(--cast-origin); }
+.holo-cast-source { fill: #effdff; filter: blur(9px) drop-shadow(0 0 10px #58dfff); opacity: .9; }
+.holo-cast-beam--core { filter: blur(4px); opacity: .9; }
+.holo-cast-ray { stroke: rgb(186 244 255 / 95%); stroke-width: 2.4; stroke-dasharray: 6 4; filter: drop-shadow(0 0 3px rgb(88 223 255 / 90%)); }
+.holo-cast-tint { fill: rgb(120 220 255 / 16%); mix-blend-mode: screen; opacity: 0; }
+.holo-cast-mote { fill: #e8fcff; filter: drop-shadow(0 0 3px #58dfff); opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .holo-cast-beam { animation: holo-cast-beam 3.2s ease-in-out infinite; }
+  .holo-cast-source { animation: holo-cast-source 2.4s ease-in-out infinite alternate; }
+  .holo-cast-ray { animation: holo-cast-ray 2.2s linear infinite; }
+  .holo-cast-tint { animation: holo-cast-flicker 5.5s steps(1) infinite; }
+  .holo-cast-mote { animation: holo-cast-mote 3.4s ease-out infinite; }
+}
+@keyframes holo-cast-beam { 0%, 100% { opacity: .75; transform: scaleX(1); } 50% { opacity: 1; transform: scaleX(1.06); } 71% { opacity: .55; } 72% { opacity: .95; } }
+@keyframes holo-cast-ray { to { stroke-dashoffset: -20; } }
+@keyframes holo-cast-flicker { 0%, 100% { opacity: 0; } 38% { opacity: .9; } 39% { opacity: .2; } 40% { opacity: .7; } 42% { opacity: 0; } 80% { opacity: .5; } 81% { opacity: 0; } }
+@keyframes holo-cast-mote { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: .95; } 100% { transform: translateY(-95px); opacity: 0; } }
+@keyframes holo-cast-source { from { opacity: .6; } to { opacity: 1; } }
+.beyond-handnote { position: absolute; top: -6%; right: 0; color: var(--color-primary); transform: rotate(-8deg); }
+.beyond-handnote svg { position: absolute; top: 70%; left: -40px; width: 40px; height: 34px; }
+.beyond-handnote .hand-note { font-size: 22px; line-height: 1.05; }
+.beyond-grid { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 40px; }
+/* Navy shelf (S01 card-shelf) the cards stand on; its brackets peek out at both ends. */
+.beyond-grid::after { content: ''; position: absolute; z-index: 0; right: -14px; bottom: 0; left: -18px; aspect-ratio: 1500 / 90; background: url(/images/beyond/card-shelf.svg) center / 100% 100% no-repeat; transform: translateY(55.6%); pointer-events: none; }
+.beyond-card { position: relative; z-index: 1; display: grid; grid-template-columns: 44% minmax(0, 1fr); align-items: stretch; gap: 20px; padding: 14px; border: 1px solid #ece4d6; border-radius: 12px; background: var(--color-paper); box-shadow: var(--shadow-paper); transition: border-color 180ms, box-shadow 180ms, transform 180ms; }
+.beyond-art { position: relative; width: 100%; min-width: 0; align-self: stretch; overflow: hidden; aspect-ratio: 1.2; border-radius: 8px; }
+.beyond-art img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.beyond-content { align-self: start; padding: 12px 8px 54px 0; }
+.beyond-card h3 { display: flex; align-items: flex-start; gap: 6px; margin: 0 0 10px; color: var(--color-heading); font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
+.beyond-card h3 svg { width: .62em; height: .74em; flex: none; margin-top: -.22em; color: var(--color-orange); }
+/* Printed ink, as on the Journey / Projects cards. */
+.beyond-card h3 { color: #13213a; mix-blend-mode: multiply; text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
+.beyond-card .portfolio-description { line-height: 1.45; color: #2b3447; mix-blend-mode: multiply; text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+.beyond-card-accent { position: absolute; right: 16px; bottom: 16px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--color-primary); background: var(--color-paper-blue); transition: background 180ms, color 180ms; }
+.beyond-card-trigger { position: absolute; inset: 0; z-index: 2; width: 100%; border: 0; border-radius: inherit; background: transparent; cursor: pointer; }
+.beyond-card-trigger:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.beyond-card:is(:hover, :focus-within) { border-color: var(--color-cyan); box-shadow: var(--shadow-hologram), 0 0 30px rgb(88 223 255 / 30%), var(--shadow-paper); }
+.beyond-card:is(:hover, :focus-within) .beyond-card-accent { color: white; background: var(--color-primary); }
+@media (prefers-reduced-motion: no-preference) {
+  .beyond-card:is(:hover, :focus-within) { transform: translateY(-2px); }
+  .beyond-card:is(:hover, :focus-within) .beyond-card-accent svg { animation: beyond-arrow-nudge 900ms ease-in-out infinite; }
+}
+@keyframes beyond-arrow-nudge { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(4px); } }
+/* Desktop: traced from the 1051 px mockup (mockup px / 10.51 = cqw); titles share the 8.2cqw left edge. */
+@media (min-width: 1101px) {
+  .section.beyond-section { padding-block: 2cqw 0; }
+  .beyond-stage { position: relative; width: min(100%, 1600px); max-width: none; margin-inline: auto; padding-bottom: 4.3cqw; container-type: inline-size; }
+  .beyond-heading { display: block; height: 29.2cqw; margin: 0; }
+  /* Same size and left edge as About Me / My Journey; sits high enough to clear the book stack. */
+  .beyond-copy { position: absolute; top: 9cqw; left: 10.07cqw; }
+  .beyond-heading .section-title { gap: .8cqw; margin: 0; font-size: 6.11cqw; line-height: 1; }
+  .beyond-studio { position: absolute; top: 0; left: 32cqw; width: 68cqw; margin: 0; }
+  .beyond-handnote { top: 6.1cqw; right: auto; left: 51.3cqw; }
+  .beyond-handnote .hand-note { font-size: 1.75cqw; }
+  .beyond-handnote svg { top: 3.4cqw; left: -3.6cqw; width: 3.4cqw; height: 2.8cqw; }
+  .beyond-grid { gap: .95cqw; margin: 0 4.1cqw 0 4.57cqw; padding: 0; }
+  .beyond-grid::after { right: -2.4cqw; left: -3.25cqw; transform: translateY(68%); }
+  .beyond-card { grid-template-columns: 21.4cqw minmax(0, 1fr); gap: 1.43cqw; height: 20.5cqw; padding: 1.6cqw 1.8cqw; border-radius: 1cqw; }
+  .beyond-art { aspect-ratio: auto; border-radius: .7cqw; }
+  /* As in the mockup the second card's photo is a little narrower, so its title stays on one line. */
+  .beyond-card:nth-child(2) { grid-template-columns: 19cqw minmax(0, 1fr); }
+  .beyond-content { padding: 2.2cqw 0 4cqw 0; }
+  .beyond-card h3 { white-space: nowrap; }
+  /* Card title and story use the My Journey card scale. */
+  .beyond-card h3 { gap: .6cqw; margin: 0 0 .6cqw; font-size: 2.06cqw; }
+  .beyond-card h3 svg { width: 1.8cqw; height: 1.8cqw; margin-top: -.4cqw; }
+  .beyond-card .portfolio-description { max-width: none; font-size: 1.2cqw; line-height: 1.45; }
+  .beyond-card-accent { right: 1.7cqw; bottom: 1.9cqw; width: 4.2cqw; height: 4.2cqw; }
+  .beyond-card-accent svg { width: 1.8cqw; height: 1.8cqw; }
+}
+@media (max-width: 1023px) {
+  .beyond-grid { grid-template-columns: 1fr; gap: 18px; }
+  .beyond-card { grid-template-columns: 200px minmax(0, 1fr); }
 }
 @media (max-width: 480px) {
-  .beyond-card { grid-template-columns: 100px minmax(0, 1fr); gap: 14px; padding: 10px; }
-  .beyond-card h3 { font-size: 22px; }
-  .beyond-art { min-height: 120px; }
+  .beyond-card { grid-template-columns: 110px minmax(0, 1fr); gap: 14px; padding: 10px; }
   .beyond-content { padding-top: 4px; }
+  .beyond-handnote .hand-note { font-size: 19px; }
 }
+

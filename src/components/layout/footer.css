@@ -1,33 +1,63 @@
-.site-footer { --footer-travel: 0px; position: relative; isolation: isolate; overflow: hidden; padding: 205px 0 30px; background: var(--color-canvas); }
-.footer-landscape { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.footer-waves { position: absolute; z-index: 1; inset: auto 0 0; width: 100%; height: 180px; }
-.footer-crest { fill: none; stroke: none; }
-.footer-sprigs { position: absolute; inset: 0; transform: translate3d(0, calc(var(--footer-travel) * .4), 0); }
-.footer-plants { position: absolute; inset: 0; z-index: 2; transform: translate3d(0, calc(var(--footer-travel) * .65), 0); }
-.footer-wave--back { transform: translateY(calc(var(--footer-travel) * .18)); }
-.footer-wave--front { transform: translateY(calc(var(--footer-travel) * .04)); }
-.footer-plant { position: absolute; display: block; background-image: url('/images/footer/botanical-watercolor.webp'); background-size: 300% 100%; background-repeat: no-repeat; opacity: .78; mask-image: linear-gradient(to bottom, #000 78%, transparent 98%); }
-.footer-plant--left { --plant-x: 10%; left: 3%; top: 12px; width: 205px; height: 205px; background-position: left center; }
-.footer-plant--center { --plant-x: 55%; left: 49%; top: 83px; width: 165px; height: 165px; background-position: center; }
-.footer-plant--right { --plant-x: 91%; right: 3%; top: 15px; width: 190px; height: 190px; background-position: right center; }
-.footer-plant--sprig-left { --plant-x: 29%; left: 25%; top: 86px; width: 125px; height: 125px; background-position: center; opacity: .55; }
-.footer-plant--sprig-right { --plant-x: 73%; left: 69%; top: 96px; width: 110px; height: 110px; background-position: left center; opacity: .48; }
-.footer-content { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; }
-.footer-brand { font-size: 43px; }
-.footer-copyright { display: flex; align-items: center; gap: 10px; margin: 0 0 1px; color: #718899; font-size: 11px; }
+/* Footer studio traced from the 1051 px mockup (mockup px / 10.51 = cqw). */
+.site-footer { --footer-shift: 0; position: relative; isolation: isolate; overflow: hidden; height: 34.7cqw; min-height: 260px; margin-top: -2.8cqw; container-type: inline-size; background: radial-gradient(70% 60% at 30% 40%, rgb(255 255 255 / 70%), transparent 70%), linear-gradient(transparent 30%, rgb(236 240 243 / 55%)), var(--color-canvas); }
+.footer-studio { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* Parallax groups move with their own grounding; travel follows DS v1 (8 / 14 / 20 px). */
+.footer-layer { position: absolute; inset: 0; }
+.footer-layer--ledge { transform: translate3d(0, calc(var(--footer-shift) * 8px), 0); }
+.footer-layer--props { transform: translate3d(0, calc(var(--footer-shift) * 14px), 0); }
+.footer-layer--robot { transform: translate3d(0, calc(var(--footer-shift) * 20px), 0); }
+.footer-layer img { display: block; width: 100%; height: auto; }
+/* U01: wider than the page so both rounded ends bleed off; the cyan rim is baked in. */
+.footer-ledge { position: absolute; top: -9.2cqw; left: -7.8cqw; width: 135.1cqw; }
+.footer-rim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.footer-rim path { stroke-linecap: round; }
+.footer-rim-glow { stroke: #7fe9ff; stroke-width: 7; filter: blur(5px); opacity: .35; }
+.footer-rim-pulse { stroke: #f2fdff; stroke-width: 5.5; stroke-dasharray: 12 88; stroke-dashoffset: 0; filter: drop-shadow(0 0 4px #58dfff) drop-shadow(0 0 10px #58dfff); opacity: 0; }
+.footer-rim-spark { stroke: #fff; stroke-width: 6; stroke-dasharray: .4 99.6; filter: blur(1px) drop-shadow(0 0 8px #9cecff); opacity: 0; }
+.footer-props { position: absolute; top: 2.1cqw; left: -2.5cqw; width: 39.4cqw; }
+.footer-props svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.footer-foil text { fill: #f0dfae; font-family: var(--font-display); font-weight: 600; letter-spacing: .1em; text-anchor: middle; dominant-baseline: central; filter: drop-shadow(0 1px 0 rgb(20 14 6 / 45%)); }
+.footer-pad { position: absolute; top: 20.67cqw; left: 76.2cqw; width: 14cqw; height: 4.17cqw; }
+.footer-portal { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.footer-portal-core { filter: blur(4px); }
+.footer-portal-ring { vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 3px rgb(88 223 255 / 85%)); }
+.footer-portal-ring--a { stroke: #d6faff; stroke-width: 2.4; stroke-dasharray: 30 6 14 6 20 6 18 0; }
+.footer-portal-ring--b { stroke: #6fe2ff; stroke-width: 2; stroke-dasharray: 3 3; }
+.footer-portal-ring--c { stroke: #58dfff; stroke-width: 2; stroke-dasharray: 40 5 22 5 18 10; }
+.footer-portal-ring--d { stroke: rgb(120 225 255 / 60%); stroke-width: 1.4; stroke-dasharray: 1.5 4; }
+/* The real robot is portalled in here (hero pose) while the footer is on screen; its feet land on the pad. */
+.footer-robot-slot { position: absolute; top: 5.5cqw; left: 70.4cqw; width: 26cqw; height: 20.8cqw; }
+.footer-content { position: absolute; right: 4.1cqw; bottom: 3.6cqw; left: 5.9cqw; display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; width: auto; max-width: none; margin: 0; }
+.footer-brand { font-size: max(30px, 4cqw); line-height: 1; }
+.footer-copyright { margin: 0 0 .3cqw; color: #3c4a5c; font-size: max(12px, 1.15cqw); }
+@media (prefers-reduced-motion: no-preference) {
+  .footer-rim-glow { animation: footer-rim-breathe 3.6s ease-in-out infinite; }
+  .footer-rim-pulse { animation: footer-rim-run 4.8s linear infinite; }
+  .footer-rim-pulse--2 { animation-delay: -2.4s; animation-duration: 6.2s; }
+  .footer-rim-spark { animation: footer-rim-run 4.8s linear infinite; }
+  .footer-portal-ring--a { animation: skills-ring-spin 6s linear infinite; }
+  .footer-portal-ring--b { animation: skills-ring-spin 10s linear infinite reverse; }
+  .footer-portal-ring--c { animation: skills-ring-spin 14s linear infinite; }
+  .footer-portal-ring--d { animation: skills-ring-spin 20s linear infinite reverse; }
+  .footer-portal-core { animation: footer-portal-core 2.6s ease-in-out infinite alternate; }
+}
+@keyframes footer-rim-breathe { 0%, 100% { opacity: .25; } 50% { opacity: .6; } }
+@keyframes footer-rim-run { 0% { stroke-dashoffset: 12; opacity: 0; } 8% { opacity: 1; } 88% { opacity: 1; } 100% { stroke-dashoffset: -100; opacity: 0; } }
+@keyframes footer-portal-core { from { opacity: .6; } to { opacity: 1; } }
+@media (max-width: 1100px) {
+  .site-footer { margin-top: 0; }
+}
+/* Phone: the dip moves right so the books sit on the high shelf and the robot on the low one. */
 @media (max-width: 767px) {
-  .site-footer { padding: 180px 0 25px; }
-  .footer-waves { width: 130%; max-width: none; left: -15%; height: 180px; }
-  .footer-sprigs { z-index: 2; }
-  .footer-plant--left { --plant-x: 19%; top: 31px; left: -12px; width: 170px; height: 170px; }
-  .footer-plant--center { display: none; }
-  .footer-plant--right { --plant-x: 82%; top: 50px; right: -10px; width: 150px; height: 150px; }
-  .footer-plant--sprig-left { --plant-x: 70%; top: 160px; left: 62%; width: 70px; height: 70px; }
-  .footer-plant--sprig-right { display: none; }
-  .footer-content { flex-direction: column; align-items: flex-start; gap: 22px; }
-  .footer-brand { font-size: 39px; }
-  .footer-copyright { gap: 7px; font-size: 10px; }
+  .site-footer { height: auto; min-height: 0; padding: 46cqw 0 22px; }
+  .footer-ledge { top: -10cqw; left: -25cqw; width: 170cqw; }
+  .footer-props { top: 1.9cqw; left: -3cqw; width: 55cqw; }
+  .footer-pad { top: 32.4cqw; left: auto; right: 4cqw; width: 24cqw; height: 7.2cqw; }
+  .footer-robot-slot { top: 7.1cqw; left: 66.75cqw; width: 35cqw; height: 35cqw; }
+  .footer-content { position: relative; inset: auto; flex-direction: column; align-items: flex-start; gap: 10px; padding-inline: var(--layout-gutter); }
+  .footer-brand { font-size: 36px; }
+  .footer-copyright { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .footer-plants, .footer-sprigs, .footer-wave { transform: none; }
+  .footer-layer { transform: none; }
 }

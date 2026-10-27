@@ -11,3 +11,8 @@ Create a single horizontal composition of THREE SEPARATE small botanical clumps,
 Left clump: a graceful leaning spray of round eucalyptus leaves with low fern fronds. Center clump: shorter delicate grasses and a few broad small leaves. Right clump: elegant asymmetrical broad leaves with fine stems, slightly taller than center. All three grow from the SAME low baseline and have dense softly painted bases, tapering gracefully upward. Keep all leaves inside image edges. Clumps only about two-thirds image height.
 Reference image 1 is STYLE ONLY: match its sophisticated hand painted watercolor, subtle paper grain, nuanced leaf veins and delicate pencil edges, but MUCH lighter muted colors. Reference image 2 is COMPOSITION/MOOD ONLY: footer foliage should be pale blue-gray and sage, subtle and decorative; do not include any screenshot, wave, lettering or logo.
 Palette: desaturated misty blue #b5c8cc, soft sage #bccac0, slate blue #759aa5 tiny accents. Light and airy with natural organic shapes, translucent pigment edges and gentle tonal depth. Polished editorial botanical watercolor, not flat SVG, not clip art, not glossy 3D. No text, no pot, no books, no logo, no sun, no hills, no solid background. Genuine transparency.
+
+## v1 redesign (package assets)
+
+- `public/images/footer/studio-ledge.webp` (U01) and `studio-books-plant.webp` (U02) come from the ImageGen package, unchanged. Spine titles and the animated rim light are SVG in `Footer.jsx`.
+- The package's U03 robot vignette is not used: the real 3D robot lands on a code-drawn portal in the footer instead. `botanical-watercolor.webp` above is no longer used by the page.

@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import projects from '../../src/features/projects/data/projects.json' with { type: 'json' };
 
 test('hero does not flash a flat image while the 3D model loads', async ({ page }) => {
   let releaseModel;
@@ -90,28 +91,37 @@ test('Wikipedia failure and demo contact remain honest', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Coba lagi' })).toBeVisible();
   await page.getByRole('button', { name: 'Tutup detail skill' }).click();
   await page.locator('#contact').scrollIntoViewIfNeeded();
+  const submit = page.getByRole('button', { name: 'Kirim Pesan' });
+  await expect(submit).toBeDisabled();
   await page.getByLabel('Nama').fill('Pengunjung');
   await page.getByLabel('Email').fill('visitor@example.com');
+  await expect(submit).toBeDisabled();
   await page.getByLabel('Pesan').fill('Halo');
+  await expect(submit).toBeEnabled();
+  const sent = [];
+  page.on('request', (request) => { if (request.method() !== 'GET') sent.push(request.url()); });
   const beforeEnter = page.url();
   await page.getByLabel('Email').press('Enter');
   await expect(page).toHaveURL(beforeEnter);
-  await expect(page.getByRole('button', { name: 'Pengiriman belum tersedia' })).toBeDisabled();
-  await expect(page.locator('.demo-note')).toContainText('Demo — pengiriman belum tersedia');
+  // Local simulation only: the bubble says so, the form resets, and nothing leaves the browser.
+  await expect(page.locator('.robot-speech-bubble')).toContainText('simulasi');
+  await expect(page.getByLabel('Nama')).toHaveValue('');
+  await expect(page.getByLabel('Pesan')).toHaveValue('');
+  await expect(submit).toBeDisabled();
+  expect(sent).toEqual([]);
 });
 
-test('mobile companion stays in the header without covering contact', async ({ page }) => {
+test('mobile companion does not cover the contact submit button', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.locator('#contact').scrollIntoViewIfNeeded();
   await expect(page.locator('.robot-companion')).toBeVisible();
   const positions = await page.evaluate(() => {
     const robot = document.querySelector('.robot-companion').getBoundingClientRect();
-    const header = document.querySelector('.site-header').getBoundingClientRect();
     const button = document.querySelector('.contact-form button').getBoundingClientRect();
-    return { inHeader: robot.top >= header.top && robot.bottom <= header.bottom, overlapsButton: robot.bottom > button.top && robot.top < button.bottom, horizontalOverflow: document.documentElement.scrollWidth > innerWidth };
+    return { overlapsButton: robot.bottom > button.top && robot.top < button.bottom && robot.right > button.left && robot.left < button.right, horizontalOverflow: document.documentElement.scrollWidth > innerWidth };
   });
-  expect(positions).toEqual({ inHeader: true, overlapsButton: false, horizontalOverflow: false });
+  expect(positions).toEqual({ overlapsButton: false, horizontalOverflow: false });
 });
 
 test('mobile navigation closes after selecting a section', async ({ page }) => {
@@ -124,4 +134,17 @@ test('mobile navigation closes after selecting a section', async ({ page }) => {
   const headingTop = await page.locator('#projects-title').evaluate((element) => element.getBoundingClientRect().top);
   const headerBottom = await page.locator('.site-header').evaluate((element) => element.getBoundingClientRect().bottom);
   expect(headingTop).toBeGreaterThan(headerBottom);
+});
+
+test('every project contribution is readable by scrolling, without extra controls', async ({ page }) => {
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const section = page.locator('#projects');
+  await expect(section.locator('article.project')).toHaveCount(projects.length);
+  for (const project of projects) {
+    const story = section.getByText(project.contribution, { exact: true });
+    await story.scrollIntoViewIfNeeded();
+    await expect(story).toBeVisible();
+  }
+  await expect(section.locator('details, [role="tablist"], [aria-roledescription="carousel"]')).toHaveCount(0);
+  await expect(section.getByRole('link')).toHaveCount(0);
 });

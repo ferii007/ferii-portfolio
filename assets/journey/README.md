@@ -17,3 +17,7 @@ Edit target: supplied Senja logo. Clean faithful high resolution restoration and
 ### SMK-BPP
 
 Edit target: supplied circular SMK-BPP BANDUNG school logo. Faithful high resolution restoration of THIS exact mark for website icon. Clean smooth circular dark outline, original lime green circle, original green lily pads with dark veins, white lotus and original black text 'SMK-BPP' above and 'BANDUNG' below. Preserve exact composition, lettering and botanical details of source, no redesign or extra elements. Remove all background outside circle to real transparent alpha, preserve white lotus interior. Center entire circle in square canvas with modest even margins. Crisp flat color edges, no shading no glow no shadow.
+
+## New-design scenes (13 Oct 2026)
+
+`testing-vignette.webp`, `school-vignette.webp`, `senja-vignette.webp` (900 × 600), `books-corner.webp` (900 × 450) and `seated-robot.webp` (800 × 1000) come unchanged from the generated asset package `feri-portfolio-new-design-assets` (built-in ImageGen, reference `02-journey.png`); masters are the `journey-*-master.png` files here and prompts are in that package's `provenance/generation-tasks.json`. Each entry in `journey.json` names its `scene`; `logoBox` (percent of the scene canvas) places the real school/Senja logo over the scene's clear area. The Ultimo scene draws its own testing illustration, so it has no `logoBox`. The seated robot is a decorative still of the same character, not the interactive 3D robot.

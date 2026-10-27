@@ -1,25 +1,46 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
-const frontCrest = 'M0 142C80 134 69 65 176 70c199-2 347 77 552 82s375-72 527-74 145 22 185 22';
-
-function FooterLandscape() {
-  return <div className="footer-landscape" aria-hidden="true">
-    <div className="footer-sprigs">
-      <span className="footer-plant footer-plant--sprig-left" />
-      <span className="footer-plant footer-plant--sprig-right" />
+// U01 ledge, U02 books + plant and the robot's landing pad are separate layers so each can drift a little on scroll.
+const ledgeRim = 'M60 330L780 330C890 333 960 376 1060 394C1110 401 1160 400 1220 400L1420 398C1600 388 1770 377 1880 359';
+function FooterStudio() {
+  return <div className="footer-studio">
+    <div className="footer-layer footer-layer--ledge" aria-hidden="true"><div className="footer-ledge">
+      <Image src="/images/footer/studio-ledge.webp" width={1920} height={640} sizes="140vw" alt="" />
+      {/* Live light on the ledge's baked cyan rim (traced in its 1920×640 pixels): the rim breathes and pulses of light run along it. */}
+      <svg className="footer-rim" viewBox="0 0 1920 640" fill="none">
+        <path className="footer-rim-glow" d={ledgeRim} />
+        <path className="footer-rim-pulse" d={ledgeRim} pathLength="100" />
+        <path className="footer-rim-pulse footer-rim-pulse--2" d={ledgeRim} pathLength="100" />
+        <path className="footer-rim-spark" d={ledgeRim} pathLength="100" />
+      </svg>
+    </div></div>
+    <div className="footer-layer footer-layer--props" aria-hidden="true">
+      <div className="footer-props">
+        <Image src="/images/footer/studio-books-plant.webp" width={1100} height={550} sizes="(max-width: 767px) 70vw, 560px" alt="" />
+        {/* Spine titles in the artwork's 1100×550 pixels, between each spine's own diamonds. */}
+        <svg viewBox="0 0 1100 550" fill="none"><g className="footer-foil">
+          <text transform="translate(589 272) rotate(-3.3)" fontSize="38">DESIGN</text>
+          <text transform="translate(608 345) rotate(-4.1)" fontSize="38">CODE</text>
+          <text transform="translate(616 419) rotate(-5.4)" fontSize="38">PROGRESS</text>
+        </g></svg>
+      </div>
     </div>
-    <svg className="footer-waves" viewBox="0 0 1440 210" preserveAspectRatio="none" fill="none">
-      <defs><linearGradient id="footer-water" x1="720" y1="85" x2="720" y2="210" gradientUnits="userSpaceOnUse"><stop stopColor="#dcebf4" /><stop offset="1" stopColor="#eff4f6" /></linearGradient></defs>
-      <path className="footer-crest" d={frontCrest} />
-      <path className="footer-wave footer-wave--back" d="M0 133C72 121 72 59 170 63c201-5 345 77 556 82s375-71 527-74 144 22 187 21v118H0Z" fill="#e6edeb" />
-      <path className="footer-wave footer-wave--front" d={`${frontCrest}v110H0Z`} fill="url(#footer-water)" />
-    </svg>
-    <div className="footer-plants">
-      <span className="footer-plant footer-plant--left" />
-      <span className="footer-plant footer-plant--center" />
-      <span className="footer-plant footer-plant--right" />
+    <div className="footer-layer footer-layer--robot">
+      {/* Landing pad: while the footer is on screen the real robot (hero pose) stands here instead of floating. */}
+      <div className="footer-pad">
+        <svg className="footer-portal" viewBox="0 0 400 120" fill="none" aria-hidden="true">
+          <defs><radialGradient id="footer-portal-core" cx=".5" cy=".5" r=".5"><stop stopColor="#f2fdff" /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".7" stopColor="#58dfff" stopOpacity=".35" /><stop offset="1" stopColor="#58dfff" stopOpacity="0" /></radialGradient></defs>
+          <ellipse className="footer-portal-core" cx="200" cy="60" rx="170" ry="44" fill="url(#footer-portal-core)" />
+          <ellipse className="footer-portal-ring footer-portal-ring--a" cx="200" cy="60" rx="70" ry="17" pathLength="100" />
+          <ellipse className="footer-portal-ring footer-portal-ring--b" cx="200" cy="61" rx="112" ry="28" pathLength="100" />
+          <ellipse className="footer-portal-ring footer-portal-ring--c" cx="200" cy="62" rx="152" ry="39" pathLength="100" />
+          <ellipse className="footer-portal-ring footer-portal-ring--d" cx="200" cy="63" rx="190" ry="50" pathLength="100" />
+        </svg>
+      </div>
+      <div className="footer-robot-slot" id="footer-robot-slot" />
     </div>
   </div>;
 }
@@ -29,57 +50,30 @@ export default function Footer() {
 
   useEffect(() => {
     const footer = footerRef.current;
-    const wave = footer.querySelector('.footer-waves');
-    const crest = wave.querySelector('.footer-crest');
-    const plants = footer.querySelectorAll('.footer-plant');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
-    const placePlants = () => {
-      const footerRect = footer.getBoundingClientRect();
-      const waveRect = wave.getBoundingClientRect();
-      const crestLength = crest.getTotalLength();
-
-      plants.forEach((plant) => {
-        const anchor = parseFloat(getComputedStyle(plant).getPropertyValue('--plant-x')) / 100;
-        const x = footerRect.width * anchor;
-        const crestX = ((footerRect.left + x - waveRect.left) / waveRect.width) * 1440;
-        let start = 0;
-        let end = crestLength;
-        for (let i = 0; i < 14; i++) {
-          const middle = (start + end) / 2;
-          if (crest.getPointAtLength(middle).x < crestX) start = middle;
-          else end = middle;
-        }
-        const crestY = waveRect.top - footerRect.top + (crest.getPointAtLength((start + end) / 2).y / 210) * waveRect.height;
-        const depth = plant.parentElement.classList.contains('footer-sprigs') ? 18 : 12;
-        plant.style.left = `${x - plant.offsetWidth / 2}px`;
-        // The painted base ends near 91% of the sprite cell height.
-        plant.style.top = `${crestY + depth - plant.offsetHeight * .91}px`;
-      });
-    };
     const update = () => {
       frame = 0;
       const { top, height } = footer.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, (window.innerHeight - top) / height));
-      footer.style.setProperty('--footer-travel', `${reducedMotion.matches ? 0 : (1 - progress) * 80}px`);
+      // 1 while the footer is entering, 0 once it is fully in view; layers multiply this by their own travel.
+      footer.style.setProperty('--footer-shift', reducedMotion.matches ? 0 : (1 - progress).toFixed(3));
     };
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
-    const resize = () => { placePlants(); schedule(); };
-    placePlants();
     update();
     window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', schedule);
     reducedMotion.addEventListener('change', schedule);
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', schedule);
       reducedMotion.removeEventListener('change', schedule);
     };
   }, []);
 
   return <footer ref={footerRef} className="site-footer">
-    <FooterLandscape />
+    <FooterStudio />
     <div className="container footer-content">
       <a className="brand fp-logo footer-brand" href="#top" aria-label="Feri, kembali ke atas">feri<span>.</span></a>
       <p className="footer-copyright">© {new Date().getFullYear()} Feri Ramdani. All rights reserved.</p>

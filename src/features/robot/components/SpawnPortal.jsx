@@ -33,13 +33,15 @@ const floorFragment = `
   }
 `;
 
-export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = false }) {
+// `instant` skips the materialize sequence (the robot arrives already whole, e.g. flying in to land on the footer).
+export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = false, instant = false }) {
   const portal = useRef();
   const floorY = companion ? COMPANION_SPAWN_FLOOR : SPAWN_FLOOR;
   const height = companion ? COMPANION_SPAWN_HEIGHT : 4.15;
-  const outer = useRef(), inner = useRef(), scan = useRef();
+  const outer = useRef(), inner = useRef(), scan = useRef(), halo = useRef();
   const particles = useRef(), beam = useRef(), floor = useRef();
   const started = useRef(null);
+  const settled = useRef(null);
   const dots = useMemo(() => {
     const positions = new Float32Array(36 * 3);
     for (let i = 0; i < 36; i++) {
@@ -50,9 +52,10 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
     return positions;
   }, []);
   const uniforms = useMemo(() => ({ time: { value: 0 }, power: { value: 0 } }), []);
+  const beamUniforms = useMemo(() => ({ time: { value: 0 }, power: { value: 0 } }), []);
 
   useFrame(({ clock }) => {
-    if (started.current === null) started.current = clock.elapsedTime;
+    if (started.current === null) started.current = clock.elapsedTime - (instant ? 3 : 0);
     const age = reducedMotion ? 3 : clock.elapsedTime - started.current;
     const { progress, reveal, fade: fadeOut, materializing } = spawnTiming(age, companion);
     onSpawnFrame(age, reveal);
@@ -60,13 +63,17 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
     if (companion && !portal.current.visible) return;
     const pulse = reducedMotion ? 0 : Math.sin(age * 1.7) * 0.08;
     const power = materializing ? Math.min(1, age / 0.1) * 1.8 : 0.65 + pulse;
+    if (!materializing && settled.current === null) settled.current = age;
+    // The 3D portal belongs to the spawn only; once the robot stands it fades and the Hero hologram rings remain.
+    const beamFade = materializing ? 1 : reducedMotion ? 0 : Math.max(0, 1 - (age - settled.current) / 0.6);
     beam.current.material.uniforms.time.value = reducedMotion ? 0 : age;
-    beam.current.material.uniforms.power.value = power * fadeOut;
-    floor.current.material.uniforms.power.value = power * fadeOut;
+    beam.current.material.uniforms.power.value = power * fadeOut * beamFade;
+    floor.current.material.uniforms.power.value = power * fadeOut * beamFade;
     outer.current.rotation.z = reducedMotion ? 0 : age * 0.16;
     inner.current.rotation.z = reducedMotion ? 0 : -age * 0.23;
-    outer.current.material.opacity = (0.48 + power * 0.16) * fadeOut;
-    inner.current.children.forEach((segment) => { segment.material.opacity = (0.25 + power * 0.1) * fadeOut; });
+    outer.current.material.opacity = (0.48 + power * 0.16) * fadeOut * beamFade;
+    if (halo.current) halo.current.material.opacity = 0.1 * beamFade;
+    inner.current.children.forEach((segment) => { segment.material.opacity = (0.25 + power * 0.1) * fadeOut * beamFade; });
     scan.current.visible = !reducedMotion && progress > 0 && progress < 1;
     scan.current.position.y = floorY + reveal * height;
     scan.current.material.opacity = Math.sin(progress * Math.PI) * 0.55;
@@ -76,7 +83,7 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
       positions.setY(i, rise * (height - 0.35));
     }
     positions.needsUpdate = true;
-    particles.current.material.opacity = (reducedMotion ? 0.2 : 0.2 + power * 0.16) * fadeOut;
+    particles.current.material.opacity = (reducedMotion ? 0.2 : 0.2 + power * 0.16) * fadeOut * beamFade;
   });
 
   return <group ref={portal} position={[0.05, 0, 0.06]}>
@@ -88,7 +95,7 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
       <torusGeometry args={[1.1, 0.014, 8, 96]} />
       <meshBasicMaterial color="#11a6da" transparent opacity={0.65} depthWrite={false} />
     </mesh>
-    {!companion && <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY - 0.003, 0]}>
+    {!companion && <mesh ref={halo} rotation={[-Math.PI / 2, 0, 0]} position={[0, floorY - 0.003, 0]}>
       <torusGeometry args={[1.1, 0.055, 8, 96]} />
       <meshBasicMaterial color="#65d9ef" transparent opacity={0.1} depthWrite={false} />
     </mesh>}
@@ -101,7 +108,7 @@ export default function SpawnPortal({ onSpawnFrame, reducedMotion, companion = f
     </group>
     <mesh ref={beam} position={[0, floorY + (companion ? height / 2 : 2.05), 0]}>
       <cylinderGeometry args={[0.65, 1.08, companion ? height : 4.1, 64, 1, true]} />
-      <shaderMaterial vertexShader={vertex} fragmentShader={beamFragment} uniforms={uniforms} transparent depthWrite={false} side={DoubleSide} />
+      <shaderMaterial vertexShader={vertex} fragmentShader={beamFragment} uniforms={beamUniforms} transparent depthWrite={false} side={DoubleSide} />
     </mesh>
     <mesh ref={scan} rotation={[-Math.PI / 2, 0, 0]}>
       <torusGeometry args={[1.06, 0.018, 8, 96]} />

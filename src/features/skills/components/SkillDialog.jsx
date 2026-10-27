@@ -47,7 +47,7 @@ export default function SkillDialog({ skill, onClose }) {
   return <aside ref={dialogRef} className="skill-dialog fp-hologram" role="dialog" aria-modal="false" aria-labelledby="skill-dialog-title" aria-describedby="skill-dialog-body">
     <div className="skill-dialog-top fp-hologram__head">
       <div className="skill-dialog-identity">
-        <div className="skill-dialog-icon" style={{ '--skill-color': skill.color }}><SkillIcon skill={skill} /></div>
+        <div className="skill-dialog-icon" style={{ '--skill-color': skill.colorOnHolo ?? skill.color }}><SkillIcon skill={skill} /></div>
         <div><span className="skill-dialog-kicker">Stack explorer</span><h3 id="skill-dialog-title">{skill.label}<svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M7 2 5 13M20 5l-7 10M31 20l-11 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h3>{currentResult.status === 'loading' ? <span className="skill-skeleton-line skill-skeleton-subtitle" aria-hidden="true" /> : <p className="skill-dialog-subtitle">{currentResult.status === 'success' ? currentResult.data.title : 'Ringkasan Wikipedia'}</p>}</div>
       </div>
       <button ref={closeRef} type="button" onClick={onClose} aria-label="Tutup detail skill"><X size={24} /></button>

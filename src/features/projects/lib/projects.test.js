@@ -29,6 +29,10 @@ describe('project data contract', () => {
   it('rejects unknown categories instead of silently hiding a project', () => {
     expect(validateProjects([{ ...valid, category: 'unknown' }]).join(' ')).toMatch(/category/);
   });
+  it('accepts an optional presentation and rejects unknown ones', () => {
+    expect(validateProjects([{ ...valid, presentation: 'feature' }])).toEqual([]);
+    expect(validateProjects([{ ...valid, presentation: 'hero' }]).join(' ')).toMatch(/presentation/);
+  });
   it('allows an empty stack when the technologies have not been confirmed', () => {
     expect(validateProjects([{ ...valid, stack: [] }])).toEqual([]);
   });

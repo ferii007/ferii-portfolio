@@ -7,11 +7,13 @@
   {
     "id": "personal",
     "title": "Website & Personal",
-    "note": "Berbagai website yang pernah kubangun."
+    "note": "Berbagai website yang pernah kubangun.",
+    "layout": "pairs"
   },
   {
     "id": "experiments",
     "title": "Eksperimen",
-    "note": "Ide-ide kecil yang kadang jadi hal besar."
+    "note": "Ide-ide kecil yang kadang jadi hal besar.",
+    "layout": "pairs"
   }
 ]

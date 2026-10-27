@@ -1,9 +1,8 @@
-.portfolio-description { margin: 0; color: var(--color-ink); font-family: var(--font-sans); font-size: 17px; font-weight: 600; line-height: 1.55; }
-.portfolio-eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--color-primary); font-family: 'Fredoka', var(--font-sans); font-size: 13px; font-weight: 700; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; }
-.portfolio-eyebrow::before { content: ''; width: 12px; height: 2px; flex: none; border-radius: 2px; background: currentColor; }
-@media (min-width: 768px) and (max-width: 900px), (max-width: 480px) {
-  .portfolio-description { font-size: 15px; }
-}
-@media (max-width: 480px) {
-  .portfolio-eyebrow { font-size: 11px; }
-}
+.portfolio-description { max-width: 60ch; margin: 0; color: var(--color-ink); font-family: var(--font-sans); font-size: var(--size-description); font-weight: 500; line-height: 1.6; }
+.portfolio-eyebrow { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--color-primary); font-family: 'Fredoka', var(--font-sans); font-size: clamp(13px, .62rem + .55vw, 17px); font-weight: 700; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; }
+.portfolio-eyebrow::before { content: ''; width: 20px; height: 3px; flex: none; border-radius: 2px; background: currentColor; }
+/* Section titles stay upright. The dash marks titles that have no eyebrow above them. */
+.section-title { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: 100%; margin: 0; color: var(--color-heading); font-family: var(--font-display); font-size: var(--size-section); font-weight: 650; line-height: 1.08; letter-spacing: -.025em; text-wrap: balance; }
+.section-title > svg { width: .56em; height: .7em; flex: none; color: var(--color-orange); }
+.section-title--dash::before { content: ''; width: 18px; height: 4px; flex: none; border-radius: 3px; background: var(--color-primary); }
+.hand-note { margin: 0; color: var(--color-primary); font-family: var(--font-hand); font-size: var(--size-note); font-weight: 600; line-height: 1.12; }

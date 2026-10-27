@@ -27,6 +27,7 @@ export function validateProjects(records, { checkImages = false } = {}) {
     if (!Array.isArray(project.stack) || project.stack.some((item) => typeof item !== 'string' || !item.trim())) errors.push(`${label}: stack must be an array of technology names`);
     if (typeof project.isExample !== 'boolean') errors.push(`${label}: isExample must be boolean`);
     if (project.contribution != null && typeof project.contribution !== 'string') errors.push(`${label}: contribution must be text`);
+    if (project.presentation != null && !['feature', 'compact'].includes(project.presentation)) errors.push(`${label}: presentation must be feature or compact`);
     for (const field of ['demoUrl', 'codeUrl']) {
       if (project[field] != null) {
         try {

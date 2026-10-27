@@ -7,3 +7,9 @@ Generated with the built-in imagegen tool, following the notebook and mountain i
 Create a square portfolio card editorial illustration. A cream spiral notebook opened on blank ruled pages, dark navy binding at the left, resting diagonally on warm peach paper with a small leafy green botanical sprig beside it. Hand-painted watercolor and pencil texture, gentle realistic paper shadows, warm handmade storybook aesthetic matching a developer portfolio with cream background, navy ink and blue accents. Tight pleasing composition filling the square; no readable words, no logo, no UI, no icons. Opaque soft peach background.
 
 Create a square scenic landscape photograph for a personal portfolio's moments and journeys card. Sunrise over layered mountain ridges, golden sun at the horizon, lush green forest in foreground, atmospheric blue distant peaks and delicate warm peach sky. Natural editorial travel photography, inviting tranquil mood, rich but restrained colors, realistic soft sunlight. No people, no text, no logo, no borders. This is a decorative illustrative scene, not a claimed personal travel photo.
+
+## v1 redesign (package assets)
+
+- `public/images/beyond/journal-studio.webp`: B01 shelf scene from the ImageGen package (`feri-portfolio-new-design-assets`). The sketched bullet lines on the journal's left page and the baked orange spark beside the hologram were painted out from neighbouring pixels; the cleaned master is `assets/beyond/journal-studio-clean.png`. Spine titles and the "Catatan Perjalanan Ide" note are SVG text in `BeyondCodingSection.jsx`.
+- `public/images/beyond/journal-holo-mask.png`: occlusion mask generated from the cleaned master (white where the hologram light may show, black over books, journal and props).
+- `public/images/beyond/card-shelf.svg`: S01 shelf from the package, unchanged.

@@ -33,6 +33,19 @@ export default function RobotExperience() {
     observer.observe(hero);
     return () => observer.disconnect();
   }, [setHeroVisible, reducedMotion]);
+  // The footer has a landing pad: while it is on screen the robot stands there (hero pose) instead of floating.
+  const [footerSlot, setFooterSlot] = useState(null);
+  const [landed, setLanded] = useState(false);
+  useEffect(() => {
+    const slot = document.getElementById('footer-robot-slot');
+    if (!slot) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      setFooterSlot(entry.isIntersecting ? slot : null);
+      if (!entry.isIntersecting) setLanded(false); // next arrival lands again
+    }, { threshold: 0.35 });
+    observer.observe(slot);
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => {
     if (reducedMotion && state.location === 'returning') completeHeroReturn();
   }, [reducedMotion, state.location, completeHeroReturn]);
@@ -46,14 +59,18 @@ export default function RobotExperience() {
   const showCanvas = !canvasFailed;
   const hero = state.location === 'hero';
   const returning = state.location === 'returning';
+  const footer = Boolean(footerSlot) && !hero && !returning;
+  // Arriving at the footer it flies in (thrusters on) and touches down on the pad, then stands in its hero pose.
+  const landing = footer && !landed && !reducedMotion;
   const expression = hero ? state.expression : 'side-eye';
   const projecting = Boolean(state.activeSkillId) && !returning;
-  const robot = <div className={`robot-experience robot-${hero ? 'hero' : 'companion'}${returning ? ' robot-returning' : ''}${showCanvas && canvasReady ? ' robot-ready' : ''}`} style={{ '--robot-departure-duration': `${DEPARTURE_DURATION}ms` }} data-location={state.location} data-expression={expression} onAnimationEnd={(event) => {
+  const robot = <div className={`robot-experience robot-${hero ? 'hero' : footer ? 'footer' : 'companion'}${landing ? ' robot-landing' : ''}${returning ? ' robot-returning' : ''}${showCanvas && canvasReady ? ' robot-ready' : ''}`} style={{ '--robot-departure-duration': `${DEPARTURE_DURATION}ms` }} data-location={state.location} data-expression={expression} onAnimationEnd={(event) => {
     if (event.animationName === 'robot-departure') completeHeroReturn();
+    if (event.animationName === 'robot-landing') setLanded(true);
   }}>
     <div className="robot-figure">
       {!showCanvas && <RobotFallback expression={expression} />}
-      {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={expression} projecting={projecting} departing={returning} reducedMotion={reducedMotion} hero={hero} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
+      {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={expression} projecting={projecting && !footer} departing={returning} reducedMotion={reducedMotion} hero={hero || (footer && !landing)} framing={footer ? 'footer' : 'default'} instant={footer} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
     </div>
     {!hero && !returning && <div className="robot-speech" role="status" aria-live="polite" aria-atomic="true">
       {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
@@ -61,5 +78,5 @@ export default function RobotExperience() {
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
     {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label="Ubah ekspresi robot" title="Klik robot untuk mengubah ekspresi" />}
   </div>;
-  return hero ? robot : createPortal(robot, document.body);
+  return hero ? robot : createPortal(robot, footer ? footerSlot : document.body);
 }

@@ -1,61 +1,149 @@
 .projects-section { background: var(--color-canvas); }
-.projects-intro { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: center; gap: 34px; min-height: 260px; margin-bottom: 56px; }
-.projects-title-mark { display: block; width: 26px; height: 5px; margin-bottom: 17px; border-radius: 6px; background: #078ee9; }
-.projects-intro h2 { position: relative; width: fit-content; margin: 0 0 14px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(40px, 4.4vw, 60px); font-weight: 650; line-height: 1.05; letter-spacing: -.035em; text-wrap: balance; }
+.projects-intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 34px; min-height: 250px; margin-bottom: 36px; }
+.projects-intro .section-title { margin-bottom: 14px; }
+/* Same eyebrow as "Sedikit cerita tentangku" in About: no dash. */
+.projects-eyebrow { margin-bottom: 4px; }
+.projects-eyebrow::before { content: none; }
 .projects-spark { width: 28px; height: 36px; flex: none; color: var(--color-orange); }
-.projects-image-highlight { position: absolute; left: 6%; top: 11%; width: 28px; height: 36px; transform: rotate(-65deg); }
-.projects-illustration { position: relative; padding-right: 62px; }
-.projects-illustration > img { display: block; width: 100%; height: auto; }
-.projects-art-note { position: absolute; right: -4px; top: 10%; width: 92px; color: #078ee9; }
-.projects-art-note p { font-family: var(--font-hand); font-size: 21px; font-weight: 600; line-height: 1.05; transform: rotate(-8deg); }
-.projects-art-note > svg:not(.projects-spark) { position: absolute; top: 55%; left: -35px; width: 38px; height: 50px; }
-.projects-art-note .projects-spark { margin: 10px 0 0 35px; transform: rotate(30deg); }
-.project-group + .project-group { margin-top: 70px; }
-.project-group-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
-.project-group-heading h3 { display: flex; align-items: center; gap: 13px; margin: 0; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(28px, 2.8vw, 36px); font-weight: 650; line-height: 1.15; letter-spacing: -.025em; }
-.project-group-heading h3 > span { width: 17px; height: 4px; flex: none; border-radius: 6px; background: #078ee9; }
-.project-group-note { display: flex; align-items: center; gap: 15px; }
-.project-group-note > svg { width: 58px; height: 34px; flex: none; color: #078ee9; }
-.project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
-.project-card { overflow: hidden; border: 1px solid #e6e5df; border-radius: 13px; background: #fffefd; box-shadow: 0 3px 10px #243b5306; }
-.project-art { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #edf6fa; border-bottom: 1px solid #eef0ef; }
+/* Hologram browser panels share the hero hologram strokes; the laptop artwork slots in under them later. */
+.projects-illustration { position: relative; height: 250px; }
+.projects-assistant { position: absolute; left: 0; top: 0; width: auto; max-width: 78%; height: 100%; object-fit: contain; }
+.projects-art-note { position: absolute; right: -6px; top: 0; display: flex; align-items: flex-start; gap: 4px; width: 190px; color: var(--color-primary); }
+.projects-art-note .hand-note { font-size: 24px; transform: rotate(-6deg); }
+.projects-art-note svg { width: 34px; height: 44px; flex: none; margin-top: 34px; }
+.project-group + .project-group { margin-top: 96px; }
+.project-group-heading { display: flex; align-items: center; gap: 22px 30px; margin-bottom: 30px; }
+.project-label { display: flex; align-items: center; gap: 10px; }
+.project-label h3 { --paper-color: var(--color-paper-blue); --paper-tilt: -1.6deg; display: flex; align-items: center; margin: 0; padding: 12px 26px 11px 30px; color: var(--color-heading); font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.15; letter-spacing: -.02em; }
+.project-label .fp-pin { top: -7px; left: -5px; }
+.project-group-note { display: flex; align-items: center; gap: 8px; color: var(--color-primary); }
+.project-group-note > svg { width: 50px; height: 30px; flex: none; }
+.project-group-note .hand-note { font-size: 24px; transform: rotate(-3deg); }
+.project-list { display: grid; gap: 48px; }
+.project { position: relative; display: grid; min-width: 0; }
+.project--feature { grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr); align-items: start; gap: 36px; }
+.project--feature .project-note { margin-top: 30px; }
+.project--feature:nth-child(even of .project--feature) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.32fr); }
+.project--feature:nth-child(even of .project--feature) .project-media { order: 2; }
+.project--compact { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); align-items: center; gap: 32px; }
+.project-media { --print-tilt: -.6deg; position: relative; min-width: 0; margin: 0; transform: rotate(var(--print-tilt)); }
+.project:nth-child(even) .project-media { --print-tilt: .5deg; }
+.project-art { position: relative; width: 100%; aspect-ratio: 1.95; overflow: hidden; background: #fff; }
 .project-art img { object-fit: contain; object-position: center; }
 .project-art--contain { background: radial-gradient(ellipse at 50% 35%, #fff 0, #f1f6f8 80%); }
-.project-art--contain img { object-fit: contain; padding: 24px; }
-.project-cover { display: grid; place-content: center; height: 100%; color: #267298; font-family: 'Fredoka', var(--font-sans); font-size: 36px; }
-.project-body { padding: 14px 20px 17px; }
+.project-art--contain img { padding: 24px; }
+.project-cover { display: grid; place-content: center; height: 100%; color: #267298; font-family: var(--font-display); font-size: 36px; }
+/* One attachment per project: tape on odd prints, a pin on even story notes. */
+.project-tape { top: -9px; left: 34px; --tape-angle: -30deg; }
+.project-pin { top: -7px; left: 26px; }
+.project:nth-child(even) .project-tape, .project:nth-child(odd) .project-pin { display: none; }
+.project-note { --paper-tilt: .5deg; min-width: 0; padding: 26px 30px 26px; }
+.project:nth-child(even) .project-note { --paper-tilt: -.6deg; }
 .project-heading { display: flex; align-items: start; justify-content: space-between; gap: 8px; }
-.project-heading h4 { margin: 0 0 4px; color: #081827; font-family: 'Fredoka', var(--font-sans); font-size: clamp(24px, 2.3vw, 30px); font-weight: 650; line-height: 1.12; letter-spacing: -.025em; }
-.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 9px 0 0; padding: 0; list-style: none; }
-.project-tags li { padding: 4px 10px; border-radius: 7px; background: #e0f2ff; color: #086dc3; font-size: 13px; font-weight: 500; line-height: 1.5; }
-@media (min-width: 1024px) {
-  .project-group--featured .project-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .project-group--featured .project-card { grid-column: span 2; }
-  .project-group--featured .project-card:nth-child(-n+2) { grid-column: span 3; }
-  .project-group--featured .project-card:nth-child(n+3) h4 { font-size: 26px; }
-}
+.project-heading h4 { display: flex; align-items: flex-start; gap: 8px; margin: 0; color: var(--color-heading); font-family: var(--font-display); font-size: clamp(1.2rem, .7rem + 1.2vw, 1.82rem); font-weight: 650; line-height: 1.12; letter-spacing: -.02em; }
+.project-heading h4 svg { width: .62em; height: .78em; flex: none; margin-top: -.25em; color: var(--color-orange); }
+.project-underline { display: block; width: 150px; height: 12px; margin-top: 4px; color: var(--color-orange); }
+.project--feature:nth-child(even of .project--feature) .project-underline { display: none; }
+.project-note .portfolio-description { margin-top: 12px; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; }
+.project-tags li { padding: 5px 16px; border-radius: var(--radius-pill); background: var(--color-paper-blue); color: var(--color-primary); font-size: 15px; font-weight: 600; line-height: 1.4; box-shadow: 0 1px 2px rgb(45 37 23 / 8%); }
+/* Personal and experiment groups pair two prints with their stories directly on the board. */
+.project-group--pairs .project-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 44px 52px; }
+.project-group--pairs .project { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 24px; }
+.project-group--pairs .project:nth-child(even) { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+.project-group--pairs .project:nth-child(odd) .project-media { order: 2; --print-tilt: 1.2deg; }
+.project-group--pairs .project:nth-child(even) .project-media { --print-tilt: -1.3deg; }
+.project-group--pairs .project-note { padding: 0; }
+.project-group--pairs .project-note::before, .project-group--pairs .project-pin { display: none; }
+.project-group--pairs .project .project-tape { display: block; left: 50%; --tape-angle: 4deg; }
 @media (min-width: 768px) and (max-width: 1023px) {
-  .projects-intro { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); min-height: 220px; }
-  .projects-art-note { width: 76px; }
-  .projects-art-note p { font-size: 18px; }
-  .project-group-note { max-width: 44%; gap: 8px; }
-  .project-group-note > svg { width: 38px; }
+  .projects-intro { min-height: 210px; }
+  .projects-illustration { height: 210px; }
+  .projects-art-note { width: 140px; }
+  .projects-art-note .hand-note { font-size: 20px; }
+  .project--feature, .project--feature:nth-child(even of .project--feature), .project--compact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
+  .project--feature .project-note { margin-top: 0; }
+  .project-note { padding: 22px 24px; }
+  .project-group--pairs .project-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 767px) {
-  .projects-intro { grid-template-columns: 1fr; gap: 12px; min-height: auto; margin-bottom: 35px; }
-  .projects-intro h2 { max-width: calc(100% - 22px); font-size: clamp(36px, 7.5vw, 48px); }
-  .projects-image-highlight { width: 23px; height: 30px; }
-  .projects-illustration { width: min(100%, 520px); margin-inline: auto; padding-right: 65px; }
-  .projects-art-note { top: 16%; right: 0; }
-  .projects-art-note p { font-size: 19px; }
-  .project-group-heading { align-items: flex-start; flex-direction: column; gap: 10px; margin-bottom: 17px; }
-  .project-group-heading h3 { gap: 9px; font-size: 29px; }
-  .project-group-heading .projects-spark { width: 24px; height: 30px; }
-  .project-group-note { gap: 8px; }
-  .project-group-note > svg { width: 36px; height: 25px; }
-  .project-grid { grid-template-columns: 1fr; gap: 22px; }
-  .project-group + .project-group { margin-top: 42px; }
-  .project-body { padding: 14px 16px 16px; }
-  .project-heading h4 { font-size: 26px; }
+  .projects-intro { grid-template-columns: 1fr; gap: 8px; min-height: auto; margin-bottom: 28px; }
+  .projects-illustration { width: min(100%, 420px); height: 190px; margin-inline: auto; }
+  .projects-art-note { width: 120px; right: -4px; }
+  .projects-art-note .hand-note { font-size: 19px; }
+  .projects-art-note svg { display: none; }
+  .project-group + .project-group { margin-top: 68px; }
+  .project-group-heading { align-items: flex-start; flex-direction: column; gap: 14px; margin-bottom: 26px; }
+  .project-group-note .hand-note { font-size: 21px; }
+  .project-list, .project-group--pairs .project-list { grid-template-columns: 1fr; gap: 40px; }
+  .project--feature, .project--feature:nth-child(even of .project--feature), .project--compact, .project-group--pairs .project, .project-group--pairs .project:nth-child(even) { grid-template-columns: 1fr; gap: 0; }
+  .project .project-media, .project--feature:nth-child(even of .project--feature) .project-media, .project-group--pairs .project:nth-child(odd) .project-media { order: 0; --print-tilt: 0deg; }
+  .project--feature .project-note { margin-top: 0; }
+  .project-note { margin: -10px 10px 0; padding: 24px 20px 22px; }
+  .project-group--pairs .project-note { margin: 18px 0 0; }
+  .project-tags li { font-size: 13px; padding: 5px 12px; }
   .project-art--contain img { padding: 18px; }
+}
+
+/* Desktop: the mading traced from the 1440 px mockup (mockup px / 14.4 = cqw). */
+@media (min-width: 1101px) {
+  .projects-section > .container { width: min(100%, 1600px); max-width: none; margin-inline: auto; container-type: inline-size; }
+  .projects-intro { grid-template-columns: minmax(0, 1fr) 34cqw; gap: 0; min-height: 0; margin: 0 0 -4.6cqw; align-items: start; }
+  /* Title sits on the same left edge and size as the Currently / My Skills titles. */
+  .projects-intro-copy { padding: 2.6cqw 0 0 8.2cqw; }
+  /* Eyebrow lines up with "Sedikit cerita tentangku" (7.44cqw), a little left of the title. */
+  .projects-eyebrow { margin: 0 0 .3cqw -.76cqw; font-size: 1.18cqw; }
+  .projects-intro .section-title { gap: 1.2cqw; margin: 0 0 .9cqw; font-size: 4.45cqw; white-space: nowrap; }
+  .projects-illustration { height: 18.4cqw; margin-right: 2cqw; }
+  .projects-assistant { max-width: none; height: 100%; left: -2cqw; top: .4cqw; }
+  .projects-art-note { top: 2cqw; right: 0; width: 9.5cqw; }
+  .projects-art-note .hand-note { font-size: 1.55cqw; line-height: 1.1; }
+  .projects-art-note svg { position: absolute; left: -3.2cqw; top: -.6cqw; width: 2.6cqw; height: 3.2cqw; margin: 0; transform: scaleX(-1) rotate(70deg); }
+  /* Breathing room between categories. */
+  .project-group + .project-group { margin-top: 5cqw; }
+  .project-group-heading { gap: 3cqw; margin: 0 0 .6cqw 4.5cqw; }
+  .project-label h3 { padding: 1.2cqw 2.6cqw 1.1cqw 3.4cqw; font-size: 2.06cqw; }
+  .project-label .fp-pin { top: -.4cqw; left: -.3cqw; width: 2cqw; height: 2cqw; }
+  .project-group-note { gap: .6cqw; margin-top: 1.4cqw; }
+  .project-group-note > svg { width: 3.4cqw; height: 2cqw; }
+  .project-group-note .hand-note { font-size: 1.75cqw; }
+  .project-list { gap: 1.3cqw; }
+  .project-group--stack .project-list { margin: 0 2.8cqw 0 3.5cqw; }
+  .project-media { padding: 1cqw; }
+  /* Prints are cropped to the mading's wide frames (top of the screenshot kept); every contribution stays in the story note. */
+  .project-art { aspect-ratio: 2.75; }
+  .project--feature .project-art { aspect-ratio: 2.45; }
+  .project-group--pairs .project-art { aspect-ratio: 1.75; }
+  .project-art img, .project-art--contain img { padding: 0; object-fit: cover; object-position: top center; }
+  /* Feature rows: big print with a tall story note beside it; the second feature mirrors. */
+  .project--feature { grid-template-columns: 56.25cqw minmax(0, 1fr); gap: 1.4cqw; align-items: start; }
+  .project--feature .project-note { margin-top: 1.4cqw; }
+  .project--feature:nth-child(even of .project--feature) { grid-template-columns: 36cqw minmax(0, 1fr); margin-left: .3cqw; }
+  .project--feature:nth-child(even of .project--feature) .project-note { margin-top: 1cqw; }
+  .project--compact { grid-template-columns: 50.7cqw minmax(0, 1fr); gap: 1.4cqw; align-items: center; margin: 0 2.4cqw 0 2.4cqw; }
+  .project-note { padding: 2.6cqw 3cqw 2.4cqw 2.9cqw; transform: rotate(var(--note-tilt, 0deg)); --paper-tilt: 0deg; --paper-color: #FCF5E6; }
+  .project-note::before { filter: url(#fp-paper-torn) drop-shadow(0 3px 5px rgb(87 63 35 / 13%)) drop-shadow(0 12px 22px rgb(87 63 35 / 10%)); box-shadow: inset 0 0 34px rgb(170 130 80 / 16%); }
+  .project:nth-child(odd) .project-note { --note-tilt: -.6deg; }
+  .project:nth-child(even) .project-note { --note-tilt: .5deg; }
+  /* Card titles, stories and badges use the My Journey card scale. */
+  .project-heading h4 { gap: .8cqw; font-size: 2.06cqw; line-height: 1.15; }
+  .project-heading h4 svg { width: 1.6cqw; height: 2cqw; margin-top: -1cqw; }
+  .project-underline { width: 10.4cqw; height: .9cqw; margin-top: .3cqw; }
+  .project-note .portfolio-description { max-width: none; margin-top: .9cqw; font-size: 1.2cqw; line-height: 1.45; }
+  .project-tags { margin-top: 1.3cqw; }
+  .project-tags li { padding: .3cqw 1.2cqw; border-radius: var(--radius-pill); font-size: 1.2cqw; white-space: nowrap; }
+  .project-tape { top: -1cqw; left: 1.4cqw; width: 4.6cqw; height: 1.8cqw; }
+  .project-pin { top: -.9cqw; left: 47%; width: 2cqw; height: 2cqw; }
+  /* Pair rows: text | print | print | text. */
+  .project-group--pairs .project-list { grid-template-columns: 42.7cqw 40.3cqw; gap: 0 2.4cqw; margin: 1.8cqw 3.5cqw 0 5.9cqw; }
+  .project-group--pairs .project { grid-template-columns: 16cqw minmax(0, 1fr); gap: 2cqw; align-items: start; }
+  .project-group--pairs .project:nth-child(even) { grid-template-columns: minmax(0, 1fr) 15.3cqw; gap: 1.6cqw; }
+  .project-group--pairs .project-note { padding: 0; margin-top: 1.4cqw; }
+  .project-group--pairs .project-note .portfolio-description { margin-top: .6cqw; }
+  .project-group--pairs .project-media { padding: .9cqw; }
+  /* Story text sits printed on the paper. */
+  .project-heading h4, .project-note .portfolio-description { mix-blend-mode: multiply; }
+  .project-heading h4 { color: #13213a; text-shadow: 0 0 .6px rgb(20 30 50 / 55%); }
+  .project-note .portfolio-description { color: #2b3447; text-shadow: 0 0 .6px rgb(43 52 71 / 55%), .3px .4px .3px rgb(90 70 40 / 18%); }
+  .project-tags li { mix-blend-mode: multiply; }
 }

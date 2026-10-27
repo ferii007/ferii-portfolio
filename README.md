@@ -1,6 +1,6 @@
 # Portfolio Feri Ramdani
 
-Portfolio satu halaman berbasis Next.js App Router, JavaScript/JSX, Tailwind CSS, React Three Fiber/Three.js, Lucide React, dan Simple Icons. Komposisi dan aset robot mengikuti `feri-portfolio-all-assets.zip`; font, token, dan komponen visual mengikuti `feri-portfolio-design-system.zip`. Kode portfolio React lama tidak digunakan.
+Portfolio satu halaman berbasis Next.js App Router, JavaScript/JSX, Tailwind CSS, React Three Fiber/Three.js, Lucide React, dan Simple Icons. Tampilan mengikuti empat mockup yang disetujui pada 12 Oktober 2026 dan Design System v1 (`feri-portfolio-design-system`); nilai tokennya digabung ke `src/design-system/css/tokens.css`. Robot memakai GLB yang sudah disempurnakan dari ZIP konsep. Kode portfolio React lama tidak digunakan.
 
 ## Menjalankan
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`). Secara default, `npm run dev` dan `npm run start` menggunakan port 3100 (`http://localhost:3100`).
+Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `npm run test:e2e`. Tes browser memerlukan Chromium Playwright (`npx playwright install chromium`) atau Chrome terpasang lewat `PLAYWRIGHT_CHROMIUM_EXECUTABLE`. Secara default, `npm run dev` dan `npm run start` menggunakan port 3100 (`http://localhost:3100`).
 
 ## Struktur
 
@@ -22,23 +22,24 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 - `src/features/interaction`: state bersama robot dan Skills.
 - `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
 - `src/features/skills`: daftar skill, pemetaan artikel, request Wikipedia, dan panel detail.
-- `src/features/contact`: form demo dan tautan publik.
+- `src/features/contact`: form simulasi lokal (tidak mengirim atau menyimpan data) serta tautan GitHub dan LinkedIn.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.
 
 ## Aturan tipografi
 
 - Judul section (About Me, Currently, My Skills, My Journey, Projects, Beyond Coding, dan Contact) ditampilkan tegak tanpa rotasi, termasuk pada pengembangan berikutnya. Coretan dekoratif tetap mengikuti ilustrasi.
 - Gunakan `src/components/typography/Description.jsx` untuk deskripsi dan `Eyebrow.jsx` untuk label kecil dengan format seperti Hello, World.
+- Judul section memakai kelas `section-title` (tambahkan `section-title--dash` bila tidak ada eyebrow); catatan tulisan tangan memakai `hand-note`. Permukaan kertas, tape, pin, dan print memakai `fp-paper`, `fp-tape`, `fp-pin`, `fp-print` di `appearance.css`.
 
 ## Menambah proyek
 
-Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Label dan deskripsi kelompok ada di `src/features/projects/data/categories.json`.
+Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Label dan deskripsi kelompok ada di `src/features/projects/data/categories.json`; `layout: "pairs"` menata kelompok sebagai pasangan print dan cerita. Proyek baru tampil ringkas; isi `presentation: "feature"` hanya untuk karya yang ingin dicetak besar.
 
 Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. `imageAlt` dapat menjelaskan gambar secara spesifik. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. `contribution` selalu tampil sebagai deskripsi kartu. `summary` tidak ditampilkan sebagai subtitle. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
 
 ## Menambah skill
 
-Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `label`, `wikiTitle` (judul artikel Wikipedia), dan `color` (warna hex). Isi `iconPath` dengan path SVG logo dalam viewBox `0 0 24 24`; logo yang ada berasal dari Simple Icons, dengan perisai CSS3 dari versi 13 sesuai mockup. Jika tidak memakai path logo, isi `iconLabel` untuk ikon huruf (misalnya `JS` atau `Py`). Kartu dan panel detail membaca data yang sama, sehingga komponen tidak perlu diedit. Perubahan JSON tampil otomatis saat development; jalankan build dan deploy ulang untuk website produksi.
+Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `label`, `wikiTitle` (judul artikel Wikipedia), dan `color` (warna hex). Isi `iconPath` dengan path SVG logo dalam viewBox `0 0 24 24`; logo yang ada berasal dari Simple Icons, dengan perisai CSS3 dari versi 13 sesuai mockup. Jika tidak memakai path logo, isi `iconLabel` untuk ikon huruf (misalnya `JS` atau `Py`). Logo gelap dapat diberi `colorOnHolo` agar terbaca di panel navy. Kartu dan panel detail membaca data yang sama, sehingga komponen tidak perlu diedit. Perubahan JSON tampil otomatis saat development; jalankan build dan deploy ulang untuk website produksi.
 
 ```json
 {
@@ -52,8 +53,8 @@ Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `
 
 ## Menambah perjalanan
 
-Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `period` (array baris tanggal), `title`, `organization`, `role`, `description`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. Komponen tidak perlu diedit saat menambah perjalanan. Tulis bulan Desember sebagai `Des`.
+Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `period` (array baris tanggal), `title`, `organization`, `role`, `description`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. `scene` (opsional) menampilkan ilustrasi vignette di kiri kartu, dengan `icon` sebagai logo asli di atasnya; kosongkan `icon` bila scene sudah memuat ikonnya. Komponen tidak perlu diedit saat menambah perjalanan. Tulis bulan Desember sebagai `Des`.
 
 ## Status sebelum publikasi
 
-Versi ini adalah implementasi awal yang siap direview secara lokal. Bagian Currently/Beyond Coding dan sebagian copy masih contoh; semua ditandai di UI. Form kontak hanya demo dan tidak mengirim atau menyimpan data. Satu-satunya tautan profil yang ditampilkan adalah GitHub yang sudah diperiksa. Metadata memakai domain tujuan, tetapi `noindex` dan `robots` melarang indeksasi sampai konten faktual, tautan publik, serta hosting final dikonfirmasi. Model GLB merupakan prototipe resmi dari ZIP konsep dan belum sepenuhnya menyerupai ilustrasi robot pada mockup.
+Desain baru sudah diterapkan dari Header sampai Footer, tetapi beberapa ilustrasi raster masih menunggu aset baru (brief di `feri-portfolio-handover/asset-briefs`): About memakai ilustrasi tanaman/buku lama, meja Currently masih CSS, Journey menampilkan logo/ikon tanpa scene, header Projects hanya panel hologram, Beyond belum memiliki rak jurnal, Contact memakai amplop lama, dan props Footer meminjam ilustrasi About. Form kontak hanya simulasi lokal dan tidak mengirim atau menyimpan data. Metadata memakai domain tujuan, tetapi `noindex` dan `robots` melarang indeksasi sampai konten faktual, tautan publik, serta hosting final dikonfirmasi.

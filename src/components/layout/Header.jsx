@@ -4,7 +4,6 @@ import { ArrowUpRight } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 const links = [
   { href: '#about', label: 'About' },
-  { href: '#currently', label: 'Currently' },
   { href: '#skills', label: 'Skills' },
   { href: '#journey', label: 'Journey' },
   { href: '#projects', label: 'Projects' },

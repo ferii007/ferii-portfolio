@@ -7,7 +7,8 @@
     "role": "Testing Engineer",
     "description": "Menjalani praktik kerja lapangan saat SMK dan mengenal proses pengujian software.",
     "current": false,
-    "icon": "/images/journey/testing-engineer.webp"
+    "icon": "/images/journey/testing-engineer.webp",
+    "scene": "/images/journey/testing-vignette.webp"
   },
   {
     "id": "smk-graduation",
@@ -17,7 +18,9 @@
     "role": "Rekayasa Perangkat Lunak",
     "description": "Menyelesaikan pendidikan SMK pada tahun 2021.",
     "current": false,
-    "icon": "/images/journey/smk-bpp.webp"
+    "icon": "/images/journey/smk-bpp.webp",
+    "scene": "/images/journey/school-vignette.webp",
+    "logoBox": { "left": 0, "top": 28, "width": 45 }
   },
   {
     "id": "senja-solutions",
@@ -27,6 +30,8 @@
     "role": "Web Developer → Software Engineer",
     "description": "Memulai sebagai Web Developer, lalu berkembang menjadi Software Engineer. Berkontribusi pada landing page, ReBill POS, serta ReBill POS v2 dan Dashboard v2, dengan fokus pada backend, API, dan alur bisnis aplikasi.",
     "current": true,
-    "icon": "/images/journey/senja-solutions.webp"
+    "icon": "/images/journey/senja-solutions.webp",
+    "scene": "/images/journey/senja-vignette.webp",
+    "logoBox": { "left": -2, "top": 22, "width": 56 }
   }
 ]

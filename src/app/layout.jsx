@@ -27,5 +27,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return <html lang="id"><body className="feri-theme">{children}</body></html>;
+  return <html lang="id"><body className="feri-theme">
+    {/* Shared organic paper edge used by .fp-paper::before. */}
+    <svg className="fp-visually-hidden" aria-hidden="true" focusable="false"><filter id="fp-paper-edge" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="7" /><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="R" yChannelSelector="G" /></filter><filter id="fp-paper-torn" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="4" seed="11" /><feDisplacementMap in="SourceGraphic" scale="11" xChannelSelector="R" yChannelSelector="G" /></filter></svg>
+    {children}
+  </body></html>;
 }

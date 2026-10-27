@@ -34,3 +34,18 @@
   .hologram-beam { animation: hologram-light-in 240ms ease-out both; }
 }
 @keyframes hologram-light-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Footer landing: the flying robot (thrusters on) comes down onto the pad, then switches to its standing pose.
+   While flying it is drawn smaller and higher in the frame, so it is scaled 1.333× about its feet (77.6% down)
+   and shifted down so its soles touch the pad as it hands over to the standing pose. */
+.robot-footer .robot-figure { transform-origin: 50% 77.6%; }
+@media (prefers-reduced-motion: no-preference) {
+  .robot-landing .robot-figure { animation: robot-landing 1.15s cubic-bezier(.22, .65, .3, 1) both; }
+}
+@keyframes robot-landing {
+  0% { opacity: 0; transform: translate(55%, -120%) translateY(22%) scale(1.333) rotate(12deg); }
+  14% { opacity: 1; }
+  72% { transform: translate(2%, -5%) translateY(22%) scale(1.333) rotate(-3deg); }
+  88% { transform: translate(0, 1%) translateY(22%) scale(1.333) rotate(1deg); }
+  100% { transform: translateY(22%) scale(1.333) rotate(0); }
+}
