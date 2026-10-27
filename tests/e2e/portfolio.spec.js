@@ -16,7 +16,7 @@ test('hero does not flash a flat image while the 3D model loads', async ({ page 
   await expect(robot.locator('canvas')).toHaveCount(1);
   await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
   releaseModel();
-  await expect(robot).toHaveClass(/robot-ready/, { timeout: 10000 });
+  await expect(robot).toHaveClass(/robot-ready/);
 });
 
 test('robot asset failure keeps the portfolio usable', async ({ page }) => {
