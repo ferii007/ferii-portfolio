@@ -5,6 +5,7 @@ import { getLocalization } from '@/constants/localization';
 import Lines from '@/components/typography/Lines';
 import { Section, SectionTitle } from '@/components/layout/Section';
 import Doodle from '@/components/doodles/Doodle';
+import Tape from '@/components/paper/Tape';
 const icons = [Laptop, BookOpen, Lightbulb];
 
 export default function CurrentlySection({ language }) {
@@ -19,7 +20,7 @@ export default function CurrentlySection({ language }) {
         <ul className="currently-list">
           {CURRENTLY_ITEMS.map((item, index) => { const Icon = icons[index]; return (
             <li className="currently-item fp-paper" key={item}>
-              <span className="fp-tape" aria-hidden="true" />
+              <Tape />
               <Icon className="currently-icon" size={58} strokeWidth={1.9} aria-hidden="true" />
               <Doodle name="sparkAccent" className="currently-item-spark" />
               <h3>{text[`currently_${item}_title`]}</h3>

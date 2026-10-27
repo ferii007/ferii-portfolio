@@ -2,6 +2,7 @@ import Description from '@/components/typography/Description';
 import Image from 'next/image';
 import { interpolate, localeKey } from '@/constants/localization';
 import Doodle from '@/components/doodles/Doodle';
+import Tape from '@/components/paper/Tape';
 
 const mediaSizes = {
   feature: '(max-width: 767px) 100vw, (max-width: 1023px) 55vw, 700px',
@@ -14,7 +15,7 @@ export default function ProjectCard({ project, pairs = false, text }) {
   return (
     <article className={`project project--${presentation}`}>
       <figure className="project-media fp-print">
-        <span className="fp-tape project-tape" aria-hidden="true" />
+        <Tape className="project-tape" />
         <div className={`project-art${project.imageFit === 'contain' ? ' project-art--contain' : ''}`}>
           {project.image ? <Image src={project.image} alt={imageAlt} fill sizes={pairs ? '(max-width: 767px) 100vw, (max-width: 1023px) 52vw, 340px' : mediaSizes[presentation]} /> : <div className="project-cover"><span>{project.title}</span></div>}
         </div>

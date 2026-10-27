@@ -6,6 +6,8 @@ import { formatPeriod, isCurrent, journeyDescription, journeyRole } from '@/lib/
 import Lines from '@/components/typography/Lines';
 import { Section, SectionTitle } from '@/components/layout/Section';
 import Doodle from '@/components/doodles/Doodle';
+import { splitLines } from '@/lib/text';
+import Tape from '@/components/paper/Tape';
 
 // A scene illustration (optional) sits left of the story; the real logo is laid over the scene's clear area
 // using `logoBox` (percent of the scene canvas). Without a scene the logo/icon is shown on its own.
@@ -32,10 +34,10 @@ export default function JourneySection({ language }) {
         </div>
         <ol className="journey-timeline">
           {journey.map((item, index) => <li className={`journey-item${isCurrent(item) ? ' journey-item--current' : ''}`} key={item.id}>
-            <div className="journey-period">{formatPeriod(item.period, localization).split('\n').map((line, lineIndex) => <span key={lineIndex}>{line}</span>)}</div>
+            <div className="journey-period">{splitLines(formatPeriod(item.period, localization)).map((line, lineIndex) => <span key={lineIndex}>{line}</span>)}</div>
             <span className="journey-marker" aria-hidden="true">{index + 1}</span>
             <article className="journey-card fp-paper">
-              <span className="fp-tape journey-tape" aria-hidden="true" />
+              <Tape className="journey-tape" />
               <Doodle name="paperclip" className="journey-clip" />
               <JourneyArt item={item} />
               <div className="journey-content"><h3>{field(item, 'title')}</h3><p className="journey-organization">{item.organization}</p><p className="journey-role">{journeyRole(item, text)}</p><Description>{journeyDescription(item, text)}</Description></div>

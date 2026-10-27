@@ -9,26 +9,20 @@ import RobotFallback from './RobotFallback';
 import RobotErrorBoundary from './RobotErrorBoundary';
 import HologramBeam from './HologramBeam';
 import { DEPARTURE_DURATION } from '../departureMotion';
+import useReducedMotion from '@/lib/useReducedMotion';
 
 const RobotCanvas = dynamic(() => import('./RobotCanvas'), { ssr: false });
 
 export default function RobotExperience() {
   const { localization: { text } } = useLocalization();
   const { state, setHeroVisible, completeHeroReturn, cycleExpression, dismissRobotMessage } = usePortfolioInteraction();
-  const [reducedMotion, setReducedMotion] = useState(true);
+  const reducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   const [canvasFailed, setCanvasFailed] = useState(false);
   const [beamOrigin, setBeamOrigin] = useState(null);
   const onReady = useCallback(() => setCanvasReady(true), []);
   const onError = useCallback(() => setCanvasFailed(true), []);
 
-  useEffect(() => {
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReducedMotion(query.matches);
-    update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
   useEffect(() => {
     const hero = document.getElementById('hero');
     if (!hero) return;

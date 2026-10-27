@@ -10,6 +10,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import Lines from '@/components/typography/Lines';
 import { Section, SectionTitle } from '@/components/layout/Section';
 import Doodle from '@/components/doodles/Doodle';
+import Tape from '@/components/paper/Tape';
 
 function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
   const Control = multiline ? 'textarea' : 'input';
@@ -45,7 +46,7 @@ export default function ContactSection() {
   return <Section name="contact" className="contact-section"><div className="container contact-grid">
     <div><SectionTitle name="contact" className="contact-title" /><Eyebrow className="contact-eyebrow">{text.contact_eyebrow}</Eyebrow>
       <form className="contact-form fp-paper" aria-label={text.contact_form_label} onSubmit={submitDemo} onInput={checkComplete}>
-        <span className="fp-tape contact-tape" aria-hidden="true" />
+        <Tape className="contact-tape" />
         <ContactField name="name" label={text.contact_name} Icon={UserRound} />
         <ContactField name="email" label={LABELS.email} Icon={Mail} type="email" />
         <ContactField name="message" label={text.contact_message} Icon={MessageSquare} multiline />

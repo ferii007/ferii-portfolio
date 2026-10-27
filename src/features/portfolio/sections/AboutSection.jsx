@@ -4,6 +4,7 @@ import Eyebrow from '@/components/typography/Eyebrow';
 import AboutIllustration from '@/features/portfolio/components/AboutIllustration';
 import { Section, SectionTitle } from '@/components/layout/Section';
 import Doodle from '@/components/doodles/Doodle';
+import Tape from '@/components/paper/Tape';
 
 export default function AboutSection({ language }) {
   const { text } = getLocalization(language);
@@ -16,7 +17,7 @@ export default function AboutSection({ language }) {
         </div>
         <AboutIllustration text={text} />
         <div className="about-story fp-paper">
-          <span className="fp-tape about-tape" aria-hidden="true" />
+          <Tape className="about-tape" />
           <p className="about-story-headline">{text.about_headline_start}<br /><span>{text.about_headline_end}</span><Doodle name="sparkAccent" /></p>
           <Doodle name="underlineStory" className="about-story-underline" />
           <Description>{text.about_lead}</Description>

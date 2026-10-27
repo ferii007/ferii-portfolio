@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import useReducedMotion from '@/lib/useReducedMotion';
 
 function HologramShape({ variant, viewBox, children }) {
   return (
@@ -13,14 +14,14 @@ function HologramShape({ variant, viewBox, children }) {
 
 export default function HeroHolograms() {
   const panelsRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const stage = panelsRef.current?.parentElement;
     if (!stage) return;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function move(event) {
-      if (reducedMotion.matches || (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) return;
+      if (reducedMotion || (event.pointerType !== 'mouse' && event.pointerType !== 'pen')) return;
       const bounds = stage.getBoundingClientRect();
       stage.style.setProperty('--holo-x', `${((event.clientX - bounds.left) / bounds.width - .5) * 14}px`);
       stage.style.setProperty('--holo-y', `${((event.clientY - bounds.top) / bounds.height - .5) * 12}px`);
@@ -31,15 +32,15 @@ export default function HeroHolograms() {
       stage.style.setProperty('--holo-y', '0px');
     }
 
+    // The effect re-runs when the motion preference changes; turning motion off settles the panels.
+    if (reducedMotion) reset();
     stage.addEventListener('pointermove', move);
     stage.addEventListener('pointerleave', reset);
-    reducedMotion.addEventListener('change', reset);
     return () => {
       stage.removeEventListener('pointermove', move);
       stage.removeEventListener('pointerleave', reset);
-      reducedMotion.removeEventListener('change', reset);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div className="hero-holograms" ref={panelsRef}>

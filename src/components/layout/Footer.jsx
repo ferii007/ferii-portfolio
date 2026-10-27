@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { interpolate } from '@/constants/localization';
-import { anchor } from '@/constants/site';
+import { anchor, BOOK_TITLES } from '@/constants/site';
 import Logo from './Logo';
+import useReducedMotion from '@/lib/useReducedMotion';
+
+// Where each spine title sits on the U02 book stack, between that spine's own diamonds.
+const spineTransforms = ['translate(589 272) rotate(-3.3)', 'translate(608 345) rotate(-4.1)', 'translate(616 419) rotate(-5.4)'];
 
 // U01 ledge, U02 books + plant and the robot's landing pad are separate layers so each can drift a little on scroll.
 const ledgeRim = 'M60 330L780 330C890 333 960 376 1060 394C1110 401 1160 400 1220 400L1420 398C1600 388 1770 377 1880 359';
@@ -26,9 +30,7 @@ function FooterStudio() {
         <Image src="/images/footer/studio-books-plant.webp" width={1100} height={550} sizes="(max-width: 767px) 70vw, 560px" alt="" />
         {/* Spine titles in the artwork's 1100×550 pixels, between each spine's own diamonds. */}
         <svg viewBox="0 0 1100 550" fill="none"><g className="footer-foil">
-          <text transform="translate(589 272) rotate(-3.3)" fontSize="38">DESIGN</text>
-          <text transform="translate(608 345) rotate(-4.1)" fontSize="38">CODE</text>
-          <text transform="translate(616 419) rotate(-5.4)" fontSize="38">PROGRESS</text>
+          {BOOK_TITLES.map((title, index) => <text key={title} transform={spineTransforms[index]} fontSize="38">{title}</text>)}
         </g></svg>
       </div>
     </div>
@@ -52,30 +54,28 @@ function FooterStudio() {
 export default function Footer() {
   const { localization: { text } } = useLocalization();
   const footerRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const footer = footerRef.current;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
     const update = () => {
       frame = 0;
       const { top, height } = footer.getBoundingClientRect();
       const progress = Math.min(1, Math.max(0, (window.innerHeight - top) / height));
       // 1 while the footer is entering, 0 once it is fully in view; layers multiply this by their own travel.
-      footer.style.setProperty('--footer-shift', reducedMotion.matches ? 0 : (1 - progress).toFixed(3));
+      footer.style.setProperty('--footer-shift', reducedMotion ? 0 : (1 - progress).toFixed(3));
     };
     const schedule = () => { if (!frame) frame = window.requestAnimationFrame(update); };
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
-    reducedMotion.addEventListener('change', schedule);
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
-      reducedMotion.removeEventListener('change', schedule);
     };
-  }, []);
+  }, [reducedMotion]);
 
   return <footer ref={footerRef} className="site-footer">
     <FooterStudio />

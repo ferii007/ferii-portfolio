@@ -9,6 +9,7 @@ import { interpolate } from '@/constants/localization';
 import Lines from '@/components/typography/Lines';
 import { Section, SectionTitle } from '@/components/layout/Section';
 import Doodle from '@/components/doodles/Doodle';
+import { splitLines } from '@/lib/text';
 
 // Where each spine's title sits, between that spine's own diamonds and along its slant.
 const spineTransforms = ['translate(457 423) rotate(-5)', 'translate(440 493) rotate(-2.3)', 'translate(440 569) rotate(-1.6)'];
@@ -20,12 +21,12 @@ function BeyondStudio({ text }) {
     <svg className="beyond-studio-labels" viewBox="0 0 1500 750" fill="none">
       {/* Gold foil between each spine's own diamonds; each line follows its book's slight slant. */}
       <g className="beyond-foil">
-        {text.beyond_spines.split('\n').map((title, index) => <text key={index} transform={spineTransforms[index]} fontSize={index ? 30 : 31}>{title}</text>)}
+        {splitLines(text.beyond_spines).map((title, index) => <text key={index} transform={spineTransforms[index]} fontSize={index ? 30 : 31}>{title}</text>)}
       </g>
       {/* Handwritten on the journal's left page, where the sketched lines were painted out. */}
       <g className="beyond-page-ink">
         {/* Line starts drift right a little, like a hand writing down the page. */}
-        {text.beyond_page_note.split('\n').map((line, index) => <text key={index} x={750 + index * 4} y={340 + index * 36} fontSize="36">{line}</text>)}
+        {splitLines(text.beyond_page_note).map((line, index) => <text key={index} x={750 + index * 4} y={340 + index * 36} fontSize="36">{line}</text>)}
       </g>
     </svg>
     {/* The book hologram is projected from an emitter on the top book, like the Hero and My Skills holograms:

@@ -54,6 +54,9 @@ export const LABELS = {
 	logo: PERSON.firstName.toLowerCase(),
 };
 
+// Titles printed on the book stack in the About desk and the Footer shelf (one title per book).
+export const BOOK_TITLES = ["DESIGN", "CODE", "PROGRESS"];
+
 // Skills named in the SEO description, by id from features/skills/data/skills.json.
 export const HIGHLIGHT_SKILLS = ["laravel", "react", "nextjs"];
 

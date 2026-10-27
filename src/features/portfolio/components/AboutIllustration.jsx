@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { splitLines } from '@/lib/text';
+import { BOOK_TITLES } from '@/constants/site';
 
 // Labels are real SVG text drawn in the artwork's own pixel space (1536 × 1024), so each sits exactly on its object:
 // book titles are skewed to the cover planes and clipped to them, the mug lines bend around the cylinder,
@@ -10,7 +12,6 @@ const spark = 'M0 -9 8 -14M2 0H11M0 9 8 14';
 // Handwritten line starts, per line, so each note keeps its slightly uneven hand-drawn indent.
 const fromIndent = [0, 4];
 const stickyX = [1222, 1216, 1220, 1234];
-const lines = (value) => String(value).split('\n');
 
 export default function AboutIllustration({ text }) {
   return (
@@ -30,15 +31,15 @@ export default function AboutIllustration({ text }) {
         {/* Cover titles with the mockup's hand-drawn spark marks on both sides. */}
         <g className="about-art-foil">
           <g clipPath="url(#about-cover-1)"><g transform="translate(674 401) skewY(-5)">
-            <text fontSize="29">DESIGN</text>
+            <text fontSize="29">{BOOK_TITLES[0]}</text>
             <path d={spark} transform="translate(60 0)" /><path d={spark} transform="translate(-60 0) scale(-1 1)" />
           </g></g>
           <g clipPath="url(#about-cover-2)"><g transform="translate(675 470) skewY(-6.3)">
-            <text fontSize="31">CODE</text>
+            <text fontSize="31">{BOOK_TITLES[1]}</text>
             <path d={spark} transform="translate(56 0)" /><path d={spark} transform="translate(-56 0) scale(-1 1)" />
           </g></g>
           <g clipPath="url(#about-cover-3)"><g transform="translate(681 541) skewY(-5.6)">
-            <text fontSize="27">PROGRESS</text>
+            <text fontSize="27">{BOOK_TITLES[2]}</text>
             <path d={spark} transform="translate(80 0)" /><path d={spark} transform="translate(-80 0) scale(-1 1)" />
           </g></g>
         </g>
@@ -53,11 +54,11 @@ export default function AboutIllustration({ text }) {
           {/* Each note uses its page's own axes, measured from the painted wireframes:
               left page baseline rises 7.4° with verticals leaning (0.31, 0.95); right page is nearly level with (0.39, 0.92). */}
           <g transform="matrix(.992 -.129 .31 .951 598 684)">
-            <text>{lines(text.about_art_note_from).map((line, i) => <tspan key={i} x={fromIndent[i] ?? 0} dy={i ? 34 : undefined}>{line}</tspan>)}</text>
+            <text>{splitLines(text.about_art_note_from).map((line, i) => <tspan key={i} x={fromIndent[i] ?? 0} dy={i ? 34 : undefined}>{line}</tspan>)}</text>
             <path className="about-art-stroke" d="M26 50c6 14-2 26-20 32m-1-10 1 11 11 1" />
           </g>
           <g transform="matrix(1 -.015 .389 .921 1108 680)">
-            <text>{lines(text.about_art_note_to).map((line, i) => <tspan key={i} x="0" dy={i ? 31 : undefined}>{line}</tspan>)}</text>
+            <text>{splitLines(text.about_art_note_to).map((line, i) => <tspan key={i} x="0" dy={i ? 31 : undefined}>{line}</tspan>)}</text>
             <path className="about-art-stroke" d="M14 78c24-3 46-4 68-2M10 85c26-3 48-3 68-1" />
           </g>
         </g>
@@ -66,7 +67,7 @@ export default function AboutIllustration({ text }) {
           <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="#3d2a10" opacity=".14" transform="translate(6 10)" filter="blur(6px)" />
           <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="url(#about-note-paper)" filter="url(#about-paper-grain)" />
           <path d="M1400 158 1400 186C1380 188 1366 189 1352 189Z" fill="#e7d6b2" />
-          <text className="about-art-note-text" transform="rotate(-3 1290 90)">{lines(text.about_art_sticky).map((line, i) => <tspan key={i} x={stickyX[i] ?? 1220} {...(i ? { dy: 44 } : { y: 30 })}>{line}</tspan>)}</text>
+          <text className="about-art-note-text" transform="rotate(-3 1290 90)">{splitLines(text.about_art_sticky).map((line, i) => <tspan key={i} x={stickyX[i] ?? 1220} {...(i ? { dy: 44 } : { y: 30 })}>{line}</tspan>)}</text>
           <rect className="about-art-tape" x="1262" y="-66" width="58" height="26" rx="2" transform="rotate(-7 1291 -53)" />
         </g>
       </svg>
