@@ -6,10 +6,12 @@ export default defineConfig({
   testDir: './tests/e2e',
   // CI runners are slower and render WebGL in software; give the 3D robot more room there.
   timeout: ci ? 60_000 : 30_000,
-  expect: { timeout: ci ? 15_000 : 5_000 },
+  // Locally the dev server compiles the robot chunk on first request, which can take longer than the default 5 s.
+  expect: { timeout: ci ? 15_000 : 10_000 },
   retries: ci ? 1 : 0,
-  // Without a GPU every page renders the robot on the CPU; one test at a time keeps them from starving each other.
-  workers: ci ? 1 : undefined,
+  // Every test page renders the 3D robot. Without a GPU (CI) that runs on the CPU, so tests go one at a time;
+  // locally two at a time keeps the dev server and the WebGL pages from starving each other.
+  workers: ci ? 1 : 2,
   reporter: ci ? [['list'], ['html', { open: 'never' }]] : 'list',
   use: {
     baseURL: 'http://localhost:3100',
