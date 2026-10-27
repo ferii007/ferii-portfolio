@@ -2,14 +2,22 @@
   {
     "id": "ultimo-internship",
     "organization": "PT. Ultimo Solutions",
-    "current": false,
+    "period": {
+      "start": "2020-01",
+      "end": "2020-04"
+    },
+    "roles": [
+      "Testing Engineer"
+    ],
     "icon": "/images/journey/testing-engineer.webp",
     "scene": "/images/journey/testing-vignette.webp"
   },
   {
     "id": "smk-graduation",
     "organization": "Balai Perguruan Putri Bandung",
-    "current": false,
+    "period": {
+      "start": "2021"
+    },
     "icon": "/images/journey/smk-bpp.webp",
     "scene": "/images/journey/school-vignette.webp",
     "logoBox": {
@@ -21,7 +29,14 @@
   {
     "id": "senja-solutions",
     "organization": "Senja Solutions",
-    "current": true,
+    "period": {
+      "start": "2021-12",
+      "end": null
+    },
+    "roles": [
+      "Web Developer",
+      "Software Engineer"
+    ],
     "icon": "/images/journey/senja-solutions.webp",
     "scene": "/images/journey/senja-vignette.webp",
     "logoBox": {

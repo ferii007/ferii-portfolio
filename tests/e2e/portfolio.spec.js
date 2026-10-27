@@ -2,6 +2,11 @@ import { expect, test } from '@playwright/test';
 import projects from '../../src/features/projects/data/projects.json' with { type: 'json' };
 import { id } from '../../src/constants/languages/id.js';
 import { en } from '../../src/constants/languages/en.js';
+import { LABELS, SECTIONS, SITE_URL } from '../../src/constants/site.js';
+import { interpolate, localeKey } from '../../src/constants/localization.js';
+
+const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const named = (value) => new RegExp(escape(value), 'i');
 
 test('hero does not flash a flat image while the 3D model loads', async ({ page }) => {
   let releaseModel;
@@ -24,9 +29,9 @@ test('robot asset failure keeps the portfolio usable', async ({ page }) => {
   await page.route('**/feri-robot-rigged.glb', (route) => route.abort());
   await page.goto('/', { waitUntil: 'networkidle' });
   await expect(page.getByTestId('robot-fallback')).toBeVisible();
-  await page.getByRole('link', { name: /Lihat proyek/i }).click();
+  await page.getByRole('link', { name: named(id.hero_cta_projects) }).click();
   await expect(page).toHaveURL(/#projects$/);
-  await page.getByRole('link', { name: /Contact/i }).first().click();
+  await page.getByRole('link', { name: named(SECTIONS.contact.nav) }).first().click();
   await expect(page).toHaveURL(/#contact$/);
 });
 
@@ -38,7 +43,7 @@ test('hero renders the GLB and clicking the robot changes its face', async ({ pa
   await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
   await expect(page.locator('.robot-control')).toHaveCount(0);
   const before = await robot.locator('canvas').screenshot();
-  await page.getByRole('button', { name: /ubah ekspresi robot/i }).click();
+  await page.getByRole('button', { name: named(id.robot_change_expression) }).click();
   await expect(robot).toHaveAttribute('data-expression', 'deadpan');
   // The canvas mounts once the lazily loaded three.js chunk arrives, which a busy dev server can take a while to serve.
   await expect(robot.locator('canvas')).toHaveCount(1, { timeout: 30_000 });
@@ -76,8 +81,9 @@ test('skill detail shows a skeleton and closes only for outside clicks', async (
   await trigger.click();
   const dialog = page.getByRole('dialog');
   await expect(dialog.locator('.skill-skeleton-lines')).toBeVisible();
-  await expect(dialog).not.toContainText('Memuat ringkasan dari Wikipedia');
-  await dialog.getByRole('heading', { name: 'Tentang HTML' }).click();
+  // While loading only the skeleton is visible; the loading message is there for screen readers only.
+  await expect(dialog.getByText(id.skill_dialog_loading)).toHaveClass(/fp-visually-hidden/);
+  await dialog.getByRole('heading', { name: interpolate(id.skill_dialog_about, { skill: 'HTML' }) }).click();
   await expect(dialog).toBeVisible();
   releaseSummary();
   await expect(dialog).toContainText('Loaded skill summary.');
@@ -91,26 +97,26 @@ test('Wikipedia failure and demo contact remain honest', async ({ page }) => {
   await page.route('**/page/summary/HTML', (route) => route.fulfill({ status: 503, body: 'Unavailable' }));
   await page.goto('/', { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'HTML', exact: true }).click();
-  await expect(page.getByRole('dialog')).toContainText('Ringkasan belum bisa dimuat');
-  await expect(page.getByRole('button', { name: 'Coba lagi' })).toBeVisible();
-  await page.getByRole('button', { name: 'Tutup detail skill' }).click();
+  await expect(page.getByRole('dialog')).toContainText(id.skill_dialog_error);
+  await expect(page.getByRole('button', { name: id.skill_dialog_retry })).toBeVisible();
+  await page.getByRole('button', { name: id.skill_dialog_close }).click();
   await page.locator('#contact').scrollIntoViewIfNeeded();
-  const submit = page.getByRole('button', { name: 'Kirim Pesan' });
+  const submit = page.getByRole('button', { name: id.contact_submit });
   await expect(submit).toBeDisabled();
-  await page.getByLabel('Nama').fill('Pengunjung');
-  await page.getByLabel('Email').fill('visitor@example.com');
+  await page.getByLabel(id.contact_name).fill('Pengunjung');
+  await page.getByLabel(LABELS.email).fill('visitor@example.com');
   await expect(submit).toBeDisabled();
-  await page.getByLabel('Pesan').fill('Halo');
+  await page.getByLabel(id.contact_message).fill('Halo');
   await expect(submit).toBeEnabled();
   const sent = [];
   page.on('request', (request) => { if (request.method() !== 'GET') sent.push(request.url()); });
   const beforeEnter = page.url();
-  await page.getByLabel('Email').press('Enter');
+  await page.getByLabel(LABELS.email).press('Enter');
   await expect(page).toHaveURL(beforeEnter);
   // Local simulation only: the bubble says so, the form resets, and nothing leaves the browser.
-  await expect(page.locator('.robot-speech-bubble')).toContainText('simulasi');
-  await expect(page.getByLabel('Nama')).toHaveValue('');
-  await expect(page.getByLabel('Pesan')).toHaveValue('');
+  await expect(page.locator('.robot-speech-bubble')).toContainText(id.contact_sent_message);
+  await expect(page.getByLabel(id.contact_name)).toHaveValue('');
+  await expect(page.getByLabel(id.contact_message)).toHaveValue('');
   await expect(submit).toBeDisabled();
   expect(sent).toEqual([]);
 });
@@ -131,8 +137,8 @@ test('mobile companion does not cover the contact submit button', async ({ page 
 test('mobile navigation closes after selecting a section', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/', { waitUntil: 'networkidle' });
-  await page.getByLabel('Buka navigasi').click();
-  await page.locator('.mobile-menu-links').getByRole('link', { name: 'Projects' }).click();
+  await page.getByLabel(id.nav_open_menu).click();
+  await page.locator('.mobile-menu-links').getByRole('link', { name: SECTIONS.projects.nav }).click();
   await expect(page).toHaveURL(/#projects$/);
   await expect(page.locator('.mobile-menu')).not.toHaveAttribute('open');
   const headingTop = await page.locator('#projects-title').evaluate((element) => element.getBoundingClientRect().top);
@@ -145,7 +151,7 @@ test('every project contribution is readable by scrolling, without extra control
   const section = page.locator('#projects');
   await expect(section.locator('article.project')).toHaveCount(projects.length);
   for (const project of projects) {
-    const story = section.getByText(id[`project_${project.id.replaceAll('-', '_')}_contribution`], { exact: true });
+    const story = section.getByText(id[localeKey('project', project.id, 'contribution')], { exact: true });
     await story.scrollIntoViewIfNeeded();
     await expect(story).toBeVisible();
   }
@@ -156,8 +162,8 @@ test('every project contribution is readable by scrolling, without extra control
 test('the English page is a full translation that search engines can pair with the Indonesian one', async ({ page }) => {
   await page.goto('/en', { waitUntil: 'domcontentloaded' });
   await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://feriramdani.my.id/en');
-  await expect(page.locator('link[rel="alternate"][hreflang="id-ID"]')).toHaveAttribute('href', 'https://feriramdani.my.id');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `${SITE_URL}/en`);
+  await expect(page.locator('link[rel="alternate"][hreflang="id-ID"]')).toHaveAttribute('href', SITE_URL);
   await expect(page.locator('.hero-copy')).toHaveText(en.hero_intro);
   await expect(page.getByRole('button', { name: en.contact_submit })).toBeDisabled();
   await expect(page.locator('#projects').getByText(en.project_elc_contribution, { exact: true })).toBeVisible();

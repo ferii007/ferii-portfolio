@@ -2,7 +2,10 @@ import Description from '@/components/typography/Description';
 import Image from 'next/image';
 import journey from '../data/journey.json';
 import { getLocalization, localeKey } from '@/constants/localization';
+import { formatPeriod, isCurrent, journeyDescription, journeyRole } from '@/lib/journey';
 import Lines from '@/components/typography/Lines';
+import { Section, SectionTitle } from '@/components/layout/Section';
+import Doodle from '@/components/doodles/Doodle';
 
 // A scene illustration (optional) sits left of the story; the real logo is laid over the scene's clear area
 // using `logoBox` (percent of the scene canvas). Without a scene the logo/icon is shown on its own.
@@ -17,24 +20,25 @@ function JourneyArt({ item }) {
 }
 
 export default function JourneySection({ language }) {
-  const { text } = getLocalization(language);
+  const localization = getLocalization(language);
+  const { text } = localization;
   const field = (item, name) => text[localeKey('journey', item.id, name)];
   return (
-    <section className="section journey-section" id="journey" aria-labelledby="journey-title">
+    <Section name="journey" className="journey-section">
       <div className="container journey-stage">
         <div className="journey-heading">
-          <div><h2 className="section-title" id="journey-title">{text.journey_title}<svg viewBox="0 0 36 40" fill="none" aria-hidden="true"><path d="m8 17 8-14M17 29l15-7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" /></svg></h2></div>
-          <div className="journey-handnote" aria-hidden="true"><p className="hand-note"><Lines text={text.journey_handnote} /></p><svg viewBox="0 0 64 60" fill="none"><path d="M51 5C25 14 14 30 12 50M5 37l7 15 15-9" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
+          <div><SectionTitle name="journey" /></div>
+          <div className="journey-handnote" aria-hidden="true"><p className="hand-note"><Lines text={text.journey_handnote} /></p><Doodle name="arrowFall" /></div>
         </div>
         <ol className="journey-timeline">
-          {journey.map((item, index) => <li className={`journey-item${item.current ? ' journey-item--current' : ''}`} key={item.id}>
-            <div className="journey-period">{field(item, 'period').split('\n').map((line, lineIndex) => <span key={lineIndex}>{line}</span>)}</div>
+          {journey.map((item, index) => <li className={`journey-item${isCurrent(item) ? ' journey-item--current' : ''}`} key={item.id}>
+            <div className="journey-period">{formatPeriod(item.period, localization).split('\n').map((line, lineIndex) => <span key={lineIndex}>{line}</span>)}</div>
             <span className="journey-marker" aria-hidden="true">{index + 1}</span>
             <article className="journey-card fp-paper">
               <span className="fp-tape journey-tape" aria-hidden="true" />
-              <svg className="journey-clip" viewBox="0 0 24 60" fill="none" aria-hidden="true"><path d="M8 18V8a4 4 0 0 1 8 0v38a7 7 0 0 1-14 0V14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg>
+              <Doodle name="paperclip" className="journey-clip" />
               <JourneyArt item={item} />
-              <div className="journey-content"><h3>{field(item, 'title')}</h3><p className="journey-organization">{item.organization}</p><p className="journey-role">{field(item, 'role')}</p><Description>{field(item, 'description')}</Description></div>
+              <div className="journey-content"><h3>{field(item, 'title')}</h3><p className="journey-organization">{item.organization}</p><p className="journey-role">{journeyRole(item, text)}</p><Description>{journeyDescription(item, text)}</Description></div>
             </article>
           </li>)}
         </ol>
@@ -67,6 +71,6 @@ export default function JourneySection({ language }) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

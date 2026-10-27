@@ -3,10 +3,12 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import Description from '@/components/typography/Description';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
-import { site } from '@/content/site';
+import { BEYOND_CARDS } from '@/constants/site';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { interpolate } from '@/constants/localization';
 import Lines from '@/components/typography/Lines';
+import { Section, SectionTitle } from '@/components/layout/Section';
+import Doodle from '@/components/doodles/Doodle';
 
 // Where each spine's title sits, between that spine's own diamonds and along its slant.
 const spineTransforms = ['translate(457 423) rotate(-5)', 'translate(440 493) rotate(-2.3)', 'translate(440 569) rotate(-1.6)'];
@@ -50,17 +52,17 @@ function BeyondStudio({ text }) {
       </g></g>
       <rect className="holo-cast-tint" x="480" y="75" width="365" height="240" clipPath="url(#beyond-holo-panel)" />
     </svg>
-    <div className="beyond-handnote"><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><p className="hand-note"><Lines text={text.beyond_handnote} /></p></div>
+    <div className="beyond-handnote"><Doodle name="arrowCurl" /><p className="hand-note"><Lines text={text.beyond_handnote} /></p></div>
   </div>;
 }
 
 export default function BeyondCodingSection() {
   const { localization: { text } } = useLocalization();
   const { showRobotMessage } = usePortfolioInteraction();
-  return <section className="section beyond-section" id="beyond" aria-labelledby="beyond-title"><div className="container beyond-stage">
-    <div className="beyond-heading"><div className="beyond-copy"><h2 className="section-title" id="beyond-title">{text.beyond_title}</h2></div>
+  return <Section name="beyond" className="beyond-section"><div className="container beyond-stage">
+    <div className="beyond-heading"><div className="beyond-copy"><SectionTitle name="beyond" /></div>
       <BeyondStudio text={text} />
     </div>
-    <div className="beyond-grid">{site.beyond.map((item) => { const card = (name) => text[`beyond_${item.id}_${name}`]; return <article className="beyond-card" key={item.id}><div className="beyond-art"><Image src={item.image} width={480} height={480} alt="" sizes="(max-width: 480px) 120px, 320px" /></div><div className="beyond-content"><h3>{card('title')}<svg viewBox="0 0 34 40" fill="none" aria-hidden="true"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h3><Description>{card('detail')}</Description><button className="beyond-card-trigger" type="button" aria-label={interpolate(text.beyond_open_card, { title: card('title') })} onClick={() => showRobotMessage(card('message'))}><span className="beyond-card-accent" aria-hidden="true"><ArrowRight size={18} /></span></button></div></article>; })}</div>
-  </div></section>;
+    <div className="beyond-grid">{BEYOND_CARDS.map((item) => { const card = (name) => text[`beyond_${item.id}_${name}`]; return <article className="beyond-card" key={item.id}><div className="beyond-art"><Image src={item.image} width={480} height={480} alt="" sizes="(max-width: 480px) 120px, 320px" /></div><div className="beyond-content"><h3>{card('title')}<Doodle name="sparkCard" /></h3><Description>{card('detail')}</Description><button className="beyond-card-trigger" type="button" aria-label={interpolate(text.beyond_open_card, { title: card('title') })} onClick={() => showRobotMessage(card('message'))}><span className="beyond-card-accent" aria-hidden="true"><ArrowRight size={18} /></span></button></div></article>; })}</div>
+  </div></Section>;
 }

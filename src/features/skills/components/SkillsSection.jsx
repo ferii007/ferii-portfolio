@@ -6,6 +6,8 @@ import Lines from '@/components/typography/Lines';
 import skills from '../data/skills.json';
 import SkillCard from './SkillCard';
 import SkillDialog from './SkillDialog';
+import { Section, SectionTitle } from '@/components/layout/Section';
+import Doodle from '@/components/doodles/Doodle';
 
 export default function SkillsSection() {
   const { localization: { text } } = useLocalization();
@@ -14,10 +16,10 @@ export default function SkillsSection() {
   const selected = skills.find((skill) => skill.id === state.activeSkillId) ?? null;
   const handleSelect = (id) => { lastTrigger.current = document.activeElement; openSkill(id); };
   const handleClose = useCallback(() => { closeSkill(); requestAnimationFrame(() => lastTrigger.current?.focus({ preventScroll: true })); }, [closeSkill]);
-  return <section className="section skills-section fp-section" id="skills" aria-labelledby="skills-title"><div className="container fp-container">
+  return <Section name="skills" className="skills-section fp-section"><div className="container fp-container">
     <div className="skills-heading">
-      <div><h2 className="section-title" id="skills-title">{text.skills_title}<svg viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2></div>
-      <div className="skills-handnote" aria-hidden="true"><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><p className="hand-note"><Lines text={text.skills_handnote} /></p></div>
+      <div><SectionTitle name="skills" /></div>
+      <div className="skills-handnote" aria-hidden="true"><Doodle name="arrowCurl" /><p className="hand-note"><Lines text={text.skills_handnote} /></p></div>
     </div>
     <div className="skills-stage">
       <div className="skills-panel">
@@ -40,5 +42,5 @@ export default function SkillsSection() {
       </svg>
     </div>
     <SkillDialog skill={selected} onClose={handleClose} />
-  </div></section>;
+  </div></Section>;
 }

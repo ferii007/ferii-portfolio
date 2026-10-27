@@ -1,8 +1,8 @@
 // Same shape as rebill_backoffice_fe's LANGUAGES. Each language also owns a URL, so search engines can index
 // both versions: Indonesian stays at "/" (the existing address) and English lives at "/en".
 export const LANGUAGES = [
-	{ value: "id", label: "Bahasa Indonesia", short: "ID", path: "/" },
-	{ value: "en", label: "English", short: "EN", path: "/en" },
+	{ value: "id", label: "Bahasa Indonesia", short: "ID", path: "/", locale: "id-ID" },
+	{ value: "en", label: "English", short: "EN", path: "/en", locale: "en-US" },
 ];
 
 export const DEFAULT_LANGUAGE = "id";

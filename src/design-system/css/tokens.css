@@ -1,11 +1,10 @@
 /* Design System v1 (feri-portfolio-design-system/tokens.json, 12 Oct 2026) merged by hand; older names stay as aliases. */
 :root {
-  --color-canvas: #F8F5EF;
+  /* --color-canvas and --color-heading come from THEME in src/constants/site.js (set on <html> by RootDocument). */
   --color-surface: #FFFEFB;
   --color-surface-blue: #EAF6FF;
   --color-surface-peach: #FFF0DF;
   --color-ink: #1B2A3C;
-  --color-heading: #081827;
   --color-paper: #FFFBF2;
   --color-paper-blue: #DDEFFA;
   --color-paper-yellow: #FFF0C8;

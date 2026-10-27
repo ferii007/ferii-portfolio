@@ -4,10 +4,12 @@ import Image from 'next/image';
 import Eyebrow from '@/components/typography/Eyebrow';
 import { Mail, MessageSquare, Send, UserRound } from 'lucide-react';
 import { siGithub } from 'simple-icons';
-import { site } from '@/content/site';
+import { LABELS, SOCIAL } from '@/constants/site';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 import { useLocalization } from '@/context/LocalizationProvider';
 import Lines from '@/components/typography/Lines';
+import { Section, SectionTitle } from '@/components/layout/Section';
+import Doodle from '@/components/doodles/Doodle';
 
 function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
   const Control = multiline ? 'textarea' : 'input';
@@ -17,6 +19,11 @@ function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
     <span className="contact-field-label"><Icon aria-hidden="true" />{label}</span>
   </label>;
 }
+
+const socialIcons = {
+  github: <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGithub.path} /></svg>,
+  linkedin: <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="currentColor" /><circle cx="5.5" cy="6" r="1.7" fill="white" /><path d="M4 9h3v11H4zm5 0h3v1.5c1-1.6 6-2.6 6 3V20h-3v-6c0-2.5-3-2.5-3 0v6H9z" fill="white" /></svg>,
+};
 
 export default function ContactSection() {
   const { localization: { text } } = useLocalization();
@@ -35,12 +42,12 @@ export default function ContactSection() {
     setComplete(false);
     showRobotMessage(text.contact_sent_message);
   };
-  return <section className="section contact-section" id="contact" aria-labelledby="contact-title"><div className="container contact-grid">
-    <div><h2 className="section-title contact-title" id="contact-title">{text.contact_title}<svg viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2><Eyebrow className="contact-eyebrow">{text.contact_eyebrow}</Eyebrow>
+  return <Section name="contact" className="contact-section"><div className="container contact-grid">
+    <div><SectionTitle name="contact" className="contact-title" /><Eyebrow className="contact-eyebrow">{text.contact_eyebrow}</Eyebrow>
       <form className="contact-form fp-paper" aria-label={text.contact_form_label} onSubmit={submitDemo} onInput={checkComplete}>
         <span className="fp-tape contact-tape" aria-hidden="true" />
         <ContactField name="name" label={text.contact_name} Icon={UserRound} />
-        <ContactField name="email" label={text.contact_email} Icon={Mail} type="email" />
+        <ContactField name="email" label={LABELS.email} Icon={Mail} type="email" />
         <ContactField name="message" label={text.contact_message} Icon={MessageSquare} multiline />
         <button className="contact-submit" type="submit" disabled={!complete}>{text.contact_submit} <Send size={19} aria-hidden="true" /></button>
       </form>
@@ -50,7 +57,7 @@ export default function ContactSection() {
         <svg className="contact-letter" viewBox="0 0 1448 1086" fill="none">
           <defs><clipPath id="contact-letter-face"><path d="M332 457 905 348 959 555 813 672 630 697 292 563Z" /></clipPath></defs>
           <g clipPath="url(#contact-letter-face)" className="contact-letter-ink">
-            <text transform="translate(452 572) rotate(-10.8)" fontSize="96">{text.contact_letter_greeting}</text>
+            <text transform="translate(452 572) rotate(-10.8)" fontSize="96">{LABELS.letterGreeting}</text>
             <path className="contact-letter-line" d="M500 618c70-10 150-26 228-44" />
             <text transform="translate(668 652) rotate(-10.8)" fontSize="64">:)</text>
           </g>
@@ -76,8 +83,8 @@ export default function ContactSection() {
             <g transform="translate(1078 397)"><path className="chat-holo-ghost" d="M-58-2 54-47 2 48-16 13Z M-16 13 54-47" /></g>
           </g>
         </svg>
-        <div className="contact-handnote"><p className="hand-note"><Lines text={text.contact_handnote} /></p><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></div></div>
-      <div className="contact-socials"><a href={site.contact.github} target="_blank" rel="noopener noreferrer"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGithub.path} /></svg><span><strong>GitHub</strong></span></a><a href={site.contact.linkedin} target="_blank" rel="noopener noreferrer"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="currentColor" /><circle cx="5.5" cy="6" r="1.7" fill="white" /><path d="M4 9h3v11H4zm5 0h3v1.5c1-1.6 6-2.6 6 3V20h-3v-6c0-2.5-3-2.5-3 0v6H9z" fill="white" /></svg><span><strong>LinkedIn</strong></span></a></div>
+        <div className="contact-handnote"><p className="hand-note"><Lines text={text.contact_handnote} /></p><Doodle name="arrowCurl" strokeWidth={2.2} /></div></div>
+      <div className="contact-socials">{Object.entries(SOCIAL).map(([key, profile]) => <a key={key} href={profile.url} target="_blank" rel="noopener noreferrer">{socialIcons[key]}<span><strong>{profile.label}</strong></span></a>)}</div>
     </div>
-  </div></section>;
+  </div></Section>;
 }

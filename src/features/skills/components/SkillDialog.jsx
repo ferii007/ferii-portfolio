@@ -6,6 +6,8 @@ import SkillIcon from './SkillIcon';
 import Description from '@/components/typography/Description';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { interpolate } from '@/constants/localization';
+import { LABELS } from '@/constants/site';
+import Doodle from '@/components/doodles/Doodle';
 
 export default function SkillDialog({ skill, onClose }) {
   const { localization: { text }, currentLanguage } = useLocalization();
@@ -51,16 +53,16 @@ export default function SkillDialog({ skill, onClose }) {
     <div className="skill-dialog-top fp-hologram__head">
       <div className="skill-dialog-identity">
         <div className="skill-dialog-icon" style={{ '--skill-color': skill.colorOnHolo ?? skill.color }}><SkillIcon skill={skill} /></div>
-        <div><span className="skill-dialog-kicker">{text.skill_dialog_kicker}</span><h3 id="skill-dialog-title">{skill.label}<svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M7 2 5 13M20 5l-7 10M31 20l-11 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h3>{currentResult.status === 'loading' ? <span className="skill-skeleton-line skill-skeleton-subtitle" aria-hidden="true" /> : <p className="skill-dialog-subtitle">{currentResult.status === 'success' ? currentResult.data.title : 'Ringkasan Wikipedia'}</p>}</div>
+        <div><span className="skill-dialog-kicker">{LABELS.skillKicker}</span><h3 id="skill-dialog-title">{skill.label}<Doodle name="sparkAccent" /></h3>{currentResult.status === 'loading' ? <span className="skill-skeleton-line skill-skeleton-subtitle" aria-hidden="true" /> : <p className="skill-dialog-subtitle">{currentResult.status === 'success' ? currentResult.data.title : 'Ringkasan Wikipedia'}</p>}</div>
       </div>
       <button ref={closeRef} type="button" onClick={onClose} aria-label={text.skill_dialog_close}><X size={24} /></button>
     </div>
     <div className="skill-dialog-content fp-hologram__body" key={skill.id} aria-busy={currentResult.status === 'loading'}>
-      <h4>{interpolate(text.skill_dialog_about, { name: skill.label })}</h4>
+      <h4>{interpolate(text.skill_dialog_about, { skill: skill.label })}</h4>
       <div id="skill-dialog-body" aria-live="polite">
         {currentResult.status === 'loading' && <div className="skill-skeleton" role="status"><span className="fp-visually-hidden">{text.skill_dialog_loading}</span><div className="skill-skeleton-lines" aria-hidden="true"><span className="skill-skeleton-line" /><span className="skill-skeleton-line" /><span className="skill-skeleton-line" /><span className="skill-skeleton-line" /></div></div>}
         {currentResult.status === 'success' && <Description>{currentResult.data.extract}</Description>}
-        {currentResult.status === 'not_found' && <Description>{interpolate(text.skill_dialog_not_found, { name: skill.label })}</Description>}
+        {currentResult.status === 'not_found' && <Description>{interpolate(text.skill_dialog_not_found, { skill: skill.label })}</Description>}
         {currentResult.status === 'error' && <Description>{text.skill_dialog_error}</Description>}
         {['not_found', 'error'].includes(currentResult.status) && <button className="retry-button" type="button" onClick={() => { setResult({ status: 'loading', skillId: skill.id }); setRequestVersion((value) => value + 1); }}><RotateCcw size={16} /> {text.skill_dialog_retry}</button>}
       </div>

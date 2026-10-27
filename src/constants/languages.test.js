@@ -4,7 +4,7 @@ import { getLanguage, LANGUAGES, resolveLanguageCode } from './languages';
 import projects from '../features/projects/data/projects.json';
 import categories from '../features/projects/data/categories.json';
 import journey from '../features/portfolio/data/journey.json';
-import { site } from '../content/site';
+import { BEYOND_CARDS, CURRENTLY_ITEMS, PERSON } from './site';
 
 const placeholders = (value) => [...String(value).matchAll(/\{([a-zA-Z0-9_]+)\}/g)].map((match) => match[1]).sort();
 
@@ -37,13 +37,50 @@ describe('localization', () => {
     const required = [
       ...projects.map((project) => localeKey('project', project.id, 'contribution')),
       ...categories.flatMap((category) => ['title', 'note'].map((field) => localeKey('category', category.id, field))),
-      ...journey.flatMap((item) => ['period', 'title', 'role', 'description'].map((field) => localeKey('journey', item.id, field))),
-      ...site.beyond.flatMap((item) => ['title', 'detail', 'message'].map((field) => `beyond_${item.id}_${field}`)),
-      ...site.currently.flatMap((item) => ['title', 'detail'].map((field) => `currently_${item}_${field}`)),
+      // Fixed job titles live in journey.json (`roles`); only a role that needs translating is copy.
+      ...journey.flatMap((item) => ['title', 'description', ...(item.roles ? [] : ['role'])].map((field) => localeKey('journey', item.id, field))),
+      ...BEYOND_CARDS.flatMap((item) => ['title', 'detail', 'message'].map((field) => `beyond_${item.id}_${field}`)),
+      ...CURRENTLY_ITEMS.flatMap((item) => ['title', 'detail'].map((field) => `currently_${item}_${field}`)),
     ];
     for (const [code, strings] of Object.entries(languages)) {
       for (const key of required) expect(strings, `${code} is missing ${key}`).toHaveProperty(key);
     }
+  });
+
+  // Copy that reads the same in every language is a fixed fact, so it belongs in ./site.js, not here.
+  it('has no copy that is identical in every language', () => {
+    const [first, ...others] = Object.values(languages);
+    const identical = Object.keys(first).filter((key) => others.every((strings) => strings[key] === first[key]));
+    expect(identical).toEqual([]);
+  });
+
+  it('does not repeat the same copy under two keys', () => {
+    for (const [code, strings] of Object.entries(languages)) {
+      const seen = {};
+      for (const [key, value] of Object.entries(strings)) (seen[value] ??= []).push(key);
+      expect(Object.values(seen).filter((keys) => keys.length > 1), code).toEqual([]);
+    }
+  });
+
+  it('never types the person\'s name or role into the copy', () => {
+    for (const [code, strings] of Object.entries(languages)) {
+      for (const [key, value] of Object.entries(strings)) {
+        for (const fact of [PERSON.name, PERSON.firstName, PERSON.role]) expect(value.includes(fact), `${code}.${key} contains "${fact}"`).toBe(false);
+      }
+    }
+  });
+
+  // {name}, {role}, … are filled from PERSON before any component sees the text, so a key that means something else
+  // (a skill, a project title) must use its own placeholder, or it would silently show the person's name.
+  it('keeps PERSON placeholders for the person only', () => {
+    const personKeys = Object.keys(PERSON);
+    const personCopy = ['logo_back_to_top', 'not_found_logo', 'hero_robot_label', 'robot_fallback_alt', 'about_lead', 'footer_copyright', 'seo_description', 'seo_share_description'];
+    for (const [code, strings] of Object.entries(languages)) {
+      for (const [key, value] of Object.entries(strings)) {
+        if (personKeys.some((field) => placeholders(value).includes(field))) expect(personCopy, `${code}.${key} uses a PERSON placeholder`).toContain(key);
+      }
+    }
+    expect(interpolate(getLocalization('id').text.skill_dialog_about, { skill: 'HTML' })).toBe('Tentang HTML');
   });
 
   it('falls back to the base language and fills placeholders', () => {

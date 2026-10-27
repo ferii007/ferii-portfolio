@@ -1,46 +1,40 @@
 import { en } from './languages/en.js';
 import { id } from './languages/id.js';
-import { DEFAULT_LANGUAGE, resolveLanguageCode } from './languages.js';
+import { DEFAULT_LANGUAGE, getLanguage, resolveLanguageCode } from './languages.js';
+import { PERSON } from './site.js';
 
 const languages = {
 	en,
 	id,
 };
 
-const localeMap = {
-	en: "en-US",
-	id: "id-ID",
-};
+// Fills "{name}"-style placeholders, like rebill's interpolate helper. Unknown placeholders are left as they are.
+export const interpolate = (template, values = {}) =>
+	String(template).replace(/\{([a-zA-Z0-9_]+)\}/g, (match, key) => (key in values ? values[key] : match));
 
-// Open Graph uses underscores (id_ID) where HTML uses hyphens (id-ID).
-const openGraphLocaleMap = {
-	en: "en_US",
-	id: "id_ID",
-};
+// The person's name and role are facts, not copy: every language file refers to them as {firstName}, {name}, …
+const personValues = Object.fromEntries(Object.entries(PERSON).filter(([, value]) => typeof value === "string"));
+const withPerson = (strings) => Object.fromEntries(Object.entries(strings).map(([key, value]) => [key, interpolate(value, personValues)]));
 
 // Same contract as rebill_backoffice_fe: `localization.text.some_key`, falling back to the base language for a
 // missing key. The base here is Indonesian, the site's primary language.
 class Localization {
 	text = {}
 	language = DEFAULT_LANGUAGE
-	locale = localeMap[DEFAULT_LANGUAGE]
-	openGraphLocale = openGraphLocaleMap[DEFAULT_LANGUAGE]
 
 	constructor(region) {
 		region = resolveLanguageCode(region);
-		const baseLang = languages[DEFAULT_LANGUAGE];
-		const selectedLang = languages[region];
+		const baseLang = withPerson(languages[DEFAULT_LANGUAGE]);
+		const selected = languages[region];
 
-		if (!selectedLang) {
+		if (!selected) {
 			if (region) console.warn(`Language '${region}' not found, defaulting to '${DEFAULT_LANGUAGE}'`);
 			this.text = baseLang;
 			return;
 		}
 
 		this.language = region;
-		this.locale = localeMap[region];
-		this.openGraphLocale = openGraphLocaleMap[region];
-		this.text = new Proxy(selectedLang, {
+		this.text = new Proxy(withPerson(selected), {
 			get(obj, prop) {
 				if (prop in obj) return obj[prop];
 
@@ -48,14 +42,31 @@ class Localization {
 			}
 		});
 	}
-}
 
-// Fills "{name}"-style placeholders, like rebill's interpolate helper.
-export const interpolate = (template, values = {}) =>
-	String(template).replace(/\{([a-zA-Z0-9_]+)\}/g, (match, key) => (key in values ? values[key] : match));
+	get locale() {
+		return getLanguage(this.language).locale;
+	}
+
+	// Open Graph writes locales with an underscore (id_ID) where HTML uses a hyphen (id-ID).
+	get openGraphLocale() {
+		return this.locale.replace("-", "_");
+	}
+
+	// "Laravel, React, dan Next.js" / "Laravel, React, and Next.js"
+	list(items) {
+		return new Intl.ListFormat(this.locale, { type: "conjunction" }).format(items);
+	}
+
+	month(year, month) {
+		return new Intl.DateTimeFormat(this.locale, { month: "short", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, 1)));
+	}
+}
 
 // Data records use kebab-case ids ("rebill-pos"); locale keys use snake_case ("project_rebill_pos_contribution").
 export const localeKey = (...parts) => parts.join("_").replaceAll("-", "_");
+
+// Page <title>: "<page> | Feri Ramdani"; the home page is "Feri Ramdani | Full Stack Developer".
+export const pageTitle = (page) => (page ? `${page} | ${PERSON.name}` : `${PERSON.name} | ${PERSON.role}`);
 
 const cache = {};
 
