@@ -2,13 +2,14 @@ import { readFile } from 'node:fs/promises';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { createGuardArm } from './guardArm';
 import { searchPoseAt } from './searchMotion';
 
 let model;
 beforeAll(async () => {
   const bytes = await readFile(new URL('../../../public/models/feri-robot-rigged.glb', import.meta.url));
-  model = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  model = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
 });
 
 describe('the shipped robot rig', () => {

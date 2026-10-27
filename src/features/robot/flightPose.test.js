@@ -2,12 +2,13 @@ import { readFile } from 'node:fs/promises';
 import { beforeAll, describe, expect, it } from 'vitest';
 import { Euler, Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { createFlightPose } from './flightPose';
 
 let scene, flight;
 beforeAll(async () => {
   const bytes = await readFile(new URL('../../../public/models/feri-robot-rigged.glb', import.meta.url));
-  ({ scene } = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), ''));
+  ({ scene } = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), ''));
   flight = createFlightPose(scene);
 });
 

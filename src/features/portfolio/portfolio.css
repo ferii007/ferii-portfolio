@@ -1,5 +1,6 @@
 /* Page composition: kit primitives are in design-system/css/appearance.css. */
-@font-face { font-family: 'Fredoka'; src: url('./assets/Fredoka-variable.ttf') format('truetype'); font-weight: 300 700; font-style: normal; font-display: swap; }
+/* WOFF2 subset (Latin, Latin Extended-A, punctuation, arrows) of the TTF master next to it; see src/design-system/fonts/sources.json. */
+@font-face { font-family: 'Fredoka'; src: url('./assets/Fredoka-variable.woff2') format('woff2'); font-weight: 300 700; font-style: normal; font-display: swap; unicode-range: U+0000-00FF,U+0100-017F,U+2000-206F,U+20AC,U+2122,U+2190-2199,U+2212; }
 .container { width: min(calc(100% - 2 * var(--layout-gutter)), var(--layout-max)); margin-inline: auto; }
 .section { padding-block: var(--layout-section-gap); scroll-margin-top: calc(var(--layout-header-height) + 1.5rem); }
 .section + .section { padding-top: 0; }

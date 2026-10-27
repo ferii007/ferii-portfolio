@@ -1,3 +1,3 @@
-/* Original variable TTF files, self-hosted; licenses in ../fonts/. */
-@font-face{font-family:'Plus Jakarta Sans';src:url('../fonts/PlusJakartaSans-Variable.ttf') format('truetype');font-weight:200 800;font-style:normal;font-display:swap}
-@font-face{font-family:'Caveat';src:url('../fonts/Caveat-Variable.ttf') format('truetype');font-weight:400 700;font-style:normal;font-display:swap}
+/* WOFF2 subsets (Latin, Latin Extended-A, punctuation, arrows) of the variable TTF masters in ../fonts/, which keep the licenses. */
+@font-face{font-family:'Plus Jakarta Sans';src:url('../fonts/PlusJakartaSans-Variable.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0100-017F,U+2000-206F,U+20AC,U+2122,U+2190-2199,U+2212}
+@font-face{font-family:'Caveat';src:url('../fonts/Caveat-Variable.woff2') format('woff2');font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0100-017F,U+2000-206F,U+20AC,U+2122,U+2190-2199,U+2212}

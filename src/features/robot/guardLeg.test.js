@@ -2,12 +2,13 @@ import { readFile } from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import { Group, Quaternion, Vector3 } from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { createGuardLeg } from './guardLeg';
 import { searchPoseAt } from './searchMotion';
 
 it('keeps both soles level and ankles planted through the full weight shift', async () => {
   const bytes = await readFile(new URL('../../../public/models/feri-robot-rigged.glb', import.meta.url));
-  const { scene } = await new GLTFLoader().parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
+  const { scene } = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parseAsync(bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength), '');
   const group = new Group();
   group.add(scene);
   group.position.y = -1.92;
