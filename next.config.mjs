@@ -35,6 +35,8 @@ const nextConfig = {
     config.optimization.concatenateModules = false;
     return config;
   },
+  // Dev runs on Turbopack, which needs no workaround; declaring it keeps Next from rejecting the webpack hook.
+  turbopack: {},
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },
