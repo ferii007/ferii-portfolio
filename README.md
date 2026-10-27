@@ -15,9 +15,11 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 
 ## Struktur
 
-- `src/app`: komposisi halaman, metadata, dan gaya global.
+- `src/app`: dua root layout, `(id)` untuk `/` dan `(en)/en` untuk `/en`, plus 404 global, robots, sitemap, manifest, dan ikon.
+- `src/constants/languages.js`, `src/constants/languages/{id,en}.js`, `src/constants/localization.js`, `src/context/LocalizationProvider.jsx`: lokalisasi dengan pola yang sama seperti `rebill_backoffice_fe` (lihat bagian Bahasa).
+- `src/content/seo.js`: metadata, hreflang, dan JSON-LD per bahasa.
 - `src/design-system`: CSS dan font lokal dari paket desain, beserta lisensinya.
-- `src/content/site.js`: teks non-proyek dan penanda konten contoh.
+- `src/content/site.js`: fakta yang tidak bergantung bahasa (nama, tautan kontak, gambar kartu Beyond).
 - `src/features/projects`: sumber data JSON, validator, dan kartu proyek.
 - `src/features/interaction`: state bersama robot dan Skills.
 - `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
@@ -31,11 +33,19 @@ Periksa kualitas dengan `npm run test`, `npm run lint`, `npm run build`, dan `np
 - Gunakan `src/components/typography/Description.jsx` untuk deskripsi dan `Eyebrow.jsx` untuk label kecil dengan format seperti Hello, World.
 - Judul section memakai kelas `section-title` (tambahkan `section-title--dash` bila tidak ada eyebrow); catatan tulisan tangan memakai `hand-note`. Permukaan kertas, tape, pin, dan print memakai `fp-paper`, `fp-tape`, `fp-pin`, `fp-print` di `appearance.css`.
 
+## Bahasa
+
+Situs tersedia dalam Bahasa Indonesia (`/`) dan Inggris (`/en`). Semua teks yang terlihat pengunjung ada di `src/constants/languages/id.js` dan `en.js` sebagai objek datar dengan key `snake_case`, sama seperti `rebill_backoffice_fe`. Komponen server membaca `getLocalization(language).text.nama_key`; komponen client memakai `useLocalization()`. Placeholder ditulis `{nama}` dan diisi dengan `interpolate`. `\n` di dalam teks berarti pindah baris (catatan tulisan tangan dan label ilustrasi). Gaya bahasanya santai, bukan bahasa baku.
+
+Teks untuk data JSON memakai key yang dibentuk dari `id` record: `project_<id>_contribution`, `category_<id>_title` dan `_note`, `journey_<id>_period`, `_title`, `_role`, dan `_description` (tanda `-` di `id` menjadi `_`). `npm run test` gagal bila key di `id.js` dan `en.js` tidak sama, placeholder berbeda, atau ada record yang belum punya teks.
+
+Tombol ID/EN di header dan menu mobile adalah tautan biasa ke halaman bahasa lain, sehingga mesin pencari menemukan keduanya. Pilihan bahasa juga disimpan di `localStorage` dengan key `localization`.
+
 ## Menambah proyek
 
-Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `contribution`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Label dan deskripsi kelompok ada di `src/features/projects/data/categories.json`; `layout: "pairs"` menata kelompok sebagai pasangan print dan cerita. Proyek baru tampil ringkas; isi `presentation: "feature"` hanya untuk karya yang ingin dicetak besar.
+Tambahkan satu objek ke `src/features/projects/data/projects.json`. Isi `id` unik, `title`, `summary`, `stack`, `category`, `image`, `demoUrl`, `codeUrl`, dan `isExample`. Pilih `category`: `featured` (Karya Pilihan), `personal` (Website & Personal), atau `experiments` (Eksperimen). Tulis deskripsi kartunya sebagai `project_<id>_contribution` di `id.js` dan `en.js`. Kartu serta kelompoknya tampil otomatis tanpa mengubah komponen. Kelompok didefinisikan di `src/features/projects/data/categories.json`, dengan label dan catatannya di file bahasa; `layout: "pairs"` menata kelompok sebagai pasangan print dan cerita. Proyek baru tampil ringkas; isi `presentation: "feature"` hanya untuk karya yang ingin dicetak besar.
 
-Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. `imageAlt` dapat menjelaskan gambar secara spesifik. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. `contribution` selalu tampil sebagai deskripsi kartu. `summary` tidak ditampilkan sebagai subtitle. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
+Simpan gambar WebP di `public/images/projects/`, lalu isi `image` dengan path `/images/projects/nama-file.webp`. Screenshot ditampilkan utuh; `imageFit: "contain"` memberi ruang tambahan untuk cover logo. Teks alt khusus dapat ditulis sebagai `project_<id>_image_alt` di file bahasa. Isi `stack` hanya dengan teknologi yang diketahui (array kosong diperbolehkan). Versi ini tidak menyediakan tautan kunjungan proyek; `demoUrl` dan `codeUrl` diisi `null`. Teks `project_<id>_contribution` selalu tampil sebagai deskripsi kartu. `summary` tidak ditampilkan. Jalankan `npm run test` dan `npm run build`; validator memeriksa ID, kategori, dan keberadaan gambar.
 
 ## Menambah skill
 
@@ -53,8 +63,8 @@ Tambahkan satu objek ke `src/features/skills/data/skills.json`. Isi `id` unik, `
 
 ## Menambah perjalanan
 
-Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `period` (array baris tanggal), `title`, `organization`, `role`, `description`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. `scene` (opsional) menampilkan ilustrasi vignette di kiri kartu, dengan `icon` sebagai logo asli di atasnya; kosongkan `icon` bila scene sudah memuat ikonnya. Komponen tidak perlu diedit saat menambah perjalanan. Tulis bulan Desember sebagai `Des`.
+Tambahkan satu objek ke `src/features/portfolio/data/journey.json` dalam urutan yang ingin ditampilkan. Isi `id` unik, `organization`, `current`, dan `icon` (path gambar, misalnya `/images/journey/senja-solutions.webp`). Penomoran serta garis timeline mengikuti jumlah data secara otomatis. `current: true` memberi warna oranye pada titik perjalanan yang sedang berlangsung. Ikon setiap kartu dibaca dari `icon` di JSON. Simpan logo WebP transparan berukuran 256 × 256 di `public/images/journey/`. `scene` (opsional) menampilkan ilustrasi vignette di kiri kartu, dengan `icon` sebagai logo asli di atasnya; kosongkan `icon` bila scene sudah memuat ikonnya. Tulis `journey_<id>_period` (baris dipisah `\n`), `_title`, `_role`, dan `_description` di kedua file bahasa. Komponen tidak perlu diedit saat menambah perjalanan.
 
 ## Status sebelum publikasi
 
-Desain baru sudah diterapkan dari Header sampai Footer, tetapi beberapa ilustrasi raster masih menunggu aset baru (brief di `feri-portfolio-handover/asset-briefs`): About memakai ilustrasi tanaman/buku lama, meja Currently masih CSS, Journey menampilkan logo/ikon tanpa scene, header Projects hanya panel hologram, Beyond belum memiliki rak jurnal, Contact memakai amplop lama, dan props Footer meminjam ilustrasi About. Form kontak hanya simulasi lokal dan tidak mengirim atau menyimpan data. Metadata memakai domain tujuan, tetapi `noindex` dan `robots` melarang indeksasi sampai konten faktual, tautan publik, serta hosting final dikonfirmasi.
+Desain dari Header sampai Footer sudah memakai aset paket ImageGen. Indexing sudah aktif: `robots.txt` mengizinkan crawling, metadata `index, follow`, dan sitemap memuat kedua bahasa dengan hreflang. Setelah deploy ke Vercel, verifikasi domain di Google Search Console lalu submit `https://www.ferii-r.my.id/sitemap.xml`. Yang sengaja ditunda: form kontak masih simulasi lokal (tidak mengirim atau menyimpan data), proyek belum punya tautan demo/kode, dan kartu Beyond Coding belum punya konten.

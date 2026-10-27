@@ -4,23 +4,26 @@ import { ArrowRight } from 'lucide-react';
 import Description from '@/components/typography/Description';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 import { site } from '@/content/site';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { interpolate } from '@/constants/localization';
+import Lines from '@/components/typography/Lines';
+
+// Where each spine's title sits, between that spine's own diamonds and along its slant.
+const spineTransforms = ['translate(457 423) rotate(-5)', 'translate(440 493) rotate(-2.3)', 'translate(440 569) rotate(-1.6)'];
 
 // Shelf scene (books, open journal, hologram) with its labels set in the artwork's own 1500×750 pixels.
-function BeyondStudio() {
+function BeyondStudio({ text }) {
   return <div className="beyond-studio" aria-hidden="true">
     <Image src="/images/beyond/journal-studio.webp" width={1500} height={750} sizes="(max-width: 767px) 92vw, 1030px" alt="" />
     <svg className="beyond-studio-labels" viewBox="0 0 1500 750" fill="none">
       {/* Gold foil between each spine's own diamonds; each line follows its book's slight slant. */}
       <g className="beyond-foil">
-        <text transform="translate(457 423) rotate(-5)" fontSize="31">IDE</text>
-        <text transform="translate(440 493) rotate(-2.3)" fontSize="30">JURNAL</text>
-        <text transform="translate(440 569) rotate(-1.6)" fontSize="30">TUMBUH</text>
+        {text.beyond_spines.split('\n').map((title, index) => <text key={index} transform={spineTransforms[index]} fontSize={index ? 30 : 31}>{title}</text>)}
       </g>
       {/* Handwritten on the journal's left page, where the sketched lines were painted out. */}
       <g className="beyond-page-ink">
-        <text x="750" y="340" fontSize="36">Catatan</text>
-        <text x="754" y="376" fontSize="36">Perjalanan</text>
-        <text x="758" y="412" fontSize="36">Ide</text>
+        {/* Line starts drift right a little, like a hand writing down the page. */}
+        {text.beyond_page_note.split('\n').map((line, index) => <text key={index} x={750 + index * 4} y={340 + index * 36} fontSize="36">{line}</text>)}
       </g>
     </svg>
     {/* The book hologram is projected from an emitter on the top book, like the Hero and My Skills holograms:
@@ -47,16 +50,17 @@ function BeyondStudio() {
       </g></g>
       <rect className="holo-cast-tint" x="480" y="75" width="365" height="240" clipPath="url(#beyond-holo-panel)" />
     </svg>
-    <div className="beyond-handnote"><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><p className="hand-note">Pilihan konten<br />personal.</p></div>
+    <div className="beyond-handnote"><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg><p className="hand-note"><Lines text={text.beyond_handnote} /></p></div>
   </div>;
 }
 
 export default function BeyondCodingSection() {
+  const { localization: { text } } = useLocalization();
   const { showRobotMessage } = usePortfolioInteraction();
   return <section className="section beyond-section" id="beyond" aria-labelledby="beyond-title"><div className="container beyond-stage">
-    <div className="beyond-heading"><div className="beyond-copy"><h2 className="section-title" id="beyond-title">Beyond Coding</h2></div>
-      <BeyondStudio />
+    <div className="beyond-heading"><div className="beyond-copy"><h2 className="section-title" id="beyond-title">{text.beyond_title}</h2></div>
+      <BeyondStudio text={text} />
     </div>
-    <div className="beyond-grid">{site.beyond.map((item) => <article className="beyond-card" key={item.title}><div className="beyond-art"><Image src={item.image} width={480} height={480} alt="" sizes="(max-width: 480px) 120px, 320px" /></div><div className="beyond-content"><h3>{item.title}<svg viewBox="0 0 34 40" fill="none" aria-hidden="true"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h3><Description>{item.detail}</Description><button className="beyond-card-trigger" type="button" aria-label={`Buka ${item.title}`} onClick={() => showRobotMessage(item.message)}><span className="beyond-card-accent" aria-hidden="true"><ArrowRight size={18} /></span></button></div></article>)}</div>
+    <div className="beyond-grid">{site.beyond.map((item) => { const card = (name) => text[`beyond_${item.id}_${name}`]; return <article className="beyond-card" key={item.id}><div className="beyond-art"><Image src={item.image} width={480} height={480} alt="" sizes="(max-width: 480px) 120px, 320px" /></div><div className="beyond-content"><h3>{card('title')}<svg viewBox="0 0 34 40" fill="none" aria-hidden="true"><path d="m8 14 7-11M17 23l14-6M18 32l12 5" stroke="currentColor" strokeWidth="3" strokeLinecap="round" /></svg></h3><Description>{card('detail')}</Description><button className="beyond-card-trigger" type="button" aria-label={interpolate(text.beyond_open_card, { title: card('title') })} onClick={() => showRobotMessage(card('message'))}><span className="beyond-card-accent" aria-hidden="true"><ArrowRight size={18} /></span></button></div></article>; })}</div>
   </div></section>;
 }

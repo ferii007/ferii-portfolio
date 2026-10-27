@@ -13,7 +13,9 @@ button, input, textarea { font: inherit; }
 .not-found-body { flex: 1; display: grid; align-content: center; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 48px; width: min(100%, 960px); margin: 0 auto; }
 .not-found .not-found-eyebrow::before { content: none; }
 .not-found .not-found-title { margin: 10px 0 16px; font-size: clamp(2.6rem, 1.6rem + 3.6vw, 4.6rem); line-height: 1; }
-.not-found-home { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; }
+.not-found-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 28px; }
+.not-found-home { display: inline-flex; align-items: center; gap: 10px; }
+.not-found-english { color: var(--color-primary); font-weight: 600; text-underline-offset: 4px; }
 .not-found-robot { position: relative; width: clamp(150px, 22vw, 240px); }
 .not-found-robot img { position: relative; z-index: 1; display: block; width: 100%; height: auto; }
 .not-found-portal { display: block; width: 130%; margin: -14% 0 0 -15%; overflow: visible; }

@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 import projects from '../../src/features/projects/data/projects.json' with { type: 'json' };
+import { id } from '../../src/constants/languages/id.js';
+import { en } from '../../src/constants/languages/en.js';
 
 test('hero does not flash a flat image while the 3D model loads', async ({ page }) => {
   let releaseModel;
@@ -141,10 +143,36 @@ test('every project contribution is readable by scrolling, without extra control
   const section = page.locator('#projects');
   await expect(section.locator('article.project')).toHaveCount(projects.length);
   for (const project of projects) {
-    const story = section.getByText(project.contribution, { exact: true });
+    const story = section.getByText(id[`project_${project.id.replaceAll('-', '_')}_contribution`], { exact: true });
     await story.scrollIntoViewIfNeeded();
     await expect(story).toBeVisible();
   }
   await expect(section.locator('details, [role="tablist"], [aria-roledescription="carousel"]')).toHaveCount(0);
   await expect(section.getByRole('link')).toHaveCount(0);
+});
+
+test('the English page is a full translation that search engines can pair with the Indonesian one', async ({ page }) => {
+  await page.goto('/en', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://www.ferii-r.my.id/en');
+  await expect(page.locator('link[rel="alternate"][hreflang="id-ID"]')).toHaveAttribute('href', 'https://www.ferii-r.my.id');
+  await expect(page.locator('.hero-copy')).toHaveText(en.hero_intro);
+  await expect(page.getByRole('button', { name: en.contact_submit })).toBeDisabled();
+  await expect(page.locator('#projects').getByText(en.project_elc_contribution, { exact: true })).toBeVisible();
+  // No Indonesian UI copy leaks into the English page.
+  for (const key of ['hero_intro', 'contact_submit', 'project_elc_contribution', 'journey_senja_solutions_description']) {
+    await expect(page.getByText(id[key], { exact: true })).toHaveCount(0);
+  }
+});
+
+test('the language switch moves between / and /en and keeps the section', async ({ page }) => {
+  // Wait for hydration: before it the link still works, it just lands at the top of the other page.
+  await page.goto('/#projects', { waitUntil: 'networkidle' });
+  await page.locator('.header-language').click();
+  await expect(page).toHaveURL(/\/en#projects$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
+  await page.waitForLoadState('networkidle');
+  await page.locator('.header-language').click();
+  await expect(page).toHaveURL(/\/#projects$/);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'id-ID');
 });

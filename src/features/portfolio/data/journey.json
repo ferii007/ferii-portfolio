@@ -1,37 +1,33 @@
 [
   {
     "id": "ultimo-internship",
-    "period": ["Jan–Apr", "2020"],
-    "title": "Magang / Praktik Kerja Lapangan",
     "organization": "PT. Ultimo Solutions",
-    "role": "Testing Engineer",
-    "description": "Menjalani praktik kerja lapangan saat SMK dan mengenal proses pengujian software.",
     "current": false,
     "icon": "/images/journey/testing-engineer.webp",
     "scene": "/images/journey/testing-vignette.webp"
   },
   {
     "id": "smk-graduation",
-    "period": ["2021"],
-    "title": "Lulus SMK",
     "organization": "Balai Perguruan Putri Bandung",
-    "role": "Rekayasa Perangkat Lunak",
-    "description": "Menyelesaikan pendidikan SMK pada tahun 2021.",
     "current": false,
     "icon": "/images/journey/smk-bpp.webp",
     "scene": "/images/journey/school-vignette.webp",
-    "logoBox": { "left": 0, "top": 28, "width": 45 }
+    "logoBox": {
+      "left": 0,
+      "top": 28,
+      "width": 45
+    }
   },
   {
     "id": "senja-solutions",
-    "period": ["Des", "2021–", "Sekarang"],
-    "title": "Berkembang bersama Senja",
     "organization": "Senja Solutions",
-    "role": "Web Developer → Software Engineer",
-    "description": "Memulai sebagai Web Developer, lalu berkembang menjadi Software Engineer. Berkontribusi pada landing page, ReBill POS, serta ReBill POS v2 dan Dashboard v2, dengan fokus pada backend, API, dan alur bisnis aplikasi.",
     "current": true,
     "icon": "/images/journey/senja-solutions.webp",
     "scene": "/images/journey/senja-vignette.webp",
-    "logoBox": { "left": -2, "top": 22, "width": 56 }
+    "logoBox": {
+      "left": -2,
+      "top": 22,
+      "width": 56
+    }
   }
 ]

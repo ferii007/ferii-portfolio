@@ -13,7 +13,7 @@ export function validateProjects(records, { checkImages = false } = {}) {
       errors.push(`${label} must be an object`);
       return;
     }
-    for (const field of ['contribution', 'image', 'demoUrl', 'codeUrl', 'isExample']) {
+    for (const field of ['image', 'demoUrl', 'codeUrl', 'isExample']) {
       if (!Object.hasOwn(project, field)) errors.push(`${label}: ${field} field is required`);
     }
     for (const field of ['id', 'title', 'summary', 'category']) {
@@ -26,7 +26,6 @@ export function validateProjects(records, { checkImages = false } = {}) {
     if (!categories.some((category) => category.id === project.category)) errors.push(`${label}: category is invalid`);
     if (!Array.isArray(project.stack) || project.stack.some((item) => typeof item !== 'string' || !item.trim())) errors.push(`${label}: stack must be an array of technology names`);
     if (typeof project.isExample !== 'boolean') errors.push(`${label}: isExample must be boolean`);
-    if (project.contribution != null && typeof project.contribution !== 'string') errors.push(`${label}: contribution must be text`);
     if (project.presentation != null && !['feature', 'compact'].includes(project.presentation)) errors.push(`${label}: presentation must be feature or compact`);
     for (const field of ['demoUrl', 'codeUrl']) {
       if (project[field] != null) {

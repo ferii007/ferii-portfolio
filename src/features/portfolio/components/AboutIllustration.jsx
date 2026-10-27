@@ -7,7 +7,12 @@ const mugLines = ['Good', 'Ideas', 'Build', 'Better', 'Websites.'];
 const mugIndent = [4, 0, 2, 0, -6];
 const spark = 'M0 -9 8 -14M2 0H11M0 9 8 14';
 
-export default function AboutIllustration() {
+// Handwritten line starts, per line, so each note keeps its slightly uneven hand-drawn indent.
+const fromIndent = [0, 4];
+const stickyX = [1222, 1216, 1220, 1234];
+const lines = (value) => String(value).split('\n');
+
+export default function AboutIllustration({ text }) {
   return (
     <div className="about-art" aria-hidden="true">
       <Image className="about-still-life" src="/images/about/studio-desk.webp" width={1536} height={1024} sizes="(max-width: 767px) 100vw, 880px" alt="" />
@@ -48,11 +53,11 @@ export default function AboutIllustration() {
           {/* Each note uses its page's own axes, measured from the painted wireframes:
               left page baseline rises 7.4° with verticals leaning (0.31, 0.95); right page is nearly level with (0.39, 0.92). */}
           <g transform="matrix(.992 -.129 .31 .951 598 684)">
-            <text><tspan x="0">Dari</tspan><tspan x="4" dy="34">ide</tspan></text>
+            <text>{lines(text.about_art_note_from).map((line, i) => <tspan key={i} x={fromIndent[i] ?? 0} dy={i ? 34 : undefined}>{line}</tspan>)}</text>
             <path className="about-art-stroke" d="M26 50c6 14-2 26-20 32m-1-10 1 11 11 1" />
           </g>
           <g transform="matrix(1 -.015 .389 .921 1108 680)">
-            <text><tspan x="0">… jadi</tspan><tspan x="0" dy="31">website</tspan><tspan x="0" dy="31">nyata.</tspan></text>
+            <text>{lines(text.about_art_note_to).map((line, i) => <tspan key={i} x="0" dy={i ? 31 : undefined}>{line}</tspan>)}</text>
             <path className="about-art-stroke" d="M14 78c24-3 46-4 68-2M10 85c26-3 48-3 68-1" />
           </g>
         </g>
@@ -61,7 +66,7 @@ export default function AboutIllustration() {
           <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="#3d2a10" opacity=".14" transform="translate(6 10)" filter="blur(6px)" />
           <path d="M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z" fill="url(#about-note-paper)" filter="url(#about-paper-grain)" />
           <path d="M1400 158 1400 186C1380 188 1366 189 1352 189Z" fill="#e7d6b2" />
-          <text className="about-art-note-text" transform="rotate(-3 1290 90)"><tspan x="1222" y="30">Ide</tspan><tspan x="1216" dy="44">Kode</tspan><tspan x="1220" dy="44">Website</tspan><tspan x="1234" dy="44">Hidup</tspan></text>
+          <text className="about-art-note-text" transform="rotate(-3 1290 90)">{lines(text.about_art_sticky).map((line, i) => <tspan key={i} x={stickyX[i] ?? 1220} {...(i ? { dy: 44 } : { y: 30 })}>{line}</tspan>)}</text>
           <rect className="about-art-tape" x="1262" y="-66" width="58" height="26" rx="2" transform="rotate(-7 1291 -53)" />
         </g>
       </svg>

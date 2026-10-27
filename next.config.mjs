@@ -37,6 +37,8 @@ const nextConfig = {
   },
   // Dev runs on Turbopack, which needs no workaround; declaring it keeps Next from rejecting the webpack hook.
   turbopack: {},
+  // Two root layouts (app/(id), app/(en)) need one global 404 page.
+  experimental: { globalNotFound: true },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },

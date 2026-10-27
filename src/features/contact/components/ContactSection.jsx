@@ -6,6 +6,8 @@ import { Mail, MessageSquare, Send, UserRound } from 'lucide-react';
 import { siGithub } from 'simple-icons';
 import { site } from '@/content/site';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
+import { useLocalization } from '@/context/LocalizationProvider';
+import Lines from '@/components/typography/Lines';
 
 function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
   const Control = multiline ? 'textarea' : 'input';
@@ -17,8 +19,9 @@ function ContactField({ name, label, Icon, type = 'text', multiline = false }) {
 }
 
 export default function ContactSection() {
+  const { localization: { text } } = useLocalization();
   const { showRobotMessage } = usePortfolioInteraction();
-  // "Kirim Pesan" stays disabled until every field has content and the email is valid.
+  // The submit button stays disabled until every field has content and the email is valid.
   const [complete, setComplete] = useState(false);
   const checkComplete = (event) => {
     const form = event.currentTarget;
@@ -30,16 +33,16 @@ export default function ContactSection() {
     // Local simulation only: no request or storage of the form contents.
     event.currentTarget.reset();
     setComplete(false);
-    showRobotMessage('Oke, pesanmu masuk ke simulasi. Aku pura-pura sibuk dulu.');
+    showRobotMessage(text.contact_sent_message);
   };
   return <section className="section contact-section" id="contact" aria-labelledby="contact-title"><div className="container contact-grid">
-    <div><h2 className="section-title contact-title" id="contact-title">Contact Me<svg viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2><Eyebrow className="contact-eyebrow">Punya ide, pertanyaan, atau sekadar ingin menyapa?</Eyebrow>
-      <form className="contact-form fp-paper" aria-label="Form kontak demo" onSubmit={submitDemo} onInput={checkComplete}>
+    <div><h2 className="section-title contact-title" id="contact-title">{text.contact_title}<svg viewBox="0 0 34 42" fill="none" aria-hidden="true"><path d="m10 12 9-9M13 23l16-3M12 33l11 5" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" /></svg></h2><Eyebrow className="contact-eyebrow">{text.contact_eyebrow}</Eyebrow>
+      <form className="contact-form fp-paper" aria-label={text.contact_form_label} onSubmit={submitDemo} onInput={checkComplete}>
         <span className="fp-tape contact-tape" aria-hidden="true" />
-        <ContactField name="name" label="Nama" Icon={UserRound} />
-        <ContactField name="email" label="Email" Icon={Mail} type="email" />
-        <ContactField name="message" label="Pesan" Icon={MessageSquare} multiline />
-        <button className="contact-submit" type="submit" disabled={!complete}>Kirim Pesan <Send size={19} aria-hidden="true" /></button>
+        <ContactField name="name" label={text.contact_name} Icon={UserRound} />
+        <ContactField name="email" label={text.contact_email} Icon={Mail} type="email" />
+        <ContactField name="message" label={text.contact_message} Icon={MessageSquare} multiline />
+        <button className="contact-submit" type="submit" disabled={!complete}>{text.contact_submit} <Send size={19} aria-hidden="true" /></button>
       </form>
     </div>
     <div className="contact-side"><div className="contact-illustration" aria-hidden="true"><Image src="/images/contact/letter-studio.webp" width={1448} height={1086} alt="" sizes="(max-width: 767px) 100vw, 800px" />
@@ -47,7 +50,7 @@ export default function ContactSection() {
         <svg className="contact-letter" viewBox="0 0 1448 1086" fill="none">
           <defs><clipPath id="contact-letter-face"><path d="M332 457 905 348 959 555 813 672 630 697 292 563Z" /></clipPath></defs>
           <g clipPath="url(#contact-letter-face)" className="contact-letter-ink">
-            <text transform="translate(452 572) rotate(-10.8)" fontSize="96">Hi, Feri!</text>
+            <text transform="translate(452 572) rotate(-10.8)" fontSize="96">{text.contact_letter_greeting}</text>
             <path className="contact-letter-line" d="M500 618c70-10 150-26 228-44" />
             <text transform="translate(668 652) rotate(-10.8)" fontSize="64">:)</text>
           </g>
@@ -73,7 +76,7 @@ export default function ContactSection() {
             <g transform="translate(1078 397)"><path className="chat-holo-ghost" d="M-58-2 54-47 2 48-16 13Z M-16 13 54-47" /></g>
           </g>
         </svg>
-        <div className="contact-handnote"><p className="hand-note">Mari terhubung<br />dan bertukar cerita!</p><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></div></div>
+        <div className="contact-handnote"><p className="hand-note"><Lines text={text.contact_handnote} /></p><svg viewBox="0 0 68 54" fill="none"><path d="M61 9C36 8 16 21 12 43M7 33l5 12 12-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg></div></div>
       <div className="contact-socials"><a href={site.contact.github} target="_blank" rel="noopener noreferrer"><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={siGithub.path} /></svg><span><strong>GitHub</strong></span></a><a href={site.contact.linkedin} target="_blank" rel="noopener noreferrer"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="3" fill="currentColor" /><circle cx="5.5" cy="6" r="1.7" fill="white" /><path d="M4 9h3v11H4zm5 0h3v1.5c1-1.6 6-2.6 6 3V20h-3v-6c0-2.5-3-2.5-3 0v6H9z" fill="white" /></svg><span><strong>LinkedIn</strong></span></a></div>
     </div>
   </div></section>;

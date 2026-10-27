@@ -1,22 +1,14 @@
+// Language-neutral site facts. Everything a visitor reads lives in src/constants/languages/*.js.
 export const site = {
   hero: {
     name: 'Feri Ramdani',
-    role: 'Full Stack Developer',
-    intro: 'Aku suka membangun website, mencoba ide baru, dan belajar lewat prosesnya.',
   },
-  about: {
-    lead: 'Biasa dipanggil Feri atau Pei. Aku senang menghubungkan tampilan yang nyaman digunakan dengan logika di baliknya.',
-    detail: 'Aku terus belajar lewat proyek, perjalanan, dan hal-hal yang sedang kupelajari.',
-  },
-  currently: [
-    { title: 'Membangun', detail: 'Proyek web' },
-    { title: 'Mempelajari', detail: 'Interaksi antarmuka' },
-    { title: 'Mengeksplorasi', detail: 'Ide personal' },
-  ],
+  // Each card's title, detail and robot message are locale keys built from its id (beyond_<id>_title, ...).
   beyond: [
-    { title: 'Cerita & Tulisan', image: '/images/beyond/notebook.webp', detail: 'Pemikiran dan pengalaman yang ingin kudokumentasikan.', message: 'Belum bisa dibuka. Sabar dong, aku juga masih nunggu.' },
-    { title: 'Momen & Perjalanan', image: '/images/beyond/mountains.webp', detail: 'Tempat dan momen yang memberi inspirasi untuk terus berkarya.', message: 'Momennya belum bisa dilihat. Jangan buru-buru, dong.' },
+    { id: 'stories', image: '/images/beyond/notebook.webp' },
+    { id: 'moments', image: '/images/beyond/mountains.webp' },
   ],
+  currently: ['building', 'learning', 'exploring'],
   contact: {
     github: 'https://github.com/ferii007',
     linkedin: 'https://www.linkedin.com/in/feri-ramdani/',

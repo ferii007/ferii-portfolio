@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { interpolate } from '@/constants/localization';
 
 // U01 ledge, U02 books + plant and the robot's landing pad are separate layers so each can drift a little on scroll.
 const ledgeRim = 'M60 330L780 330C890 333 960 376 1060 394C1110 401 1160 400 1220 400L1420 398C1600 388 1770 377 1880 359';
@@ -46,6 +48,7 @@ function FooterStudio() {
 }
 
 export default function Footer() {
+  const { localization: { text } } = useLocalization();
   const footerRef = useRef(null);
 
   useEffect(() => {
@@ -75,8 +78,8 @@ export default function Footer() {
   return <footer ref={footerRef} className="site-footer">
     <FooterStudio />
     <div className="container footer-content">
-      <a className="brand fp-logo footer-brand" href="#top" aria-label="Feri, kembali ke atas">feri<span>.</span></a>
-      <p className="footer-copyright">© {new Date().getFullYear()} Feri Ramdani. All rights reserved.</p>
+      <a className="brand fp-logo footer-brand" href="#top" aria-label={text.logo_back_to_top}>feri<span>.</span></a>
+      <p className="footer-copyright">{interpolate(text.footer_copyright, { year: new Date().getFullYear() })}</p>
     </div>
   </footer>;
 }

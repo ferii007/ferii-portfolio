@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { validateProjects } from './projects';
 
-const valid = { id: 'sample', title: 'Sample', summary: 'A sample project', contribution: '', image: null, stack: ['Next.js'], category: 'featured', demoUrl: null, codeUrl: null, isExample: true };
+const valid = { id: 'sample', title: 'Sample', summary: 'A sample project', image: null, stack: ['Next.js'], category: 'featured', demoUrl: null, codeUrl: null, isExample: true };
 
 describe('project data contract', () => {
   it('accepts a complete example without external links', () => {

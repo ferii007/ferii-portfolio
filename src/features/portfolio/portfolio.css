@@ -505,3 +505,9 @@
   .beyond-handnote .hand-note { font-size: 19px; }
 }
 
+/* Language switch (header + mobile menu): a small pill that links to the other language's page. */
+.language-switch { display: inline-flex; flex: none; align-items: center; gap: 6px; min-height: 40px; padding: 0 12px; border: 1px solid rgb(0 103 208 / 25%); border-radius: var(--radius-pill); color: var(--color-primary); font-size: 14px; font-weight: 700; letter-spacing: .04em; text-decoration: none; transition: background 160ms, border-color 160ms; }
+.language-switch:is(:hover, :focus-visible) { border-color: var(--color-primary); background: var(--color-paper-blue); }
+.header-language { margin-right: 14px; }
+.mobile-menu-links .mobile-language { align-self: flex-start; margin: 6px 0 4px 12px; color: var(--color-primary); }
+@media (max-width: 900px) { .header-language { display: none; } }

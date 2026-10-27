@@ -18,4 +18,18 @@ describe('Wikipedia summaries', () => {
     const error = new DOMException('Aborted', 'AbortError');
     await expect(fetchSkillSummary('React', { fetchImpl: async () => { throw error; } })).rejects.toBe(error);
   });
+  it('reads the page language edition first and falls back to English when it has no article', async () => {
+    const fetchImpl = vi.fn(async (url) => (url.startsWith('https://id.')
+      ? { ok: false, status: 404 }
+      : { ok: true, json: async () => ({ title: 'Postman', extract: 'An API platform.' }) }));
+    const data = await fetchSkillSummary('Postman (software)', { fetchImpl, language: 'id' });
+    expect(fetchImpl.mock.calls.map(([url]) => new URL(url).host)).toEqual(['id.wikipedia.org', 'en.wikipedia.org']);
+    expect(data.url).toBe('https://en.wikipedia.org/wiki/Postman_(software)');
+  });
+  it('keeps the Indonesian article when the id edition has one', async () => {
+    const fetchImpl = vi.fn(async () => ({ ok: true, json: async () => ({ title: 'HTML', extract: 'Bahasa markah.' }) }));
+    const data = await fetchSkillSummary('HTML', { fetchImpl, language: 'id' });
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+    expect(data).toMatchObject({ extract: 'Bahasa markah.', url: 'https://id.wikipedia.org/wiki/HTML' });
+  });
 });

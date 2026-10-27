@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import { createPortal } from 'react-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { interpolate } from '@/constants/localization';
 import RobotFallback from './RobotFallback';
 import RobotErrorBoundary from './RobotErrorBoundary';
 import HologramBeam from './HologramBeam';
@@ -11,6 +13,7 @@ import { DEPARTURE_DURATION } from '../departureMotion';
 const RobotCanvas = dynamic(() => import('./RobotCanvas'), { ssr: false });
 
 export default function RobotExperience() {
+  const { localization: { text } } = useLocalization();
   const { state, setHeroVisible, completeHeroReturn, cycleExpression, dismissRobotMessage } = usePortfolioInteraction();
   const [reducedMotion, setReducedMotion] = useState(true);
   const [canvasReady, setCanvasReady] = useState(false);
@@ -69,14 +72,14 @@ export default function RobotExperience() {
     if (event.animationName === 'robot-landing') setLanded(true);
   }}>
     <div className="robot-figure">
-      {!showCanvas && <RobotFallback expression={expression} />}
+      {!showCanvas && <RobotFallback expression={expression} alt={interpolate(text.robot_fallback_alt, { expression })} />}
       {showCanvas && <RobotErrorBoundary onError={onError}><RobotCanvas expression={expression} projecting={projecting && !footer} departing={returning} reducedMotion={reducedMotion} hero={hero || (footer && !landing)} framing={footer ? 'footer' : 'default'} instant={footer} onReady={onReady} onProjectorPosition={setBeamOrigin} /></RobotErrorBoundary>}
     </div>
     {!hero && !returning && <div className="robot-speech" role="status" aria-live="polite" aria-atomic="true">
       {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
     </div>}
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
-    {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label="Ubah ekspresi robot" title="Klik robot untuk mengubah ekspresi" />}
+    {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label={text.robot_change_expression} title={text.robot_change_expression_hint} />}
   </div>;
   return hero ? robot : createPortal(robot, footer ? footerSlot : document.body);
 }
