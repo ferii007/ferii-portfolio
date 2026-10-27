@@ -64,6 +64,9 @@
   .project--feature, .project--feature:nth-child(even of .project--feature), .project--compact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
   .project--feature .project-note { margin-top: 0; }
   .project-note { padding: 22px 24px; }
+}
+/* Tablet: paired cards get a full row each, so image and story stay readable side by side. */
+@media (min-width: 768px) and (max-width: 1100px) {
   .project-group--pairs .project-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 767px) {

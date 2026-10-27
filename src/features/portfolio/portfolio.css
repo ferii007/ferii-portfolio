@@ -494,7 +494,8 @@
   .beyond-card-accent { right: 1.7cqw; bottom: 1.9cqw; width: 4.2cqw; height: 4.2cqw; }
   .beyond-card-accent svg { width: 1.8cqw; height: 1.8cqw; }
 }
-@media (max-width: 1023px) {
+/* Below the desktop stage the two cards stack, so titles like "Momen & Perjalanan" keep one line. */
+@media (max-width: 1100px) {
   .beyond-grid { grid-template-columns: 1fr; gap: 18px; }
   .beyond-card { grid-template-columns: 200px minmax(0, 1fr); }
 }
