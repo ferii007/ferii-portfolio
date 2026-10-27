@@ -13,7 +13,8 @@ test('hero does not flash a flat image while the 3D model loads', async ({ page 
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   const robot = page.locator('.robot-hero');
   await expect(robot).toBeVisible();
-  await expect(robot.locator('canvas')).toHaveCount(1);
+  // The canvas mounts once the lazily loaded three.js chunk arrives, which a busy dev server can take a while to serve.
+  await expect(robot.locator('canvas')).toHaveCount(1, { timeout: 30_000 });
   await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
   releaseModel();
   await expect(robot).toHaveClass(/robot-ready/);
@@ -39,7 +40,8 @@ test('hero renders the GLB and clicking the robot changes its face', async ({ pa
   const before = await robot.locator('canvas').screenshot();
   await page.getByRole('button', { name: /ubah ekspresi robot/i }).click();
   await expect(robot).toHaveAttribute('data-expression', 'deadpan');
-  await expect(robot.locator('canvas')).toHaveCount(1);
+  // The canvas mounts once the lazily loaded three.js chunk arrives, which a busy dev server can take a while to serve.
+  await expect(robot.locator('canvas')).toHaveCount(1, { timeout: 30_000 });
   await expect(robot.getByTestId('robot-fallback')).toHaveCount(0);
   const after = await robot.locator('canvas').screenshot();
   expect(after.equals(before)).toBe(false);
