@@ -132,11 +132,11 @@ export default function ChatPanel({ open, onClose, onThinking }) {
         {message.at && <time className="chat-time" dateTime={new Date(message.at).toISOString()}>{localization.time(message.at)}</time>}
       </li>)}
     </ol>
-    <div className={`chat-quick${messages.length ? ' chat-quick--compact' : ''}`} role="group" aria-label={text.chat_quick_label}>
+    <div className="chat-quick" role="group" aria-label={text.chat_quick_label}>
       {QUICK_QUESTIONS.map((question) => <button key={question.id} type="button" onClick={() => askQuick(question)} disabled={busy}>{text[localeKey('chat_quick', question.id)]}</button>)}
     </div>
     <form className="chat-form" onSubmit={onSubmit}>
-      <textarea ref={inputRef} rows={1} value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={onKeyDown} maxLength={CHAT_LIMITS.messageLength} placeholder={text.chat_placeholder} aria-label={text.chat_placeholder} autoComplete="off" />
+      <textarea ref={inputRef} rows={1} value={draft} onChange={(event) => setDraft(event.target.value)} onKeyDown={onKeyDown} maxLength={CHAT_LIMITS.messageLength} placeholder={text.chat_placeholder} aria-label={text.chat_placeholder} autoComplete="off" data-gramm="false" data-gramm_editor="false" data-enable-grammarly="false" />
       <button type="submit" disabled={busy || !draft.trim()} aria-label={text.chat_send}><SendHorizontal size={20} /></button>
     </form>
     <p className="chat-note">{text.chat_note}</p>

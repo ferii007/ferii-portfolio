@@ -21,10 +21,8 @@
 .chat-profile-link { color: var(--color-primary-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
 .chat-thinking { color: var(--color-muted); font-family: var(--font-hand); font-size: 20px; }
 .chat-section-link { display: flex; width: fit-content; align-items: center; gap: 4px; margin-top: 6px; color: var(--color-primary-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
-/* Quick questions as small sticky notes: all on show before the first question, then one row that scrolls sideways,
-   so the conversation keeps the room. */
-.chat-quick { display: flex; flex-wrap: wrap; gap: 8px 10px; padding: 12px 24px 10px; }
-.chat-quick--compact { flex-wrap: nowrap; padding-block: 10px 8px; overflow-x: auto; scrollbar-width: none; }
+/* Quick questions as small sticky notes in one row that scrolls sideways, so the conversation keeps the room. */
+.chat-quick { display: flex; gap: 10px; padding: 12px 24px 10px; overflow-x: auto; scrollbar-width: none; }
 .chat-quick button { flex: none; padding: 8px 11px; border: 0; border-radius: 2px; background: var(--color-paper-yellow); box-shadow: 0 2px 4px rgb(87 63 35 / 14%); color: var(--color-paper-ink); font-size: 12.5px; font-weight: 700; cursor: pointer; transform: rotate(-1.5deg); transition: transform var(--motion-fast) ease-out; }
 .chat-quick button:nth-child(even) { background: var(--color-paper-blue); transform: rotate(1.2deg); }
 .chat-quick button:hover:not(:disabled) { transform: rotate(0) translateY(-2px); }
