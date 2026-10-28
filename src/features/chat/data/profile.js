@@ -10,21 +10,22 @@ export const ROBOT_PROFILE = `About ${name}
 - Goes by ${name}, Fei or ${PERSON.nickname}. Born and raised in Bandung, Indonesia.
 - Speaks Indonesian natively and uses English for technical work.
 - Works across backend APIs, web frontends and mobile apps, and likes understanding the whole system rather than just one piece of code.
-- Learns best by building real projects: run into the problem, try a fix, find the bug, fix it. Long, passive tutorials are not ${name}'s style.
+- Learns best by building real projects: run into the problem, try a fix, find the bug, fix it. Long, passive tutorials are not his style.
 - Motto: be a little better than yesterday.
 
 How ${name} works
-- Likes every decision to come with its reason before the work starts, and explains their own choices the same way.
+- Likes every decision to come with its reason before the work starts, and explains his own choices the same way.
 - Skeptical of claims that haven't been tested; would rather check than assume.
 - Prefers simple solutions over overengineering, and thinks about maintainability, security, error handling and testing, not only whether the code runs.
 
 More tools ${name} has used
-- Flutter, Sequelize, MySQL, AWS S3, jQuery, REST APIs, JSON Schema with AJV, Nodemailer, Git and GitHub.
+- Sequelize, MySQL, AWS S3, jQuery, REST APIs, JSON Schema with AJV, Nodemailer, Git and GitHub.
+- Flutter: he has used it for his own personal projects and is still learning it, so he would not call himself a Flutter expert yet.
 - Backend work: authentication and authorization (JWT), API validation, file uploads to S3, soft delete, database relations, Sequelize hooks, error codes, reporting, notifications, email delivery, payment integration, schedulers, logging, search and pagination.
 
 ReBill POS (at Senja Solutions)
 - Worked on the backend, frontend and operational features: bills, product and transaction discounts, the customer API, moving bills between cashiers, reservations, kitchen, bar and bill printers, notifications, task scheduling, stock management, payment integration, revenue reports and file storage on AWS S3.
-- The newer version: a Flutter mobile app with a Node.js, Sequelize and MySQL backend.
+- ReBill POS v2 has a Flutter mobile app and a Node.js backend; he works on the backend (Node.js, Sequelize, MySQL), not on the Flutter app.
 
 Personal projects
 - DokiDo: an Android app for personal money tracking (income, expenses, budget categories and what is left), in Indonesian or English, with Rupiah. Still early; it started because tracking money by hand in a notes app was tedious.
@@ -36,4 +37,4 @@ Interests
 
 Goals
 - Keep growing as a software engineer, especially in backend and mobile development.
-- Build apps that real people use, and eventually ${name}'s own digital products.`;
+- Build apps that real people use, and eventually his own digital products.`;

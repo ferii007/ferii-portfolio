@@ -40,7 +40,7 @@ export const quickAnswer = (id, localization) => interpolate(localization.text[l
 export function portfolioFacts(localization) {
   const { text } = localization;
   return [
-    `Name: ${PERSON.name} (friends call them ${PERSON.firstName} or ${PERSON.nickname})`,
+    `Name: ${PERSON.name} (friends call him ${PERSON.firstName} or ${PERSON.nickname})`,
     `Role: ${PERSON.role}`,
     `Website: ${SITE_URL}`,
     `About: ${text.about_lead} ${text.about_detail}`,
