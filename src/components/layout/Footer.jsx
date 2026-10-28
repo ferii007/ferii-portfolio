@@ -38,7 +38,7 @@ function FooterStudio() {
       {/* Landing pad: while the footer is on screen the real robot (hero pose) stands here instead of floating. */}
       <div className="footer-pad">
         <svg className="fp-overlay footer-portal" viewBox="0 0 400 120" fill="none" aria-hidden="true">
-          <defs><radialGradient id="footer-portal-core" cx=".5" cy=".5" r=".5"><stop stopColor="#f2fdff" /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".7" stopColor="#58dfff" stopOpacity=".35" /><stop offset="1" stopColor="#58dfff" stopOpacity="0" /></radialGradient></defs>
+          <defs><radialGradient id="footer-portal-core" cx=".5" cy=".5" r=".5"><stop style={{ stopColor: 'var(--color-holo-bright)' }} /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".7" style={{ stopColor: 'var(--color-cyan)' }} stopOpacity=".35" /><stop offset="1" style={{ stopColor: 'var(--color-cyan)' }} stopOpacity="0" /></radialGradient></defs>
           <ellipse className="footer-portal-core" cx="200" cy="60" rx="170" ry="44" fill="url(#footer-portal-core)" />
           <ellipse className="footer-portal-ring footer-portal-ring--a" cx="200" cy="60" rx="70" ry="17" pathLength="100" />
           <ellipse className="footer-portal-ring footer-portal-ring--b" cx="200" cy="61" rx="112" ry="28" pathLength="100" />

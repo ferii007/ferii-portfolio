@@ -1,0 +1,21 @@
+# Weekly update PRs, so security fixes (like the Next.js 16.3 advisories) show up without anyone checking by hand.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      # Next and its ESLint config move together; so do the three.js packages.
+      next:
+        patterns: ["next", "eslint-config-next"]
+      three:
+        patterns: ["three", "@react-three/*"]
+      dev-tooling:
+        dependency-type: development
+        update-types: ["minor", "patch"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

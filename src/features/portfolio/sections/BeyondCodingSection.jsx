@@ -33,7 +33,7 @@ function BeyondStudio({ text }) {
         a light cone up to the panel, edge rays and motes rising through the beam. */}
     <svg className="fp-overlay fp-overlay--inert holo-cast" viewBox="0 0 1500 750" fill="none" style={{ '--cast-origin': '548px 396px' }}>
       <defs>
-        <linearGradient id="beyond-holo-beam" x1="0" y1="1" x2="0" y2="0"><stop stopColor="#e6fcff" /><stop offset=".45" stopColor="#8ceaff" stopOpacity=".9" /><stop offset="1" stopColor="#58dfff" stopOpacity=".4" /></linearGradient>
+        <linearGradient id="beyond-holo-beam" x1="0" y1="1" x2="0" y2="0"><stop style={{ stopColor: 'var(--color-holo-light)' }} /><stop offset=".45" stopColor="#8ceaff" stopOpacity=".9" /><stop offset="1" style={{ stopColor: 'var(--color-cyan)' }} stopOpacity=".4" /></linearGradient>
         {/* Occlusion mask made from the artwork's pixels: the light shows only where no book, journal or prop is in front. */}
         <mask id="beyond-holo-behind" maskUnits="userSpaceOnUse" x="0" y="0" width="1500" height="750"><image href="/images/beyond/journal-holo-mask.png" width="1500" height="750" /></mask>
         {/* Left edge fades out along the panel's border, with a slightly uneven falloff, instead of a hard cut. */}

@@ -10,6 +10,7 @@ import RobotErrorBoundary from './RobotErrorBoundary';
 import HologramBeam from './HologramBeam';
 import { DEPARTURE_DURATION } from '../departureMotion';
 import useReducedMotion from '@/lib/useReducedMotion';
+import { reportClientError } from '@/lib/reportError';
 
 const RobotCanvas = dynamic(() => import('./RobotCanvas'), { ssr: false });
 
@@ -21,7 +22,8 @@ export default function RobotExperience() {
   const [canvasFailed, setCanvasFailed] = useState(false);
   const [beamOrigin, setBeamOrigin] = useState(null);
   const onReady = useCallback(() => setCanvasReady(true), []);
-  const onError = useCallback(() => setCanvasFailed(true), []);
+  // The 3D scene failing is caught by RobotErrorBoundary (the fallback image shows), so report it explicitly.
+  const onError = useCallback((error) => { setCanvasFailed(true); reportClientError('robot', error); }, []);
 
   useEffect(() => {
     const hero = document.getElementById('hero');

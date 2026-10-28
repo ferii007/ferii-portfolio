@@ -29,7 +29,7 @@ export default function SkillsSection() {
       {/* Floor projector under the panel: bright core plus rings that spin at different speeds. */}
       <svg className="skills-portal" viewBox="0 0 1400 240" fill="none" preserveAspectRatio="none" aria-hidden="true">
         <defs>
-          <radialGradient id="skills-portal-core" cx=".5" cy=".5" r=".5"><stop stopColor="#f2fdff" /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".65" stopColor="#58dfff" stopOpacity=".4" /><stop offset="1" stopColor="#58dfff" stopOpacity="0" /></radialGradient>
+          <radialGradient id="skills-portal-core" cx=".5" cy=".5" r=".5"><stop style={{ stopColor: 'var(--color-holo-bright)' }} /><stop offset=".3" stopColor="#9cecff" stopOpacity=".9" /><stop offset=".65" style={{ stopColor: 'var(--color-cyan)' }} stopOpacity=".4" /><stop offset="1" style={{ stopColor: 'var(--color-cyan)' }} stopOpacity="0" /></radialGradient>
         </defs>
         <ellipse className="skills-portal-core" cx="700" cy="64" rx="600" ry="58" fill="url(#skills-portal-core)" />
         <ellipse className="skills-ring skills-ring--a" cx="700" cy="66" rx="320" ry="28" pathLength="100" />
