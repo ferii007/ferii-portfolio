@@ -108,6 +108,28 @@ export const en = {
 	contact_sent_message: "Okay, your message went into the simulation. I'll pretend to be busy now.",
 	contact_handnote: "Let's connect\nand swap stories!",
 
+	// Robot chat
+	chat_open: "Ask me",
+	chat_title: "Chat with {firstName}'s robot",
+	chat_close: "Close chat",
+	chat_intro: "Hey! I'm {firstName}'s robot sidekick. Curious about anything? Ask away, just don't hand me your homework.",
+	chat_quick_label: "Quick questions",
+	chat_quick_experience: "Where has {firstName} worked?",
+	chat_quick_skills: "What are the go-to skills?",
+	chat_quick_projects: "What has {firstName} built?",
+	chat_quick_contact: "How can I reach {firstName}?",
+	chat_answer_experience: "Here's {firstName}'s road so far:\n{items}",
+	chat_answer_skills: "Mostly {highlight}. Also pretty comfy with {others}.",
+	chat_answer_projects: "The proudest ones: {projects}. The rest are in Projects, go take a peek.",
+	chat_answer_contact: "Quickest way is {profiles}. No biting, promise.",
+	chat_see_section: "Go to {section}",
+	chat_placeholder: "Ask anything about {firstName}...",
+	chat_send: "Send question",
+	chat_thinking: "Hang on, thinking...",
+	chat_unavailable: "My brain's taking a quick nap. Try the quick questions below for now.",
+	chat_rate_limited: "Whoa, easy there. Give me a minute, I'm out of breath.",
+	chat_note: "Answered by AI, so it might miss. Please don't type personal info.",
+
 	// Footer
 	footer_copyright: "© {year} {name}. All rights reserved.",
 

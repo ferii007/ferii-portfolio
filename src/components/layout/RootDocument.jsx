@@ -6,6 +6,7 @@ import '@/features/portfolio/portfolio.css';
 import '@/features/contact/contact.css';
 import '@/features/robot/robot.css';
 import '@/features/skills/skills.css';
+import '@/features/chat/chat.css';
 import '@/app/responsive.css';
 import '@/components/layout/footer.css';
 import { getLocalization } from '@/constants/localization';

@@ -74,7 +74,7 @@ describe('localization', () => {
   // (a skill, a project title) must use its own placeholder, or it would silently show the person's name.
   it('keeps PERSON placeholders for the person only', () => {
     const personKeys = Object.keys(PERSON);
-    const personCopy = ['logo_back_to_top', 'not_found_logo', 'hero_robot_label', 'robot_fallback_alt', 'about_lead', 'footer_copyright', 'seo_description', 'seo_share_description'];
+    const personCopy = ['logo_back_to_top', 'not_found_logo', 'hero_robot_label', 'robot_fallback_alt', 'about_lead', 'footer_copyright', 'seo_description', 'seo_share_description', 'chat_title', 'chat_intro', 'chat_quick_experience', 'chat_quick_projects', 'chat_quick_contact', 'chat_answer_experience', 'chat_placeholder'];
     for (const [code, strings] of Object.entries(languages)) {
       for (const [key, value] of Object.entries(strings)) {
         if (personKeys.some((field) => placeholders(value).includes(field))) expect(personCopy, `${code}.${key} uses a PERSON placeholder`).toContain(key);

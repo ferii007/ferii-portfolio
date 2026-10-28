@@ -14,6 +14,9 @@ export function InteractionProvider({ children }) {
     closeSkill: () => dispatch({ type: 'SKILL_CLOSED' }),
     showRobotMessage: (message) => dispatch({ type: 'ROBOT_MESSAGE_SHOWN', message }),
     dismissRobotMessage: () => dispatch({ type: 'ROBOT_MESSAGE_DISMISSED' }),
+    toggleChat: () => dispatch({ type: 'CHAT_TOGGLED' }),
+    closeChat: () => dispatch({ type: 'CHAT_CLOSED' }),
+    setChatThinking: (thinking) => dispatch({ type: 'CHAT_THINKING', thinking }),
   }), []);
   return <InteractionContext.Provider value={{ state, ...actions }}>{children}</InteractionContext.Provider>;
 }

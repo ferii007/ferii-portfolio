@@ -1,0 +1,39 @@
+/* Robot chat: a launcher pill on the robot and a hologram panel in the corner (same surface as the skill dialog). */
+.robot-chat-launcher { position: absolute; z-index: 8; left: 50%; bottom: 0; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 16px; border: 1px solid rgb(from var(--color-cyan) r g b / 70%); border-radius: 999px; background: var(--surface-holo-panel); color: var(--color-on-holo); font-size: 14px; font-weight: 800; white-space: nowrap; box-shadow: 0 0 0 3px rgb(from var(--color-cyan) r g b / 14%), 0 8px 22px rgb(8 24 39 / 28%); cursor: pointer; pointer-events: auto; transform: translateX(-50%); }
+.robot-chat-launcher svg { flex: none; color: var(--color-cyan); }
+.robot-chat-launcher:hover { box-shadow: 0 0 0 4px rgb(from var(--color-cyan) r g b / 24%), 0 0 18px rgb(from var(--color-cyan) r g b / 35%), 0 8px 22px rgb(8 24 39 / 28%); }
+.robot-chat-launcher:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
+.robot-companion .robot-chat-launcher { bottom: 6px; }
+
+.chat-panel { position: fixed; z-index: 55; right: 24px; bottom: 24px; display: flex; flex-direction: column; width: min(380px, calc(100vw - 24px)); height: min(560px, calc(100dvh - 120px)); border: 1px solid rgb(from var(--color-cyan) r g b / 75%); border-radius: 22px; background: var(--surface-holo-panel); color: var(--color-on-holo); box-shadow: var(--shadow-holo-panel); backdrop-filter: blur(16px); overflow: hidden; }
+.chat-panel[hidden] { display: none; }
+/* The floating robot keeps its corner, so the panel opens beside it. */
+.chat-panel--beside-robot { right: 210px; }
+.chat-panel :focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+.chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 12px 12px 20px; border-bottom: 1px solid rgb(from var(--color-cyan) r g b / 35%); }
+.chat-head h2 { margin: 0; color: var(--color-on-holo); font-family: var(--font-display); font-size: 19px; font-weight: 650; line-height: 1.25; }
+.chat-log { display: flex; flex: 1; flex-direction: column; gap: 10px; margin: 0; padding: 16px 16px 8px; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
+.chat-message { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 14.5px; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; }
+.chat-message--robot { align-self: flex-start; border: 1px solid rgb(from var(--color-cyan) r g b / 25%); border-bottom-left-radius: 6px; background: rgb(255 255 255 / 7%); }
+.chat-message--visitor { align-self: flex-end; border-bottom-right-radius: 6px; background: var(--color-primary); color: var(--color-white); }
+.chat-thinking { color: var(--color-on-holo-muted); font-style: italic; }
+.chat-section-link { display: block; margin-top: 6px; color: var(--color-cyan); font-size: 13px; font-weight: 800; }
+.chat-quick { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
+.chat-quick button { flex: none; padding: 7px 12px; border: 1px solid rgb(from var(--color-cyan) r g b / 55%); border-radius: 999px; background: transparent; color: var(--color-cyan); font-size: 13px; font-weight: 700; cursor: pointer; }
+.chat-quick button:hover:not(:disabled) { background: rgb(from var(--color-cyan) r g b / 14%); }
+.chat-quick button:disabled { opacity: .5; cursor: default; }
+.chat-form { display: flex; gap: 8px; padding: 8px 16px 6px; }
+/* 16px text keeps iOS from zooming into the field. */
+.chat-form input { flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; border: 1px solid rgb(from var(--color-cyan) r g b / 45%); border-radius: 12px; background: rgb(255 255 255 / 7%); color: var(--color-on-holo); font: inherit; font-size: 16px; }
+.chat-form input::placeholder { color: var(--color-on-holo-muted); opacity: .8; }
+.chat-form button { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--color-primary); color: var(--color-white); cursor: pointer; }
+.chat-form button:disabled { background: rgb(255 255 255 / 10%); color: var(--color-on-holo-muted); cursor: default; }
+.chat-note { margin: 0; padding: 4px 16px 12px; color: var(--color-on-holo-muted); font-size: 11.5px; line-height: 1.4; }
+@media (prefers-reduced-motion: no-preference) {
+  .chat-panel:not([hidden]) { animation: skill-project-in 280ms ease-out both; }
+  .chat-thinking { animation: chat-thinking 1.2s ease-in-out infinite alternate; }
+}
+@keyframes chat-thinking { from { opacity: .45; } to { opacity: 1; } }
+@media (max-width: 767px) {
+  .chat-panel, .chat-panel--beside-robot { right: 12px; bottom: 12px; left: 12px; width: auto; height: min(560px, calc(100dvh - 96px)); }
+}

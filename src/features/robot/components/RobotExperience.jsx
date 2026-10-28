@@ -1,6 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { createPortal } from 'react-dom';
+import { MessageCircle } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -13,10 +14,12 @@ import useReducedMotion from '@/lib/useReducedMotion';
 import { reportClientError } from '@/lib/reportError';
 
 const RobotCanvas = dynamic(() => import('./RobotCanvas'), { ssr: false });
+// The chat code loads only when a visitor first opens it.
+const ChatPanel = dynamic(() => import('@/features/chat/components/ChatPanel'), { ssr: false });
 
 export default function RobotExperience() {
   const { localization: { text } } = useLocalization();
-  const { state, setHeroVisible, completeHeroReturn, cycleExpression, dismissRobotMessage } = usePortfolioInteraction();
+  const { state, setHeroVisible, completeHeroReturn, cycleExpression, dismissRobotMessage, toggleChat, closeChat, setChatThinking } = usePortfolioInteraction();
   const reducedMotion = useReducedMotion();
   const [canvasReady, setCanvasReady] = useState(false);
   const [canvasFailed, setCanvasFailed] = useState(false);
@@ -24,6 +27,9 @@ export default function RobotExperience() {
   const onReady = useCallback(() => setCanvasReady(true), []);
   // The 3D scene failing is caught by RobotErrorBoundary (the fallback image shows), so report it explicitly.
   const onError = useCallback((error) => { setCanvasFailed(true); reportClientError('robot', error); }, []);
+  // Mounted on first open and kept, so the conversation survives closing the panel.
+  const [chatLoaded, setChatLoaded] = useState(false);
+  const onChatToggle = () => { setChatLoaded(true); toggleChat(); };
 
   useEffect(() => {
     const hero = document.getElementById('hero');
@@ -61,7 +67,8 @@ export default function RobotExperience() {
   const footer = Boolean(footerSlot) && !hero && !returning;
   // Arriving at the footer it flies in (thrusters on) and touches down on the pad, then stands in its hero pose.
   const landing = footer && !landed && !reducedMotion;
-  const expression = hero ? state.expression : 'side-eye';
+  // A blank stare while it waits for the AI's answer.
+  const expression = state.chatThinking ? 'deadpan' : hero ? state.expression : 'side-eye';
   const projecting = Boolean(state.activeSkillId) && !returning;
   const robot = <div className={`robot-experience robot-${hero ? 'hero' : footer ? 'footer' : 'companion'}${landing ? ' robot-landing' : ''}${returning ? ' robot-returning' : ''}${showCanvas && canvasReady ? ' robot-ready' : ''}`} style={{ '--robot-departure-duration': `${DEPARTURE_DURATION}ms` }} data-location={state.location} data-expression={expression} onAnimationEnd={(event) => {
     if (event.animationName === 'robot-departure') completeHeroReturn();
@@ -75,7 +82,9 @@ export default function RobotExperience() {
       {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
     </div>}
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
+    <button className="robot-chat-launcher" type="button" onClick={onChatToggle} aria-expanded={state.chatOpen} aria-controls="chat-panel"><MessageCircle size={18} aria-hidden="true" />{text.chat_open}</button>
     {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label={text.robot_change_expression} title={text.robot_change_expression_hint} />}
   </div>;
-  return hero ? robot : createPortal(robot, footer ? footerSlot : document.body);
+  const chat = chatLoaded && createPortal(<ChatPanel open={state.chatOpen} beside={!hero && !footer} onClose={closeChat} onThinking={setChatThinking} />, document.body);
+  return <>{hero ? robot : createPortal(robot, footer ? footerSlot : document.body)}{chat}</>;
 }

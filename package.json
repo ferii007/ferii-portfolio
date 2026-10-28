@@ -13,10 +13,12 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@ai-sdk/google": "^4.0.107",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "ai": "^7.0.155",
     "lucide-react": "^1.49.0",
     "next": "^16.4.3",
     "react": "^19.3.0",

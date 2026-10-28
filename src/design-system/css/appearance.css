@@ -55,6 +55,9 @@
 .fp-hologram::backdrop{background:rgb(16 38 56 / 0.36);backdrop-filter:blur(5px)}
 .fp-hologram[open]{animation:fp-materialize var(--motion-base) var(--motion-ease)}
 .fp-hologram__head{display:flex;justify-content:space-between;align-items:start;gap:var(--space-4);padding-bottom:var(--space-4);border-bottom:1px solid #B7DEEF;margin-bottom:var(--space-6)}
+/* Square icon button on dark hologram panels (close buttons). */
+.fp-holo-icon-button{display: grid; place-items: center; width: 44px; height: 44px; flex: none; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--color-cyan); cursor: pointer; }
+.fp-holo-icon-button:hover{background: rgb(from var(--color-cyan) r g b / 14%); }
 .fp-hologram__body{display:flex;flex-direction:column;gap:var(--space-4)}
 @keyframes fp-materialize{from{opacity:0;transform:translateY(12px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
 /* Decorative beam only. Runtime should place it between robot socket and panel. */

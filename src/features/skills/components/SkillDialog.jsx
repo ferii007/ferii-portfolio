@@ -55,7 +55,7 @@ export default function SkillDialog({ skill, onClose }) {
         <div className="skill-dialog-icon" style={{ '--skill-color': skill.colorOnHolo ?? skill.color }}><SkillIcon skill={skill} /></div>
         <div><span className="skill-dialog-kicker">{LABELS.skillKicker}</span><h3 id="skill-dialog-title">{skill.label}<Doodle name="sparkAccent" /></h3>{currentResult.status === 'loading' ? <span className="skill-skeleton-line skill-skeleton-subtitle" aria-hidden="true" /> : <p className="skill-dialog-subtitle">{currentResult.status === 'success' ? currentResult.data.title : 'Ringkasan Wikipedia'}</p>}</div>
       </div>
-      <button ref={closeRef} type="button" onClick={onClose} aria-label={text.skill_dialog_close}><X size={24} /></button>
+      <button ref={closeRef} className="fp-holo-icon-button" type="button" onClick={onClose} aria-label={text.skill_dialog_close}><X size={24} /></button>
     </div>
     <div className="skill-dialog-content fp-hologram__body" key={skill.id} aria-busy={currentResult.status === 'loading'}>
       <h4>{interpolate(text.skill_dialog_about, { skill: skill.label })}</h4>

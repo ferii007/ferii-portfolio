@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import projects from '../../src/features/projects/data/projects.json' with { type: 'json' };
 import { id } from '../../src/constants/languages/id.js';
 import { en } from '../../src/constants/languages/en.js';
-import { LABELS, SECTIONS, SITE_URL } from '../../src/constants/site.js';
+import { LABELS, PERSON, SECTIONS, SITE_URL } from '../../src/constants/site.js';
 import { interpolate, localeKey } from '../../src/constants/localization.js';
 
 const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -183,4 +183,32 @@ test('the language switch moves between / and /en and keeps the section', async 
   await page.locator('.header-language').click();
   await expect(page).toHaveURL(/\/#projects$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'id-ID');
+});
+
+test('robot chat answers quick questions locally and falls back when the AI is down', async ({ page }) => {
+  const answers = ['Websites, ', 'mostly.'];
+  await page.route('**/api/chat', (route) => (answers.length ? route.fulfill({ status: 200, contentType: 'text/plain', body: answers.splice(0).join('') }) : route.fulfill({ status: 503 })));
+  await page.goto('/en');
+  await page.getByRole('button', { name: en.chat_open }).click();
+  const chat = page.getByRole('dialog', { name: interpolate(en.chat_title, PERSON) });
+  await expect(chat).toBeVisible();
+  await expect(chat.getByRole('textbox')).toBeFocused();
+
+  // Quick questions never call the AI.
+  await chat.getByRole('button', { name: interpolate(en.chat_quick_contact, PERSON) }).click();
+  await expect(chat.getByRole('link', { name: interpolate(en.chat_see_section, { section: SECTIONS.contact.nav }) })).toHaveAttribute('href', '#contact');
+
+  const send = chat.getByRole('button', { name: en.chat_send });
+  await expect(send).toBeDisabled();
+  await chat.getByRole('textbox').fill(`What does ${PERSON.firstName} build?`);
+  await send.click();
+  await expect(chat.locator('.chat-message--robot').last()).toHaveText('Websites, mostly.');
+  await chat.getByRole('textbox').fill('And after that?');
+  await chat.getByRole('textbox').press('Enter');
+  await expect(chat.locator('.chat-message--robot').last()).toHaveText(en.chat_unavailable);
+
+  await page.keyboard.press('Escape');
+  await expect(chat).toBeHidden();
+  await page.getByRole('button', { name: en.chat_open }).click();
+  await expect(chat).toContainText('Websites, mostly.');
 });

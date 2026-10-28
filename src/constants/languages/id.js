@@ -108,6 +108,28 @@ export const id = {
 	contact_sent_message: "Oke, pesanmu masuk ke simulasi. Aku pura-pura sibuk dulu.",
 	contact_handnote: "Yuk terhubung\ndan tukar cerita!",
 
+	// Robot chat
+	chat_open: "Tanya aku",
+	chat_title: "Ngobrol sama robotnya {firstName}",
+	chat_close: "Tutup chat",
+	chat_intro: "Halo! Aku robot asistennya {firstName}. Mau kepoin apa soal dia? Tanya aja, asal jangan nitip PR ya.",
+	chat_quick_label: "Pertanyaan cepat",
+	chat_quick_experience: "{firstName} pernah kerja di mana aja?",
+	chat_quick_skills: "Skill andalannya apa?",
+	chat_quick_projects: "{firstName} udah bikin project apa aja?",
+	chat_quick_contact: "Gimana cara ngehubungin {firstName}?",
+	chat_answer_experience: "Ini jejak {firstName} sejauh ini:\n{items}",
+	chat_answer_skills: "Andalannya {highlight}. Selain itu juga akrab sama {others}.",
+	chat_answer_projects: "Yang paling pengin dipamerin: {projects}. Sisanya ada di bagian Projects, intip aja.",
+	chat_answer_contact: "Paling cepet sapa lewat {profiles}. Tenang, dia nggak gigit kok.",
+	chat_see_section: "Lihat {section}",
+	chat_placeholder: "Tanya apa aja soal {firstName}...",
+	chat_send: "Kirim pertanyaan",
+	chat_thinking: "Bentar, lagi mikir...",
+	chat_unavailable: "Otakku lagi istirahat bentar. Coba pertanyaan cepat di bawah dulu ya.",
+	chat_rate_limited: "Wah, nanyanya kenceng banget. Istirahat semenit dulu, aku juga ngos-ngosan.",
+	chat_note: "Dijawab AI, jadi bisa aja meleset. Jangan ketik data pribadi ya.",
+
 	// Footer
 	footer_copyright: "© {year} {name}. Semua hak dilindungi.",
 

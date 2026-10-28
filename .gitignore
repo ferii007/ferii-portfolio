@@ -6,4 +6,5 @@ playwright-report/
 test-results/
 .superpowers/
 .env*
+!.env.example
 .DS_Store

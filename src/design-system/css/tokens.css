@@ -12,6 +12,7 @@
   --color-holo: #0C2943;
   --color-holo-raised: #153D5B;
   --color-on-holo: #F2FBFF;
+  --color-on-holo-muted: #A9D6EF;
   --color-muted: #526575;
   --color-primary: #0067D0;
   /* Primary as text on tinted paper badges (they multiply into the paper): keeps WCAG AA 4.5:1. */
@@ -91,6 +92,8 @@
   --shadow-button: 0 5px 14px rgb(0 103 208 / 18%);
   --shadow-float: 0 20px 64px rgb(16 38 56 / 0.18);
   --shadow-hologram: 0 0 0 1px rgb(88 223 255 / 70%), 0 0 24px rgb(88 223 255 / 24%);
+  --shadow-holo-panel: 0 0 0 4px rgb(from var(--color-cyan) r g b / 12%), 0 0 30px rgb(from var(--color-cyan) r g b / 32%), 0 25px 60px rgb(8 24 39 / 35%);
+  --surface-holo-panel: linear-gradient(150deg, rgb(19 61 94 / 97%), rgb(10 36 60 / 97%));
   --shadow-paper: 0 3px 7px rgb(87 63 35 / 8%), 0 12px 24px rgb(87 63 35 / 7%);
   --shadow-print: 0 3px 8px rgb(45 37 23 / 12%);
   --shadow-action: var(--shadow-button);
