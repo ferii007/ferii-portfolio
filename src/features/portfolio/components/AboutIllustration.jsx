@@ -19,7 +19,7 @@ const STICKY_NOTE = 'M1182 -46H1398L1400 186C1350 190 1240 192 1184 188Z';
 export default function AboutIllustration({ text }) {
   return (
     <div className="about-art" aria-hidden="true">
-      <Image className="fp-img about-still-life" src="/images/about/studio-desk.webp" width={1536} height={1024} sizes="(max-width: 767px) 100vw, 880px" alt="" />
+      <Image className="fp-img about-still-life" src="/images/about/studio-desk.webp" loading="eager" width={1536} height={1024} sizes="(max-width: 767px) 100vw, 880px" alt="" />
       <svg className="fp-overlay fp-overlay--inert about-art-labels" viewBox="0 0 1536 1024">
         <defs>
           <clipPath id="about-cover-1"><path d="M596 388 751 375 753 410 597 426Z" /></clipPath>
