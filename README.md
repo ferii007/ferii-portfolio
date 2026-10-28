@@ -25,7 +25,7 @@ Butuh Node 20.9 atau lebih baru (`.nvmrc` memakai 22; jalankan `nvm use`). Perik
 - `src/features/interaction`: state bersama robot dan Skills.
 - `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
 - `src/features/skills`: daftar skill, pemetaan artikel, request Wikipedia, dan panel detail.
-- `src/features/chat`: chat robot "Tanya aku". Pertanyaan cepat dijawab langsung dari data portfolio tanpa AI; pertanyaan bebas dikirim ke `/api/chat` (Gemini lewat Vercel AI SDK). `lib/knowledge.js` menyusun pengetahuan robot dari data yang sama dengan halaman, `lib/instructions.js` berisi kepribadian dan aturannya, dan `lib/model.js` adalah satu-satunya file yang tahu provider AI-nya.
+- `src/features/chat`: chat robot "Tanya aku". Pertanyaan cepat dijawab langsung dari data portfolio tanpa AI; pertanyaan bebas dikirim ke `/api/chat` (Gemini lewat Vercel AI SDK). `lib/knowledge.js` menyusun pengetahuan robot dari data yang sama dengan halaman, `lib/instructions.js` berisi kepribadian dan aturannya, `data/profile.js` adalah profil untuk recruiter (fakta tambahan di luar yang tampil di halaman; jangan pernah isi data pribadi karena repo ini publik), dan `lib/model.js` adalah satu-satunya file yang tahu provider AI-nya.
 - `src/features/contact`: form simulasi lokal (tidak mengirim atau menyimpan data) serta tautan GitHub dan LinkedIn.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.
 

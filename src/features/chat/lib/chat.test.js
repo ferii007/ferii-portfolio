@@ -4,6 +4,7 @@ import projects from '@/features/projects/data/projects.json';
 import { getLocalization } from '@/constants/localization';
 import { CHAT_LIMITS, normalizeQuestion, validMessages } from '../config';
 import { createAnswerCache } from './answerCache';
+import { ROBOT_PROFILE } from '../data/profile';
 import { portfolioFacts, QUICK_QUESTIONS, quickAnswer } from './knowledge';
 import { chatInstructions } from './instructions';
 import { createRateLimiter } from './rateLimit';
@@ -33,6 +34,17 @@ describe('robot chat knowledge', () => {
     for (const project of projects) expect(facts).toContain(project.title);
     for (const item of journey) expect(facts).toContain(item.organization);
     expect(chatInstructions(getLocalization('en'))).toContain(facts.split('\n')[0].split(' (')[0]);
+  });
+});
+
+describe('robot chat profile', () => {
+  it('reaches the model', () => {
+    expect(chatInstructions(getLocalization('id'))).toContain(ROBOT_PROFILE);
+  });
+
+  // The repo is public: the profile must never carry private details from the owner's own notes.
+  it('keeps private details out', () => {
+    for (const pattern of [/\b(19|20)\d{2}\b/, /\d+\s?(kg|cm)\b/i, /\bRp\b/, /gaji|salary|tinggi|berat|weight|height/i, /@|\+62|\bwa\b/i]) expect(ROBOT_PROFILE).not.toMatch(pattern);
   });
 });
 
