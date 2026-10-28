@@ -22,7 +22,9 @@ const ask = (body, headers = {}) => POST(new Request('http://localhost:3100/api/
   headers: { origin: 'http://localhost:3100', host: 'localhost:3100', 'x-forwarded-for': `10.0.0.${++visitor}`, ...headers },
   body: typeof body === 'string' ? body : JSON.stringify(body),
 }));
-const question = { language: 'en', messages: [{ role: 'user', content: 'What does Feri build?' }] };
+// A new question each time, so earlier answers in the shared cache don't answer it.
+let asked = 0;
+const question = () => ({ language: 'en', messages: [{ role: 'user', content: `What does Feri build? (${++asked})` }] });
 
 describe('POST /api/chat', () => {
   beforeEach(() => {
@@ -31,7 +33,7 @@ describe('POST /api/chat', () => {
   });
 
   it('streams the answer as plain text', async () => {
-    const response = await ask(question);
+    const response = await ask(question());
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toContain('text/plain');
     expect(await response.text()).toBe('Websites, mostly.');
@@ -40,13 +42,26 @@ describe('POST /api/chat', () => {
     expect(JSON.stringify(call.prompt)).toContain('Facts about Feri');
   });
 
+  it('answers a repeated first question from the cache, for any visitor', async () => {
+    const first = { language: 'id', messages: [{ role: 'user', content: 'Feri suka kopi?' }] };
+    expect(await (await ask(first)).text()).toBe('Websites, mostly.');
+    provider.model = streaming('Something else');
+    const again = await ask({ ...first, messages: [{ role: 'user', content: '  feri SUKA kopi ' }] });
+    expect(again.headers.get('x-chat-cache')).toBe('hit');
+    expect(await again.text()).toBe('Websites, mostly.');
+    expect(provider.model.doStreamCalls).toHaveLength(0);
+    // With earlier turns the answer depends on the conversation, so it is never served from the cache.
+    const followUp = await ask({ ...first, messages: [{ role: 'user', content: 'Hi' }, { role: 'assistant', content: 'Hey' }, { role: 'user', content: 'Feri suka kopi?' }] });
+    expect(await followUp.text()).toBe('Something else');
+  });
+
   it('says the chat is unavailable without a key', async () => {
     provider.configured = false;
-    expect((await ask(question)).status).toBe(503);
+    expect((await ask(question())).status).toBe(503);
   });
 
   it('only answers the site itself', async () => {
-    expect((await ask(question, { origin: 'https://example.com' })).status).toBe(403);
+    expect((await ask(question(), { origin: 'https://example.com' })).status).toBe(403);
   });
 
   it('rejects malformed questions', async () => {
@@ -57,7 +72,7 @@ describe('POST /api/chat', () => {
   it('slows down a visitor who asks too often', async () => {
     const headers = { 'x-forwarded-for': '10.9.9.9' };
     const statuses = [];
-    for (let index = 0; index < 7; index += 1) statuses.push((await ask(question, headers)).status);
+    for (let index = 0; index < 7; index += 1) statuses.push((await ask(question(), headers)).status);
     expect(statuses.slice(0, 6).every((status) => status === 200)).toBe(true);
     expect(statuses[6]).toBe(429);
   });
@@ -65,7 +80,7 @@ describe('POST /api/chat', () => {
   it('turns a provider failure into an error status the panel can fall back on', async () => {
     provider.model = new MockLanguageModelV4({ doStream: async () => { throw Object.assign(new Error('quota'), { statusCode: 429 }); } });
     const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
-    expect((await ask(question)).status).toBe(429);
+    expect((await ask(question())).status).toBe(429);
     expect(errors).toHaveBeenCalled();
     errors.mockRestore();
   });

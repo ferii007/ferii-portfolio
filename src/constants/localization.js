@@ -57,6 +57,11 @@ class Localization {
 		return new Intl.ListFormat(this.locale, { type: "conjunction" }).format(items);
 	}
 
+	// "14.32" / "2:32 PM": the visitor's clock, in the page's language.
+	time(date) {
+		return new Intl.DateTimeFormat(this.locale, { hour: "numeric", minute: "2-digit" }).format(date);
+	}
+
 	month(year, month) {
 		return new Intl.DateTimeFormat(this.locale, { month: "short", timeZone: "UTC" }).format(new Date(Date.UTC(year, month - 1, 1)));
 	}

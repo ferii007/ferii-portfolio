@@ -29,11 +29,12 @@ export default function RobotExperience() {
   // Mounted on first open and kept, so the conversation survives closing the panel.
   const [chatLoaded, setChatLoaded] = useState(false);
   const onChatToggle = () => { setChatLoaded(true); toggleChat(); };
-  // Closing the chat hands focus back to the bubble that opened it.
+  // Closing the chat hands focus back to the bubble that opened it, unless the visitor clicked something else.
   const launcherRef = useRef(null);
   const chatWasOpen = useRef(false);
   useEffect(() => {
-    if (chatWasOpen.current && !state.chatOpen) launcherRef.current?.focus();
+    const focusLeftBehind = !document.activeElement || document.activeElement === document.body || document.activeElement.closest('#chat-panel');
+    if (chatWasOpen.current && !state.chatOpen && focusLeftBehind) launcherRef.current?.focus();
     chatWasOpen.current = state.chatOpen;
   }, [state.chatOpen]);
 
@@ -76,6 +77,11 @@ export default function RobotExperience() {
   // A blank stare while it waits for the AI's answer.
   const expression = state.chatThinking ? 'deadpan' : hero ? state.expression : 'side-eye';
   const projecting = Boolean(state.activeSkillId) && !returning;
+  // The chat belongs to the floating robot only: it isn't offered in the Hero or on the footer pad, and closes there.
+  const companion = !hero && !returning && !footer;
+  useEffect(() => {
+    if (!companion && state.chatOpen) closeChat();
+  }, [companion, state.chatOpen, closeChat]);
   const robot = <div className={`robot-experience robot-${hero ? 'hero' : footer ? 'footer' : 'companion'}${landing ? ' robot-landing' : ''}${returning ? ' robot-returning' : ''}${showCanvas && canvasReady ? ' robot-ready' : ''}`} style={{ '--robot-departure-duration': `${DEPARTURE_DURATION}ms` }} data-location={state.location} data-expression={expression} onAnimationEnd={(event) => {
     if (event.animationName === 'robot-departure') completeHeroReturn();
     if (event.animationName === 'robot-landing') setLanded(true);
@@ -88,9 +94,9 @@ export default function RobotExperience() {
       {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
     </div>}
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
-    {!state.chatOpen && !(state.message && !hero && !returning) && <button ref={launcherRef} className="robot-chat-launcher" type="button" onClick={onChatToggle} aria-expanded="false">{text.chat_open}</button>}
+    {companion && !state.chatOpen && !state.message && <button ref={launcherRef} className="robot-speech-bubble robot-chat-launcher" type="button" onClick={onChatToggle} aria-expanded="false">{text.chat_open}</button>}
     {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label={text.robot_change_expression} title={text.robot_change_expression_hint} />}
   </div>;
-  const chat = chatLoaded && createPortal(<ChatPanel open={state.chatOpen} beside={!hero && !footer} onClose={closeChat} onThinking={setChatThinking} />, document.body);
+  const chat = chatLoaded && createPortal(<ChatPanel open={state.chatOpen} onClose={closeChat} onThinking={setChatThinking} />, document.body);
   return <>{hero ? robot : createPortal(robot, footer ? footerSlot : document.body)}{chat}</>;
 }

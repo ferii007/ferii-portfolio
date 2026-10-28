@@ -13,3 +13,6 @@ export const validMessages = (messages) => Array.isArray(messages)
   && messages.every((message) => ['user', 'assistant'].includes(message?.role) && typeof message.content === 'string' && message.content.trim() && message.content.length <= CHAT_LIMITS.answerLength)
   && messages.at(-1).role === 'user'
   && messages.at(-1).content.length <= CHAT_LIMITS.messageLength;
+
+// Two questions that differ only in case, spacing or punctuation are the same question (for cached answers).
+export const normalizeQuestion = (question) => question.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();

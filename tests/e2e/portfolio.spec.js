@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import projects from '../../src/features/projects/data/projects.json' with { type: 'json' };
 import { id } from '../../src/constants/languages/id.js';
 import { en } from '../../src/constants/languages/en.js';
-import { LABELS, PERSON, SECTIONS, SITE_URL } from '../../src/constants/site.js';
+import { LABELS, PERSON, SECTIONS, SITE_URL, SOCIAL } from '../../src/constants/site.js';
 import { interpolate, localeKey } from '../../src/constants/localization.js';
 
 const escape = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -186,9 +186,14 @@ test('the language switch moves between / and /en and keeps the section', async 
 });
 
 test('robot chat answers quick questions locally and falls back when the AI is down', async ({ page }) => {
-  const answers = ['Websites, ', 'mostly.'];
-  await page.route('**/api/chat', (route) => (answers.length ? route.fulfill({ status: 200, contentType: 'text/plain', body: answers.splice(0).join('') }) : route.fulfill({ status: 503 })));
+  const answers = ['Websites, mostly. Say hi on LinkedIn.'];
+  let calls = 0;
+  await page.route('**/api/chat', (route) => { calls += 1; return answers.length ? route.fulfill({ status: 200, contentType: 'text/plain', body: answers.shift() }) : route.fulfill({ status: 503 }); });
   await page.goto('/en');
+  // Only the floating robot offers the chat.
+  await expect(page.locator('.robot-hero')).toBeVisible();
+  await expect(page.getByRole('button', { name: en.chat_open })).toHaveCount(0);
+  await page.locator('#journey').scrollIntoViewIfNeeded();
   await page.getByRole('button', { name: en.chat_open }).click();
   const chat = page.getByRole('dialog', { name: interpolate(en.chat_title, PERSON) });
   await expect(chat).toBeVisible();
@@ -199,16 +204,27 @@ test('robot chat answers quick questions locally and falls back when the AI is d
   await expect(chat.getByRole('link', { name: interpolate(en.chat_see_section, { section: SECTIONS.contact.nav }) })).toHaveAttribute('href', '#contact');
 
   const send = chat.getByRole('button', { name: en.chat_send });
+  const robot = chat.locator('.chat-message--robot').last();
   await expect(send).toBeDisabled();
   await chat.getByRole('textbox').fill(`What does ${PERSON.firstName} build?`);
   await send.click();
-  await expect(chat.locator('.chat-message--robot').last()).toHaveText('Websites, mostly.');
+  await expect(robot).toContainText('Websites, mostly.');
+  await expect(robot.locator('time')).toHaveCount(1);
+  await expect(robot.getByRole('link', { name: SOCIAL.linkedin.label })).toHaveAttribute('href', SOCIAL.linkedin.url);
+  // The same question again is answered from the conversation, without another request.
+  await chat.getByRole('textbox').fill(`what does ${PERSON.firstName.toLowerCase()} build`);
+  await chat.getByRole('textbox').press('Enter');
+  await expect(chat.locator('.chat-message--robot')).toHaveCount(4);
+  expect(calls).toBe(1);
   await chat.getByRole('textbox').fill('And after that?');
   await chat.getByRole('textbox').press('Enter');
-  await expect(chat.locator('.chat-message--robot').last()).toHaveText(en.chat_unavailable);
+  await expect(robot).toContainText(en.chat_unavailable);
 
-  await page.keyboard.press('Escape');
+  // A click outside the page closes it; the conversation is kept.
+  await page.mouse.click(20, 200);
   await expect(chat).toBeHidden();
   await page.getByRole('button', { name: en.chat_open }).click();
   await expect(chat).toContainText('Websites, mostly.');
+  await page.keyboard.press('Escape');
+  await expect(chat).toBeHidden();
 });

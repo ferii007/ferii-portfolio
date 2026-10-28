@@ -1,16 +1,12 @@
-/* Robot chat, drawn like the rest of the page: the robot "says" a handwritten speech bubble, and the chat opens as a
-   taped notebook page where the robot's replies are printed and the visitor's questions are handwritten. */
-.robot-chat-launcher { position: absolute; z-index: 8; top: 53%; left: 8%; padding: 7px 16px 9px; border: 1px solid var(--color-speech-border); border-radius: 18px 18px 6px 18px; background: var(--color-speech-paper); box-shadow: 0 6px 18px rgb(23 57 79 / 12%); color: var(--color-primary); font-family: var(--font-hand); font-size: 23px; font-weight: 700; line-height: 1; white-space: nowrap; cursor: pointer; pointer-events: auto; transform: rotate(-5deg); transition: transform var(--motion-fast) ease-out; }
-/* Tail pointing at the robot. */
-.robot-chat-launcher::after { content: ''; position: absolute; right: -6px; bottom: 9px; width: 11px; height: 11px; border-top: 1px solid var(--color-speech-border); border-right: 1px solid var(--color-speech-border); background: var(--color-speech-paper); transform: rotate(45deg); }
-.robot-chat-launcher:hover { transform: rotate(-3deg) translateY(-2px); }
-.robot-chat-launcher:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
-.robot-companion .robot-chat-launcher, .robot-footer .robot-chat-launcher { top: 6%; right: 86%; left: auto; font-size: 21px; }
+/* Robot chat, drawn like the rest of the page. The floating robot offers it in its own speech bubble (same look and
+   place as its messages), and the chat opens beside it as a taped notebook page: the robot's replies are printed,
+   the visitor's questions handwritten. */
+.robot-chat-launcher { position: absolute; right: 28px; bottom: calc(100% - 8px); padding: 12px 18px; font-family: inherit; text-align: left; white-space: nowrap; cursor: pointer; pointer-events: auto; transition: translate var(--motion-fast) ease-out, box-shadow var(--motion-fast) ease-out; }
+.robot-chat-launcher:hover { box-shadow: 0 10px 30px #17394f2e; translate: 0 -2px; }
+.robot-chat-launcher:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
 
-.chat-panel { --paper-padding: 0; --paper-tilt: -.6deg; position: fixed; z-index: 55; right: 28px; bottom: 28px; display: flex; flex-direction: column; width: min(390px, calc(100vw - 32px)); height: min(580px, calc(100dvh - 120px)); }
+.chat-panel { --paper-padding: 0; --paper-tilt: -.6deg; position: fixed; z-index: 55; right: 214px; bottom: 28px; display: flex; flex-direction: column; width: min(390px, calc(100vw - 32px)); height: min(580px, calc(100dvh - 120px)); }
 .chat-panel[hidden] { display: none; }
-/* The floating robot keeps its corner, so the page opens beside it. */
-.chat-panel--beside-robot { right: 214px; }
 .chat-panel .fp-tape { top: -9px; }
 .chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 14px 12px 24px; border-bottom: 1.5px dashed var(--color-line); }
 .chat-head h2 { margin: 0; color: var(--color-paper-heading); font-family: var(--font-display); font-size: 21px; font-weight: 650; line-height: 1.2; letter-spacing: -.01em; }
@@ -20,20 +16,26 @@
 .chat-message { overflow-wrap: anywhere; white-space: pre-line; }
 .chat-message--robot { align-self: flex-start; max-width: 94%; color: var(--color-paper-ink); font-size: 14.5px; line-height: 1.55; }
 .chat-message--visitor { align-self: flex-end; max-width: 85%; color: var(--color-primary); font-family: var(--font-hand); font-size: 22px; font-weight: 600; line-height: 1.12; text-align: right; transform: rotate(-1.5deg); }
+.chat-time { display: block; margin-top: 4px; color: var(--color-muted); font-family: var(--font-sans); font-size: 11px; font-weight: 600; line-height: 1.2; }
+.chat-message--visitor .chat-time { transform: rotate(1.5deg); }
+.chat-profile-link { color: var(--color-primary-text); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
 .chat-thinking { color: var(--color-muted); font-family: var(--font-hand); font-size: 20px; }
 .chat-section-link { display: flex; width: fit-content; align-items: center; gap: 4px; margin-top: 6px; color: var(--color-primary-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
-/* Quick questions as small sticky notes. */
-.chat-quick { display: flex; gap: 10px; padding: 12px 24px 10px; overflow-x: auto; scrollbar-width: none; }
+/* Quick questions as small sticky notes: all on show before the first question, then one row that scrolls sideways,
+   so the conversation keeps the room. */
+.chat-quick { display: flex; flex-wrap: wrap; gap: 8px 10px; padding: 12px 24px 10px; }
+.chat-quick--compact { flex-wrap: nowrap; padding-block: 10px 8px; overflow-x: auto; scrollbar-width: none; }
 .chat-quick button { flex: none; padding: 8px 11px; border: 0; border-radius: 2px; background: var(--color-paper-yellow); box-shadow: 0 2px 4px rgb(87 63 35 / 14%); color: var(--color-paper-ink); font-size: 12.5px; font-weight: 700; cursor: pointer; transform: rotate(-1.5deg); transition: transform var(--motion-fast) ease-out; }
 .chat-quick button:nth-child(even) { background: var(--color-paper-blue); transform: rotate(1.2deg); }
 .chat-quick button:hover:not(:disabled) { transform: rotate(0) translateY(-2px); }
 .chat-quick button:disabled { opacity: .55; cursor: default; }
 .chat-form { display: flex; align-items: flex-end; gap: 10px; padding: 6px 24px 4px; }
-/* Written on a ruled line; 16px+ text keeps iOS from zooming into the field. */
-.chat-form input { flex: 1; min-width: 0; min-height: 44px; padding: 6px 2px; border: 0; border-bottom: 1.5px solid var(--color-control-border); border-radius: 0; background: transparent; color: var(--color-primary); font-family: var(--font-hand); font-size: 23px; font-weight: 600; }
-.chat-form input::placeholder { color: var(--color-muted); opacity: .75; }
-.chat-form input:focus { outline: none; border-bottom-color: var(--color-primary); }
-.chat-form input:focus-visible { box-shadow: 0 2px 0 var(--color-primary); }
+/* Written on a ruled line; it grows downwards with the question (up to five lines, then scrolls). 16px+ text keeps
+   iOS from zooming into the field. */
+.chat-form textarea { flex: 1; min-width: 0; min-height: 44px; max-height: calc(5 * 1.15em + 12px); padding: 8px 2px 4px; border: 0; border-bottom: 1.5px solid var(--color-control-border); border-radius: 0; background: transparent; color: var(--color-primary); font-family: var(--font-hand); font-size: 23px; font-weight: 600; line-height: 1.15; overflow-y: auto; resize: none; }
+.chat-form textarea::placeholder { color: var(--color-muted); opacity: .75; }
+.chat-form textarea:focus { outline: none; border-bottom-color: var(--color-primary); }
+.chat-form textarea:focus-visible { box-shadow: 0 2px 0 var(--color-primary); }
 .chat-form button { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--radius-control); background: var(--color-primary); box-shadow: var(--shadow-button); color: var(--color-white); cursor: pointer; }
 .chat-form button:hover:not(:disabled) { background: var(--color-primary-hover); }
 .chat-form button:disabled { background: var(--color-disabled-bg); box-shadow: none; color: var(--color-disabled-ink); cursor: default; }
@@ -45,7 +47,6 @@
 @keyframes chat-page-in { from { opacity: 0; transform: translateY(14px) rotate(1.5deg); } to { opacity: 1; transform: none; } }
 @keyframes chat-thinking { from { opacity: .4; } to { opacity: 1; } }
 @media (max-width: 767px) {
-  .chat-panel, .chat-panel--beside-robot { right: 12px; bottom: 12px; left: 12px; width: auto; height: min(580px, calc(100dvh - 96px)); }
-  .robot-hero .robot-chat-launcher { top: 5%; left: 0; font-size: 21px; }
+  .chat-panel { right: 12px; bottom: 12px; left: 12px; width: auto; height: min(580px, calc(100dvh - 96px)); }
 }
-@media (prefers-reduced-motion: reduce) { .robot-chat-launcher, .chat-quick button { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .robot-chat-launcher, .chat-quick button { transition: none; } .robot-chat-launcher:hover { translate: none; } }

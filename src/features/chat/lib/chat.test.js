@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import journey from '@/features/portfolio/data/journey.json';
 import projects from '@/features/projects/data/projects.json';
 import { getLocalization } from '@/constants/localization';
-import { CHAT_LIMITS, validMessages } from '../config';
+import { CHAT_LIMITS, normalizeQuestion, validMessages } from '../config';
+import { createAnswerCache } from './answerCache';
 import { portfolioFacts, QUICK_QUESTIONS, quickAnswer } from './knowledge';
 import { chatInstructions } from './instructions';
 import { createRateLimiter } from './rateLimit';
@@ -56,5 +57,21 @@ describe('robot chat limits', () => {
     expect([allow('a'), allow('a'), allow('a'), allow('b')]).toEqual([true, true, false, true]);
     time = 1000;
     expect(allow('a')).toBe(true);
+  });
+
+  it('treats questions that differ only in case, spacing or punctuation as the same', () => {
+    expect(normalizeQuestion('  Feri jago   BACKEND nggak?! ')).toBe(normalizeQuestion('feri jago backend nggak'));
+    expect(normalizeQuestion('Skill apa?')).not.toBe(normalizeQuestion('Project apa?'));
+  });
+
+  it('keeps cached answers for a while and drops the oldest when full', () => {
+    let time = 0;
+    const cache = createAnswerCache({ ttlMs: 1000, maxEntries: 2, now: () => time });
+    cache.set('a', 'A');
+    cache.set('b', 'B');
+    cache.set('c', 'C');
+    expect([cache.get('a'), cache.get('b'), cache.get('c')]).toEqual([null, 'B', 'C']);
+    time = 1000;
+    expect(cache.get('b')).toBeNull();
   });
 });
