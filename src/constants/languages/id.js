@@ -109,7 +109,7 @@ export const id = {
 	contact_handnote: "Yuk terhubung\ndan tukar cerita!",
 
 	// Robot chat
-	chat_open: "Tanya aku",
+	chat_open: "Psst, tanya aku!",
 	chat_title: "Ngobrol sama robotnya {firstName}",
 	chat_close: "Tutup chat",
 	chat_intro: "Halo! Aku robot asistennya {firstName}. Mau kepoin apa soal dia? Tanya aja, asal jangan nitip PR ya.",

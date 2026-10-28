@@ -1,8 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
 import { createPortal } from 'react-dom';
-import { MessageCircle } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePortfolioInteraction } from '@/features/interaction/InteractionProvider';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { interpolate } from '@/constants/localization';
@@ -30,6 +29,13 @@ export default function RobotExperience() {
   // Mounted on first open and kept, so the conversation survives closing the panel.
   const [chatLoaded, setChatLoaded] = useState(false);
   const onChatToggle = () => { setChatLoaded(true); toggleChat(); };
+  // Closing the chat hands focus back to the bubble that opened it.
+  const launcherRef = useRef(null);
+  const chatWasOpen = useRef(false);
+  useEffect(() => {
+    if (chatWasOpen.current && !state.chatOpen) launcherRef.current?.focus();
+    chatWasOpen.current = state.chatOpen;
+  }, [state.chatOpen]);
 
   useEffect(() => {
     const hero = document.getElementById('hero');
@@ -82,7 +88,7 @@ export default function RobotExperience() {
       {state.message && <p className="robot-speech-bubble">{state.message.text}</p>}
     </div>}
     {projecting && showCanvas && <HologramBeam origin={beamOrigin} />}
-    <button className="robot-chat-launcher" type="button" onClick={onChatToggle} aria-expanded={state.chatOpen} aria-controls="chat-panel"><MessageCircle size={18} aria-hidden="true" />{text.chat_open}</button>
+    {!state.chatOpen && !(state.message && !hero && !returning) && <button ref={launcherRef} className="robot-chat-launcher" type="button" onClick={onChatToggle} aria-expanded="false">{text.chat_open}</button>}
     {hero && <button className="robot-hit-area" type="button" onClick={cycleExpression} disabled={Boolean(state.activeSkillId)} aria-label={text.robot_change_expression} title={text.robot_change_expression_hint} />}
   </div>;
   const chat = chatLoaded && createPortal(<ChatPanel open={state.chatOpen} beside={!hero && !footer} onClose={closeChat} onThinking={setChatThinking} />, document.body);

@@ -109,7 +109,7 @@ export const en = {
 	contact_handnote: "Let's connect\nand swap stories!",
 
 	// Robot chat
-	chat_open: "Ask me",
+	chat_open: "Psst, ask me!",
 	chat_title: "Chat with {firstName}'s robot",
 	chat_close: "Close chat",
 	chat_intro: "Hey! I'm {firstName}'s robot sidekick. Curious about anything? Ask away, just don't hand me your homework.",

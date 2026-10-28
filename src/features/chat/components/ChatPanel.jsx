@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { SendHorizontal, X } from 'lucide-react';
+import { ArrowRight, SendHorizontal, X } from 'lucide-react';
+import Tape from '@/components/paper/Tape';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { interpolate, localeKey } from '@/constants/localization';
 import { anchor, SECTIONS } from '@/constants/site';
@@ -76,16 +77,17 @@ export default function ChatPanel({ open, beside, onClose, onThinking }) {
     ask(question);
   };
 
-  return <section className={`chat-panel${beside ? ' chat-panel--beside-robot' : ''}`} id="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden={!open}>
+  return <section className={`chat-panel fp-paper${beside ? ' chat-panel--beside-robot' : ''}`} id="chat-panel" role="dialog" aria-modal="false" aria-labelledby="chat-title" hidden={!open}>
+    <Tape />
     <header className="chat-head">
       <h2 id="chat-title">{text.chat_title}</h2>
-      <button type="button" onClick={onClose} aria-label={text.chat_close}><X size={22} /></button>
+      <button className="chat-close" type="button" onClick={onClose} aria-label={text.chat_close}><X size={22} /></button>
     </header>
     <ol ref={logRef} className="chat-log" aria-live="polite">
       <li className="chat-message chat-message--robot">{text.chat_intro}</li>
       {messages.map((message, index) => <li key={index} className={`chat-message chat-message--${message.role === 'user' ? 'visitor' : 'robot'}`} aria-busy={busy && index === messages.length - 1}>
         {message.content || <span className="chat-thinking">{text.chat_thinking}</span>}
-        {message.section && <a className="chat-section-link" href={anchor(message.section)}>{interpolate(text.chat_see_section, { section: SECTIONS[message.section].nav })}</a>}
+        {message.section && <a className="chat-section-link" href={anchor(message.section)}>{interpolate(text.chat_see_section, { section: SECTIONS[message.section].nav })}<ArrowRight size={14} aria-hidden="true" /></a>}
       </li>)}
     </ol>
     <div className="chat-quick" role="group" aria-label={text.chat_quick_label}>

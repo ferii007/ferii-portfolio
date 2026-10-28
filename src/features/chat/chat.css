@@ -1,39 +1,51 @@
-/* Robot chat: a launcher pill on the robot and a hologram panel in the corner (same surface as the skill dialog). */
-.robot-chat-launcher { position: absolute; z-index: 8; left: 50%; bottom: 0; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 16px; border: 1px solid rgb(from var(--color-cyan) r g b / 70%); border-radius: 999px; background: var(--surface-holo-panel); color: var(--color-on-holo); font-size: 14px; font-weight: 800; white-space: nowrap; box-shadow: 0 0 0 3px rgb(from var(--color-cyan) r g b / 14%), 0 8px 22px rgb(8 24 39 / 28%); cursor: pointer; pointer-events: auto; transform: translateX(-50%); }
-.robot-chat-launcher svg { flex: none; color: var(--color-cyan); }
-.robot-chat-launcher:hover { box-shadow: 0 0 0 4px rgb(from var(--color-cyan) r g b / 24%), 0 0 18px rgb(from var(--color-cyan) r g b / 35%), 0 8px 22px rgb(8 24 39 / 28%); }
-.robot-chat-launcher:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; }
-.robot-companion .robot-chat-launcher { bottom: 6px; }
+/* Robot chat, drawn like the rest of the page: the robot "says" a handwritten speech bubble, and the chat opens as a
+   taped notebook page where the robot's replies are printed and the visitor's questions are handwritten. */
+.robot-chat-launcher { position: absolute; z-index: 8; top: 53%; left: 8%; padding: 7px 16px 9px; border: 1px solid var(--color-speech-border); border-radius: 18px 18px 6px 18px; background: var(--color-speech-paper); box-shadow: 0 6px 18px rgb(23 57 79 / 12%); color: var(--color-primary); font-family: var(--font-hand); font-size: 23px; font-weight: 700; line-height: 1; white-space: nowrap; cursor: pointer; pointer-events: auto; transform: rotate(-5deg); transition: transform var(--motion-fast) ease-out; }
+/* Tail pointing at the robot. */
+.robot-chat-launcher::after { content: ''; position: absolute; right: -6px; bottom: 9px; width: 11px; height: 11px; border-top: 1px solid var(--color-speech-border); border-right: 1px solid var(--color-speech-border); background: var(--color-speech-paper); transform: rotate(45deg); }
+.robot-chat-launcher:hover { transform: rotate(-3deg) translateY(-2px); }
+.robot-chat-launcher:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; }
+.robot-companion .robot-chat-launcher, .robot-footer .robot-chat-launcher { top: 6%; right: 86%; left: auto; font-size: 21px; }
 
-.chat-panel { position: fixed; z-index: 55; right: 24px; bottom: 24px; display: flex; flex-direction: column; width: min(380px, calc(100vw - 24px)); height: min(560px, calc(100dvh - 120px)); border: 1px solid rgb(from var(--color-cyan) r g b / 75%); border-radius: 22px; background: var(--surface-holo-panel); color: var(--color-on-holo); box-shadow: var(--shadow-holo-panel); backdrop-filter: blur(16px); overflow: hidden; }
+.chat-panel { --paper-padding: 0; --paper-tilt: -.6deg; position: fixed; z-index: 55; right: 28px; bottom: 28px; display: flex; flex-direction: column; width: min(390px, calc(100vw - 32px)); height: min(580px, calc(100dvh - 120px)); }
 .chat-panel[hidden] { display: none; }
-/* The floating robot keeps its corner, so the panel opens beside it. */
-.chat-panel--beside-robot { right: 210px; }
-.chat-panel :focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
-.chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 12px 12px 20px; border-bottom: 1px solid rgb(from var(--color-cyan) r g b / 35%); }
-.chat-head h2 { margin: 0; color: var(--color-on-holo); font-family: var(--font-display); font-size: 19px; font-weight: 650; line-height: 1.25; }
-.chat-log { display: flex; flex: 1; flex-direction: column; gap: 10px; margin: 0; padding: 16px 16px 8px; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
-.chat-message { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 14.5px; line-height: 1.5; white-space: pre-line; overflow-wrap: anywhere; }
-.chat-message--robot { align-self: flex-start; border: 1px solid rgb(from var(--color-cyan) r g b / 25%); border-bottom-left-radius: 6px; background: rgb(255 255 255 / 7%); }
-.chat-message--visitor { align-self: flex-end; border-bottom-right-radius: 6px; background: var(--color-primary); color: var(--color-white); }
-.chat-thinking { color: var(--color-on-holo-muted); font-style: italic; }
-.chat-section-link { display: block; margin-top: 6px; color: var(--color-cyan); font-size: 13px; font-weight: 800; }
-.chat-quick { display: flex; gap: 8px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
-.chat-quick button { flex: none; padding: 7px 12px; border: 1px solid rgb(from var(--color-cyan) r g b / 55%); border-radius: 999px; background: transparent; color: var(--color-cyan); font-size: 13px; font-weight: 700; cursor: pointer; }
-.chat-quick button:hover:not(:disabled) { background: rgb(from var(--color-cyan) r g b / 14%); }
-.chat-quick button:disabled { opacity: .5; cursor: default; }
-.chat-form { display: flex; gap: 8px; padding: 8px 16px 6px; }
-/* 16px text keeps iOS from zooming into the field. */
-.chat-form input { flex: 1; min-width: 0; min-height: 44px; padding: 0 14px; border: 1px solid rgb(from var(--color-cyan) r g b / 45%); border-radius: 12px; background: rgb(255 255 255 / 7%); color: var(--color-on-holo); font: inherit; font-size: 16px; }
-.chat-form input::placeholder { color: var(--color-on-holo-muted); opacity: .8; }
-.chat-form button { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px; background: var(--color-primary); color: var(--color-white); cursor: pointer; }
-.chat-form button:disabled { background: rgb(255 255 255 / 10%); color: var(--color-on-holo-muted); cursor: default; }
-.chat-note { margin: 0; padding: 4px 16px 12px; color: var(--color-on-holo-muted); font-size: 11.5px; line-height: 1.4; }
+/* The floating robot keeps its corner, so the page opens beside it. */
+.chat-panel--beside-robot { right: 214px; }
+.chat-panel .fp-tape { top: -9px; }
+.chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 14px 12px 24px; border-bottom: 1.5px dashed var(--color-line); }
+.chat-head h2 { margin: 0; color: var(--color-paper-heading); font-family: var(--font-display); font-size: 21px; font-weight: 650; line-height: 1.2; letter-spacing: -.01em; }
+.chat-close { display: grid; flex: none; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--color-paper-ink); cursor: pointer; }
+.chat-close:hover { background: rgb(from var(--color-paper-ink) r g b / 7%); }
+.chat-log { display: flex; flex: 1; flex-direction: column; gap: 14px; margin: 0; padding: 18px 24px 10px; overflow-y: auto; list-style: none; overscroll-behavior: contain; }
+.chat-message { overflow-wrap: anywhere; white-space: pre-line; }
+.chat-message--robot { align-self: flex-start; max-width: 94%; color: var(--color-paper-ink); font-size: 14.5px; line-height: 1.55; }
+.chat-message--visitor { align-self: flex-end; max-width: 85%; color: var(--color-primary); font-family: var(--font-hand); font-size: 22px; font-weight: 600; line-height: 1.12; text-align: right; transform: rotate(-1.5deg); }
+.chat-thinking { color: var(--color-muted); font-family: var(--font-hand); font-size: 20px; }
+.chat-section-link { display: flex; width: fit-content; align-items: center; gap: 4px; margin-top: 6px; color: var(--color-primary-text); font-size: 13px; font-weight: 800; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+/* Quick questions as small sticky notes. */
+.chat-quick { display: flex; gap: 10px; padding: 12px 24px 10px; overflow-x: auto; scrollbar-width: none; }
+.chat-quick button { flex: none; padding: 8px 11px; border: 0; border-radius: 2px; background: var(--color-paper-yellow); box-shadow: 0 2px 4px rgb(87 63 35 / 14%); color: var(--color-paper-ink); font-size: 12.5px; font-weight: 700; cursor: pointer; transform: rotate(-1.5deg); transition: transform var(--motion-fast) ease-out; }
+.chat-quick button:nth-child(even) { background: var(--color-paper-blue); transform: rotate(1.2deg); }
+.chat-quick button:hover:not(:disabled) { transform: rotate(0) translateY(-2px); }
+.chat-quick button:disabled { opacity: .55; cursor: default; }
+.chat-form { display: flex; align-items: flex-end; gap: 10px; padding: 6px 24px 4px; }
+/* Written on a ruled line; 16px+ text keeps iOS from zooming into the field. */
+.chat-form input { flex: 1; min-width: 0; min-height: 44px; padding: 6px 2px; border: 0; border-bottom: 1.5px solid var(--color-control-border); border-radius: 0; background: transparent; color: var(--color-primary); font-family: var(--font-hand); font-size: 23px; font-weight: 600; }
+.chat-form input::placeholder { color: var(--color-muted); opacity: .75; }
+.chat-form input:focus { outline: none; border-bottom-color: var(--color-primary); }
+.chat-form input:focus-visible { box-shadow: 0 2px 0 var(--color-primary); }
+.chat-form button { display: grid; flex: none; place-items: center; width: 44px; height: 44px; border: 0; border-radius: var(--radius-control); background: var(--color-primary); box-shadow: var(--shadow-button); color: var(--color-white); cursor: pointer; }
+.chat-form button:hover:not(:disabled) { background: var(--color-primary-hover); }
+.chat-form button:disabled { background: var(--color-disabled-bg); box-shadow: none; color: var(--color-disabled-ink); cursor: default; }
+.chat-note { margin: 0; padding: 8px 24px 18px; color: var(--color-muted); font-size: 11.5px; line-height: 1.4; }
 @media (prefers-reduced-motion: no-preference) {
-  .chat-panel:not([hidden]) { animation: skill-project-in 280ms ease-out both; }
+  .chat-panel:not([hidden]) { animation: chat-page-in 240ms ease-out both; }
   .chat-thinking { animation: chat-thinking 1.2s ease-in-out infinite alternate; }
 }
-@keyframes chat-thinking { from { opacity: .45; } to { opacity: 1; } }
+@keyframes chat-page-in { from { opacity: 0; transform: translateY(14px) rotate(1.5deg); } to { opacity: 1; transform: none; } }
+@keyframes chat-thinking { from { opacity: .4; } to { opacity: 1; } }
 @media (max-width: 767px) {
-  .chat-panel, .chat-panel--beside-robot { right: 12px; bottom: 12px; left: 12px; width: auto; height: min(560px, calc(100dvh - 96px)); }
+  .chat-panel, .chat-panel--beside-robot { right: 12px; bottom: 12px; left: 12px; width: auto; height: min(580px, calc(100dvh - 96px)); }
+  .robot-hero .robot-chat-launcher { top: 5%; left: 0; font-size: 21px; }
 }
+@media (prefers-reduced-motion: reduce) { .robot-chat-launcher, .chat-quick button { transition: none; } }
