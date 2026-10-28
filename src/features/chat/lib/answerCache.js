@@ -17,3 +17,8 @@ export function createAnswerCache({ ttlMs, maxEntries, now = Date.now }) {
     },
   };
 }
+
+// Replies the cache may share with other visitors. A visitor can try to talk the model into writing a link or
+// promoting gambling (judi online, slot, togel); such a reply stays with that visitor and is never shared.
+const UNSHAREABLE = /https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|id|io|xyz|site|online|vip|top|link|me|co)\b|\b(slot|gacor|maxwin|judi|judol|togel|casino|kasino|poker|taruhan|betting|toto)\b/i;
+export const shareableAnswer = (answer) => !UNSHAREABLE.test(answer);

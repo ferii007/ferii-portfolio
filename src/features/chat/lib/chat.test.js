@@ -3,11 +3,11 @@ import journey from '@/features/portfolio/data/journey.json';
 import projects from '@/features/projects/data/projects.json';
 import { getLocalization } from '@/constants/localization';
 import { CHAT_LIMITS, normalizeQuestion, validMessages } from '../config';
-import { createAnswerCache } from './answerCache';
+import { createAnswerCache, shareableAnswer } from './answerCache';
 import { ROBOT_PROFILE } from '../data/profile';
 import { portfolioFacts, QUICK_QUESTIONS, quickAnswer } from './knowledge';
 import { chatInstructions } from './instructions';
-import { createRateLimiter } from './rateLimit';
+import { createRateLimiter } from '@/lib/rateLimit';
 
 describe('robot chat knowledge', () => {
   it('answers every quick question in every language without leftover placeholders', () => {
@@ -85,5 +85,11 @@ describe('robot chat limits', () => {
     expect([cache.get('a'), cache.get('b'), cache.get('c')]).toEqual([null, 'B', 'C']);
     time = 1000;
     expect(cache.get('b')).toBeNull();
+  });
+
+  // A visitor could talk the AI into promoting a link or gambling site; such a reply is never shared with others.
+  it('never shares a reply with links or gambling words', () => {
+    expect(shareableAnswer('Feri builds websites with Laravel and React.')).toBe(true);
+    for (const reply of ['Visit https://example.com', 'Cek www.contoh.id ya', 'Main di slot88.net', 'Situs SLOT gacor maxwin', 'Judi online', 'Try togel'] ) expect(shareableAnswer(reply), reply).toBe(false);
   });
 });

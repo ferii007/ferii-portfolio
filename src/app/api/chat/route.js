@@ -1,10 +1,11 @@
 import { streamText } from 'ai';
 import { getLocalization } from '@/constants/localization';
 import { CHAT_LIMITS, normalizeQuestion, validMessages } from '@/features/chat/config';
-import { createAnswerCache } from '@/features/chat/lib/answerCache';
+import { createAnswerCache, shareableAnswer } from '@/features/chat/lib/answerCache';
 import { chatInstructions } from '@/features/chat/lib/instructions';
 import { chatConfigured, chatModel } from '@/features/chat/lib/model';
-import { createRateLimiter } from '@/features/chat/lib/rateLimit';
+import { createRateLimiter } from '@/lib/rateLimit';
+import { fromOwnSite, visitorOf } from '@/lib/requestGuard';
 
 const perMinute = createRateLimiter({ limit: 6, windowMs: 60_000 });
 const perDay = createRateLimiter({ limit: 60, windowMs: 86_400_000 });
@@ -14,11 +15,6 @@ const MAX_BODY = CHAT_LIMITS.history * (CHAT_LIMITS.answerLength * 2 + 60) + 200
 
 const status = (code) => new Response(null, { status: code });
 const TEXT_HEADERS = { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' };
-
-// Only the site's own pages may call this endpoint.
-const sameOrigin = (request) => {
-  try { return new URL(request.headers.get('origin')).host === request.headers.get('host'); } catch { return false; }
-};
 
 // Next text chunk of the model's reply, null when it is done; a provider failure (quota, bad key) throws.
 async function nextText(parts) {
@@ -33,8 +29,8 @@ async function nextText(parts) {
 // Streams the robot's answer as plain text. Only answers to stand-alone questions are kept (no visitor data);
 // failures are logged to Vercel's Runtime Logs.
 export async function POST(request) {
+  if (!fromOwnSite(request)) return status(403);
   if (!chatConfigured()) return status(503);
-  if (!sameOrigin(request)) return status(403);
   const raw = await request.text();
   if (raw.length > MAX_BODY) return status(413);
   let body;
@@ -47,7 +43,7 @@ export async function POST(request) {
   const cached = cacheKey && answers.get(cacheKey);
   if (cached) return new Response(cached, { headers: { ...TEXT_HEADERS, 'X-Chat-Cache': 'hit' } });
 
-  const visitor = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'local';
+  const visitor = visitorOf(request);
   if (!perMinute(visitor) || !perDay(visitor)) return status(429);
 
   const result = streamText({
@@ -78,7 +74,7 @@ export async function POST(request) {
           answer += text;
           controller.enqueue(encoder.encode(text));
         }
-        if (cacheKey) answers.set(cacheKey, answer);
+        if (cacheKey && shareableAnswer(answer)) answers.set(cacheKey, answer);
       } catch (error) { console.error('[chat]', error?.message ?? error); }
       controller.close();
     },
