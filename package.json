@@ -16,7 +16,7 @@
     "@ai-sdk/anthropic": "^4.0.90",
     "@ai-sdk/google": "^4.0.107",
     "@react-three/drei": "^10.7.9",
-    "@react-three/fiber": "^9.8.1",
+    "@react-three/fiber": "^9.8.2",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "ai": "^7.0.155",
