@@ -25,7 +25,7 @@ Butuh Node 20.9 atau lebih baru (`.nvmrc` memakai 22; jalankan `nvm use`). Perik
 - `src/features/interaction`: state bersama robot dan Skills.
 - `src/features/robot`: GLB Three.js di Hero dan pendamping desktop, morph ekspresi wajah lewat klik robot, PNG sebagai fallback, dan beam hologram.
 - `src/features/skills`: daftar skill, pemetaan artikel, request Wikipedia, dan panel detail.
-- `src/features/chat`: chat robot "Tanya aku". Pertanyaan cepat dijawab langsung dari data portfolio tanpa AI; pertanyaan bebas dikirim ke `/api/chat` (Gemini lewat Vercel AI SDK). `lib/knowledge.js` menyusun pengetahuan robot dari data yang sama dengan halaman, `lib/instructions.js` berisi kepribadian dan aturannya, `data/profile.js` adalah profil untuk recruiter (fakta tambahan di luar yang tampil di halaman; jangan pernah isi data pribadi karena repo ini publik), dan `lib/model.js` adalah satu-satunya file yang tahu provider AI-nya.
+- `src/features/chat`: chat robot "Tanya aku". Pertanyaan cepat dijawab langsung dari data portfolio tanpa AI; pertanyaan bebas dikirim ke `/api/chat` (Gemini lewat Vercel AI SDK). `lib/knowledge.js` menyusun pengetahuan robot dari data yang sama dengan halaman, `lib/instructions.js` berisi kepribadian dan aturannya, `data/profile.js` adalah profil untuk recruiter (fakta tambahan di luar yang tampil di halaman; jangan pernah isi data pribadi karena repo ini publik), dan `lib/model.js` adalah satu-satunya file yang tahu provider AI-nya (dipilih lewat `AI_PROVIDER`).
 - `src/features/contact`: form simulasi lokal (tidak mengirim atau menyimpan data) serta tautan GitHub dan LinkedIn.
 - `public/models` dan `public/images/robot`: aset dari ZIP konsep.
 
@@ -45,9 +45,9 @@ Tombol ID/EN di header dan menu mobile adalah tautan biasa ke halaman bahasa lai
 
 ## Chat robot
 
-Salin `.env.example` ke `.env.local` lalu isi `GEMINI_API_KEY` dengan key gratis dari Google AI Studio (aistudio.google.com). Di Vercel, isi variabel yang sama di Settings → Environment Variables. Tanpa key, panel chat tetap jalan: pertanyaan cepat tetap dijawab dan pertanyaan bebas dibalas pesan cadangan. Percakapan tidak disimpan. Endpoint hanya menerima request dari situs sendiri, membatasi panjang pesan, dan membatasi tiap pengunjung (6 per menit, 60 per hari per instance server). Kalau kuota Gemini habis atau error, robot memakai pesan cadangan dan kegagalannya tercatat di Runtime Logs dengan awalan `[chat]`.
+Salin `.env.example` ke `.env.local` (atau `.env`), lalu pilih AI lewat `AI_PROVIDER` (`google` sebagai default, atau `anthropic`) dan isi key provider tersebut: `GEMINI_API_KEY` (gratis dari Google AI Studio, aistudio.google.com) atau `ANTHROPIC_API_KEY` (berbayar, console.anthropic.com). Di Vercel, isi variabel yang sama di Settings → Environment Variables lalu Redeploy. Tanpa key, panel chat tetap jalan: pertanyaan cepat tetap dijawab dan pertanyaan bebas dibalas pesan cadangan. Percakapan tidak disimpan. Endpoint hanya menerima request dari situs sendiri, membatasi panjang pesan, dan membatasi tiap pengunjung (6 per menit, 60 per hari per instance server). Pertanyaan pembuka yang sama dijawab dari cache server selama 24 jam. Kalau kuota AI habis atau error, robot memakai pesan cadangan dan kegagalannya tercatat di Runtime Logs dengan awalan `[chat]`.
 
-Untuk ganti provider (misalnya Claude atau OpenAI), install paket AI SDK provider tersebut (`@ai-sdk/anthropic`, `@ai-sdk/openai`, …), ubah `src/features/chat/lib/model.js`, lalu ganti nama key di `.env.example` dan Vercel. File lain tidak perlu diubah. Data robot ikut berubah otomatis saat proyek, skill, atau perjalanan diedit.
+Ganti provider cukup dengan mengubah `AI_PROVIDER` (dan mengisi key-nya) di Vercel, lalu Redeploy; kode tidak perlu diubah. Untuk menambah provider baru (misalnya OpenAI), install paket AI SDK-nya (`@ai-sdk/openai`), tambahkan satu entri di `PROVIDERS` pada `src/features/chat/lib/model.js`, dan tulis key-nya di `.env.example`. File lain tidak perlu diubah. Data robot ikut berubah otomatis saat proyek, skill, atau perjalanan diedit.
 
 ## Menambah proyek
 

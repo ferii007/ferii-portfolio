@@ -51,7 +51,7 @@ export async function POST(request) {
   if (!perMinute(visitor) || !perDay(visitor)) return status(429);
 
   const result = streamText({
-    model: chatModel,
+    model: chatModel(),
     instructions: chatInstructions(localization),
     messages: body.messages.map(({ role, content }) => ({ role, content })),
     maxOutputTokens: 300,

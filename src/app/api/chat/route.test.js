@@ -5,7 +5,7 @@ import { MockLanguageModelV4 } from 'ai/test';
 // The real provider is swapped for a mock, so the tests never spend the free AI quota.
 const provider = vi.hoisted(() => ({ configured: true, model: null }));
 vi.mock('@/features/chat/lib/model', () => ({
-  get chatModel() { return provider.model; },
+  chatModel: () => provider.model,
   chatConfigured: () => provider.configured,
 }));
 

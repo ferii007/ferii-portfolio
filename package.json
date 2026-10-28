@@ -13,6 +13,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^4.0.90",
     "@ai-sdk/google": "^4.0.107",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
