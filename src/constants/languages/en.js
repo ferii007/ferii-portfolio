@@ -86,6 +86,9 @@ export const en = {
 	project_my_portfolio_contribution: "My very first personal portfolio, with Three.js interactions.",
 	project_3d_portal_contribution: "A React and Three.js experiment, built while following a 3D portal tutorial.",
 	project_mindcrash_contribution: "A Minecraft-style game experiment, built while following a React and Three.js tutorial.",
+	project_pei_agent_tower_contribution: "An isometric pixel art tower where a crew of AI agent robots builds DokiDo from idea to release, with me as the captain who approves every stage. Built as a public, watch-only showcase.",
+	project_dokido_contribution: "An Android money tracker with budgets per category, a biometric lock, and PDF or Excel reports. Still in beta.",
+	project_portfolio_next_contribution: "The portfolio you're looking at: Next.js, a Three.js robot, two languages, and a robot chat answered by AI.",
 
 	// Beyond Coding
 	beyond_handnote: "Personal\npicks.",

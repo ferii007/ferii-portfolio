@@ -29,6 +29,22 @@
     "isExample": false
   },
   {
+    "id": "pei-agent-tower",
+    "title": "Pei Agent Tower",
+    "summary": "Menara pixel art tempat kru robot AI agent bekerja.",
+    "image": "/images/projects/Pei-Agent-Tower.webp",
+    "stack": [
+      "React",
+      "Node.js",
+      "Socket.IO",
+      "PostgreSQL"
+    ],
+    "category": "featured",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
     "id": "rebill",
     "title": "ReBill",
     "summary": "Website solusi perdagangan.",
@@ -66,6 +82,35 @@
       "Laravel"
     ],
     "category": "featured",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
+    "id": "portfolio-next",
+    "title": "Portfolio v2",
+    "summary": "Portfolio pribadi dengan robot 3D dan chat AI.",
+    "image": "/images/projects/Portfolio-Next.webp",
+    "stack": [
+      "Next.js",
+      "Three.js",
+      "Gemini AI"
+    ],
+    "category": "personal",
+    "demoUrl": null,
+    "codeUrl": null,
+    "isExample": false
+  },
+  {
+    "id": "dokido",
+    "title": "DokiDo",
+    "summary": "Aplikasi Android pencatat keuangan pribadi.",
+    "image": "/images/projects/DokiDo.webp",
+    "stack": [
+      "Flutter",
+      "Riverpod"
+    ],
+    "category": "personal",
     "demoUrl": null,
     "codeUrl": null,
     "isExample": false
