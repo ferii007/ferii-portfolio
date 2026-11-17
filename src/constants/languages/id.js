@@ -86,7 +86,7 @@ export const id = {
 	project_my_portfolio_contribution: "Bikin portfolio pribadi pertamaku dengan interaksi Three.js.",
 	project_3d_portal_contribution: "Eksperimen React dan Three.js sambil ngikutin tutorial portal 3D.",
 	project_mindcrash_contribution: "Eksperimen game ala Minecraft sambil ngikutin tutorial React dan Three.js.",
-	project_pei_agent_tower_contribution: "Menara pixel art isometrik tempat kru robot AI agent ngerjain DokiDo dari ide sampai rilis, dan aku jadi kaptennya yang nyetujuin tiap tahap. Dibikin sebagai etalase publik yang cuma bisa ditonton.",
+	project_pei_agent_tower_contribution: "Menara pixel art isometrik tempat kru robot AI agent ngerjain project software dari ide sampai rilis, dan aku jadi kaptennya yang nyetujuin tiap tahap. Dibikin sebagai etalase publik yang cuma bisa ditonton.",
 	project_dokido_contribution: "Aplikasi Android pencatat keuangan pribadi: anggaran per kategori, kunci biometrik, dan laporan PDF atau Excel. Masih beta.",
 	project_portfolio_next_contribution: "Portfolio yang lagi kamu buka ini: Next.js, robot 3D Three.js, dua bahasa, dan robot chat yang jawabannya dari AI.",
 
